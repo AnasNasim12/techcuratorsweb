@@ -2,6 +2,8 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import Images from 'next/image';
 
 
 
@@ -268,7 +270,7 @@ const Landing_Page = () => {
     <div className="cursor-pointer grid grid-rows-[auto_auto] w-full mx-auto sm:w-[200px] md:w-[250px] gap-4 hover:bg-gray-50 duration-300 transition-all ease-in-out rounded-[14px] p-4 group">
       {/* Image Section */}
       <div>
-        <img 
+        <Images 
           src={image} 
           alt={heading} 
           className="w-full sm:w-[200px] md:w-[250px] h-auto sm:h-[250px] md:h-[300px] rounded-[4px] shadow-[0_0_20px_#CCE3DE]" 
@@ -501,7 +503,7 @@ const Landing_Page = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
           >
-            <img
+            <Images
               className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-15 ml-4'
               src="/HeroImage.png"
               alt="Landing Page Hero"
@@ -754,7 +756,7 @@ const Landing_Page = () => {
                       <div className="flex flex-col items-left text-left mb-3 sm:mb-4 md:mb-5 pr-8 sm:pr-10 md:pr-12">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4">
                           {/* Example icon: Responsive size */}
-                          <img src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" />
+                          <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" />
                         </div>
                         <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2">{card.title}</h3>
                         <p className="text-gray-500 text-xs sm:text-sm">{card.description}</p>
@@ -822,10 +824,10 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className='relative bg-[#429054]/20 h-auto flex justify-center items-center mx-auto px-4 md:mt-22 mt-12 md:px-6 py-10 md:py-16'
       >
-        <img src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' />
+        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' />
         <div className='max-w-screen-xl flex flex-col md:flex-row justify-center items-center mx-auto gap-6 md:gap-8'>
            <div className='flex justify-center items-center mx-auto md:w-1/3 scale-75 md:scale-70'>
-            <img src="/section3.png" alt="Icon1" className='md:block hidden' />
+            <Images src="/section3.png" alt="Icon1" className='md:block hidden' />
           </div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
@@ -971,7 +973,7 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className='relative bg-[#429054]/20 md:mb-20 h-auto py-16 md:py-28 flex justify-center md:mt-22 mt-12 items-center mx-auto overflow-hidden'
       >
-        <img src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' />
+        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' />
         {/* <div className='max-w-screen-xl w-full flex justify-center items-center mx-auto px-2'>
           <Carousel gap={60} className='h-12'>
             {[
@@ -1047,7 +1049,7 @@ const Landing_Page = () => {
               whileHover={{ rotate: [0, -5, 5, -5, 0] }}
               transition={{ duration: 0.5 }}
             >
-              <img src="/QA engineers-bro 1.png" alt="" />
+              <Images src="/QA engineers-bro 1.png" alt="" />
             </motion.div>
           </div>
         </motion.div>
@@ -1123,7 +1125,7 @@ const Landing_Page = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
             >
-              <img src="/Middlebro.png" alt="" />
+              <Images src="/Middlebro.png" alt="" />
             </motion.div>
           </div>
         </motion.div>
@@ -1153,7 +1155,7 @@ const Landing_Page = () => {
               whileHover={{ rotate: 3 }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
             >
-              <img src="/Statistics-bro 1.png" alt="" />
+              <Images src="/Statistics-bro 1.png" alt="" />
             </motion.div>
           </div>
         </motion.div>

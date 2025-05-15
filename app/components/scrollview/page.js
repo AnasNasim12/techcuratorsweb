@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
+import Image from "next/image"; // Added import for Next.js Image
 
 const sections = [
   {
@@ -102,7 +103,7 @@ export default function ScrollContentSection() {
                       <div className="text-6xl font-bold text-[#326B3F] mb-4">
                         {activeSection.id}
                       </div>
-                      <h2 className="text-2xl font-semibold mb-4">
+                      <h2 DY2 className="text-2xl font-semibold mb-4">
                         {activeSection.title}
                       </h2>
                       <p className="text-[#6a6a6a]">{activeSection.content}</p>
@@ -110,7 +111,7 @@ export default function ScrollContentSection() {
                   </div>
 
                   {/* Right Section */}
-                  <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center min-h-[250px]">
+                  <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center min-h-[250px] relative">
                     <motion.div
                       className="w-full h-full"
                       initial={{ opacity: 0, scale: 1.1 }}
@@ -118,16 +119,20 @@ export default function ScrollContentSection() {
                       transition={{ duration: 0.5 }}
                     >
                       {activeSection.image ? (
-                        <img
+                        <Image
                           src={activeSection.image}
                           alt={activeSection.title}
-                          className="w-full h-full object-cover"
+                          layout="fill"
+                          objectFit="cover"
+                          className="rounded-lg"
                         />
                       ) : (
-                        <img
+                        <Image
                           src="https://miro.medium.com/v2/resize:fit:1400/1*tDvPpTA8Jw5P_B5xV8gsjw.jpeg"
                           alt={activeSection.title}
-                          className="w-full h-full object-cover"
+                          layout="fill"
+                          objectFit="cover"
+                          className="rounded-lg"
                         />
                       )}
                     </motion.div>

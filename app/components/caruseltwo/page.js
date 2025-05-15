@@ -1,7 +1,6 @@
-'use client';
-
+"use client";
 import { useMotionValue, animate, motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import useMeasure from 'react-use-measure';
 
 function cn(...classes) {
@@ -20,12 +19,14 @@ export function CarouselTwo({
     const translation = useMotionValue(0);
     const animationControls = useRef(null);
 
-    const size = direction === 'horizontal' ? width : height;
+    // Memoize size because it's derived from width/height and direction
+    const size = useMemo(() => (direction === 'horizontal' ? width : height), [width, height, direction]);
     const contentSize = size + gap;
     const from = reverse ? -contentSize / 2 : 0;
     const to = reverse ? 0 : -contentSize / 2;
 
-    const startLoop = () => {
+    // Memoize startLoop so it's stable and can be a dependency
+    const startLoop = useCallback(() => {
         animationControls.current = animate(translation, [from, to], {
             ease: 'linear',
             duration,
@@ -36,7 +37,7 @@ export function CarouselTwo({
                 translation.set(from);
             },
         });
-    };
+    }, [translation, from, to, duration]);
 
     const resumeAnimation = () => {
         const current = translation.get();
@@ -59,7 +60,7 @@ export function CarouselTwo({
         if (size === 0) return;
         startLoop();
         return () => stopAnimation();
-    }, [width, height, gap, duration, direction, reverse]);
+    }, [size, startLoop]);
 
     return (
         <div

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Facebook, Instagram, Twitter, Mail, Phone, ArrowRight } from "lucide-react"
 
 export default function Footer() {
@@ -7,11 +8,11 @@ export default function Footer() {
         {/* Top section with logo and social icons */}
         <div className="flex flex-col sm:flex-row justify-between items-center border-b border-white pb-4 mb-8 sm:mb-12 gap-4">
           <div className="flex items-center">
-            <img
+            <Image
               src="/Trans_logo.svg"
               alt="TransCurators Logo"
-              width="200"
-              height="200"
+              width={200}
+              height={200}
               className="h-8 sm:h-10"
               style={{ filter: "invert(100%)" }}
             />
@@ -178,8 +179,9 @@ export default function Footer() {
         {/* Bottom copyright section */}
         <div className="border-t border-white mt-8 sm:mt-10 pt-4 sm:pt-6 flex flex-col md:flex-row justify-between text-xs text-white">
           <div className="text-center md:text-left">
-
-            <span className="block sm:inline">Copyright @2023 TransCurators-Quality Content Writing Company | Powered by TransCurators-Quality Content Writing Company</span>
+            <span className="block sm:inline">
+              Copyright @2023 TransCurators-Quality Content Writing Company | Powered by TransCurators-Quality Content Writing Company
+            </span>
           </div>
           <div className="mt-2 md:mt-0 text-center md:text-right">
             <a href="#" className="hover:text-[#326B3F] transition-colors">

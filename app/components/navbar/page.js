@@ -1,6 +1,7 @@
 "use client";
 import { Fragment, useState, useEffect, useRef } from 'react'
 import { Popover, Transition } from '@headlessui/react'
+import Image from 'next/image';
 import {
   BookmarkAltIcon,
   BriefcaseIcon,
@@ -295,7 +296,13 @@ export default function Example() {
           </div>
           <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
             <Link href="/">
-              <img className="h-8 w-48" src="/Trans_logo.svg" alt="Logo" />
+              <Image 
+                src="/Trans_logo.svg" 
+                alt="Logo" 
+                width={192} // 48 * 4 (w-48)
+                height={32} // 8 * 4 (h-8)
+                className="h-8 w-48"
+              />
             </Link>
             <Popover.Group as="nav" className="flex space-x-10">
               <Popover>
@@ -377,7 +384,9 @@ export default function Example() {
                                           )}
                                           onClick={() => handleServiceClick(service.name)}
                                         >
-                                          <service.icon className={classNames(
+ görül
+
+System: <service.icon className={classNames(
                                             activeService === service.name ? 
                                               "text-[#326B3F]" : "text-gray-400",
                                             "flex-shrink-0 h-5 w-5 mr-3 transition-colors duration-150" // Faster transition
@@ -506,7 +515,13 @@ export default function Example() {
                                   <li key={post.id} className="flow-root">
                                     <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
-                                        <img className="w-32 h-20 object-cover rounded-md group-hover:scale-105 ease-in-out transition-all duration-300" src={post.imageUrl} alt="" />
+                                        <Image
+                                          src={post.imageUrl}
+                                          alt={post.name}
+                                          width={128} // w-32
+                                          height={80} // h-20
+                                          className="w-32 h-20 object-cover rounded-md group-hover:scale-105 ease-in-out transition-all duration-300"
+                                        />
                                       </div>
                                       <div className="w-0 flex-1 sm:ml-8">
                                         <h4 className="text-base font-medium text-gray-900 truncate">{post.name}</h4>
@@ -520,7 +535,7 @@ export default function Example() {
                             <div className="mt-6 text-sm font-medium">
                               <a href="#" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
                                 {' '}
-                                View all posts <span aria-hidden="true">&rarr;</span>
+                                View all posts <span aria-hidden="true">→</span>
                               </a>
                             </div>
                           </div>
@@ -535,7 +550,13 @@ export default function Example() {
                                   <li key={post.id} className="flow-root">
                                     <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
-                                        <img className="w-32 h-20 object-cover rounded-md group-hover:scale-105 ease-in-out transition-all duration-300" src={post.imageUrl} alt="" />
+                                        <Image
+                                          src={post.imageUrl}
+                                          alt={post.name}
+                                          width={128} // w-32
+                                          height={80} // h-20
+                                          className="w-32 h-20 object-cover rounded-md group-hover:scale-105 ease-in-out transition-all duration-300"
+                                        />
                                       </div>
                                       <div className="w-0 flex-1 sm:ml-8">
                                         <h4 className="text-base font-medium text-gray-900 truncate">{post.name}</h4>
@@ -549,7 +570,7 @@ export default function Example() {
                             <div className="mt-6 text-sm font-medium">
                               <a href="#" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
                                 {' '}
-                                View all posts <span aria-hidden="true">&rarr;</span>
+                                View all posts <span aria-hidden="true">→</span>
                               </a>
                             </div>
                           </div>
@@ -592,10 +613,12 @@ export default function Example() {
             <div className="pt-5 pb-6 px-5 sm:pb-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <img
-                    className="h-8 w-32"
+                  <Image
                     src="/Trans_logo.svg"
                     alt="Workflow"
+                    width={128} // w-32
+                    height={32} // h-8
+                    className="h-8 w-32"
                   />
                 </div>
                 <div className="-mr-2">

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { CarouselTwo } from '../components/caruseltwo/page';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'
+import Image from 'next/image'
 
 const LandingPage = () => {
     
@@ -435,7 +436,7 @@ const LandingPage = () => {
                 {/* Logo - restored original size */}
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                   <Link href="/">
-                    <img className="h-8 w-48" src="/Trans_logo.svg" alt="TransCurators Logo" />
+                    <Image className="h-8 w-48" src="/Trans_logo.svg" alt="TransCurators Logo" />
                   </Link>
                 </div>
                 
@@ -512,7 +513,7 @@ const LandingPage = () => {
               <div className="pt-5 pb-6 px-5">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <img
+                    <Image
                       className="h-8 w-auto"
                       src="/Trans_logo.svg"
                       alt="TransCurators"
@@ -606,7 +607,7 @@ const LandingPage = () => {
                             <div className="absolute w-[80%] h-[80%] bg-[#326B3F]/20 rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
                             
                             <div className="relative ml-25 bg-white/50 p-5 w-3/4 h-auto rounded-2xl shadow-xl rotate-2 transform hover:rotate-0 transition-all duration-500">
-                                <img 
+                                <Image 
                                     src="/Wall post-amico.png" 
                                     alt="Content Writing Services" 
                                     className="w-full h-auto rounded-lg"
@@ -644,67 +645,67 @@ const LandingPage = () => {
                     <p className="text-center text-sm text-medium text-gray-500 mb-6">TRUSTED BY INDUSTRY LEADERS</p>
                      <div className='max-w-screen-lg flex justify-center items-center mx-auto'>
                              <Carousel  gap={60} className='h-12 '>
-                                                          <img
+                                                          <Image
                                                             src='/1mg.png'
                                                             alt='Tata1mg - Tata1mg'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Mfine.png'
                                                             alt='Mfine-Mfine'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Apollo Hospitals.png'
                                                             alt='Apollo-Apollo'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Myntra.png'
                                                             alt='Myntra-Myntra'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Paytm.png'
                                                             alt='PayTM - PayTM'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/TCS.png'
                                                             alt='TCS - TCS'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/HCL Technologies.png'
                                                             alt='HCL-HCL'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Airtel.png'
                                                             alt='Airtel-Airtel'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src="/upGrad.png"
                                                             alt='Upgrad - Upgrad'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src="/Ajio.png"
                                                             alt='Ajio - Ajio'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src="/Aster Hospitals.png"
                                                             alt='Aster-Aster'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/HDFC.png'
                                                             alt='HDFC-HDFC'
                                                             className=' w-[200px] h-12'
                                                           />
-                                                          <img
+                                                          <Image
                                                             src='/Adani.png'
                                                             alt='Adani - Adani'
                                                             className=' w-[200px] h-12'
@@ -795,7 +796,7 @@ const LandingPage = () => {
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex items-center mx-auto scale-70'>
-          <img src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -836,7 +837,7 @@ const LandingPage = () => {
               <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
                 <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
                 <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                   </svg>
                   
                 </span>
@@ -901,7 +902,7 @@ const LandingPage = () => {
                             {services.slice(0, 3).map((service, index) => (
                               <div key={index} className='flex items-center'>
                                 <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <img src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
                                   <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                   <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
                                   expandedIndex === index ? "" : "line-clamp-4"
@@ -921,7 +922,7 @@ const LandingPage = () => {
                             {services.slice(3, services.length).map((service, index) => (
                               <div key={index} className='flex items-center'>
                                 <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <img src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
                                   <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                   <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
                                   expandedIndex === index ? "" : "line-clamp-4"
