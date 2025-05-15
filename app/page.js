@@ -274,6 +274,8 @@ const Landing_Page = () => {
           src={image} 
           alt={heading} 
           className="w-full sm:w-[200px] md:w-[250px] h-auto sm:h-[250px] md:h-[300px] rounded-[4px] shadow-[0_0_20px_#CCE3DE]" 
+          width={250} 
+          height={300} 
         />
       </div>
   
@@ -507,6 +509,8 @@ const Landing_Page = () => {
               className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-15 ml-4'
               src="/HeroImage.png"
               alt="Landing Page Hero"
+              width={800}
+              height={600}
             />
           </motion.div>
 
@@ -756,7 +760,7 @@ const Landing_Page = () => {
                       <div className="flex flex-col items-left text-left mb-3 sm:mb-4 md:mb-5 pr-8 sm:pr-10 md:pr-12">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4">
                           {/* Example icon: Responsive size */}
-                          <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" />
+                          <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" width={40} height={40} />
                         </div>
                         <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2">{card.title}</h3>
                         <p className="text-gray-500 text-xs sm:text-sm">{card.description}</p>
@@ -824,10 +828,10 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className='relative bg-[#429054]/20 h-auto flex justify-center items-center mx-auto px-4 md:mt-22 mt-12 md:px-6 py-10 md:py-16'
       >
-        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' />
+        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' width={300} height={300} />
         <div className='max-w-screen-xl flex flex-col md:flex-row justify-center items-center mx-auto gap-6 md:gap-8'>
            <div className='flex justify-center items-center mx-auto md:w-1/3 scale-75 md:scale-70'>
-            <Images src="/section3.png" alt="Icon1" className='md:block hidden' />
+            <Images src="/section3.png" alt="Icon1" className='md:block hidden' width={400} height={400} />
           </div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
@@ -973,7 +977,7 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className='relative bg-[#429054]/20 md:mb-20 h-auto py-16 md:py-28 flex justify-center md:mt-22 mt-12 items-center mx-auto overflow-hidden'
       >
-        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' />
+        <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' width={200} height={200} />
         {/* <div className='max-w-screen-xl w-full flex justify-center items-center mx-auto px-2'>
           <Carousel gap={60} className='h-12'>
             {[
@@ -1049,7 +1053,7 @@ const Landing_Page = () => {
               whileHover={{ rotate: [0, -5, 5, -5, 0] }}
               transition={{ duration: 0.5 }}
             >
-              <Images src="/QA engineers-bro 1.png" alt="" />
+              <Images src="/QA engineers-bro 1.png" alt="" width={400} height={400} />
             </motion.div>
           </div>
         </motion.div>
@@ -1125,7 +1129,7 @@ const Landing_Page = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
             >
-              <Images src="/Middlebro.png" alt="" />
+              <Images src="/Middlebro.png" alt="" width={400} height={400} />
             </motion.div>
           </div>
         </motion.div>
@@ -1155,7 +1159,7 @@ const Landing_Page = () => {
               whileHover={{ rotate: 3 }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
             >
-              <Images src="/Statistics-bro 1.png" alt="" />
+              <Images src="/Statistics-bro 1.png" alt="" width={400} height={400} />
             </motion.div>
           </div>
         </motion.div>
