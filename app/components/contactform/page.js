@@ -1,4 +1,4 @@
-"use clinet";
+"use client";
 import React, { useState } from 'react';
 
 const ContactForm = () => {

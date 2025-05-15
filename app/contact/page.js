@@ -1,5 +1,5 @@
 "use client";
-import ContactForm from '../components/conatctform/page';
+import ContactForm from '../components/contactform/page';
 import { useRef } from 'react';
 
 const Contact = () => {
