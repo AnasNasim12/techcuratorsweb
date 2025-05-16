@@ -436,7 +436,7 @@ const LandingPage = () => {
                 {/* Logo - restored original size */}
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                   <Link href="/">
-                    <Image className="h-8 w-48" src="/Trans_logo.svg" alt="TransCurators Logo" />
+                    <Image className="h-8 w-48" src="/Trans_logo.svg" alt="TransCurators Logo" width={192} height={32} />
                   </Link>
                 </div>
                 
@@ -517,6 +517,8 @@ const LandingPage = () => {
                       className="h-8 w-auto"
                       src="/Trans_logo.svg"
                       alt="TransCurators"
+                      width={192}
+                      height={32}
                     />
                   </div>
                   <div>
@@ -611,6 +613,7 @@ const LandingPage = () => {
                                     src="/Wall post-amico.png" 
                                     alt="Content Writing Services" 
                                     className="w-full h-auto rounded-lg"
+                                    width={600} height={400}
                                 />
                                 
                                 <div className="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-xl p-4 rotate-6 transform hover:rotate-0 transition-all duration-300">
@@ -649,66 +652,79 @@ const LandingPage = () => {
                                                             src='/1mg.png'
                                                             alt='Tata1mg - Tata1mg'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Mfine.png'
                                                             alt='Mfine-Mfine'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Apollo Hospitals.png'
                                                             alt='Apollo-Apollo'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Myntra.png'
                                                             alt='Myntra-Myntra'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Paytm.png'
                                                             alt='PayTM - PayTM'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/TCS.png'
                                                             alt='TCS - TCS'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/HCL Technologies.png'
                                                             alt='HCL-HCL'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Airtel.png'
                                                             alt='Airtel-Airtel'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src="/upGrad.png"
                                                             alt='Upgrad - Upgrad'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src="/Ajio.png"
                                                             alt='Ajio - Ajio'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src="/Aster Hospitals.png"
                                                             alt='Aster-Aster'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/HDFC.png'
                                                             alt='HDFC-HDFC'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                           <Image
                                                             src='/Adani.png'
                                                             alt='Adani - Adani'
                                                             className=' w-[200px] h-12'
+                                                            width={200} height={48}
                                                           />
                                                         </Carousel>
                             </div>
@@ -796,7 +812,7 @@ const LandingPage = () => {
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex items-center mx-auto scale-70'>
-          <Image src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' width={400} height={400} />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -902,7 +918,7 @@ const LandingPage = () => {
                             {services.slice(0, 3).map((service, index) => (
                               <div key={index} className='flex items-center'>
                                 <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' width={40} height={40} />
                                   <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                   <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
                                   expandedIndex === index ? "" : "line-clamp-4"
@@ -922,7 +938,7 @@ const LandingPage = () => {
                             {services.slice(3, services.length).map((service, index) => (
                               <div key={index} className='flex items-center'>
                                 <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' width={40} height={40} />
                                   <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                   <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
                                   expandedIndex === index ? "" : "line-clamp-4"
@@ -1386,26 +1402,26 @@ const LandingPage = () => {
 </section>
     </section>
             </section>
-            <section class="relative bg-[#429054]/20 py-16 mt-12 md:mt-22 overflow-hidden">
-                <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
-                    <div class="w-full md:w-5/12 mb-8 md:mb-0">
-                    <h1 class="md:text-3xl text-xl font-medium mb-3">
+            <section className="relative bg-[#429054]/20 py-16 mt-12 md:mt-22 overflow-hidden">
+                <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                    <div className="w-full md:w-5/12 mb-8 md:mb-0">
+                    <h1 className="md:text-3xl text-xl font-medium mb-3">
                         Words that Work.
                         <span className="text-[#326B3F] block">Content that Converts.</span>
                     </h1>
                     </div>
-                    <div class="w-full md:w-7/12 md:pl-8">
-                    <p class="text-[#6a6a6a] ml-35 mb-6">
+                    <div className="w-full md:w-7/12 md:pl-8">
+                    <p className="text-[#6a6a6a] ml-35 mb-6">
                     We turn ideas into compelling content that grabs attention and fuels growth.
                     </p>
-                    <div class="mt-8 ml-35">
+                    <div className="mt-8 ml-35">
                         <button onClick={() => {
                                         document.getElementById('contact-form').scrollIntoView({ 
                                             behavior: 'smooth',
                                             block: 'start'
                                         });
                                     }}
-                                    class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
+                                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
                         Start Your Journey
                         </button>
                     </div>
