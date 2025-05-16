@@ -1,6 +1,7 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: false, // disable dark mode completely
+  darkMode: false, // <--- force disable dark mode
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
