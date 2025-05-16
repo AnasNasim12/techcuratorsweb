@@ -114,7 +114,7 @@ const Landing_Page = () => {
   ];
   const processItems = [
   {
-    title: "Our Process",
+    title: "Our Unique Strengths",
     description: "",
     highlight: true,
   },
@@ -448,19 +448,20 @@ const Landing_Page = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
+            className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10 "
           >
             <motion.h1 
               variants={itemVariants}
-              className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
+              className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-3'
             >
-              Transform Your Brand's Voice with
+              Transform Your  <div className='mt-3'>Brand's Voice with</div>
             </motion.h1>
             <motion.h1 
               variants={itemVariants}
               className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
             >
-              Our Content Writing Service!
+              Our Content Writing 
+             <div className='mt-3'> Service!</div>
             </motion.h1>
 
             <motion.h2 
@@ -585,7 +586,7 @@ const Landing_Page = () => {
             <h2 className="text-2xl md:text-3xl font-medium">
               What Makes Us <span className="text-[#326B3F]">Different?</span>
             </h2>
-            <p className="text-[#6a6a6a] mt-4 text-sm md:text-base">Our unique strengths that set us apart</p>
+           
           </motion.div>
            <div className="max-w-screen-xl mx-auto md:mt-6 mt-4 px-4">
       <div className="grid grid-cols-1 md:grid-cols-3">
@@ -655,7 +656,7 @@ const Landing_Page = () => {
             <p className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4 px-2 sm:px-4 md:px-0'>
               Leading the Industry with the Best Content <span className='text-[#326B3F]'>Writing Services</span>
             </p>
-            <p className='text-sm md:text-base text-[#6a6a6a] mt-4 px-2 sm:px-6 md:px-8 lg:px-12'>
+            <p className='text-sm md:text-base mb-8 text-[#6a6a6a] mt-4 px-2 sm:px-6 md:px-8 lg:px-12'>
               Words That Work for You – Creating compelling narratives that drive engagement, build trust, and boost your brand.
             </p>
           </motion.div>
@@ -664,7 +665,7 @@ const Landing_Page = () => {
         </div>
         
       </div>
-      <section className="md:mt-12 mt-6">
+      <section className="md:mt-16">
               <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center">
@@ -808,7 +809,7 @@ const Landing_Page = () => {
           We Follow While Writing Content
         </div>
         {/* Supporting Paragraphs */}
-        <div className="text-[#6a6a6a] text-base md:text-s space-y-4 max-w-3xl">
+        <div className="text-[#6a6a6a] text-base md:text-s space-y-4 max-w-5xl">
           <p>
             At TransCurators, we adhere to Google&apos;s highest content standards, ensuring every piece is engaging, SEO-friendly, and highly relevant. As a leading content writing agency in Delhi, India, we specialise in delivering well-researched, original, and compelling content that enhances brand credibility.
           </p>
@@ -833,9 +834,16 @@ const Landing_Page = () => {
       >
         <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' width={300} height={300} />
         <div className='max-w-screen-xl flex flex-col md:flex-row justify-center items-center mx-auto gap-6 md:gap-8'>
-           <div className='flex justify-center items-center mx-auto md:w-1/3 scale-75 md:scale-70'>
-            <Images src="/section3.png" alt="Icon1" className='md:block hidden' width={400} height={400} />
-          </div>
+          <div className="flex justify-center items-center mx-auto md:w-2/3 w-full">
+  <Images
+    src="/Homepage 2.png"
+    alt="Icon1"
+    
+    width={400}
+    height={400}
+  />
+</div>
+
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
