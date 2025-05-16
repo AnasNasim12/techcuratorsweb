@@ -276,15 +276,14 @@ const Landing_Page = () => {
         <Images 
           src={image} 
           alt={heading} 
-          className="w-full h-auto rounded-[4px] shadow-[0_0_20px_#CCE3DE] object-cover" 
+          className="w-full sm:w-[200px] md:w-[250px] h-auto sm:h-[250px] md:h-[300px] rounded-[4px] shadow-[0_0_20px_#CCE3DE]" 
           width={250} 
           height={300} 
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 250px"
         />
       </div>
   
       {/* Content Section */}
-      <div className="grid gap-2 max-w-full">
+      <div className="grid gap-2 max-w-full sm:max-w-[200px] md:max-w-[250px]">
         <div className="grid grid-cols-2 mt-6">
           <p className="text-[#6a6a6a] font-regular text-xs sm:text-sm">{productionName}</p>
           <p className="text-[#6a6a6a] font-regular text-xs sm:text-sm text-right">{date}</p>
@@ -434,112 +433,111 @@ const Landing_Page = () => {
   }, []);
 
   return (
-    <main className="w-full min-h-screen bg-white flex flex-col items-center justify-start overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto flex flex-col items-center justify-center text-center py-12 md:py-20">
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="flex justify-center w-full relative overflow-hidden"
-        >
-          <div className="flex flex-col md:flex-row bg-[rgba(66,144,84,0.4)] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
-            >
-              <motion.h1 
-                variants={itemVariants}
-                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
-              >
-                Transform Your Brand's Voice with
-              </motion.h1>
-              <motion.h1 
-                variants={itemVariants}
-                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
-              >
-                Our Content Writing Service!
-              </motion.h1>
+    <>
 
-              <motion.h2 
-                variants={itemVariants}
-                className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[95%] md:max-w-[95%] mt-4'
-              >
-                Words That Win —
-                <br />Content Writing Services That Spark Engagement,
-                <br className="hidden sm:block" /><br className="sm:hidden" />
-                <span className='text-[#6a6a6a] tracking-normal'>Build Trust,
-                and Elevate Your Brand.</span>
-              </motion.h2>
-              
-              <motion.button
-                variants={itemVariants}
-                onClick={() => window.location.href = "/contact"}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="gap-2 md:gap-3 mt-4 md:mt-6 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
-                border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
-                hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
-              >
-                Book Your Free Consultation!
-                <svg
-                  className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
-                  rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
-                  viewBox="0 0 16 19"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
-                    7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
-                    8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
-                    15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                    className="fill-white group-hover:fill-[#326B3F]"
-                  ></path>
-                </svg>
-              </motion.button>
-            </motion.div>
+     
+      {/*top section*/}
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="flex justify-center w-full relative overflow-hidden"
+      >
+        <div className="flex flex-col md:flex-row bg-[rgba(66,144,84,0.4)] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
+          >
+            <motion.h1 
+              variants={itemVariants}
+              className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
+            >
+              Transform Your Brand's Voice with
+            </motion.h1>
+            <motion.h1 
+              variants={itemVariants}
+              className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
+            >
+              Our Content Writing Service!
+            </motion.h1>
+
+            <motion.h2 
+              variants={itemVariants}
+              className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[95%] md:max-w-[95%] mt-4'
+            >
+              Words That Win —
+              <br />Content Writing Services That Spark Engagement,
+              <br className="hidden sm:block" /><br className="sm:hidden" />
+              <span className='text-[#6a6a6a] tracking-normal'>Build Trust,
+              and Elevate Your Brand.</span>
+            </motion.h2>
             
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
+            <motion.button
+              variants={itemVariants}
+              onClick={() => window.location.href = "/contact"}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="gap-2 md:gap-3 mt-4 md:mt-6 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
+              border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
+              hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
             >
-              <Images
-                className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-15 ml-4'
-                src="/HeroImage.png"
-                alt="Landing Page Hero"
-                width={800}
-                height={600}
-              />
-            </motion.div>
+              Book Your Free Consultation!
+              <svg
+                className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
+                rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
+                viewBox="0 0 16 19"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
+                  7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+                  8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
+                  15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+                  className="fill-white group-hover:fill-[#326B3F]"
+                ></path>
+              </svg>
+            </motion.button>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
+          >
+            <Images
+              className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-15 ml-4'
+              src="/HeroImage.png"
+              alt="Landing Page Hero"
+              width={800}
+              height={600}
+            />
+          </motion.div>
 
-            {/* Decorative elements with subtle animation */}
-            <motion.div 
-              className="absolute top-1/4 left-10 w-16 h-16 rounded-full bg-[#326B3F]/10 blur-xl hidden md:block"
-              animate={{ 
-                x: Math.sin(scrollY * 0.01) * 10,
-                y: Math.cos(scrollY * 0.01) * 10
-              }}
-              transition={{ type: "spring", stiffness: 10 }}
-            ></motion.div>
-            <motion.div 
-              className="absolute bottom-1/4 right-10 w-20 h-20 rounded-full bg-[#326B3F]/20 blur-xl hidden md:block"
-              animate={{ 
-                x: Math.cos(scrollY * 0.01) * -15,
-                y: Math.sin(scrollY * 0.01) * -15
-              }}
-              transition={{ type: "spring", stiffness: 5 }}
-            ></motion.div>
-          </div>
-        </motion.div>
-      </section>
+          {/* Decorative elements with subtle animation */}
+          <motion.div 
+            className="absolute top-1/4 left-10 w-16 h-16 rounded-full bg-[#326B3F]/10 blur-xl hidden md:block"
+            animate={{ 
+              x: Math.sin(scrollY * 0.01) * 10,
+              y: Math.cos(scrollY * 0.01) * 10
+            }}
+            transition={{ type: "spring", stiffness: 10 }}
+          ></motion.div>
+          <motion.div 
+            className="absolute bottom-1/4 right-10 w-20 h-20 rounded-full bg-[#326B3F]/20 blur-xl hidden md:block"
+            animate={{ 
+              x: Math.cos(scrollY * 0.01) * -15,
+              y: Math.sin(scrollY * 0.01) * -15
+            }}
+            transition={{ type: "spring", stiffness: 5 }}
+          ></motion.div>
+        </div>
+      </motion.div>
 
-      {/* Metrics Section */}
-      <section id="landing-metrics-section" className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 py-8 md:py-12">
+      <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
         <div className="max-w-screen-xl mx-auto px-4">
           <motion.div 
             className="text-center mb-16"
@@ -575,8 +573,7 @@ const Landing_Page = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto py-8 md:py-16">
+      <section className="md:mt-22 mt-12 bg-white px-4 md:px-6">
         <div className="max-w-screen-xl mx-auto">
           <motion.div 
             className="text-center mb-10 md:mb-16"
@@ -615,13 +612,12 @@ const Landing_Page = () => {
         </div>
       </section>
       
-      {/* Carousel Section */}
       <motion.section 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto py-8 md:py-16"
+        className="bg-[#429054]/20 py-12 md:py-16 lg:py-20 mt-12 md:mt-22 px-4"
       >
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-black">
@@ -909,7 +905,7 @@ const Landing_Page = () => {
         </div>
       </motion.div>
 
-      <section className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto py-8 md:py-16">
+      <section className="px-4 md:px-6">
         <div className="max-w-screen-2xl mx-auto md:mt-22 mt-12">
           <motion.div 
             className="text-center mb-10 md:mb-16"
@@ -1002,13 +998,11 @@ const Landing_Page = () => {
               { src: '/HDFC.png', alt: 'HDFC-HDFC' },
               { src: '/Adani.png', alt: 'Adani - Adani' }
             ].map((logo, index) => (
-              <Images
+              <img
                 key={index}
                 src={logo.src}
                 alt={logo.alt}
                 className='w-[200px] h-12'
-                width={200}
-                height={48}
               />
             ))}
           </Carousel>
@@ -1209,140 +1203,132 @@ const Landing_Page = () => {
         </div>
       </motion.div>
 
-      <section className="w-full max-w-4xl px-4 sm:px-6 md:px-8 mx-auto py-8 md:py-16">
-        <div className="max-w-screen-xl mx-auto p-4 md:p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 cursor-pointer gap-4 md:gap-8">
-            {faqs.slice(0, showMore ? faqs.length : 10).map((faq, index) => (
-              <motion.div 
-                key={faq.id} 
-                className="bg-white hover:shadow-lg duration-300 transition-all ease-in-out shadow-md p-5 rounded-md"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.5) }}
-              >
-                <button
-                  className="flex justify-between items-center w-full text-md font-normal cursor-pointer text-[#6a6a6a]"
-                  onClick={() => toggleFAQ(faq.id)}
-                >
-                  {faq.question}
-                  <motion.span 
-                    className="text-xl transition-transform duration-300"
-                    animate={{ rotate: openFAQ === faq.id ? 180 : 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    {openFAQ === faq.id ? "−" : "+"}
-                  </motion.span>
-                </button>
-
-                <AnimatePresence>
-                  {openFAQ === faq.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <p className="mt-3 text-[#326B3F]">{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="flex justify-center mt-8 md:mt-12 lg:mt-22">
-            {!showMore ? (
-              <motion.button 
-                onClick={() => setShowMore(true)}
-                className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="flex items-center gap-3 relative z-10">
-                  <motion.svg 
-                    viewBox="0 0 24 24" 
-                    fill="#326B3F" 
-                    className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ 
-                      duration: 1.5, 
-                      repeat: Infinity, 
-                      repeatType: "mirror",
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
-                  </motion.svg>
-                  Show More
-                </span>
-              </motion.button>
-            ) : (
-              <motion.button 
-                onClick={() => setShowMore(false)}
-                className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="flex items-center gap-3 relative z-10">
-                  <motion.svg 
-                    viewBox="0 0 24 24" 
-                    fill="#326B3F" 
-                    className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ 
-                      duration: 1.5, 
-                      repeat: Infinity, 
-                      repeatType: "mirror",
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
-                  </motion.svg>
-                  Show Less
-                </span>
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Blog/Posts Section */}
-      <section className="w-full max-w-7xl px-4 sm:px-6 md:px-8 mx-auto py-8 md:py-16">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="w-full py-8 md:py-10 px-4"
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-black">
-              Where Great Writers <span className="text-[#326B3F]">Build Great Careers</span>
-            </h2>
+      <div className="max-w-screen-xl mx-auto p-4 md:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 cursor-pointer gap-4 md:gap-8">
+          {faqs.slice(0, showMore ? faqs.length : 10).map((faq, index) => (
             <motion.div 
-              className="mt-6 md:mt-8"
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              key={faq.id} 
+              className="bg-white hover:shadow-lg duration-300 transition-all ease-in-out shadow-md p-5 rounded-md"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: Math.min(index * 0.1, 0.5) }}
             >
-              <motion.a
-                href="/careers"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-2 md:py-3 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_20px_#A8D5BA] font-medium text-sm md:text-base bg-[#326B3F] text-white transition-all duration-300 hover:-translate-y-1"
+              <button
+                className="flex justify-between items-center w-full text-md font-normal cursor-pointer text-[#6a6a6a]"
+                onClick={() => toggleFAQ(faq.id)}
               >
-                Start Your Journey
-              </motion.a>
+                {faq.question}
+                <motion.span 
+                  className="text-xl transition-transform duration-300"
+                  animate={{ rotate: openFAQ === faq.id ? 180 : 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  {openFAQ === faq.id ? "−" : "+"}
+                </motion.span>
+              </button>
+
+              <AnimatePresence>
+                {openFAQ === faq.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p className="mt-3 text-[#326B3F]">{faq.answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
-          </div>
-        </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-          {posts.map((post, idx) => (
-            <CardComponent key={idx} {...post} />
           ))}
         </div>
-      </section>
-    </main>
+
+        <div className="flex justify-center mt-8 md:mt-12 lg:mt-22">
+          {!showMore ? (
+            <motion.button 
+              onClick={() => setShowMore(true)}
+              className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="flex items-center gap-3 relative z-10">
+                <motion.svg 
+                  viewBox="0 0 24 24" 
+                  fill="#326B3F" 
+                  className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ 
+                    duration: 1.5, 
+                    repeat: Infinity, 
+                    repeatType: "mirror",
+                    ease: "easeInOut"
+                  }}
+                >
+                  <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
+                </motion.svg>
+                Show More
+              </span>
+            </motion.button>
+          ) : (
+            <motion.button 
+              onClick={() => setShowMore(false)}
+              className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="flex items-center gap-3 relative z-10">
+                <motion.svg 
+                  viewBox="0 0 24 24" 
+                  fill="#326B3F" 
+                  className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ 
+                    duration: 1.5, 
+                    repeat: Infinity, 
+                    repeatType: "mirror",
+                    ease: "easeInOut"
+                  }}
+                >
+                  <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
+                </motion.svg>
+                Show Less
+              </span>
+            </motion.button>
+          )}
+        </div>
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="w-full py-8 md:py-10 px-4"
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-black">
+            Where Great Writers <span className="text-[#326B3F]">Build Great Careers</span>
+          </h2>
+          <motion.div 
+            className="mt-6 md:mt-8"
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            <motion.a
+              href="/careers"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-2 md:py-3 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_20px_#A8D5BA] font-medium text-sm md:text-base bg-[#326B3F] text-white transition-all duration-300 hover:-translate-y-1"
+            >
+              Start Your Journey
+            </motion.a>
+          </motion.div>
+        </div>
+      </motion.div>
+
+    
+    </> 
   )
 }
 
