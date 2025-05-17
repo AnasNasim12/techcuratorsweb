@@ -533,7 +533,7 @@ System: <service.icon className={classNames(
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <a href="#" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
+                              <a href="/blog" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
                               </a>
@@ -568,7 +568,7 @@ System: <service.icon className={classNames(
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <a href="#" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
+                              <a href="/case-study" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
                               </a>
