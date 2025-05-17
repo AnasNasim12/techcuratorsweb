@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {supabase} from '@/lib/supabaseClient';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Skeleton components for loading state
 const FeaturedCaseStudySkeleton = () => (
@@ -231,10 +232,13 @@ const CSLayout = () => {
                   onTouchEnd={handleTouchEnd}
                 >
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={featuredCaseStudies[0]?.image || '/Images/placeholder.jpg'} 
-                      alt="Featured case study" 
+                    <Image
+                      src={featuredCaseStudies[0]?.image || '/Images/placeholder.jpg'}
+                      alt="Featured case study"
+                      width={800}
+                      height={400}
                       className="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
+                      priority
                     />
                     
                     {/* Gradient overlay */}
@@ -289,10 +293,13 @@ const CSLayout = () => {
                   onTouchEnd={handleTouchEnd}
                 >
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={featuredCaseStudies[1]?.image || '/Images/placeholder.jpg'} 
+                    <Image
+                      src={featuredCaseStudies[1]?.image || '/Images/placeholder.jpg'}
                       alt="Featured case study"
+                      width={800}
+                      height={400}
                       className="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
+                      priority
                     />
                     
                     {/* Gradient overlay */}
@@ -388,9 +395,11 @@ const CSLayout = () => {
                 >
                   <div className="relative overflow-hidden h-full">
                     {/* Image */}
-                    <img 
+                    <Image
                       src={caseStudy.image}
                       alt={caseStudy.title}
+                      width={400}
+                      height={400}
                       className="w-full aspect-square object-cover"
                     />
                     
@@ -474,9 +483,11 @@ const CSLayout = () => {
                       >
                         <div className="relative overflow-hidden h-full">
                           {/* Image */}
-                          <img 
+                          <Image
                             src={caseStudy.image}
                             alt={caseStudy.title}
+                            width={400}
+                            height={400}
                             className="w-full aspect-square object-cover"
                           />
                           

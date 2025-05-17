@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 
 const TeamSection = () => {
   const teamMembers = [
@@ -51,9 +52,11 @@ const TeamSection = () => {
             className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
           >
             <div className="aspect-square overflow-hidden">
-              <img
+              <Image
                 src={member.imageUrl}
                 alt={member.name}
+                width={96} // 24 * 4 (tailwind w-24)
+                height={96} // 24 * 4 (tailwind h-24)
                 className="w-full h-full object-cover"
               />
             </div>

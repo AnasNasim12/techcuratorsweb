@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import Image from 'next/image';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -117,7 +118,14 @@ const CSDetailPage = () => {
 
       <div className="relative h-96 bg-gray-900 mb-16">
         <div className="absolute inset-0 opacity-80">
-          <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+          <Image
+            src={blog.image}
+            alt={blog.title}
+            fill
+            className="w-full h-full object-cover"
+            priority
+            sizes="100vw"
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-70"></div>
         <div className="absolute bottom-0 left-0 right-0 p-8 text-white">

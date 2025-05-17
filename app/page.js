@@ -3,6 +3,7 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import Images from 'next/image';
+import Image from 'next/image';
 import Carousel from './components/carousel/page';
 import WhyTransCurators from './components/whytranscurators/page';
 import WorkflowStrategy from './components/workflowtrans/page';
@@ -1006,11 +1007,13 @@ const Landing_Page = () => {
               { src: '/HDFC.png', alt: 'HDFC-HDFC' },
               { src: '/Adani.png', alt: 'Adani - Adani' }
             ].map((logo, index) => (
-              <img
+              <Image
                 key={index}
                 src={logo.src}
                 alt={logo.alt}
                 className='w-[200px] h-12'
+                width={200}
+                height={48}
               />
             ))}
           </Carousel>

@@ -3,6 +3,7 @@ import Carousel from '../components/carousel/page';
 import { motion } from 'framer-motion';
 import { CarouselTwo } from '../components/caruseltwo/page';
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 
 import Link from 'next/link'
 
@@ -527,10 +528,13 @@ const LandingPage = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
             >
-              <img
+              <Image
                 className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-8 ml-4'
                 src="/ads page content writing hs.png"
                 alt="Landing Page Hero"
+                width={800}
+                height={600}
+                priority
               />
             </motion.div>
 </section>   
@@ -541,7 +545,7 @@ const LandingPage = () => {
         transition={{ duration: 0.8 }}
         className='relative bg-[#429054]/20 md:mb-20 h-auto py-16 md:py-28 flex justify-center md:mt-22 mt-12 items-center mx-auto overflow-hidden'
       >
-        <img src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' />
+        <Image src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' width={200} height={200} priority />
         <div className='max-w-screen-xl w-full flex justify-center items-center mx-auto px-2'>
           <Carousel gap={60} className='h-12'>
             {[
@@ -559,11 +563,14 @@ const LandingPage = () => {
               { src: '/HDFC.png', alt: 'HDFC-HDFC' },
               { src: '/Adani.png', alt: 'Adani - Adani' }
             ].map((logo, index) => (
-              <img
+              <Image
                 key={index}
                 src={logo.src}
                 alt={logo.alt}
                 className='w-[200px] h-12'
+                width={200}
+                height={48}
+                priority={index < 4}
               />
             ))}
           </Carousel>
@@ -651,7 +658,7 @@ const LandingPage = () => {
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex items-center mx-auto scale-70'>
-          <img src="/ads page cw.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/ads page cw.png" alt="Icon1" className='md:block hidden' width={400} height={400} priority />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -891,10 +898,12 @@ const LandingPage = () => {
             <div className="flex md:hidden w-full items-center mb-4">
               {/* Icon & Step Number Combined for Mobile */}
               <div className="flex items-center justify-center min-w-[80px] min-h-[80px] border-2 md:border-3 border-[#B3D3BB] bg-white rounded-xl mr-4">
-                <img
+                <Image
                   src={step.icon}
                   alt={step.title}
                   className="w-5 h-5 md:w-7 md:h-7 object-contain"
+                  width={28}
+                  height={28}
                   loading="lazy"
                 />
               </div>
@@ -905,10 +914,12 @@ const LandingPage = () => {
             {/* Icon Box - Hidden on Mobile */}
             <div className="hidden md:flex items-center justify-center min-w-[110px] min-h-[110px] border-3 border-[#B3D3BB] bg-white 
                 rounded-tl-2xl rounded-bl-2xl rounded-tr-none rounded-br-none">
-              <img
+              <Image
                 src={step.icon}
                 alt={step.title}
                 className="w-7 h-7 object-contain"
+                width={28}
+                height={28}
                 loading="lazy"
               />
             </div>

@@ -384,9 +384,7 @@ export default function Example() {
                                           )}
                                           onClick={() => handleServiceClick(service.name)}
                                         >
- görül
-
-System: <service.icon className={classNames(
+                                          <service.icon className={classNames(
                                             activeService === service.name ? 
                                               "text-[#326B3F]" : "text-gray-400",
                                             "flex-shrink-0 h-5 w-5 mr-3 transition-colors duration-150" // Faster transition
@@ -533,10 +531,10 @@ System: <service.icon className={classNames(
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <a href="/blog" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
+                              <Link href="/blog" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
-                              </a>
+                              </Link>
                             </div>
                           </div>
                           
@@ -568,10 +566,10 @@ System: <service.icon className={classNames(
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <a href="/case-study" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
+                              <Link href="/case-study" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         </div>

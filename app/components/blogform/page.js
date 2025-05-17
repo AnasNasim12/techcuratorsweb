@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import Image from 'next/image';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -627,7 +628,13 @@ const BlogForm = () => {
             <div className="mt-3">
               <p className="text-sm font-medium text-gray-700 mb-1">Image Preview</p>
               <div className="border rounded-md p-2 bg-gray-50">
-                <img src={previewUrl} alt="Preview" className="max-h-64 mx-auto rounded" />
+                <Image
+                  src={previewUrl}
+                  alt="Preview"
+                  width={400}
+                  height={256}
+                  className="max-h-64 mx-auto rounded object-contain"
+                />
                 <button
                   type="button"
                   onClick={() => {
