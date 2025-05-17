@@ -1,10 +1,10 @@
 "use client";
-import Carousel from "../components/carousel/page";
+import Carousel from '../components/carousel/page';
 import { motion } from 'framer-motion';
 import { CarouselTwo } from '../components/caruseltwo/page';
 import { useState, useRef, useEffect } from 'react';
+
 import Link from 'next/link'
-import Image from 'next/image'
 
 const LandingPage = () => {
     
@@ -89,8 +89,7 @@ const LandingPage = () => {
         
         // Since 'no-cors' doesn't give us response details, we assume success
         setSubmitStatus('success');
-        
-        // Reset form after successful submission
+          // Reset form after successful submission
         setFormData({
           name: '',
           company: '',
@@ -108,7 +107,7 @@ const LandingPage = () => {
         });
 
         // Redirect to thank you page
-        navigate('/thank-you');
+        window.location.href = '/ThankYou';
         
       } catch (error) {
         console.error('Error submitting form:', error);
@@ -146,38 +145,7 @@ const LandingPage = () => {
         };
     }, [isMobileMenuOpen]);
     
-    const services = [
-        {
-          icon: "/messageIcon.png",
-          title: "Authentic & Original",
-          description: "Every piece is 100% plagiarism-free and uniquely crafted to match your brand’s voice."
-        },
-        {
-          icon: "/messageIcon.png",
-          title: "SEO-Focused",
-          description: "We optimize content to boost visibility, increase traffic, and improve search engine rankings."
-        },
-        {
-          icon: "/messageIcon.png",
-          title: "Research-Driven",
-          description: "In-depth research ensures high-quality content that informs, convinces, and converts."
-        },
-        {
-          icon: "/messageIcon.png",
-          title: "Fast & Reliable",
-          description: "Quick turnaround times with zero compromise on quality."
-        },
-        {
-          icon: "/messageIcon.png",
-          title: "Tailored to You",
-          description: "Customized solutions to meet industry-specific and business-specific goals."
-        },
-        {
-          icon: "/messageIcon.png",
-          title: "Always Here for You",
-          description: "Our dedicated content support team is available 24/7."
-        },
-      ];
+   
       const Process = [
         {
           number: 1,
@@ -212,44 +180,45 @@ const LandingPage = () => {
       ];
       
            const [expandedIndex, setExpandedIndex] = useState(null);
-           const seoHQ = [
-            {
-              number: 1,
-              title: "Discovery & Consultation",
-              description:
-                "We start with a comprehensive consultation to learn about your brand, audience, and objectives. This helps us determine your content tone, messaging style, and key performance indicators for measurable results.",
-            },
-            {
-              number: 2,
-              title: "Research & Strategy",
-              description:
-                "Our writers are committed to deep keyword and thematic analysis as we design robust content plans. We ensure all the articles provided to clients are correct, insightful, and tailored for successful SEO and conversion efforts.",
-            },
-            {
-              number: 3,
-              title: "Content Creation",
-              description:
-                "Professional writers create engaging, unique content that best represents your brand voice. From technical writing to storytelling, we guarantee quality, clarity, and uniqueness in every word.",
-            },
-            {
-              number: 4,
-              title: "Editing & Optimization",
-              description:
-                "Our editors polish the material for tone, grammar, structure, and legibility. We also apply on-page SEO best practices to enhance search engine visibility and performance.",
-            },
-            {
-              number: 5,
-              title: "Review & Feedback Loop",
-              description:
-                "We offer several revisions based on your input. This shared procedure guarantees the end product is based on your vision and marketing needs.",
-            },
-            {
-              number: 6,
-              title: "Delivery & Performance Tracking",
-              description:
-                "Once approved, we publish the content in whatever format you desire. We also help you track its performance — from traffic to engagement — so you can measure real ROI.",
-            },
-          ];
+          const processSteps = [
+  {
+    icon: "/icon 1.png",
+    number: "01",
+    title: "Discovery & Consultation",
+    description: "We start with a comprehensive consultation to learn about your brand, audience, and objectives. This helps us determine your content tone, messaging style, and key performance indicators for measurable results.",
+  },
+  {
+    icon: "/icon 2.png",
+    number: "02",
+    title: "Research & Strategy",
+    description: "Our writers are committed to deep keyword and thematic analysis as we design robust content plans. We ensure all the articles provided to clients are correct, insightful, and tailored for successful SEO and conversion efforts.",
+  },
+  {
+    icon: "/icon 3.png",
+    number: "03",
+    title: "Content Creation",
+    description: "Professional writers create engaging, unique content that best represents your brand voice. From technical writing to storytelling, we guarantee quality, clarity, and uniqueness in every word.",
+  },
+  {
+    icon: "/icon 4.png",
+    number: "04",
+    title: "Editing & Optimization",
+    description: "Our editors polish the material for tone, grammar, structure, and legibility. We also apply on-page SEO best practices to enhance search engine visibility and performance.",
+  },
+  {
+    icon: "/icon 5.png",
+    number: "05",
+    title: "Review & Feedback Loop",
+    description: "We offer several revisions based on your input. This shared procedure guarantees the end product is based on your vision and marketing needs.",
+  },
+  {
+    icon: "/icon 6.png",
+    number: "06",
+    title: "Delivery & Performance Tracking",
+    description: "Once approved, we publish the content in whatever format you desire. We also help you track its performance – from traffic to engagement – so you can measure real ROI.",
+  },
+];
+
           const faqs = [
             {
               id: 1,
@@ -310,7 +279,29 @@ const LandingPage = () => {
                 // If the clicked service is already expanded, collapse it; otherwise, expand it.
                 setExpandedIndex(expandedIndex === index ? null : index);
               };
-          
+            // Animation variants for Framer Motion
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.3
+            }
+        }
+    };
+    
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6
+            }
+        }
+    };
+    
     const metrics = [
         {
             value: '10M+',
@@ -356,6 +347,36 @@ const LandingPage = () => {
     }
     ];
     
+    const testimonials = [
+        {
+          name: "Lokesh",
+          title: "Acko",
+          text: "We developed our entire health insurance and car insurance vertical through TransCurators. The quality and the speed at which we received content was superb.",
+          highlight: "Superb Quality & Speed"
+        },
+        {
+          name: "Adnan",
+          title: "DMI Finance",
+          text: "With the help of team TC, we churned out a huge chunk of blogs on the financial sector and insurance. The understanding the team has about the financial sector is very good.",
+          highlight: "Deep Understanding of Finance"
+        },
+        {
+          name: "Vaibhavi Mehta",
+          title: "Senior Manager, SMFG India Credit Co. Ltd.",
+          text: "We 'Thank you' and your team for their dedication, creativity, and hard work. It has truly made a significant impact on our success. We deeply appreciate our partnership and look forward to more collaborations in the future.",
+          highlight: "A True Impact on Our Success"
+        }
+      ];
+      
+        const [activeIndex, setActiveIndex] = useState(0);
+      
+        const prevTestimonial = () => {
+          setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+        };
+      
+        const nextTestimonial = () => {
+          setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+        };
     // Add counter state
     const [counters, setCounters] = useState({
         "10M+": "0+",
@@ -428,308 +449,126 @@ const LandingPage = () => {
 
     return (
         <>
-        <section>
-          {/* navbar section */}
-          <div className="relative bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
-                {/* Logo - restored original size */}
-                <div className="flex justify-start lg:w-0 lg:flex-1">
-                  <Link href="/">
-                    <Image className="h-8 w-48" src="/Trans_logo.svg" alt="TransCurators Logo" width={192} height={32} />
-                  </Link>
-                </div>
-                
-                {/* Mobile menu button */}
-                <div className="-mr-2 -my-2 md:hidden">
-                  <button
-                    id="menu-button"
-                    type="button"
-                    onClick={toggleMobileMenu}
-                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#326B3F]"
-                    aria-expanded="false"
-                  >
-                    <span className="sr-only">Open menu</span>
-                    {/* Icon when menu is closed */}
-                    <svg
-                      className={`${isMobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
-                    {/* Icon when menu is open */}
-                    <svg
-                      className={`${isMobileMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                
-                {/* Desktop navigation buttons - repositioned together */}
-                <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 space-x-4">
-                  
-                  <button 
-                    onClick={() => {
-                      document.getElementById('contact-form').scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                      });
-                    }}
-                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
-                  >
-                    Talk to Sales
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile menu, show/hide based on mobile menu state */}
-            <div
-              id="mobile-menu"
-              className={`${
-                isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-              } fixed top-0 right-0 bottom-0 z-40 w-full max-w-xs bg-white shadow-xl transform transition-all ease-in-out duration-300 overflow-auto`}
-            >
-              <div className="pt-5 pb-6 px-5">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <Image
-                      className="h-8 w-auto"
-                      src="/Trans_logo.svg"
-                      alt="TransCurators"
-                      width={192}
-                      height={32}
-                    />
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#326B3F]"
-                    >
-                      <span className="sr-only">Close menu</span>
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-        
-                
-                <div className="mt-6 border-t border-gray-200 pt-4">
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setTimeout(() => {
-                        document.getElementById('contact-form').scrollIntoView({ 
-                          behavior: 'smooth',
-                          block: 'start'
-                        });
-                      }, 300); // Small delay to ensure menu closes first
-                    }}
-                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-[#326B3F] hover:bg-[#275231]"
-                  >
-                    Talk to Sales
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            {/* Overlay for mobile menu */}
-            {isMobileMenuOpen && (
-              <div 
-                className="fixed inset-0 z-30 bg-gray-600 bg-opacity-75 transition-opacity" 
-                aria-hidden="true"
-                onClick={() => setIsMobileMenuOpen(false)}
-              ></div>
-            )}
-          </div>
-        </section>
+    
                 
             
             {/* Hero Section - Ad Landing Version */}
-            <section className="relative bg-gradient-to-br from-[#f8faf9] to-[#e0f0e5] py-8 md:py-15">
-                <div className="max-w-screen-xl mx-auto px-4">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        {/* Left Column - Content */}
-                        <div className="order-1">
-                            <div className="inline-block px-4 py-1 bg-[#326B3F]/10 rounded-full mb-4">
-                                <span className="text-[#326B3F] font-medium text-sm">Premium Content Services</span>
-                            </div>
-                            
-                            <h1 className="text-black font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
-                                Delivering Success with the<br/> <span className="text-[#326B3F]">Best Content Writing Services</span>
-                            </h1>
-                            
-                            
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <button 
-                                    onClick={() => {
-                                        document.getElementById('contact-form').scrollIntoView({ 
-                                            behavior: 'smooth',
-                                            block: 'start'
-                                        });
-                                    }}
-                                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
-                                >
-                                    Book Your Free Consultation Today!
-                                </button>
-                            </div>
-                        </div>
-                        
-                        {/* Right Column - Visual - Hidden on Mobile */}
-                        <div className="relative order-2 hidden md:block">
-                            <div className="absolute w-[80%] h-[80%] bg-[#326B3F]/20 rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-                            
-                            <div className="relative ml-25 bg-white/50 p-5 w-3/4 h-auto rounded-2xl shadow-xl rotate-2 transform hover:rotate-0 transition-all duration-500">
-                                <Image 
-                                    src="/Wall post-amico.png" 
-                                    alt="Content Writing Services" 
-                                    className="w-full h-auto rounded-lg"
-                                    width={600} height={400}
-                                />
-                                
-                                <div className="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-xl p-4 rotate-6 transform hover:rotate-0 transition-all duration-300">
-                                    <div className="flex items-center gap-2">
-                                        <div className="text-[#326B3F] font-bold text-2xl">4.9</div>
-                                        <div>
-                                            <div className="flex">
-                                                {[1,2,3,4,5].map(i => (
-                                                    <svg key={i} className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>
-                                                ))}
-                                            </div>
-                                            <div className="text-xs text-gray-500">Client satisfaction</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="absolute -top-5 -right-5 bg-white rounded-full shadow-xl p-4 w-20 h-20 flex items-center justify-center rotate-12 transform hover:rotate-0 transition-all duration-300">
-                                    <div className="text-center">
-                                        <div className="font-bold text-[#326B3F]">3M+</div>
-                                        <div className="text-xs text-gray-500">Content pieces</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Trust Indicators */}
-                <div className="max-w-screen-xl mx-auto md:mt-30 mt-12 px-4">
-                    <p className="text-center text-sm text-medium text-gray-500 mb-6">TRUSTED BY INDUSTRY LEADERS</p>
-                     <div className='max-w-screen-lg flex justify-center items-center mx-auto'>
-                             <Carousel  gap={60} className='h-12 '>
-                                                          <Image
-                                                            src='/1mg.png'
-                                                            alt='Tata1mg - Tata1mg'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Mfine.png'
-                                                            alt='Mfine-Mfine'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Apollo Hospitals.png'
-                                                            alt='Apollo-Apollo'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Myntra.png'
-                                                            alt='Myntra-Myntra'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Paytm.png'
-                                                            alt='PayTM - PayTM'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/TCS.png'
-                                                            alt='TCS - TCS'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/HCL Technologies.png'
-                                                            alt='HCL-HCL'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Airtel.png'
-                                                            alt='Airtel-Airtel'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src="/upGrad.png"
-                                                            alt='Upgrad - Upgrad'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src="/Ajio.png"
-                                                            alt='Ajio - Ajio'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src="/Aster Hospitals.png"
-                                                            alt='Aster-Aster'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/HDFC.png'
-                                                            alt='HDFC-HDFC'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                          <Image
-                                                            src='/Adani.png'
-                                                            alt='Adani - Adani'
-                                                            className=' w-[200px] h-12'
-                                                            width={200} height={48}
-                                                          />
-                                                        </Carousel>
-                            </div>
-                </div>
-            </section>
+           <section className="w-full mb-5 bg-[#B3D3BB] h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
+      {/* Radial Gradient Overlay */}
+      <div className="absolute inset-0 flex items-center mt-140 justify-center pointer-events-none">
+        {/* Red - outermost ring */}
+        <div className="absolute w-[800px] h-[800px] rounded-full bg-[#abcfb4]"></div>
+        <div className="absolute w-[745px] h-[745px] rounded-full bg-[#a3cbad]"></div>
+        {/* Orange */}
+        <div className="absolute w-[690px] h-[690px] rounded-full bg-[#9cc7a6]"></div>
+        {/* Yellow */}
+        <div className="absolute w-[635px] h-[635px] rounded-full bg-[#95c4a0]"></div>
+        {/* Green */}
+        <div className="absolute w-[580px] h-[580px] rounded-full bg-[#8ec19a]"></div>
+        {/* Blue */}
+        <div className="absolute w-[525px] h-[525px] rounded-full bg-[#88be95]"></div>
+        {/* Indigo */}
+        <div className="absolute w-[470px] h-[470px] rounded-full bg-[#82bb90]"></div>
+        {/* Violet - innermost circle */}
+        <div className="absolute w-[415px] h-[415px] rounded-full bg-[#7db88b]"></div>
+      </div>
+
+       <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
+            >
+              <motion.h1 
+                variants={itemVariants}
+                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
+              >
+                Delivering Success with the
+              </motion.h1>
+              <motion.h1 
+                variants={itemVariants}
+                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
+              >
+                Best Content Writing Service
+              </motion.h1>
+  
+            
+              
+              <motion.button
+                variants={itemVariants}
+                onClick={() => window.location.href = "/contact"}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="gap-2 md:gap-3 mt-6 md:mt-10 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
+                border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
+                hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
+              >
+                Book Your Free Consultation!
+                <svg
+                  className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
+                  rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
+                  viewBox="0 0 16 19"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
+                    7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+                    8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
+                    15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+                    className="fill-white group-hover:fill-[#326B3F]"
+                  ></path>
+                </svg>
+              </motion.button>
+            </motion.div>
+             <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
+            >
+              <img
+                className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-8 ml-4'
+                src="/ads page content writing hs.png"
+                alt="Landing Page Hero"
+              />
+            </motion.div>
+</section>   
+ <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className='relative bg-[#429054]/20 md:mb-20 h-auto py-16 md:py-28 flex justify-center md:mt-22 mt-12 items-center mx-auto overflow-hidden'
+      >
+        <img src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-10 md:top-10 top-1 md:h-50 md:w-50 h-28 w-28' />
+        <div className='max-w-screen-xl w-full flex justify-center items-center mx-auto px-2'>
+          <Carousel gap={60} className='h-12'>
+            {[
+              { src: '/1mg.png', alt: 'Tata1mg - Tata1mg' },
+              { src: '/Mfine.png', alt: 'Mfine-Mfine' },
+              { src: '/Apollo Hospitals.png', alt: 'Apollo-Apollo' },
+              { src: '/Myntra.png', alt: 'Myntra-Myntra' },
+              { src: '/Paytm.png', alt: 'PayTM - PayTM' },
+              { src: '/TCS.png', alt: 'TCS - TCS' },
+              { src: '/HCL Technologies.png', alt: 'HCL-HCL' },
+              { src: '/Airtel.png', alt: 'Airtel-Airtel' },
+              { src: '/upGrad.png', alt: 'Upgrad - Upgrad' },
+              { src: '/Ajio.png', alt: 'Ajio - Ajio' },
+              { src: '/Aster Hospitals.png', alt: 'Aster-Aster' },
+              { src: '/HDFC.png', alt: 'HDFC-HDFC' },
+              { src: '/Adani.png', alt: 'Adani - Adani' }
+            ].map((logo, index) => (
+              <img
+                key={index}
+                src={logo.src}
+                alt={logo.alt}
+                className='w-[200px] h-12'
+              />
+            ))}
+          </Carousel>
+        </div>
+      </motion.div>
 
             {/* Metrics Section - with animated counter */}
             <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
@@ -812,7 +651,7 @@ const LandingPage = () => {
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex items-center mx-auto scale-70'>
-          <Image src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' width={400} height={400} />
+          <img src="/ads page cw.png" alt="Icon1" className='md:block hidden' />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -853,7 +692,7 @@ const LandingPage = () => {
               <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
                 <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
                 <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
                   </svg>
                   
                 </span>
@@ -903,339 +742,76 @@ const LandingPage = () => {
         </div>
       </div>
     </div>
-                <section className=' max-w-screen-xl mx-auto mt-12 md:mt-22'>
-                <div className='flex justify-center  items-center'>     
-                    <div className='text-center flex-row'>
-                        <p className='md:text-3xl text-2xl text-black font-medium mt-4'>
+                <section className="w-full bg-[#D9E9DD]">
+  {/* Green strip with heading and intro, spans full width */}
+  <div className="max-w-5xl mx-auto px-4 py-12 text-center">
+                           <p className='md:text-3xl text-2xl text-black font-medium mt-4'>
                         Reimagining Content. Elevating Brands.<span className='text-[#326B3F]'> Celebrating Impact.</span>
                         </p>
                         <p className='text-sm text-[#6a6a6a] mt-4 leading-[25px] max-w-screen-lg mx-auto px-4'>
                         Every successful brand is fueled by connecting the content that we produce. We are a results-oriented content writing agency working with startups, enterprises, and growing companies to create content rich with narrative to engage their customers.</p>
-                    </div>
-                  </div>
-    
-                   <div className=" grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 md:mt-16 mt-12 text-left">
-                            {services.slice(0, 3).map((service, index) => (
-                              <div key={index} className='flex items-center'>
-                                <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' width={40} height={40} />
-                                  <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
-                                  <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
-                                  expandedIndex === index ? "" : "line-clamp-4"
-                                }`} >{service.description}</p>
-                                </div>
-                                <div className='lg:bg-[#e0e0e0] h-1/2 w-1'></div>
-                              </div>
-                            ))}
-                          </div>
-                  
-                          <motion.div 
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: showAll ? "auto" : 0, opacity: showAll ? 1 : 0 }}
-                            transition={{ duration: 0.5, ease: "easeInOut" }}
-                            className={`grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 overflow-hidden  text-left ${showAll ? 'mt-8' : ''}`}
-                          >
-                            {services.slice(3, services.length).map((service, index) => (
-                              <div key={index} className='flex items-center'>
-                                <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group mr-8`}>
-                                  <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' width={40} height={40} />
-                                  <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
-                                  <p className={`text-sm font-regular text-[#6a6a6a] mt-2 ${
-                                  expandedIndex === index ? "" : "line-clamp-4"
-                                }`} >{service.description}</p>
-                                </div>
-                                <div className='lg:bg-[#e0e0e0] h-1/2 w-1'></div>
-                              </div>
-                            ))}
-                          </motion.div>
-                  
-                          <div className='flex justify-center mt-8'>
-                            <button onClick={() => setShowAll(!showAll)}>
-                              <a className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
-                                {showAll ? "Show Less" : "Explore All"}
-                              </a>
-                            </button>
-                          </div>
-                </section>
-                <section>
-                    {/* Content Writing Services Section */}
-                    <div className="md:mt-22 mt-12">
-                        <div className="max-w-screen-xl mx-auto px-4">
-                            {/* Section Header */}
-                            <div className='flex justify-center  items-center'>     
-                    <div className='text-center flex-row'>
-                        <p className='md:text-3xl text-xl text-black font-medium mt-4'>
-                        Content Writing<span className='text-[#326B3F]'> That Drives Results</span>
-                        </p>
-                        <p className='text-sm text-[#6a6a6a] mt-4 leading-[25px] max-w-screen-lg mx-auto px-4'>
-                        Engage, Inform, and Convert with SEO-Optimized Content for Your Business We provide an extensive range of content writing services that are geared to enhance visibility, generate leads, and make your brand.</p>
-                    </div>
-                  </div>
+  </div>
 
-                            {/* Services Filter & Display */}
-                            <div className="mb-10 md:mt-22 mt-12">
-                                {/* Removed filter buttons */}
+  {/* Cards grid - placed outside the green strip for white background */}
+  <div className="w-full bg-white py-10">
+    <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {/* Card 1 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">Authentic &amp; Original</div>
+        <div className="text-gray-700 text-base">
+          Every piece is 100% plagiarism-free and uniquely crafted to match your brand’s voice.
+        </div>
+      </div>
+      {/* Card 2 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">SEO-Focused</div>
+        <div className="text-gray-700 text-base">
+          We optimize content to boost visibility, increase traffic, and improve search engine rankings.
+        </div>
+      </div>
+      {/* Card 3 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">Research-Driven</div>
+        <div className="text-gray-700 text-base">
+          In-depth research ensures high-quality content that informs, convinces, and converts.
+        </div>
+      </div>
+      {/* Card 4 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">Fast &amp; Reliable</div>
+        <div className="text-gray-700 text-base">
+          Quick turnaround times with zero compromise on quality.
+        </div>
+      </div>
+      {/* Card 5 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">Tailored to You</div>
+        <div className="text-gray-700 text-base">
+          Customized solutions to meet industry-specific and business-specific goals.
+        </div>
+      </div>
+      {/* Card 6 */}
+      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
+        <div className="font-semibold text-lg mb-2">Always Here for You</div>
+        <div className="text-gray-700 text-base">
+          Our dedicated content support team is available <span className="italic">24/7</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                                {/* Services Grid - Initial 4 Cards */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                {[
-                                    {
-                                        title: "Newsletter Writing",
-                                        description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories.",
-                                        category: "Marketing"
-                                    },
-                                    {
-                                        title: "Magazine Writing",
-                                        description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility.",
-                                        category: "Branding"
-                                    },
-                                    {
-                                        title: "E-book",
-                                        description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand.",
-                                        category: "Marketing"
-                                    },
-                                    {
-                                        title: "Hindi Content Writing",
-                                        description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust.",
-                                        category: "Website"
-                                    },
-                                    {
-                                        title: "Article Writing",
-                                        description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines.",
-                                        category: "Website"
-                                    },
-                                    {
-                                        title: "Blog Writing",
-                                        description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic.",
-                                        category: "Website"
-                                    },
-                                    {
-                                        title: "Product Description",
-                                        description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores.",
-                                        category: "Branding"
-                                    },
-                                    {
-                                        title: "Website Content",
-                                        description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers.",
-                                        category: "Website"
-                                    },
-                                    {
-                                        title: "Editing & Proofreading",
-                                        description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards.",
-                                        category: "Technical"
-                                    },
-                                    {
-                                        title: "SEO Writing",
-                                        description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement.",
-                                        category: "Marketing"
-                                    },
-                                    {
-                                        title: "White Paper",
-                                        description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers.",
-                                        category: "Technical"
-                                    },
-                                    {
-                                        title: "Press Release",
-                                        description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press.",
-                                        category: "Branding"
-                                    },
-                                    {
-                                        title: "Article Rewriting",
-                                        description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent.",
-                                        category: "Technical"
-                                    },
-                                    {
-                                        title: "Technical Content Writing",
-                                        description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions.",
-                                        category: "Technical"
-                                    },
-                                    {
-                                        title: "Copy Writing",
-                                        description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns.",
-                                        category: "Branding"
-                                    },
-                                    {
-                                        title: "Emailers",
-                                        description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement.",
-                                        category: "Marketing"
-                                    }
-                                ].slice(0, 4).map((service, index) => {
-                                    // Custom pattern: white-green-white-green-green-white-green-white
-                                    // Using modulo 8 to repeat the pattern
-                                    const pattern = index % 8;
-                                    const isGreen = pattern === 1 || pattern === 3 || pattern === 4 || pattern === 6;
-                                    
-                                    return (
-                                        <motion.div
-                                            key={index}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            transition={{ duration: 0.4, delay: (index % 4) * 0.1 }}
-                                            viewport={{ once: true, margin: "-50px" }}
-                                            className={`rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group 
-                                                bg-white hover:bg-[#326B3F] hover:text-white
-                                            `}
-                                        >
-                                            <div className="p-6">
-                                                <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 
-                                                    text-[#1B223C] group-hover:text-white
-                                                `}>
-                                                    {service.title}
-                                                </h3>
-                                                
-                                                <p className={`text-sm transition-colors duration-300 
-                                                    text-[#6a6a6a] group-hover:text-gray-200
-                                                `}>
-                                                    {service.description}
-                                                </p>
-                                            </div>
-                                        </motion.div>
-                                    );
-                                })}
-                                </div>
-                                
-                                {/* Conditionally rendered additional cards */}
-                                <motion.div 
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: showAllServices ? "auto" : 0, opacity: showAllServices ? 1 : 0 }}
-                                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                                    className={`overflow-hidden ${showAllServices ? 'mt-6' : ''}`}
-                                >
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                    {[
-                                        {
-                                            title: "Newsletter Writing",
-                                            description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories.",
-                                            category: "Marketing"
-                                        },
-                                        {
-                                            title: "Magazine Writing",
-                                            description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility.",
-                                            category: "Branding"
-                                        },
-                                        {
-                                            title: "E-book",
-                                            description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand.",
-                                            category: "Marketing"
-                                        },
-                                        {
-                                            title: "Hindi Content Writing",
-                                            description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust.",
-                                            category: "Website"
-                                        },
-                                        {
-                                            title: "Article Writing",
-                                            description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines.",
-                                            category: "Website"
-                                        },
-                                        {
-                                            title: "Blog Writing",
-                                            description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic.",
-                                            category: "Website"
-                                        },
-                                        {
-                                            title: "Product Description",
-                                            description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores.",
-                                            category: "Branding"
-                                        },
-                                        {
-                                            title: "Website Content",
-                                            description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers.",
-                                            category: "Website"
-                                        },
-                                        {
-                                            title: "Editing & Proofreading",
-                                            description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards.",
-                                            category: "Technical"
-                                        },
-                                        {
-                                            title: "SEO Writing",
-                                            description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement.",
-                                            category: "Marketing"
-                                        },
-                                        {
-                                            title: "White Paper",
-                                            description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers.",
-                                            category: "Technical"
-                                        },
-                                        {
-                                            title: "Press Release",
-                                            description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press.",
-                                            category: "Branding"
-                                        },
-                                        {
-                                            title: "Article Rewriting",
-                                            description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent.",
-                                            category: "Technical"
-                                        },
-                                        {
-                                            title: "Technical Content Writing",
-                                            description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions.",
-                                            category: "Technical"
-                                        },
-                                        {
-                                            title: "Copy Writing",
-                                            description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns.",
-                                            category: "Branding"
-                                        },
-                                        {
-                                            title: "Emailers",
-                                            description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement.",
-                                            category: "Marketing"
-                                        }
-                                    ].slice(4).map((service, index) => {
-                                        // Adjust index to continue the pattern
-                                        index += 4;
-                                        const pattern = index % 8;
-                                        const isGreen = pattern === 1 || pattern === 3 || pattern === 4 || pattern === 6;
-                                        
-                                        return (
-                                            <motion.div
-                                                key={index}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                whileInView={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.4, delay: (index % 4) * 0.1 }}
-                                                viewport={{ once: true, margin: "-50px" }}
-                                                className={`rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group 
-                                                    bg-white hover:bg-[#326B3F] hover:text-white
-                                                `}
-                                            >
-                                                <div className="p-6">
-                                                    <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 
-                                                        text-[#1B223C] group-hover:text-white
-                                                    `}>
-                                                        {service.title}
-                                                    </h3>
-                                                    
-                                                    <p className={`text-sm transition-colors duration-300 
-                                                        text-[#6a6a6a] group-hover:text-gray-200
-                                                    `}>
-                                                        {service.description}
-                                                    </p>
-                                                </div>
-                                            </motion.div>
-                                        );
-                                    })}
-                                    </div>
-                                </motion.div>
-                                
-                                {/* Show/Hide Button */}
-                                <div className='flex justify-center mt-8'>
-                                    <button onClick={() => setShowAllServices(!showAllServices)}>
-                                        <a className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
-                                            {showAllServices ? "Show Less" : "Explore All"}
-                                        </a>
-                                    </button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </section>
                 
-                
+                   
+                   
+
+
+
+
+
             <section>
               {/* industry section */}
-              <div className='relative bg-[#429054]/20 py-16 mt-12 h-auto md:mt-22'>
+              <div className='relativepy-16 mt-12 h-auto md:mt-22'>
                 <div className='max-w-screen-xl mx-auto px-4'>
                   <div className='text-center mb-12'>
                     <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -1246,66 +822,55 @@ const LandingPage = () => {
                       Each industry requires a unique voice — and we customize our content writing services to suit your industry, objectives, and audience. Our writers blend technical expertise with strategic storytelling to create content that educates, engages, and converts across various industries.
                     </p>
                   </div>
-
-                  <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
-                    {[
-                      {
-                        icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-                        name: "Healthcare",
-                     
-                      },
-                      {
-                        icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9",
-                        name: "Technology & SaaS",
-                      
-                      },
-                      {
-                        icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
-                        name: "E-commerce",
-                      
-                      },
-                      {
-                        icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
-                        name: "Education & EdTech",
-                        
-                      },
-                      {
-                        icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-                        name: "Finance & Fintech",
-                        
-                      },
-                      {
-                        icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-                        name: "Travel & Hospitality",
-                       
-                      },
-                      {
-                        icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
-                        name: "Real Estate",
-                   
-                      },
-                      {
-                        icon: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3",
-                        name: "Legal & Compliance",
-                       
-                      }
-                    ].map((industry, index) => (
-                      <div key={index} className='bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group'>
-                        <div className='w-12 h-12 bg-[#326B3F]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#326B3F] transition-colors duration-300'>
-                          <svg
-                            className="w-6 h-6 text-[#326B3F] group-hover:text-white transition-colors duration-300"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={industry.icon} />
-                          </svg>
-                        </div>
-                        <h3 className='text-lg font-semibold text-gray-900 mb-2'>{industry.name}</h3>
-                        
-                      </div>
-                    ))}
-                  </div>
+                  <section className="md:mt-22 mt-12">
+  <div className="max-w-screen-lg mx-auto px-4 sm:px-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      {/* Row 1 */}
+      <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/1.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Healthcare</span>
+        </div>
+      </div>
+      <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/2.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Technology &amp; Saas</span>
+        </div>
+      </div>
+      <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/3.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">E-commerce</span>
+        </div>
+      </div>
+      {/* Row 2 */}
+      <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/4.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Education &amp; Edtech</span>
+        </div>
+      </div>
+      <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/5.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Finance &amp; Fintech</span>
+        </div>
+      </div>
+      <div className="relative col-span-1 sm:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/6.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Travel &amp; Hospitality</span>
+        </div>
+      </div>
+      {/* Row 3 */}
+      <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/7.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Real Estate</span>
+        </div>
+      </div>
+      <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/8.png)' }}>
+        <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
+          <span className="text-[#3c6446] font-medium text-sm sm:text-base">Legal &amp; Compliance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
                 </div>
               </div>
             </section>
@@ -1318,90 +883,124 @@ const LandingPage = () => {
                 Our tested process guarantees that each piece of content we produce is tailored to your brand objectives and SEO goals — from discovery to delivery.
                 </p>
             </div>
-            <section className="max-w-screen-xl mx-auto text-left py-8">
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
-    {seoHQ.map((benefit) => (
-      <div key={benefit.number} className="p-4 md:p-6 bg-white">
-        <span className="text-[#326B3F] text-xl md:text-2xl font-semibold">{benefit.number}</span>
-        <p className="mt-2 text-base md:text-md font-semibold text-[#1b223c] line-clamp-2">{benefit.title}</p>
-        <p className="mt-2 text-sm text-gray-500 line-clamp-4 md:line-clamp-none">{benefit.description}</p>
-      </div>
-    ))}
-  </div>
-  <section className="max-w-screen-xl mx-auto md:mt-22 mt-12">
-    {/* testimonial section */}
-    <section className="max-w-screen-xl mx-auto md:mt-22 mt-12 px-4">
-  <div className="relative">
-    {/* Background decorative elements */}
-
-    <div className="relative">
-      <div className="text-center mb-16">
-        <h2 className="md:text-3xl text-xl mt-4 font-medium">
-          What Our <span className="text-[#326B3F]">Clients Say</span>
-        </h2>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-8">
-        {/* Testimonial Cards */}
-        <div className="relative group h-[250px]">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#326B3F] to-[#A8D5BA] rounded-lg blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-          <div className="relative bg-white p-6 rounded-lg shadow-sm h-full flex flex-col">
-            <div className="flex items-center mb-4">
-              
-              <div>
-                <p className="font-semibold text-[#1b223c]">Lokesh</p>
-                <p className="text-xs text-[#6a6a6a]">Acko</p>
+            <section className="md:mt-22 mt-12 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+        {processSteps.map((step, idx) => (
+          <div className="flex flex-col md:flex-row items-start md:items-stretch gap-4 md:gap-8 mb-8" key={idx}>
+            {/* Mobile-first layout: Stack the elements in a column for mobile */}
+            <div className="flex md:hidden w-full items-center mb-4">
+              {/* Icon & Step Number Combined for Mobile */}
+              <div className="flex items-center justify-center min-w-[80px] min-h-[80px] border-2 md:border-3 border-[#B3D3BB] bg-white rounded-xl mr-4">
+                <img
+                  src={step.icon}
+                  alt={step.title}
+                  className="w-5 h-5 md:w-7 md:h-7 object-contain"
+                  loading="lazy"
+                />
               </div>
+              <span className="text-[36px] md:text-[48px] font-bold text-[#B3D3BB] leading-none select-none">{step.number}</span>
             </div>
-            <p className="text-[#6a6a6a] text-sm italic flex-grow">
-              "We developed our entire health insurance and car insurance vertical through TransCurators. The quality and the speed at which we received content was superb."
-            </p>
-            <p className="text-xs text-[#326B3F] font-medium mt-4">Superb Quality & Speed</p>
-          </div>
-        </div>
-
-        {/* Repeat the same structure for other testimonials with different initials and content */}
-        <div className="relative group h-[250px]">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#326B3F] to-[#A8D5BA] rounded-lg blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-          <div className="relative bg-white p-6 rounded-lg shadow-sm h-full flex flex-col">
-            <div className="flex items-center mb-4">
-             
-              <div>
-                <p className="font-semibold text-[#1b223c]">Adnan</p>
-                <p className="text-xs text-[#6a6a6a]">DMI Finance</p>
-              </div>
+            
+            {/* Desktop layout elements */}
+            {/* Icon Box - Hidden on Mobile */}
+            <div className="hidden md:flex items-center justify-center min-w-[110px] min-h-[110px] border-3 border-[#B3D3BB] bg-white 
+                rounded-tl-2xl rounded-bl-2xl rounded-tr-none rounded-br-none">
+              <img
+                src={step.icon}
+                alt={step.title}
+                className="w-7 h-7 object-contain"
+                loading="lazy"
+              />
             </div>
-          
-            <p className="text-[#6a6a6a] text-sm italic flex-grow">
-              "With the help of team TC, we churned out a huge chunk of blogs on the financial sector and insurance. The understanding the team has about the financial sector is very good."
-            </p>
-            <p className="text-xs text-[#326B3F] font-medium mt-4">Deep Understanding of Finance</p>
-          </div>
-        </div>
-
-        <div className="relative group h-[250px]">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#326B3F] to-[#A8D5BA] rounded-lg blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-          <div className="relative bg-white p-6 rounded-lg shadow-sm h-full flex flex-col">
-            <div className="flex items-center mb-4">
-             
-              <div>
-                <p className="font-semibold text-[#1b223c]">Vaibhavi Mehta</p>
-                <p className="text-xs text-[#6a6a6a]">SMFG India Credit Co. Ltd.</p>
-              </div>
+            
+            {/* Step Number - Hidden on Mobile */}
+            <div className="hidden md:flex items-center">
+              <span className="text-[48px] font-bold text-[#B3D3BB] leading-none select-none">{step.number}</span>
             </div>
-           
-            <p className="text-[#6a6a6a] text-sm italic flex-grow">
-              "We 'Thank you' and your team for their dedication, creativity, and hard work. It has truly made a significant impact on our success. We deeply appreciate our partnership."
-            </p>
-            <p className="text-xs text-[#326B3F] font-medium mt-4">A True Impact on Our Success</p>
+            
+            {/* Content Box */}
+            <div className="flex-1 border-2 md:border-3 border-[#B3D3BB] rounded-xl md:rounded-tl-none md:rounded-bl-none md:rounded-tr-2xl md:rounded-br-2xl bg-white flex flex-col justify-center px-4 md:px-8 py-4 md:py-6">
+              <div className="font-semibold text-base md:text-lg lg:text-xl mb-1">{step.title}</div>
+              <div className="text-gray-700 text-sm md:text-base">{step.description}</div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    </div>
-  </div>
-</section>
     </section>
-            </section>
+     <section className="px-4 md:px-6">
+            <div className="max-w-screen-2xl mx-auto md:mt-22 mt-12">
+              <motion.div 
+                className="text-center mb-10 md:mb-16"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className='text-md text-[#326B3F] font-regular'>Our Partners</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-medium mt-4">
+                  What Our <span className="text-[#326B3F]">Clients Say</span>
+                </h2>
+                <p className="text-[#6a6a6a] mt-4 text-xs sm:text-sm">Real feedback from our valued partners</p>
+              </motion.div>
+    
+             <div className="flex flex-col max-w-screen-2xl items-center bg-white">
+          <div className="flex items-center space-x-6">
+            {/* Previous Arrow */}
+            <button
+              onClick={prevTestimonial}
+              className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
+              aria-label="Previous testimonial"
+            >
+              &lt;
+            </button>
+            {/* Testimonials */}
+            {testimonials.map((testimonial, idx) => (
+              <div
+                key={idx}
+                className={`transition-all duration-300 w-80 p-6 rounded-xl shadow-lg bg-white flex flex-col items-center
+                  ${idx === activeIndex ? "scale-105 z-10" : "opacity-50 scale-95"}
+                  ${idx === activeIndex ? "" : "hidden md:flex"}
+                `}
+              >
+                
+                <div className="text-lg font-semibold">{testimonial.name}</div>
+                <div className="text-gray-400 text-sm mb-3">{testimonial.title}</div>
+                <p className="text-center italic text-gray-700">{testimonial.text}</p>
+                <p className="text-xs text-[#326B3F] font-medium mt-4">{testimonial.highlight}</p>
+              </div>
+            ))}
+            {/* Next Arrow */}
+            <button
+              onClick={nextTestimonial}
+              className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
+              aria-label="Next testimonial"
+            >
+              &gt;
+            </button>
+          </div>
+          {/* Dots */}
+          <div className="flex justify-center mt-6 md:mt-10 space-x-1">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${
+                  activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
+                }`}
+                aria-label={`Go to testimonial ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+            </div>
+          </section>
+
+
+
+
+
+
+
             <section className="relative bg-[#429054]/20 py-16 mt-12 md:mt-22 overflow-hidden">
                 <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
                     <div className="w-full md:w-5/12 mb-8 md:mb-0">
@@ -1631,6 +1230,7 @@ const LandingPage = () => {
         </div>
       </div>
     </section>
+    
         </>
     );
 }
