@@ -444,7 +444,7 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className="flex justify-center w-full relative overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row bg-[rgba(66,144,84,0.4)] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row bg-white border-4 border-[#429450] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -453,7 +453,7 @@ const Landing_Page = () => {
           >
             <motion.h1 
               variants={itemVariants}
-              className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-3'
+              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-3'
             >
               Transform Your  <div className='mt-3'>Brand's Voice with</div>
             </motion.h1>

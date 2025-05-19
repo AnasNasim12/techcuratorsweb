@@ -18,6 +18,10 @@ const BlogForm = () => {
     date_posted: '',
     description: '',
     content: '',
+    slug: '',
+    meta_title: '',
+    meta_description: '',
+    meta_keywords: ''
   })
   const [imageFile, setImageFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
@@ -231,6 +235,10 @@ const BlogForm = () => {
         date_posted: '',
         description: '',
         content: '',
+        slug: '',
+        meta_title: '',
+        meta_description: '',
+        meta_keywords: ''
       })
       setImageFile(null)
       setPreviewUrl(null)
@@ -439,7 +447,7 @@ const BlogForm = () => {
               title="Horizontal Rule"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 0 1 0 2H1a1 1 0 0 1-1-1z"/>
               </svg>
             </button>
             <button 
@@ -529,6 +537,56 @@ const BlogForm = () => {
             className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+            <input
+              type="text"
+              name="slug"
+              placeholder="Enter URL-friendly slug"
+              value={formData.slug}
+              onChange={handleChange}
+              required
+              className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
+            <input
+              type="text"
+              name="meta_title"
+              placeholder="Enter meta title for SEO"
+              value={formData.meta_title}
+              onChange={handleChange}
+              className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
+          <textarea
+            name="meta_description"
+            placeholder="Enter meta description for SEO"
+            value={formData.meta_description}
+            onChange={handleChange}
+            rows="3"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Meta Keywords</label>
+          <input
+            type="text"
+            name="meta_keywords"
+            placeholder="Enter meta keywords (comma-separated)"
+            value={formData.meta_keywords}
+            onChange={handleChange}
+            className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
         
         {/* Mobile view tabs */}
         <div className="flex md:hidden mb-2 border-b">
@@ -555,7 +613,9 @@ const BlogForm = () => {
         {/* Markdown editor with live preview */}
         <div className="flex flex-col md:flex-row gap-6">
           <div className={`${activeTab === 'edit' ? 'block' : 'hidden'} md:block md:w-1/2`}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block взят
+
+System: text-sm font-medium text-gray-700 mb-1">
               Description (Markdown)
             </label>
             
