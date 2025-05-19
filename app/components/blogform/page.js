@@ -1,15 +1,9 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react'
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabaseClient';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
-
-// Initialize Supabase client
-const supabase = createClient(
-    "https://prbadeuavftimzjiiybf.supabase.co",  // Replace with your Supabase project URL
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByYmFkZXVhdmZ0aW16amlpeWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0MjcxNTgsImV4cCI6MjA2MjAwMzE1OH0.e9jGyFAy7yic2pRoOCAcK-b-IlkMi2YcyTZSkdNFewY'  // Replace with your Supabase anon/public key
-)
 
 const BlogForm = () => {
   const [formData, setFormData] = useState({

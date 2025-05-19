@@ -1,15 +1,9 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react'
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabaseClient';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
-
-// Initialize Supabase client
-const supabase = createClient(
-    "https://prbadeuavftimzjiiybf.supabase.co",  // Replace with your Supabase project URL
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByYmFkZXVhdmZ0aW16amlpeWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0MjcxNTgsImV4cCI6MjA2MjAwMzE1OH0.e9jGyFAy7yic2pRoOCAcK-b-IlkMi2YcyTZSkdNFewY'  // Replace with your Supabase anon/public key
-)
 
 const CaseStdForm = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +12,10 @@ const CaseStdForm = () => {
     date_posted: '',
     description: '',
     content: '',
+    seo_title: '',
+    seo_description: '',
+    seo_keywords: '',
+    slug: ''
   })
   const [imageFile, setImageFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
@@ -231,6 +229,10 @@ const CaseStdForm = () => {
         date_posted: '',
         description: '',
         content: '',
+        seo_title: '',
+        seo_description: '',
+        seo_keywords: '',
+        slug: ''
       })
       setImageFile(null)
       setPreviewUrl(null)
@@ -519,6 +521,56 @@ const CaseStdForm = () => {
           </div>
         </div>
         
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">SEO Title</label>
+            <input
+              type="text"
+              name="seo_title"
+              placeholder="Enter SEO title"
+              value={formData.seo_title}
+              onChange={handleChange}
+              className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+            <input
+              type="text"
+              name="slug"
+              placeholder="Enter URL slug (e.g., case-study-title)"
+              value={formData.slug}
+              onChange={handleChange}
+              required
+              className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">SEO Description</label>
+          <textarea
+            name="seo_description"
+            placeholder="Enter SEO description (160-320 characters)"
+            value={formData.seo_description}
+            onChange={handleChange}
+            rows="3"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">SEO Keywords</label>
+          <input
+            type="text"
+            name="seo_keywords"
+            placeholder="Enter SEO keywords (comma-separated)"
+            value={formData.seo_keywords}
+            onChange={handleChange}
+            className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Date Posted</label>
           <input
@@ -719,6 +771,5 @@ const CaseStdForm = () => {
     </div>
   )
 }
-
 
 export default CaseStdForm

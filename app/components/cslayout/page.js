@@ -263,7 +263,7 @@ const CSLayout = () => {
                           {truncateDescription(featuredCaseStudies[0]?.content, 150)}
                         </p>
                         <Link 
-                          href={`/case-study/${featuredCaseStudies[0]?.id}`} 
+                          href={`/case-study/${featuredCaseStudies[0]?.slug}`} 
                           className="inline-flex items-center text-white gap-3 relative group"
                         >
                           Read more
@@ -324,7 +324,7 @@ const CSLayout = () => {
                           {truncateDescription(featuredCaseStudies[1]?.content, 150)}
                         </p>
                         <Link 
-                          href={`/case-study/${featuredCaseStudies[1]?.id}`} 
+                          href={`/case-study/${featuredCaseStudies[1]?.slug}`} 
                           className="inline-flex items-center text-white gap-3 relative group"
                         >
                           Read more
@@ -432,7 +432,7 @@ const CSLayout = () => {
                           {truncateDescription(caseStudy.content, 120)}
                         </p>
                         <Link 
-                          href={`/case-study/${caseStudy.id}`} 
+                          href={`/case-study/${caseStudy.slug}`} 
                           className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
                         >
                           Read More
@@ -520,7 +520,7 @@ const CSLayout = () => {
                                 {truncateDescription(caseStudy.content, 120)}
                               </p>
                               <Link 
-                                href={`/case-study/${caseStudy.id}`} 
+                                href={`/case-study/${caseStudy.slug}`} 
                                 className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
                               >
                                 Read More

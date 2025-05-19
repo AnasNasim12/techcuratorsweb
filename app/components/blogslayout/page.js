@@ -377,7 +377,7 @@ const BlogLayout = () => {
                           {truncateDescription(post.content, 60)}
                         </p>
                         <Link 
-                          href={`/blog/${post.id}`} 
+                          href={`/blog/${post.slug}`} 
                           className="text-[#326B3F] text-xs font-medium inline-flex items-center hover:underline"
                         >
                           Read More
@@ -485,7 +485,7 @@ const BlogLayout = () => {
                           {truncateDescription(blog.content, 120)}
                         </p>
                         <Link 
-                          href={`/blog/${blog.id}`} 
+                          href={`/blog/${blog.slug}`} 
                           className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
                         >
                           Read More
@@ -579,7 +579,7 @@ const BlogLayout = () => {
                                 {truncateDescription(blog.content, 120)}
                               </p>
                               <Link 
-                                href={`/blog/${blog.id}`} 
+                                href={`/blog/${blog.slug}`} 
                                 className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
                               >
                                 Read More

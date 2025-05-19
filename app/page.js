@@ -33,16 +33,16 @@ const Landing_Page = () => {
       highlight: "A True Impact on Our Success"
     }
   ];
-  
-    const [activeIndex, setActiveIndex] = useState(0);
-  
-    const prevTestimonial = () => {
-      setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    };
-  
-    const nextTestimonial = () => {
-      setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    };
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prevTestimonial = () => {
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const nextTestimonial = () => {
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
 
   const faqs = [
     { question: "What makes TransCurators a reliable content writing agency?", answer: "TransCurators is a trusted content writing agency known for delivering high-quality, engaging, and SEO-optimized content. With over five years of industry experience, we specialise in crafting original, plagiarism-free content tailored to various business needs. Our team ensures timely delivery, effective communication, and customised content strategies that align with your brand's voice, making us a preferred choice for content solutions. We are committed to excellence, helping businesses enhance their online presence, attract the right audience, and achieve long-term success through impactful content.", id: 1 },
@@ -70,16 +70,16 @@ const Landing_Page = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
   const [showMore, setShowMore] = useState(false);
 
-        const [expandedIndex, setExpandedIndex] = useState(null);
-          const toggleExpanded = (index) => {
-            // If the clicked service is already expanded, collapse it; otherwise, expand it.
-            setExpandedIndex(expandedIndex === index ? null : index);
-          };
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const toggleExpanded = (index) => {
+    // If the clicked service is already expanded, collapse it; otherwise, expand it.
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   const toggleFAQ = (id) => {
     setOpenFAQ((prev) => (prev === id ? null : id));
   };
-  
+
 
   const contentData = [
     {
@@ -114,32 +114,32 @@ const Landing_Page = () => {
     }
   ];
   const processItems = [
-  {
-    title: "Our Unique Strengths",
-    description: "",
-    highlight: true,
-  },
-  {
-    title: "Content for 500+ brands",
-    description: "Serving startups, enterprises, and everything in between with tailored content solutions.",
-  },
-  {
-    title: "90%+ keyword ranking success",
-    description: "SEO-optimized content that actually ranks and drives organic traffic to your website.",
-  },
-  {
-    title: "50+ Expert Writers & Editors",
-    description: "Specialists in multiple industries and niches to ensure your content is accurate and compelling.",
-  },
-  {
-    title: "35+ business domains",
-    description: "Extensive experience across diverse industries gives us unmatched versatility and expertise.",
-  },
-  {
-    title: "Unlimited revisions",
-    description: "We're not done until you're 100% satisfied with the final content delivered.",
-  },
-];
+    {
+      title: "Our Unique Strengths",
+      description: "",
+      highlight: true,
+    },
+    {
+      title: "Content for 500+ brands",
+      description: "Serving startups, enterprises, and everything in between with tailored content solutions.",
+    },
+    {
+      title: "90%+ keyword ranking success",
+      description: "SEO-optimized content that actually ranks and drives organic traffic to your website.",
+    },
+    {
+      title: "50+ Expert Writers & Editors",
+      description: "Specialists in multiple industries and niches to ensure your content is accurate and compelling.",
+    },
+    {
+      title: "35+ business domains",
+      description: "Extensive experience across diverse industries gives us unmatched versatility and expertise.",
+    },
+    {
+      title: "Unlimited revisions",
+      description: "We're not done until you're 100% satisfied with the final content delivered.",
+    },
+  ];
   const services = [
     {
       icon: "/messageIcon.png",
@@ -222,11 +222,11 @@ const Landing_Page = () => {
       description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand."
     }
   ];
-  
+
   const [showAll, setShowAll] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
 
-    const images = [
+  const images = [
     "/demoLogo.png",
     "/demoLogo.png",
     "/demoLogo.png",
@@ -241,7 +241,7 @@ const Landing_Page = () => {
       heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       image: "https://dummyimage.com/250x300/ffffff/fff.png",
-      slug: "/read-more-xyz", 
+      slug: "/read-more-xyz",
     },
     {
       productionName: "XYZ Productions",
@@ -249,7 +249,7 @@ const Landing_Page = () => {
       heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       image: "https://dummyimage.com/250x300/ffffff/fff.png",
-      slug: "/read-more-xyz", 
+      slug: "/read-more-xyz",
     },
     {
       productionName: "XYZ Productions",
@@ -257,7 +257,7 @@ const Landing_Page = () => {
       heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       image: "https://dummyimage.com/250x300/ffffff/fff.png",
-      slug: "/read-more-xyz", 
+      slug: "/read-more-xyz",
     },
     {
       productionName: "XYZ Productions",
@@ -265,24 +265,24 @@ const Landing_Page = () => {
       heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       image: "https://dummyimage.com/250x300/ffffff/fff.png",
-      slug: "/read-more-xyz", 
+      slug: "/read-more-xyz",
     },
-    
+
   ];
 
   const CardComponent = ({ productionName, date, heading, description, image, slug }) => (
     <div className="cursor-pointer grid grid-rows-[auto_auto] w-full mx-auto sm:w-[200px] md:w-[250px] gap-4 hover:bg-gray-50 duration-300 transition-all ease-in-out rounded-[14px] p-4 group">
       {/* Image Section */}
       <div>
-        <Images 
-          src={image} 
-          alt={heading} 
-          className="w-full sm:w-[200px] md:w-[250px] h-auto sm:h-[250px] md:h-[300px] rounded-[4px] shadow-[0_0_20px_#CCE3DE]" 
-          width={250} 
-          height={300} 
+        <Images
+          src={image}
+          alt={heading}
+          className="w-full sm:w-[200px] md:w-[250px] h-auto sm:h-[250px] md:h-[300px] rounded-[4px] shadow-[0_0_20px_#CCE3DE]"
+          width={250}
+          height={300}
         />
       </div>
-  
+
       {/* Content Section */}
       <div className="grid gap-2 max-w-full sm:max-w-[200px] md:max-w-[250px]">
         <div className="grid grid-cols-2 mt-6">
@@ -310,93 +310,93 @@ const Landing_Page = () => {
       </div>
     </div>
   );
-  
+
   // Add counter state
-      const [counters, setCounters] = useState({
-          "10M+": "0+",
-          "250+": "0+", // Updated from 3000+ to 250+
-          "4.5/5": "0.0/5",
-          "1000+": "0+"
-      });
-       // Animation timing ref
-          const animationRef = useRef(null);
-      
-          // Counter effect function
-          useEffect(() => {
-              let startTimestamp;
-              const duration = 1500; // Animation duration in milliseconds
-              
-              // Animation function
-              const step = (timestamp) => {
-                  if (!startTimestamp) startTimestamp = timestamp;
-                  const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                  
-                  // Update each counter based on progress
-                  const updatedCounters = {};
-                  
-                  // For "10M+"
-                  const millions = Math.floor(progress * 10 * 10) / 10;
-                  updatedCounters["10M+"] = `${millions >= 10 ? "10" : millions.toFixed(1)}M+`;
-                  
-                  // For "250+" (previously "3000+")
-                  const clients = Math.floor(progress * 250);
-                  updatedCounters["250+"] = `${clients}+`;
-                  
-                  // For "4.5/5"
-                  const rating = (progress * 4.5).toFixed(1);
-                  updatedCounters["4.5/5"] = `${rating}/5`;
-                  
-                  // For "1000+"
-                  const writers = Math.floor(progress * 1000);
-                  updatedCounters["1000+"] = `${writers}+`;
-                  
-                  setCounters(updatedCounters);
-                  
-                  if (progress < 1) {
-                      animationRef.current = requestAnimationFrame(step);
-                  }
-              };
-              
-              // Start animation when component is in view
-              const observer = new IntersectionObserver(
-                  ([entry]) => {
-                      if (entry.isIntersecting) {
-                          animationRef.current = requestAnimationFrame(step);
-                          observer.disconnect();
-                      }
-                  },
-                  { threshold: 0.1 }
-              );
-              
-              // Target the metrics section
-              const metricsSection = document.querySelector('#landing-metrics-section');
-              if (metricsSection) {
-                  observer.observe(metricsSection);
-              }
-              
-              return () => {
-                  cancelAnimationFrame(animationRef.current);
-                  observer.disconnect();
-              };
-          }, []);
+  const [counters, setCounters] = useState({
+    "10M+": "0+",
+    "250+": "0+", // Updated from 3000+ to 250+
+    "4.5/5": "0.0/5",
+    "1000+": "0+"
+  });
+  // Animation timing ref
+  const animationRef = useRef(null);
+
+  // Counter effect function
+  useEffect(() => {
+    let startTimestamp;
+    const duration = 1500; // Animation duration in milliseconds
+
+    // Animation function
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+      // Update each counter based on progress
+      const updatedCounters = {};
+
+      // For "10M+"
+      const millions = Math.floor(progress * 10 * 10) / 10;
+      updatedCounters["10M+"] = `${millions >= 10 ? "10" : millions.toFixed(1)}M+`;
+
+      // For "250+" (previously "3000+")
+      const clients = Math.floor(progress * 250);
+      updatedCounters["250+"] = `${clients}+`;
+
+      // For "4.5/5"
+      const rating = (progress * 4.5).toFixed(1);
+      updatedCounters["4.5/5"] = `${rating}/5`;
+
+      // For "1000+"
+      const writers = Math.floor(progress * 1000);
+      updatedCounters["1000+"] = `${writers}+`;
+
+      setCounters(updatedCounters);
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(step);
+      }
+    };
+
+    // Start animation when component is in view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animationRef.current = requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    // Target the metrics section
+    const metricsSection = document.querySelector('#landing-metrics-section');
+    if (metricsSection) {
+      observer.observe(metricsSection);
+    }
+
+    return () => {
+      cancelAnimationFrame(animationRef.current);
+      observer.disconnect();
+    };
+  }, []);
   const metrics = [
     {
-        value: '10M+',
-        description: 'Content Pieces Delivered'
+      value: '10M+',
+      description: 'Content Pieces Delivered'
     },
     {
-        value: '250+',
-        description: 'Clients Supported Globally'
+      value: '250+',
+      description: 'Clients Supported Globally'
     },
     {
-        value: '4.5/5',
-        description: 'Client Satisfaction Score'
+      value: '4.5/5',
+      description: 'Client Satisfaction Score'
     },
     {
-        value: '1000+',
-        description: 'Expert Writers & Strategists'
+      value: '1000+',
+      description: 'Expert Writers & Strategists'
     }
-];
+  ];
 
   // Animation variants for staggered animations
   const containerVariants = {
@@ -409,7 +409,7 @@ const Landing_Page = () => {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -426,46 +426,46 @@ const Landing_Page = () => {
   // Scroll progress for parallax effects
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
-      const handleScroll = () => {
-          setScrollY(window.scrollY);
-      };
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
 
-     
+
       {/*top section*/}
-      <motion.div 
-        initial={{ opacity: 0 }} 
+      <motion.div
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         className="flex justify-center w-full relative overflow-hidden"
       >
         <div className="flex flex-col md:flex-row bg-white border-4 border-[#429450] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10 "
           >
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-3'
             >
               Transform Your  <div className='mt-3'>Brand's Voice with</div>
             </motion.h1>
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
             >
-              Our Content Writing 
-             <div className='mt-3'> Service!</div>
+              Our Content Writing
+              <div className='mt-3'> Service!</div>
             </motion.h1>
 
-            <motion.h2 
+            <motion.h2
               variants={itemVariants}
               className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[95%] md:max-w-[95%] mt-4'
             >
@@ -473,9 +473,9 @@ const Landing_Page = () => {
               <br />Content Writing Services That Spark Engagement,
               <br className="hidden sm:block" /><br className="sm:hidden" />
               <span className='text-[#6a6a6a] tracking-normal'>Build Trust,
-              and Elevate Your Brand.</span>
+                and Elevate Your Brand.</span>
             </motion.h2>
-            
+
             <motion.button
               variants={itemVariants}
               onClick={() => window.location.href = "/contact"}
@@ -503,45 +503,33 @@ const Landing_Page = () => {
               </svg>
             </motion.button>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
+            className="hidden md:flex justify-center items-center md:w-[40%] lg:w-[70%] xl:w-[70%] relative bg-white"
           >
-            <Images
-              className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-15 ml-4'
-              src="/HeroImage.png"
-              alt="Landing Page Hero"
-              width={800}
-              height={600}
-            />
+            <video
+              src="/VN20250519_154326.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls={false}
+              className="w-full max-w-[1000px] h-[600px] aspect-video object-contain bg-white rounded-xl shadow-none"
+              style={{ minHeight: '400px', maxHeight: '700px', background: 'white' }}
+            >
+              Your browser does not support the video tag.
+            </video>
           </motion.div>
-
-          {/* Decorative elements with subtle animation */}
-          <motion.div 
-            className="absolute top-1/4 left-10 w-16 h-16 rounded-full bg-[#326B3F]/10 blur-xl hidden md:block"
-            animate={{ 
-              x: Math.sin(scrollY * 0.01) * 10,
-              y: Math.cos(scrollY * 0.01) * 10
-            }}
-            transition={{ type: "spring", stiffness: 10 }}
-          ></motion.div>
-          <motion.div 
-            className="absolute bottom-1/4 right-10 w-20 h-20 rounded-full bg-[#326B3F]/20 blur-xl hidden md:block"
-            animate={{ 
-              x: Math.cos(scrollY * 0.01) * -15,
-              y: Math.sin(scrollY * 0.01) * -15
-            }}
-            transition={{ type: "spring", stiffness: 5 }}
-          ></motion.div>
+          
         </div>
       </motion.div>
 
       <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
         <div className="max-w-screen-xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -553,7 +541,7 @@ const Landing_Page = () => {
             </h2>
             <p className="text-[#6a6a6a] mt-4 text-sm">See the impact we've made for our clients</p>
           </motion.div>
-          
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {metrics.map((metric, index) => (
               <motion.div
@@ -577,7 +565,7 @@ const Landing_Page = () => {
 
       <section className="md:mt-22 mt-12 bg-white px-4 md:px-6">
         <div className="max-w-screen-xl mx-auto">
-          <motion.div 
+          <motion.div
             className="text-center mb-10 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -587,34 +575,33 @@ const Landing_Page = () => {
             <h2 className="text-2xl md:text-3xl font-medium">
               What Makes Us <span className="text-[#326B3F]">Different?</span>
             </h2>
-           
+
           </motion.div>
-           <div className="max-w-screen-xl mx-auto md:mt-6 mt-4 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        {processItems.map((item, idx) => (
-          <div
-            key={idx}
-            className={`rounded-xl border border-[#B3D3BB] p-8 flex flex-col justify-center items-center text-center min-h-[180px] ${
-              item.highlight
-                ? "bg-[#B3D3BB] text-gray-900 font-medium text-2xl"
-                : "bg-white"
-            }`}
-          >
-            <div className={`mb-2 ${item.highlight ? "text-3xl" : "text-xl font-semibold"}`}>
-              {item.title}
+          <div className="max-w-screen-xl mx-auto md:mt-6 mt-4 px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              {processItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className={`rounded-xl border border-[#B3D3BB] p-8 flex flex-col justify-center items-center text-center min-h-[180px] ${item.highlight
+                      ? "bg-[#B3D3BB] text-gray-900 font-medium text-2xl"
+                      : "bg-white"
+                    }`}
+                >
+                  <div className={`mb-2 ${item.highlight ? "text-3xl" : "text-xl font-semibold"}`}>
+                    {item.title}
+                  </div>
+                  {item.description && (
+                    <div className="text-gray-500 text-sm mt-2">{item.description}</div>
+                  )}
+                </div>
+              ))}
             </div>
-            {item.description && (
-              <div className="text-gray-500 text-sm mt-2">{item.description}</div>
-            )}
           </div>
-        ))}
-      </div>
-    </div>
 
         </div>
       </section>
-      
-      <motion.section 
+
+      <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -628,12 +615,12 @@ const Landing_Page = () => {
           <p className="mt-4 text-base md:text-lg text-[#1b223c] px-2">
             Have a question? We're just one call away from helping you get started.
           </p>
-          <motion.div 
+          <motion.div
             className="mt-6 md:mt-8 flex justify-center"
             whileHover={{ y: -5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <motion.a 
+            <motion.a
               href="tel:7678144482"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -662,171 +649,171 @@ const Landing_Page = () => {
             </p>
           </motion.div>
 
-          
+
         </div>
-        
+
       </div>
       <section className="md:mt-16">
-              <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center">
-                  {[
-  {
-    number: 1,
-    title: "Blog Writing",
-    description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic."
-  },
-  {
-    number: 2,
-    title: "SEO Content Writing",
-    description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement."
-  },
-  {
-    number: 3,
-    title: "Technical Content Writing",
-    description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions."
-  },
-  {
-    number: 4,
-    title: "Article Writing",
-    description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines."
-  },
-  {
-    number: 5,
-    title: "Website Content",
-    description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers."
-  },
-  {
-    number: 6,
-    title: "Editing & Proofreading",
-    description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards."
-  },
-  {
-    number: 7,
-    title: "Product Description",
-    description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores."
-  },
-  {
-    number: 8,
-    title: "Hindi Content Writing",
-    description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust."
-  },
-  {
-    number: 9,
-    title: "White Paper",
-    description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers."
-  },
-  {
-    number: 10,
-    title: "Press Release",
-    description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press."
-  },
-  {
-    number: 11,
-    title: "Article Rewriting",
-    description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent."
-  },
-  {
-    number: 12,
-    title: "Copy Writing",
-    description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns."
-  },
-  {
-    number: 13,
-    title: "Emailers",
-    description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement."
-  },
-  {
-    number: 14,
-    title: "Newsletter Writing",
-    description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories."
-  },
-  {
-    number: 15,
-    title: "Magazine Writing",
-    description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility."
-  },
-  {
-    number: 16,
-    title: "E-book",
-    description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand."
-  }
-].slice(0, showAllServices ? undefined : 4).map((card, idx) => (
-                    <div key={idx} className="relative bg-white border border-[#9BCDA8] rounded-xl p-4 sm:p-5 md:p-6 w-full flex flex-col shadow-sm h-full">
-                      {/* Vertical number bar - responsive width */}
-                      <div className="absolute top-0 right-0 h-full w-[18%] sm:w-[15%] md:w-1/5 flex flex-col items-end">
-                        <div className="bg-[#9bcda8] rounded-tr-xl w-full flex items-center justify-center h-1/4 min-h-[40px] sm:min-h-[45px] md:min-h-[50px]">
-                          <span className="text-white text-lg sm:text-xl md:text-2xl font-semibold">{card.number}</span>
-                        </div>
-                        <div className="bg-[#d9e9dd] w-full h-3/4 rounded-br-xl"></div>
-                      </div>
-                      
-                      {/* Content with icon above text - responsive padding */}
-                      <div className="flex flex-col items-left text-left mb-3 sm:mb-4 md:mb-5 pr-8 sm:pr-10 md:pr-12">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                          {/* Example icon: Responsive size */}
-                          <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" width={40} height={40} />
-                        </div>
-                        <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2">{card.title}</h3>
-                        <p className="text-gray-500 text-xs sm:text-sm">{card.description}</p>
-                      </div>
-                    </div>
-                  ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center">
+            {[
+              {
+                number: 1,
+                title: "Blog Writing",
+                description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic."
+              },
+              {
+                number: 2,
+                title: "SEO Content Writing",
+                description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement."
+              },
+              {
+                number: 3,
+                title: "Technical Content Writing",
+                description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions."
+              },
+              {
+                number: 4,
+                title: "Article Writing",
+                description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines."
+              },
+              {
+                number: 5,
+                title: "Website Content",
+                description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers."
+              },
+              {
+                number: 6,
+                title: "Editing & Proofreading",
+                description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards."
+              },
+              {
+                number: 7,
+                title: "Product Description",
+                description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores."
+              },
+              {
+                number: 8,
+                title: "Hindi Content Writing",
+                description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust."
+              },
+              {
+                number: 9,
+                title: "White Paper",
+                description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers."
+              },
+              {
+                number: 10,
+                title: "Press Release",
+                description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press."
+              },
+              {
+                number: 11,
+                title: "Article Rewriting",
+                description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent."
+              },
+              {
+                number: 12,
+                title: "Copy Writing",
+                description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns."
+              },
+              {
+                number: 13,
+                title: "Emailers",
+                description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement."
+              },
+              {
+                number: 14,
+                title: "Newsletter Writing",
+                description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories."
+              },
+              {
+                number: 15,
+                title: "Magazine Writing",
+                description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility."
+              },
+              {
+                number: 16,
+                title: "E-book",
+                description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand."
+              }
+            ].slice(0, showAllServices ? undefined : 4).map((card, idx) => (
+              <div key={idx} className="relative bg-white border border-[#9BCDA8] rounded-xl p-4 sm:p-5 md:p-6 w-full flex flex-col shadow-sm h-full">
+                {/* Vertical number bar - responsive width */}
+                <div className="absolute top-0 right-0 h-full w-[18%] sm:w-[15%] md:w-1/5 flex flex-col items-end">
+                  <div className="bg-[#9bcda8] rounded-tr-xl w-full flex items-center justify-center h-1/4 min-h-[40px] sm:min-h-[45px] md:min-h-[50px]">
+                    <span className="text-white text-lg sm:text-xl md:text-2xl font-semibold">{card.number}</span>
+                  </div>
+                  <div className="bg-[#d9e9dd] w-full h-3/4 rounded-br-xl"></div>
                 </div>
-                
-                {/* Responsive button container */}
-                <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
-                  <motion.button
-                    onClick={() => setShowAllServices(!showAllServices)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 md:py-3 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_20px_#A8D5BA] font-medium text-xs sm:text-sm md:text-base bg-[#326B3F] text-white transition-all duration-300 hover:-translate-y-1"
-                  >
-                    {showAllServices ? (
-                      <>Show Less</>
-                    ) : (
-                      <>Explore All</>
-                    )}
-                  </motion.button>
+
+                {/* Content with icon above text - responsive padding */}
+                <div className="flex flex-col items-left text-left mb-3 sm:mb-4 md:mb-5 pr-8 sm:pr-10 md:pr-12">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4">
+                    {/* Example icon: Responsive size */}
+                    <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" width={40} height={40} />
+                  </div>
+                  <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2">{card.title}</h3>
+                  <p className="text-gray-500 text-xs sm:text-sm">{card.description}</p>
                 </div>
               </div>
-            </section>
+            ))}
+          </div>
 
-       <section className="w-full bg-[#e3f3eb] md:mt-22 mt-12 py-16 px-4">
-      <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-        {/* Google Standards Heading */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-2">
-          <span className="inline-block">
-            <span className="text-blue-600 font-semibold">G</span>
-            <span className="text-red-600 font-semibold">o</span>
-            <span className="text-yellow-500 font-semibold">o</span>
-            <span className="text-blue-600 font-semibold">g</span>
-            <span className="text-green-600 font-semibold">l</span>
-            <span className="text-red-600 font-semibold">e</span>
-          </span>
-          <span className="font-normal text-black ml-2">Standards</span>
-        </h2>
-        <div className="text-2xl md:text-3xl font-normal text-black mb-8">
-          We Follow While Writing Content
+          {/* Responsive button container */}
+          <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
+            <motion.button
+              onClick={() => setShowAllServices(!showAllServices)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 md:py-3 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_20px_#A8D5BA] font-medium text-xs sm:text-sm md:text-base bg-[#326B3F] text-white transition-all duration-300 hover:-translate-y-1"
+            >
+              {showAllServices ? (
+                <>Show Less</>
+              ) : (
+                <>Explore All</>
+              )}
+            </motion.button>
+          </div>
         </div>
-        {/* Supporting Paragraphs */}
-        <div className="text-[#6a6a6a] text-base md:text-s space-y-4 max-w-5xl">
-          <p>
-            At TransCurators, we adhere to Google&apos;s highest content standards, ensuring every piece is engaging, SEO-friendly, and highly relevant. As a leading content writing agency in Delhi, India, we specialise in delivering well-researched, original, and compelling content that enhances brand credibility.
-          </p>
-          <p>
-            Our expert content writing services focus on quality, readability, and keyword optimisation, helping businesses rank higher, attract the right audience, and achieve long-term success. Whether it&apos;s blogs, website content, or marketing copies, we craft content that informs, inspires, and drives results.
-          </p>
+      </section>
+
+      <section className="w-full bg-[#e3f3eb] md:mt-22 mt-12 py-16 px-4">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+          {/* Google Standards Heading */}
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <span className="inline-block">
+              <span className="text-blue-600 font-semibold">G</span>
+              <span className="text-red-600 font-semibold">o</span>
+              <span className="text-yellow-500 font-semibold">o</span>
+              <span className="text-blue-600 font-semibold">g</span>
+              <span className="text-green-600 font-semibold">l</span>
+              <span className="text-red-600 font-semibold">e</span>
+            </span>
+            <span className="font-normal text-black ml-2">Standards</span>
+          </h2>
+          <div className="text-2xl md:text-3xl font-normal text-black mb-8">
+            We Follow While Writing Content
+          </div>
+          {/* Supporting Paragraphs */}
+          <div className="text-[#6a6a6a] text-base md:text-s space-y-4 max-w-5xl">
+            <p>
+              At TransCurators, we adhere to Google&apos;s highest content standards, ensuring every piece is engaging, SEO-friendly, and highly relevant. As a leading content writing agency in Delhi, India, we specialise in delivering well-researched, original, and compelling content that enhances brand credibility.
+            </p>
+            <p>
+              Our expert content writing services focus on quality, readability, and keyword optimisation, helping businesses rank higher, attract the right audience, and achieve long-term success. Whether it&apos;s blogs, website content, or marketing copies, we craft content that informs, inspires, and drives results.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       <div>
-         <WhyTransCurators/>
-         <WorkflowStrategy/>   
+        <WhyTransCurators />
+        <WorkflowStrategy />
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -836,16 +823,16 @@ const Landing_Page = () => {
         <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' width={300} height={300} />
         <div className='max-w-screen-xl flex flex-col md:flex-row justify-center items-center mx-auto gap-6 md:gap-8'>
           <div className="flex justify-center items-center mx-auto md:w-2/3 w-full">
-  <Images
-    src="/Homepage 2.png"
-    alt="Icon1"
-    
-    width={400}
-    height={400}
-  />
-</div>
+            <Images
+              src="/Homepage 2.png"
+              alt="Icon1"
 
-          <motion.div 
+              width={400}
+              height={400}
+            />
+          </div>
+
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -853,16 +840,16 @@ const Landing_Page = () => {
             className='flex-row justify-center items-center space-y-4 md:space-y-6 md:w-2/3'
           >
             <h3 className='text-xl sm:text-2xl md:text-3xl font-semibold text-[#326B3F] leading-tight'>
-              Transforming Content,<br/>
-              Reaching New Heights, Breaking Boundaries:<br/>
+              Transforming Content,<br />
+              Reaching New Heights, Breaking Boundaries:<br />
               <span className='text-xl sm:text-2xl md:text-3xl font-semibold text-black'>
-                Celebrating Our Success!<br/>
+                Celebrating Our Success!<br />
               </span>
             </h3>
             <p className='text-sm md:text-base font-regular leading-relaxed md:leading-6 mt-4 md:mt-6 text-[#6a6a6a]'>
               We create compelling content for startups, growing businesses, and global brands. With a commitment to excellence, we ensure every piece is impactful, engaging, and tailored to your needs. Client satisfaction is our priority, and we achieve it by:
             </p>
-            <motion.ul 
+            <motion.ul
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -876,14 +863,14 @@ const Landing_Page = () => {
                 'Ensuring quick turnaround times without compromising on quality.',
                 'Offering customised content solutions to suit different industries and business goals.',
               ].map((item, index) => (
-                <motion.li 
-                  key={index} 
+                <motion.li
+                  key={index}
                   variants={itemVariants}
                   className='text-sm text-[#6a6a6a] flex items-center gap-2'
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <motion.span 
+                  <motion.span
                     className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 10 }}
@@ -896,13 +883,13 @@ const Landing_Page = () => {
                 </motion.li>
               ))}
             </motion.ul>
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row mt-6 md:mt-8"
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <motion.button 
-                onClick={() => {}}
+              <motion.button
+                onClick={() => { }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
@@ -916,7 +903,7 @@ const Landing_Page = () => {
 
       <section className="px-4 md:px-6">
         <div className="max-w-screen-2xl mx-auto md:mt-22 mt-12">
-          <motion.div 
+          <motion.div
             className="text-center mb-10 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -930,59 +917,58 @@ const Landing_Page = () => {
             <p className="text-[#6a6a6a] mt-4 text-xs sm:text-sm">Real feedback from our valued partners</p>
           </motion.div>
 
-         <div className="flex flex-col max-w-screen-2xl items-center bg-white">
-      <div className="flex items-center space-x-6">
-        {/* Previous Arrow */}
-        <button
-          onClick={prevTestimonial}
-          className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
-          aria-label="Previous testimonial"
-        >
-          &lt;
-        </button>
-        {/* Testimonials */}
-        {testimonials.map((testimonial, idx) => (
-          <div
-            key={idx}
-            className={`transition-all duration-300 w-80 p-6 rounded-xl shadow-lg bg-white flex flex-col items-center
+          <div className="flex flex-col max-w-screen-2xl items-center bg-white">
+            <div className="flex items-center space-x-6">
+              {/* Previous Arrow */}
+              <button
+                onClick={prevTestimonial}
+                className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
+                aria-label="Previous testimonial"
+              >
+                &lt;
+              </button>
+              {/* Testimonials */}
+              {testimonials.map((testimonial, idx) => (
+                <div
+                  key={idx}
+                  className={`transition-all duration-300 w-80 p-6 rounded-xl shadow-lg bg-white flex flex-col items-center
               ${idx === activeIndex ? "scale-105 z-10" : "opacity-50 scale-95"}
               ${idx === activeIndex ? "" : "hidden md:flex"}
             `}
-          >
-            
-            <div className="text-lg font-semibold">{testimonial.name}</div>
-            <div className="text-gray-400 text-sm mb-3">{testimonial.title}</div>
-            <p className="text-center italic text-gray-700">{testimonial.text}</p>
-            <p className="text-xs text-[#326B3F] font-medium mt-4">{testimonial.highlight}</p>
+                >
+
+                  <div className="text-lg font-semibold">{testimonial.name}</div>
+                  <div className="text-gray-400 text-sm mb-3">{testimonial.title}</div>
+                  <p className="text-center italic text-gray-700">{testimonial.text}</p>
+                  <p className="text-xs text-[#326B3F] font-medium mt-4">{testimonial.highlight}</p>
+                </div>
+              ))}
+              {/* Next Arrow */}
+              <button
+                onClick={nextTestimonial}
+                className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
+                aria-label="Next testimonial"
+              >
+                &gt;
+              </button>
+            </div>
+            {/* Dots */}
+            <div className="flex justify-center mt-6 md:mt-10 space-x-1">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
+                    }`}
+                  aria-label={`Go to testimonial ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
-        ))}
-        {/* Next Arrow */}
-        <button
-          onClick={nextTestimonial}
-          className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
-          aria-label="Next testimonial"
-        >
-          &gt;
-        </button>
-      </div>
-      {/* Dots */}
-      <div className="flex justify-center mt-6 md:mt-10 space-x-1">
-        {testimonials.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setActiveIndex(idx)}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${
-              activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
-            }`}
-            aria-label={`Go to testimonial ${idx + 1}`}
-          />
-        ))}
-      </div>
-    </div>
         </div>
       </section>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -1020,13 +1006,13 @@ const Landing_Page = () => {
         </div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
         className='max-w-screen-xl flex mt-12 md:mt-22 justify-center mx-auto items-center px-4 md:px-6'
-      >     
+      >
         <div className='text-center flex-row'>
           <p className='text-md text-[#326B3F] font-regular'>Benefits of</p>
           <p className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>
@@ -1037,175 +1023,175 @@ const Landing_Page = () => {
           </p>
         </div>
       </motion.div>
-       <section className="mt-8 md:mt-16 min-h-screen p-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Expertise Across Industries */}
-        <motion.div 
-          className="bg-white rounded-lg p-6 flex items-center outline-2 outline-[#D9E9DD] outline-offset-2 md:col-span-2"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <div className="flex-1">
-            <motion.h2 
+      <section className="mt-8 md:mt-16 min-h-screen p-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Expertise Across Industries */}
+          <motion.div
+            className="bg-white rounded-lg p-6 flex items-center outline-2 outline-[#D9E9DD] outline-offset-2 md:col-span-2"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="flex-1">
+              <motion.h2
+                className="text-lg font-medium text-gray-800 mb-3"
+                whileHover={{ color: "#326B3F" }}
+                transition={{ duration: 0.2 }}
+              >Expertise Across Industries</motion.h2>
+              <p className="text-sm text-gray-600">
+                Our content writers bring industry expertise and create content
+                consistent with your brand personality and goals. They understand
+                worldwide markets, ensuring your content can be helpful to a wide
+                range of viewers.
+              </p>
+            </div>
+            <div className="ml-4 flex-shrink-0">
+              <motion.div
+                className="w-50 h-50"
+                whileHover={{ rotate: [0, -5, 5, -5, 0] }}
+                transition={{ duration: 0.5 }}
+              >
+                <Images src="/QA engineers-bro 1.png" alt="" width={400} height={400} />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Cultural Sensitivity and Localization */}
+          <motion.div
+            className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.h2
               className="text-lg font-medium text-gray-800 mb-3"
               whileHover={{ color: "#326B3F" }}
               transition={{ duration: 0.2 }}
-            >Expertise Across Industries</motion.h2>
+            >Cultural Sensitivity and Localization</motion.h2>
             <p className="text-sm text-gray-600">
-              Our content writers bring industry expertise and create content
-              consistent with your brand personality and goals. They understand
-              worldwide markets, ensuring your content can be helpful to a wide
-              range of viewers.
+              With a deep awareness of cultural settings, I can
+              write create components that appeal to both and
+              international consumers, making your brand more
+              approachable.
             </p>
-          </div>
-          <div className="ml-4 flex-shrink-0">
-            <motion.div 
-              className="w-50 h-50"
-              whileHover={{ rotate: [0, -5, 5, -5, 0] }}
-              transition={{ duration: 0.5 }}
-            >
-              <Images src="/QA engineers-bro 1.png" alt="" width={400} height={400} />
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Cultural Sensitivity and Localization */}
-        <motion.div 
-          className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <motion.h2 
-            className="text-lg font-medium text-gray-800 mb-3"
-            whileHover={{ color: "#326B3F" }}
-            transition={{ duration: 0.2 }}
-          >Cultural Sensitivity and Localization</motion.h2>
-          <p className="text-sm text-gray-600">
-            With a deep awareness of cultural settings, I can
-            write create components that appeal to both and
-            international consumers, making your brand more
-            approachable.
-          </p>
-        </motion.div>
-
-        {/* Timely Delivery */}
-        <motion.div 
-          className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <motion.h2 
-            className="text-lg font-medium text-gray-800 mb-3"
-            whileHover={{ color: "#326B3F" }}
-            transition={{ duration: 0.2 }}
-          >Timely Delivery</motion.h2>
-          <p className="text-sm text-gray-600">
-            Top freelance companies deliver content on time, meeting
-            deadlines without compromising quality. They can quickly
-            grow to handle projects of any size, ensuring your needs are
-            always satisfied.
-          </p>
-        </motion.div>
-
-        {/* Cost-Effective Quality */}
-        <motion.div 
-          className="bg-white rounded-lg p-6 outline-2 outline-[#D9E9DD] outline-offset-2 flex items-center md:col-span-2"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <div className="flex-1">
-            <motion.h2 
+          {/* Timely Delivery */}
+          <motion.div
+            className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.h2
               className="text-lg font-medium text-gray-800 mb-3"
               whileHover={{ color: "#326B3F" }}
               transition={{ duration: 0.2 }}
-            >Cost-Effective Quality</motion.h2>
+            >Timely Delivery</motion.h2>
             <p className="text-sm text-gray-600">
-              High-quality content at lower prices allows you to get the most out of
-              your investment. This cost effectiveness will enable you to spend
-              money on other essential business areas.
+              Top freelance companies deliver content on time, meeting
+              deadlines without compromising quality. They can quickly
+              grow to handle projects of any size, ensuring your needs are
+              always satisfied.
             </p>
-          </div>
-          <div className="ml-4 flex-shrink-0">
-            <motion.div 
-              className="w-50 h-50"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300, damping: 10 }}
-            >
-              <Images src="/Middlebro.png" alt="" width={400} height={400} />
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* SEO-Focused Content */}
-        <motion.div 
-          className="bg-white rounded-lg p-6 outline-2 outline-[#D9E9DD] outline-offset-2 flex items-center md:col-span-2"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <div className="flex-1">
-            <motion.h2 
+          {/* Cost-Effective Quality */}
+          <motion.div
+            className="bg-white rounded-lg p-6 outline-2 outline-[#D9E9DD] outline-offset-2 flex items-center md:col-span-2"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="flex-1">
+              <motion.h2
+                className="text-lg font-medium text-gray-800 mb-3"
+                whileHover={{ color: "#326B3F" }}
+                transition={{ duration: 0.2 }}
+              >Cost-Effective Quality</motion.h2>
+              <p className="text-sm text-gray-600">
+                High-quality content at lower prices allows you to get the most out of
+                your investment. This cost effectiveness will enable you to spend
+                money on other essential business areas.
+              </p>
+            </div>
+            <div className="ml-4 flex-shrink-0">
+              <motion.div
+                className="w-50 h-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
+              >
+                <Images src="/Middlebro.png" alt="" width={400} height={400} />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* SEO-Focused Content */}
+          <motion.div
+            className="bg-white rounded-lg p-6 outline-2 outline-[#D9E9DD] outline-offset-2 flex items-center md:col-span-2"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <div className="flex-1">
+              <motion.h2
+                className="text-lg font-medium text-gray-800 mb-3"
+                whileHover={{ color: "#326B3F" }}
+                transition={{ duration: 0.2 }}
+              >SEO-Focused Content</motion.h2>
+              <p className="text-sm text-gray-600">
+                Indian authors specialize in SEO, producing content that ranks high in search engines and generates genuine traffic to your website. Their experience in keyword research and optimization increases your online presence.
+              </p>
+            </div>
+            <div className="ml-4 flex-shrink-0">
+              <motion.div
+                className="w-50 h-50"
+                whileHover={{ rotate: 3 }}
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
+              >
+                <Images src="/Statistics-bro 1.png" alt="" width={400} height={400} />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Strategic Insight */}
+          <motion.div
+            className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
+            whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.h2
               className="text-lg font-medium text-gray-800 mb-3"
               whileHover={{ color: "#326B3F" }}
               transition={{ duration: 0.2 }}
-            >SEO-Focused Content</motion.h2>
+            >Strategic Insight</motion.h2>
             <p className="text-sm text-gray-600">
-              Indian authors specialize in SEO, producing content that ranks high in search engines and generates genuine traffic to your website. Their experience in keyword research and optimization increases your online presence.
+              These businesses do more than write; they also guide you to optimize your content strategy and ensure it relates to your overall business objectives.
             </p>
-          </div>
-          <div className="ml-4 flex-shrink-0">
-            <motion.div 
-              className="w-50 h-50"
-              whileHover={{ rotate: 3 }}
-              transition={{ type: "spring", stiffness: 300, damping: 10 }}
-            >
-              <Images src="/Statistics-bro 1.png" alt="" width={400} height={400} />
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Strategic Insight */}
-        <motion.div 
-          className="bg-[#D9E9DD] rounded-lg outline-2 outline-[#D9E9DD] outline-offset-0 p-6 flex flex-col justify-center items-left text-left h-full"
-          whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(50, 107, 63, 0.2)" }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <motion.h2 
-            className="text-lg font-medium text-gray-800 mb-3"
-            whileHover={{ color: "#326B3F" }}
-            transition={{ duration: 0.2 }}
-          >Strategic Insight</motion.h2>
-          <p className="text-sm text-gray-600">
-            These businesses do more than write; they also guide you to optimize your content strategy and ensure it relates to your overall business objectives.
-          </p>
-        </motion.div>
-      </div>
-    </section>
-
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
         className='max-w-screen-xl flex justify-center md:mt-22 mt-16 mb-6 md:mb-10 mx-auto items-center px-4 md:px-6'
-      >     
+      >
         <div className='text-center flex-row'>
           <p className='text-md text-[#326B3F] font-regular'>FAQ&apos;s</p>
           <p className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>
@@ -1217,8 +1203,8 @@ const Landing_Page = () => {
       <div className="max-w-screen-xl mx-auto p-4 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 cursor-pointer gap-4 md:gap-8">
           {faqs.slice(0, showMore ? faqs.length : 10).map((faq, index) => (
-            <motion.div 
-              key={faq.id} 
+            <motion.div
+              key={faq.id}
               className="bg-white hover:shadow-lg duration-300 transition-all ease-in-out shadow-md p-5 rounded-md"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1230,7 +1216,7 @@ const Landing_Page = () => {
                 onClick={() => toggleFAQ(faq.id)}
               >
                 {faq.question}
-                <motion.span 
+                <motion.span
                   className="text-xl transition-transform duration-300"
                   animate={{ rotate: openFAQ === faq.id ? 180 : 0 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -1257,21 +1243,21 @@ const Landing_Page = () => {
 
         <div className="flex justify-center mt-8 md:mt-12 lg:mt-22">
           {!showMore ? (
-            <motion.button 
+            <motion.button
               onClick={() => setShowMore(true)}
               className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="flex items-center gap-3 relative z-10">
-                <motion.svg 
-                  viewBox="0 0 24 24" 
-                  fill="#326B3F" 
+                <motion.svg
+                  viewBox="0 0 24 24"
+                  fill="#326B3F"
                   className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
                   animate={{ x: [0, 5, 0] }}
-                  transition={{ 
-                    duration: 1.5, 
-                    repeat: Infinity, 
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
                     repeatType: "mirror",
                     ease: "easeInOut"
                   }}
@@ -1282,21 +1268,21 @@ const Landing_Page = () => {
               </span>
             </motion.button>
           ) : (
-            <motion.button 
+            <motion.button
               onClick={() => setShowMore(false)}
               className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="flex items-center gap-3 relative z-10">
-                <motion.svg 
-                  viewBox="0 0 24 24" 
-                  fill="#326B3F" 
+                <motion.svg
+                  viewBox="0 0 24 24"
+                  fill="#326B3F"
                   className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1"
                   animate={{ x: [0, 5, 0] }}
-                  transition={{ 
-                    duration: 1.5, 
-                    repeat: Infinity, 
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
                     repeatType: "mirror",
                     ease: "easeInOut"
                   }}
@@ -1310,7 +1296,7 @@ const Landing_Page = () => {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -1321,7 +1307,7 @@ const Landing_Page = () => {
           <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-black">
             Where Great Writers <span className="text-[#326B3F]">Build Great Careers</span>
           </h2>
-          <motion.div 
+          <motion.div
             className="mt-6 md:mt-8"
             whileHover={{ y: -5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -1338,8 +1324,8 @@ const Landing_Page = () => {
         </div>
       </motion.div>
 
-    
-    </> 
+
+    </>
   )
 }
 
