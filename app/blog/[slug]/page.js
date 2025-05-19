@@ -3,7 +3,8 @@ import { supabase } from '@/lib/supabaseClient';
 import BlogDetailPage from './BlogDetailPage';
 
 // Define dynamic metadata
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const { slug } = params;
 
   try {
@@ -50,7 +51,8 @@ export async function generateMetadata({ params }) {
 }
 
 // Server component to pass data to client component
-export default async function BlogPage({ params }) {
+export default async function BlogPage(props) {
+  const params = await props.params;
   const { slug } = params;
 
   // Fetch blog data for rendering
