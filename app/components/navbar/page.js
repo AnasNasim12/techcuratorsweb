@@ -142,17 +142,17 @@ const servicesList = [
 ]
 
 const industries = [
-  { name: 'BFSI & Fintech', href: '#', icon: UserGroupIcon },
-  { name: 'Fashion & Lifestyle', href: '#', icon: GlobeAltIcon },
-  { name: 'Education & Edtech', href: '#', icon: BookmarkAltIcon },
-  { name: 'Healthcare & Sports', href: '#', icon: DesktopComputerIcon },
-  { name: 'Automotive', href: '#', icon: DesktopComputerIcon },
+  { name: 'BFSI & Fintech', href: 'writers', icon: UserGroupIcon },
+  { name: 'Fashion & Lifestyle', href: 'writers', icon: GlobeAltIcon },
+  { name: 'Education & Edtech', href: 'writers', icon: BookmarkAltIcon },
+  { name: 'Healthcare & Sports', href: 'writers', icon: DesktopComputerIcon },
+  { name: 'Automotive', href: 'writers', icon: DesktopComputerIcon },
 ]
 const blogPosts = [
   {
     id: 1,
     name: 'Boost your conversion rate',
-    href: '#',
+    href: 'writers',
     preview: 'Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor id mus.',
     imageUrl:
       'https://images.unsplash.com/photo-1558478551-1a378f63328e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2849&q=80',
@@ -160,7 +160,7 @@ const blogPosts = [
   {
     id: 2,
     name: 'How to use search engine optimization to drive traffic to your site',
-    href: '#',
+    href: 'writers',
     preview: 'Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor id mus.',
     imageUrl:
       'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80',
@@ -257,8 +257,12 @@ export default function Example() {
   useEffect(() => {
     // Get the navbar height and add padding to the document body
     const updateBodyPadding = () => {
-      const navbarHeight = document.querySelector('.navbar-container')?.offsetHeight || 0;
-      document.body.style.paddingTop = `${navbarHeight}px`;
+      // Use setTimeout to ensure DOM is ready and navbar is rendered
+      setTimeout(() => {
+        const navbar = document.querySelector('.navbar-container');
+        const navbarHeight = navbar?.offsetHeight || 0;
+        document.body.style.paddingTop = `${navbarHeight}px`;
+      }, 0);
     };
     
     // Track scroll position for shadow effect
@@ -280,6 +284,8 @@ export default function Example() {
       if (menuTimeoutRef.current) {
         clearTimeout(menuTimeoutRef.current);
       }
+      // Reset body padding on unmount
+      document.body.style.paddingTop = '0px';
     };
   }, []);
 
@@ -426,7 +432,7 @@ export default function Example() {
                                           {service.subServices.map((subService, index) => (
                                             <a
                                               key={`${service.name}-${index}`}
-                                              href="#"
+                                              href="writers"
                                               className="py-3 px-4 text-sm text-gray-700 hover:text-[#326B3F] hover:bg-[#F0FAF5] rounded-md transition-all duration-150 hover:border-[#D0EFDC] border border-transparent" // Streamlined hover effect
                                             >
                                               {subService}
@@ -450,7 +456,7 @@ export default function Example() {
                 About Us
               </Link>
               <Popover>
-                {({ open }) => (
+                {({ open, close }) => (
                   <>
                     <Popover.Button
                       className={classNames(
@@ -491,7 +497,7 @@ export default function Example() {
                                 {industries.map((item) => (
                                   <li key={item.name} className="flow-root">
                                     <a
-                                      href={item.href}
+                                      href="writers"
                                       className="-m-3 p-3 flex group items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50"
                                     >
                                       <item.icon className="flex-shrink-0 h-6 w-6 text-[rgba(50,107,63,0.5)]" aria-hidden="true" />
@@ -511,7 +517,7 @@ export default function Example() {
                               <ul role="list" className="mt-6 space-y-6">
                                 {blogPosts.map((post) => (
                                   <li key={post.id} className="flow-root">
-                                    <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
+                                    <a href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
                                         <Image
                                           src={post.imageUrl}
@@ -531,7 +537,7 @@ export default function Example() {
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <Link href="/blog" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group ">
+                              <Link href="/blog" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 group " onClick={() => close()}>
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
                               </Link>
@@ -546,7 +552,7 @@ export default function Example() {
                               <ul role="list" className="mt-6 space-y-6">
                                 {blogPosts.map((post) => (
                                   <li key={post.id} className="flow-root">
-                                    <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
+                                    <a href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
                                         <Image
                                           src={post.imageUrl}
@@ -566,7 +572,7 @@ export default function Example() {
                               </ul>
                             </div>
                             <div className="mt-6 text-sm font-medium">
-                              <Link href="/case-study" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 ">
+                              <Link href="/case-study" className="text-[rgba(50,107,63,0.6)] hover:text-[rgba(50,107,63,0.8)] transition-smooth duration-300 " onClick={() => close()}>
                                 {' '}
                                 View all posts <span aria-hidden="true">→</span>
                               </Link>
@@ -580,7 +586,7 @@ export default function Example() {
               </Popover>
             </Popover.Group>
             <div className="flex items-center md:ml-12">
-              <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
+              <a href="writers" className="text-base font-medium text-gray-500 hover:text-gray-900">
                 For Writers
               </a>
               <Link 
@@ -692,7 +698,7 @@ export default function Example() {
                     {selectedService.subServices && selectedService.subServices.map((subService, idx) => (
                       <a 
                         key={idx} 
-                        href="#" 
+                        href="writers" 
                         className="px-3 py-1.5 text-xs sm:text-sm bg-white border border-gray-200 rounded-full text-gray-600 hover:border-[#326B3F]/40 hover:text-[#326B3F] hover:bg-[#F0FAF5]/50 transition-colors duration-150"
                       >
                         {subService}
@@ -720,7 +726,7 @@ export default function Example() {
                     {selectedCategory.items.map((item, idx) => (
                       <a 
                         key={idx} 
-                        href="#" 
+                        href="writers" 
                         className="py-3 px-4 text-sm text-gray-700 hover:bg-gray-50 rounded-md border border-gray-100"
                       >
                         {item}
@@ -735,10 +741,10 @@ export default function Example() {
             
             <div className="py-6 px-5">
               <div className="grid grid-cols-2 gap-4">
-                <a href="#" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                <a href="writers" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                   For Writers
                 </a>
-                <a href="#" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                <a href="writers" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                   Talk to Sales
                 </a>
               </div>

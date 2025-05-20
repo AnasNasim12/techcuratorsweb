@@ -774,9 +774,11 @@ const WebDesService = () => {
     <div key={idx} className="flex flex-col items-center">
       <div className="relative w-72 h-60 rounded-2xl overflow-hidden shadow-sm group">
         {/* Image: visible by default, hidden on hover */}
-        <img
+        <Image
           src={service.img}
           alt={service.alt}
+          width={400}
+          height={300}
           className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
         />
         {/* Overlay: hidden by default, visible on hover */}
@@ -800,9 +802,11 @@ const WebDesService = () => {
   {services.slice(3).map((service, idx) => (
     <div key={idx} className="flex flex-col items-center">
       <div className="relative w-72 h-60 rounded-2xl overflow-hidden shadow-sm group">
-        <img
+        <Image
           src={service.img}
           alt={service.alt}
+          width={400}
+          height={300}
           className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
         />
         <div className="absolute inset-0 bg-[#d9e9dd] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -909,9 +913,11 @@ const WebDesService = () => {
             key={idx}
             className="bg-white rounded-xl shadow-md overflow-hidden w-32 md:w-40 lg:w-54 h-72 md:h-80 lg:h-96 flex items-center justify-center relative group"
           >
-            <img
+            <Image
               src={founder.img}
               alt={founder.alt}
+              width={400}
+              height={300}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-[#326B3F]/80 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition-opacity duration-300 p-4">
@@ -950,9 +956,11 @@ const WebDesService = () => {
             <span className="text-gray-700">{proj.outcome}</span>
           </div>
           <div className="relative w-full rounded-lg overflow-hidden mb-4">
-            <img
+            <Image
               src={proj.image}
               alt={proj.client}
+              width={400}
+              height={300}
               className="w-full h-40 object-cover"
             />
             <button className="absolute bottom-3 right-3 bg-[#3c6446] text-white text-xs px-4 py-1 rounded-full shadow hover:bg-[#2a4833] transition">
@@ -1067,10 +1075,9 @@ At TransCurators, we have a well-established and thorough procedure that guarant
                 <Image
                   src={step.icon}
                   alt={step.title}
+                  width={400}
+                  height={300}
                   className="w-5 h-5 md:w-7 md:h-7 object-contain"
-                  width={28}
-                  height={28}
-                  loading="lazy"
                 />
               </div>
               <span className="text-[36px] md:text-[48px] font-bold text-[#B3D3BB] leading-none select-none">{step.number}</span>
@@ -1083,10 +1090,9 @@ At TransCurators, we have a well-established and thorough procedure that guarant
               <Image
                 src={step.icon}
                 alt={step.title}
+                width={400}
+                height={300}
                 className="w-7 h-7 object-contain"
-                width={28}
-                height={28}
-                loading="lazy"
               />
             </div>
             

@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import Images from "next/image";
+import Image from 'next/image';
 import Carousel from "../components/carousel/page";
 import ScrollContentSection from "../components/scrollview/page";
 import { motion } from "framer-motion";
-import { Images as LucideImages } from "lucide-react";
 
 function AboutUs() {
   // Define animation variants for container and items
@@ -121,7 +120,7 @@ function AboutUs() {
                   transition={{ delay: 0.4, duration: 0.8 }}
                   className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
                 >
-                  <Images
+                  <Image
                     className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-2 ml-4'
                     src="/aboutushs.png"
                     alt="Landing Page Hero"
@@ -156,91 +155,91 @@ function AboutUs() {
       <div className="relative md:mt-22 mt-12 bg-[#429054]/20 h-auto py-28  flex justify-center items-center mx-auto">
         <div className="max-w-screen-xl flex justify-center items-center mx-auto">
           <Carousel gap={60} className="h-12 ">
-            <Images
+            <Image
               src="/1mg.png"
               alt="Tata1mg - Tata1mg"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Mfine.png"
               alt="Mfine-Mfine"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Apollo Hospitals.png"
               alt="Apollo-Apollo"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Myntra.png"
               alt="Myntra-Myntra"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Paytm.png"
               alt="PayTM - PayTM"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/TCS.png"
               alt="TCS - TCS"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/HCL Technologies.png"
               alt="HCL-HCL"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Airtel.png"
               alt="Airtel-Airtel"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/upGrad.png"
               alt="Upgrad - Upgrad"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Ajio.png"
               alt="Ajio - Ajio"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Aster Hospitals.png"
               alt="Aster-Aster"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/HDFC.png"
               alt="HDFC-HDFC"
               width={200}
               height={48}
               className="h-12"
             />
-            <Images
+            <Image
               src="/Adani.png"
               alt="Adani - Adani"
               width={200}
@@ -278,7 +277,7 @@ function AboutUs() {
               transform hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="text-[#326b3f] group-hover:scale-110 transition-transform duration-300">
-                <Images 
+                <Image 
                   src={item.icon} 
                   alt={item.name + " icon"}
                   width={48}
@@ -316,7 +315,7 @@ function AboutUs() {
             key={idx}
             className="bg-white rounded-xl shadow-md overflow-hidden w-32 md:w-40 lg:w-54 h-72 md:h-80 lg:h-96 flex items-center justify-center relative group"
           >
-            <img
+            <Image
               src={founder.img}
               alt={founder.alt}
               className="w-full h-full object-cover"
