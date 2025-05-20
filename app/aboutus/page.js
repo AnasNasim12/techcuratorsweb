@@ -8,133 +8,132 @@ import { motion } from "framer-motion";
 import { Images as LucideImages } from "lucide-react";
 
 function AboutUs() {
+  // Define animation variants for container and items
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+        duration: 0.5
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   const expertiseItems = [
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#326B3F"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 17v-2a4 4 0 014-4h2m-6 0a4 4 0 014 4v2m0 0v2a4 4 0 01-4 4H7m6-8h2m-2 0a4 4 0 014 4v2m0 0v2a4 4 0 01-4 4H7"
-          />
-        </svg>
-      ),
+      icon: '/messageIcon.png',
+      name: "Automotive",
+    },
+    {
+      icon: '/messageIcon.png',
+      name: "Real Estate",
+    },
+    {
+      icon: '/messageIcon.png',
       name: "Healthcare",
     },
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#326B3F"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 6h16M4 10h16M4 14h16M4 18h16"
-          />
-        </svg>
-      ),
-      name: "Education",
+      icon: '/messageIcon.png',
+      name: "Fintech",
     },
     {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#326B3F"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8 12h8m-8 4h8M8 16h8"
-          />
-        </svg>
-      ),
-      name: "Finance",
+      icon: '/messageIcon.png',
+      name: "Edtech",
     },
-    {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#326B3F"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
-      ),
-      name: "Technology",
-    },
-    {
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="#326B3F"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 8v8m-4-4h8"
-          />
-        </svg>
-      ),
-      name: "Retail",
-    },
-  ];
+  ];  
+  const founders = [
+  {
+    name: "Harneet Singh",
+    position: "CEO & Co-Founder",
+    img: "hsn.png", // Replace with your image path or prop
+    alt: "Founder 1",
+  },
+  {
+    name: "Kshitij Goel",
+    position: "Co-Founder",
+    img: "kg.png",
+    alt: "Founder 2",
+  },
+  {
+    name: "Nandini Marwah",
+    position: "COO & Co-Founder",
+    img: "nand.png",
+    alt: "Founder 3",
+  },
+];
 
   return (
     <div className="min-h-screen w-full">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[calc(100vh-300px)] md:min-h-[calc(100vh-75px)] flex items-center py-12 md:py-20 bg-[#326B3F]/10 to-[#326B3F]/5 overflow-hidden">
-        <div className="container max-w-screen-xl mx-auto px-4 md:px-6 flex flex-col items-center text-center z-10">
-          <div className="inline-block px-4 py-1 bg-[#326B3F]/20 rounded-full mb-6">
-            <span className="text-[#326B3F] font-medium text-sm">About Us</span>
-          </div>
-
-          <h1 className="text-black font-semibold text-[32px] sm:text-[45px] md:text-[60px] leading-tight md:leading-[1.2] tracking-[0.014em] max-w-4xl">
-            We Are TransCurators
-            <span className="text-[#326B3F] block mt-2">
-              Creating Content That Inspires
-            </span>
-          </h1>
-
-          <p className="text-[#6a6a6a] mt-6 text-lg leading-relaxed max-w-2xl mx-auto">
-            We&apos;re a team of passionate content creators who transform ideas
-            into compelling narratives. Our mission is to elevate brands
-            through authentic storytelling that resonates with audiences
-            worldwide.
-          </p>
-        </div>
-
-        {/* Decorative circles */}
-        <div className="absolute top-1/4 left-8 w-16 h-16 rounded-full bg-[#326B3F]/10 blur-xl"></div>
-        <div className="absolute bottom-1/4 right-8 w-20 h-20 rounded-full bg-[#326B3F]/20 blur-xl"></div>
-        <div className="absolute top-3/4 left-1/4 w-12 h-12 rounded-full bg-[#326B3F]/15 blur-lg"></div>
-      </section>
+      <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="flex justify-center w-full relative overflow-hidden"
+            >
+              <div className="flex flex-col md:flex-row bg-white min-h-fit md:min-h-[50vh] md:h-[80vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
+                <motion.div 
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10 "
+                >
+                  <motion.h1 
+                    variants={itemVariants}
+                    className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight mb-3'
+                  >
+                    We Are TransCurators
+                  </motion.h1>
+                  <motion.h1 
+                    variants={itemVariants}
+                    className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight mt-[-10px] md:mt-[-5px]'
+                  >
+                    Creating Content That Inspires
+                  </motion.h1>
+      
+                  <motion.h2 
+                    variants={itemVariants}
+                    className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[12px] lg:text-[16px] xl:text-[16px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] mt-4'
+                  >
+                    We're a team of passionate content creators who transform ideas into
+                    <br />compelling narratives. Our mission is to elevate brands through authentic
+                    <br className="hidden sm:block" /><br className="sm:hidden" />
+                    <span className='text-[#6a6a6a] tracking-normal'>storytelling that resonates with audiences worldwide.</span>
+                  </motion.h2>
+                  
+                 
+                </motion.div>
+                
+                <motion.div 
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="hidden md:flex justify-center items-center md:w-[45%] lg:w-[50%] xl:w-[55%] relative"
+                >
+                  <Images
+                    className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-2 ml-4'
+                    src="/aboutushs.png"
+                    alt="Landing Page Hero"
+                    width={600}
+                    height={600}
+                  />
+                </motion.div>
+      
+                {/* Decorative elements with subtle animation */}
+                
+              </div>
+            </motion.div>
 
       {/* Partners Section */}
       <div className="flex justify-center md:mt-22 mt-12">
@@ -155,10 +154,7 @@ function AboutUs() {
         </div>
       </div>
       <div className="relative md:mt-22 mt-12 bg-[#429054]/20 h-auto py-28  flex justify-center items-center mx-auto">
-        <LucideImages
-          className="absolute opacity-5 -left-10 md:top-10 top-1 md:h-44 md:w-44 h-28 w-28"
-        />
-        <div className="max-w-screen-lg flex justify-center items-center mx-auto">
+        <div className="max-w-screen-xl flex justify-center items-center mx-auto">
           <Carousel gap={60} className="h-12 ">
             <Images
               src="/1mg.png"
@@ -261,61 +257,91 @@ function AboutUs() {
         <div className="text-black text-3xl text-center font-semibold">
           Our Domain Expertise can accelerate your success.
           <br />
-          <span className="text-[#326B3F] mb-4">Let&aposs team up!</span>
+          <span className="text-[#326B3F] mb-4">Let's team up!</span>
         </div>
-        <div className="text-[#326b3f] w-4/5 xl:w-3/5 text-center mt-4">
+        <div className="text-[#6a6a6a] w-4/5 xl:w-3/5 text-center mt-4">
           You need more than content&mdash;you need content that cuts through the
-          noise. That&aposs where we come in. We bring deep industry expertise to
-          the table, crafting tailored solutions that don&aposs just get attention
+          noise. That&apos;s where we come in. We bring deep industry expertise to
+          the table, crafting tailored solutions that don&apos;t just get attention
           but drive real results.
         </div>
       </div>
-
-      {/* Horizontal SVG Line */}
-      <div className="relative z-50 w-full h-20 mt-12 md:mt-22">
-        <svg
-          className="absolute top-0 left-0 w-full h-full opacity-30"
-          viewBox="0 0 1000 200"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 160 Q500 -150 1000 160"
-            stroke="#023912"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
-      </div>
-
-      {/* Expertise Icons Grid */}
-      <div className="flex flex-col justify-center items-center gap-6 py-8 sm:py-12 px-4 sm:px-6 md:px-8">
+      {/* Expertise Icons Grid */}      
+      <div className="flex flex-col justify-center items-center gap-6 md:mt-22 mt-12 px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 xl:gap-14 w-full max-w-7xl">
           {expertiseItems.map((item, key) => (
             <div
               key={key}
-              className="border text-[#326b3f] bg-white hover:bg-[#f8faf9] transition-all duration-300
+              className="border text-[#326b3f] bg-[#D9E9DD] hover:bg-[#f8faf9] transition-all duration-300
               border-[#326b3f]/20 rounded-xl py-4 sm:py-6 px-3 sm:px-4 text-center
               flex flex-col items-center justify-center gap-3 sm:gap-4 group cursor-pointer
               transform hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="text-[#326b3f] group-hover:scale-110 transition-transform duration-300">
-                {item.icon}
+                <Images 
+                  src={item.icon} 
+                  alt={item.name + " icon"}
+                  width={48}
+                  height={48}
+                  className="h-10 w-10 object-contain"
+                />
               </div>
               <span className="font-medium text-xs sm:text-sm md:text-base">{item.name}</span>
             </div>
           ))}
         </div>
-
-        <div className="text-center md:mt-10 mt-4 text-xs sm:text-sm md:text-base text-[#6b6b6b] max-w-3xl mx-auto">
-          Our industry-specific expertise allows us to create content that
-          resonates with your target audience. We understand the unique
-          challenges and opportunities in these sectors, ensuring your message
-          hits home.
-        </div>
       </div>
 
       {/* Scroll Content Section */}
       <ScrollContentSection />
+      <div className="flex justify-center items-center mt-12">
+        <p className="text-[#6a6a6a] text-center max-w-4xl mx-auto leading-relaxed">
+          Innovation is a continuous journey, and we're just getting started. We push boundaries, challenge industry norms, and redefine success in content marketing. As we move forward, our goal remains the same—helping brands craft powerful narratives, enhance engagement, and stay ahead in a competitive digital landscape. The future of content is bright, and we're leading the way.
+        </p>
+      </div>
+<section className="w-screen bg-[#D9E9DD] py-20 md:mt-22 mt-12">
+    <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-4">
+      <div className="flex-1">
+        <p className="text-[#326B3F] text-lg mb-4 font-medium">Our Team</p>
+        <h2 className="text-3xl md:text-4xl mb-5 leading-tight">
+          <span className="text-[#326B3F]">High-octane<br />Storytellers</span> that fuel<br />
+          <span className="text-black">Brand Loyalty</span>
+        </h2>
+        <p className="text-[#6a6a6a] max-w-md mt-4">
+          Meet the minds behind the magic-visionaries who don’t just think outside the box, they crush it.
+        </p>      </div>
+      <div className="flex-1 flex gap-6 justify-center">
+        {founders.map((founder, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-xl shadow-md overflow-hidden w-32 md:w-40 lg:w-54 h-72 md:h-80 lg:h-96 flex items-center justify-center relative group"
+          >
+            <img
+              src={founder.img}
+              alt={founder.alt}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[#326B3F]/80 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition-opacity duration-300 p-4">
+              <h3 className="font-bold text-xl text-center mb-2">{founder.name}</h3>
+              <p className="text-center text-white/90">{founder.position}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <div className="w-full bg-[#e5efe5] py-12 mb-20 md:mt-22 mt-12">
+      <div className="max-w-4xl mx-auto text-center space-y-4">
+        <h2 className="md:text-2xl text-xl font-medium text-black">
+          Step into the realm of limitless possibilities and
+        </h2>
+        <div className="md:text-2xl ml-2 text-xl justify-center text-[#326B3F]">
+        Watch your brand come alive.
+      </div>
+      <div href="/careers"
+            className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-white text-[#487040] transition-shadow duration-300">Book a call</div>
+        </div>
+    </div>
     </div>
   );
 }

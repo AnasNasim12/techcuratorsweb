@@ -532,8 +532,8 @@ const LandingPage = () => {
                 className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-8 ml-4'
                 src="/ads page content writing hs.png"
                 alt="Landing Page Hero"
-                width={800}
-                height={600}
+                width={600}
+                height={400}
                 priority
               />
             </motion.div>
