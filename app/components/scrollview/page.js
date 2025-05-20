@@ -75,7 +75,7 @@ export default function ScrollContentSection() {
   const activeSection = sections[activeIndex];
 
   return (
-    <div ref={sectionRef} className="relative">
+    <div ref={sectionRef} className="mt-12 relative">
       <div className="top-0 h-screen flex items-center justify-center">
         <section className="max-w-screen-xl mx-auto px-4">
           <div className="text-3xl md:mb-18 mb-8 text-[#326b3f] font-semibold text-center">
