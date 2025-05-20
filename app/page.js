@@ -453,21 +453,21 @@ const Landing_Page = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] md:max-w-[800%] mb-3'
+              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6  md:max-w-[800%] mb-3'
             >
               Transform Your  <div className='mt-3'>Brand's Voice with</div>
             </motion.h1>
             <motion.h1
               variants={itemVariants}
-              className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] md:max-w-[800%] mt-[-10px] md:mt-[-5px]'
+              className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6 md:max-w-[800%] mt-[-10px] md:mt-[-5px]'
             >
-              Our Content Writing
-              <div className='mt-3'> Service!</div>
+              Our Content Writing Service!
+              
             </motion.h1>    
 
             <motion.h2
               variants={itemVariants}
-              className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[800%] md:max-w-[800%] mt-4'
+              className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[800%] ml-6 md:max-w-[800%] mt-4'
             >
               Words That Win —
               <br />Content Writing Services That Spark Engagement,
@@ -517,8 +517,8 @@ const Landing_Page = () => {
               muted
               playsInline
               controls={false}
-              className="w-full max-w-[600px] h-[800px] aspect-video object-contain bg-white rounded-xl shadow-none"
-              style={{ minHeight: '400px', maxHeight: '800px', background: 'white' }}
+              className="w-full max-w-[900px] h-[1000px] aspect-video object-contain bg-white rounded-xl shadow-none"
+              style={{ minHeight: '400px', maxHeight: '900px', background: 'white' }}
             >
               Your browser does not support the video tag.
             </video>
