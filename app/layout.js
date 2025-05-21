@@ -1,7 +1,9 @@
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/navbar/page";
 import Footer from "./components/footer/page";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,20 +15,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Quality Content Writing Services | Content Writing Agency | TransCurators",
-  description: "TransCurators is a top content writing services agency in India offering SEO-friendly blogs, articles & web content. Get high-quality content for Brands. Request a quote today!",
-};
+
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  // List of routes where you want to hide header/footer
+  const hideLayoutRoutes = ["/premium-content-writing-services","/website-development-service"];
+
+  const hideLayout = hideLayoutRoutes.includes(pathname);
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Header />
+         {!hideLayout && <Header />}
         <main className="flex-1">{children}</main>
-        <Footer />
+        {!hideLayout && <Footer />}
       </body>
     </html>
   );

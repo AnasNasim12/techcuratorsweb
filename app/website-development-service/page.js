@@ -281,19 +281,19 @@ const WebDesService = () => {
   {
     name: "Harneet Singh",
     position: "CEO & Co-Founder",
-    img: "hsn.png", // Replace with your image path or prop
+    img: "/hsn.png", // Replace with your image path or prop
     alt: "Founder 1",
   },
   {
     name: "Kshitij Goel",
     position: "Co-Founder",
-    img: "kg.png",
+    img: "/kg.png",
     alt: "Founder 2",
   },
   {
     name: "Nandini Marwah",
     position: "COO & Co-Founder",
-    img: "nand.png",
+    img: "/nand.png",
     alt: "Founder 3",
   },
 ];

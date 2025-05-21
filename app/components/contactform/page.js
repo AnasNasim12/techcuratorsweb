@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 const ContactForm = () => {
   const services = [
@@ -14,6 +15,9 @@ const ContactForm = () => {
   ];
 
   const [selectedServices, setSelectedServices] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [projectDetails, setProjectDetails] = useState('');
 
   const handleCheckboxChange = (service) => {
     setSelectedServices((prev) =>
@@ -23,13 +27,44 @@ const ContactForm = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic
+
+    // Prepare form data
+    const formData = {
+      name,
+      email,
+      project_details: projectDetails,
+      services: selectedServices,
+    };
+
+    try {
+      // Insert data into the contactdata table
+      const { data, error } = await supabase
+        .from('contactdata')
+        .insert([formData]);
+
+      if (error) {
+        console.error('Error inserting data:', error);
+        alert('Failed to submit the form. Please try again.');
+        return;
+      }
+
+      console.log('Data inserted successfully:', data);
+      alert('Form submitted successfully!');
+
+      // Reset form fields after successful submission
+      setName('');
+      setEmail('');
+      setProjectDetails('');
+      setSelectedServices([]);
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      alert('An unexpected error occurred. Please try again.');
+    }
   };
 
   return (
-    
     <div className="max-w-5xl mx-auto mt-12 md:mt-22 rounded-xl border border-[#d9e9dd] flex flex-col md:flex-row overflow-hidden">
       {/* Left Panel */}
       <div className="bg-[#D9E9DD] md:w-1/3 p-8 flex flex-col justify-between">
@@ -73,16 +108,22 @@ const ContactForm = () => {
           <input
             type="text"
             placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-1/2 border border-[#B3D3BB] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 shadow-sm text-[#969696] placeholder-[#969696]"
           />
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-1/2 border border-[#B3D3BB] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 shadow-sm text-[#969696] placeholder-[#969696]"
           />
         </div>
         <textarea
           placeholder="About the Project"
+          value={projectDetails}
+          onChange={(e) => setProjectDetails(e.target.value)}
           className="w-full border border-[#B3D3BB] rounded-lg px-4 py-2 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-green-200 shadow-sm text-[#969696] placeholder-[#969696]"
         />
         <div className="border border-[#B3D3BB] rounded-lg p-4 shadow-sm">

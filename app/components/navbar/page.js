@@ -316,8 +316,8 @@ export default function Example() {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-[#326B3F] font-medium' : 'text-gray-500',
-                        'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-[#326B3F] focus:outline-none cursor-pointer transition-colors duration-150' // Faster transition
+                        open ? 'text-[#326B3F] font-bold' : 'text-gray-900 font-bold',
+                        'group bg-white rounded-md inline-flex items-center text-base hover:text-[#326B3F] focus:outline-none cursor-pointer transition-colors duration-150'
                       )}
                     >
                       <span>Services</span>
@@ -452,7 +452,7 @@ export default function Example() {
                   </>
                 )}
               </Popover>
-              <Link href="/aboutus" className="text-base font-medium text-gray-500 hover:text-gray-900">
+              <Link href="/aboutus" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                 About Us
               </Link>
               <Popover>
@@ -460,8 +460,8 @@ export default function Example() {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-gray-900' : 'text-gray-500',
-                        'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none cursor-pointer transition-colors duration-150'
+                        open ? 'text-gray-900 font-bold' : 'text-gray-900 font-bold',
+                        'group bg-white rounded-md inline-flex items-center text-base hover:text-[#326B3F] focus:outline-none cursor-pointer transition-colors duration-150'
                       )}
                     >
                       <span>Resources</span>
@@ -586,12 +586,12 @@ export default function Example() {
               </Popover>
             </Popover.Group>
             <div className="flex items-center md:ml-12">
-              <a href="writers" className="text-base font-medium text-gray-500 hover:text-gray-900">
+              <a href="writers" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                 For Writers
               </a>
               <Link 
                 href="/contact" 
-                className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base text-gray-500 transition-shadow duration-300"
+                className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-bold text-base text-gray-900 hover:text-[#326B3F] transition-shadow duration-300"
               >
                 Talk to Sales
               </Link>
@@ -663,10 +663,10 @@ export default function Example() {
                     </div>
                     
                     <div className="mt-6 space-y-4">
-                      <Link href="/aboutus" className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 rounded-md">
+                      <Link href="/aboutus" className="block px-3 py-2 text-base font-bold text-gray-900 hover:text-[#326B3F] rounded-md transition-colors duration-150">
                         About Us
                       </Link>
-                      <div className="px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-50 rounded-md cursor-pointer">
+                      <div className="px-3 py-2 text-base font-bold text-gray-900 hover:text-[#326B3F] rounded-md cursor-pointer transition-colors duration-150">
                         Resources
                       </div>
                     </div>
@@ -741,10 +741,10 @@ export default function Example() {
             
             <div className="py-6 px-5">
               <div className="grid grid-cols-2 gap-4">
-                <a href="writers" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                <a href="writers" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                   For Writers
                 </a>
-                <a href="writers" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
+                <a href="writers" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                   Talk to Sales
                 </a>
               </div>

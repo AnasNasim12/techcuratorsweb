@@ -13,6 +13,8 @@ const AdminPortal = () => {
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState('')
   const [applications, setApplications] = useState([])
+  const [blogs, setBlogs] = useState([])
+  const [caseStudies, setCaseStudies] = useState([])
   const [exportLoading, setExportLoading] = useState(false)
 
   // Authentication check on load
@@ -80,6 +82,101 @@ const AdminPortal = () => {
     fetchApplications()
   }, [selected])
 
+  // Fetch blogs when the blogs tab is selected
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      if (selected === 'blogs') {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .order('date_posted', { ascending: false })
+
+        if (!error) setBlogs(data || [])
+        else console.error('Error fetching blogs:', error)
+      }
+    }
+    fetchBlogs()
+  }, [selected])
+
+  // Fetch case studies when the case studies tab is selected
+  useEffect(() => {
+    const fetchCaseStudies = async () => {
+      if (selected === 'casestudies') {
+        const { data, error } = await supabase
+          .from('casestd')
+          .select('*')
+          .order('date_posted', { ascending: false })
+
+        if (!error) setCaseStudies(data || [])
+        else console.error('Error fetching case studies:', error)
+      }
+    }
+    fetchCaseStudies()
+  }, [selected])
+
+  // Function to handle application deletion
+  const handleDelete = async (applicationId) => {
+    if (!confirm('Are you sure you want to delete this application?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .eq('id', applicationId)
+
+      if (error) throw error;
+
+      // Update the applications state by removing the deleted application
+      setApplications(applications.filter(app => app.id !== applicationId))
+      alert('Application deleted successfully.')
+    } catch (error) {
+      console.error('Delete failed:', error)
+      alert('Failed to delete application. Please try again.')
+    }
+  }
+
+  // Function to handle blog deletion
+  const handleDeleteBlog = async (blogId) => {
+    if (!confirm('Are you sure you want to delete this blog post?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('blogs')
+        .delete()
+        .eq('id', blogId)
+
+      if (error) throw error;
+
+      // Update the blogs state by removing the deleted blog
+      setBlogs(blogs.filter(blog => blog.id !== blogId))
+      alert('Blog deleted successfully.')
+    } catch (error) {
+      console.error('Delete failed:', error)
+      alert('Failed to delete blog. Please try again.')
+    }
+  }
+
+  // Function to handle case study deletion
+  const handleDeleteCaseStudy = async (caseStudyId) => {
+    if (!confirm('Are you sure you want to delete this case study?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('casestd')
+        .delete()
+        .eq('id', caseStudyId)
+
+      if (error) throw error;
+
+      // Update the case studies state by removing the deleted case study
+      setCaseStudies(caseStudies.filter(cs => cs.id !== caseStudyId))
+      alert('Case study deleted successfully.')
+    } catch (error) {
+      console.error('Delete failed:', error)
+      alert('Failed to delete case study. Please try again.')
+    }
+  }
+
   // Function to convert applications data to CSV
   const exportToCSV = async () => {
     setExportLoading(true)
@@ -137,9 +234,17 @@ const AdminPortal = () => {
     }
   }
 
+  // Function to truncate long text for display
+  const truncateText = (text, maxLength = 100) => {
+    if (!text) return '';
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  }
+
   const tabs = [
     { id: 'blog', label: 'Add Blog' },
+    { id: 'blogs', label: 'Manage Blogs' },
     { id: 'casestd', label: 'Add Case Study' },
+    { id: 'casestudies', label: 'Manage Case Studies' },
     { id: 'job', label: 'Upload Job' },
     { id: 'applications', label: 'Applications' },
   ];
@@ -180,13 +285,13 @@ const AdminPortal = () => {
         {/* Tabs Navigation - simplified without icons */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
+            <nav className="flex flex-wrap -mb-px">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setSelected(tab.id)}
                   className={`
-                    relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-center text-sm font-medium focus:outline-none
+                    relative min-w-0 flex-1 overflow-hidden py-4 px-4 text-center text-sm font-medium focus:outline-none
                     transition-all duration-200 ease-in-out
                     ${selected === tab.id 
                       ? 'text-blue-600 border-b-2 border-blue-500' 
@@ -212,6 +317,116 @@ const AdminPortal = () => {
             {selected === 'blog' && <BlogForm />}
             {selected === 'job' && <JobPostingForm />}
             {selected === 'casestd' && <CaseStdForm />}
+            
+            {/* Blogs Listing */}
+            {selected === 'blogs' && (
+              <div>
+                <div className="mb-6 flex justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-gray-800 pb-2">Manage Blog Posts</h2>
+                </div>
+                
+                {blogs.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-gray-400 text-2xl">0</span>
+                    </div>
+                    <p className="text-gray-500">No blog posts found.</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Posted</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {blogs.map((blog) => (
+                          <tr key={blog.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{truncateText(blog.title, 40)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{blog.author}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(blog.date_posted).toLocaleDateString()}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                              {truncateText(blog.description, 60)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                onClick={() => handleDeleteBlog(blog.id)}
+                                className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Case Studies Listing */}
+            {selected === 'casestudies' && (
+              <div>
+                <div className="mb-6 flex justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-gray-800 pb-2">Manage Case Studies</h2>
+                </div>
+                
+                {caseStudies.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-gray-400 text-2xl">0</span>
+                    </div>
+                    <p className="text-gray-500">No case studies found.</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Posted</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {caseStudies.map((cs) => (
+                          <tr key={cs.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{truncateText(cs.title, 40)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cs.author}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(cs.date_posted).toLocaleDateString()}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                              {truncateText(cs.description, 60)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                onClick={() => handleDeleteCaseStudy(cs.id)}
+                                className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Applications Listing (Existing) */}
             {selected === 'applications' && (
               <div>
                 <div className="mb-6 flex justify-between items-center">
@@ -252,9 +467,17 @@ const AdminPortal = () => {
                       <div key={app.id} className="bg-gray-50 border border-gray-100 rounded-lg p-5 hover:shadow-md transition-shadow duration-200">
                         <div className="flex justify-between border-b border-gray-200 pb-3 mb-3">
                           <h3 className="text-lg font-semibold text-gray-800">{app.full_name}</h3>
-                          <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
-                            Applied: {new Date(app.applied_at || app.created_at).toLocaleDateString()}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
+                              Applied: {new Date(app.applied_at || app.created_at).toLocaleDateString()}
+                            </span>
+                            <button
+                              onClick={() => handleDelete(app.id)}
+                              className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
