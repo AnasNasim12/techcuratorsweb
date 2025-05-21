@@ -16,25 +16,22 @@ const AdminPortal = () => {
   const [blogs, setBlogs] = useState([])
   const [caseStudies, setCaseStudies] = useState([])
   const [exportLoading, setExportLoading] = useState(false)
+  const [editingItem, setEditingItem] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
   // Authentication check on load
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Check current authentication state
         const { data: { session }, error } = await supabase.auth.getSession();
         
-        if (error) {
-          throw error;
-        }
-
-        // If no session or user, keep adminUser as null which will show login page
+        if (error) throw error;
+        
         if (!session || !session.user) {
           setLoading(false);
           return;
         }
 
-        // User is authenticated through Supabase
         setAdminUser(session.user);
         setLoading(false);
       } catch (error) {
@@ -45,7 +42,6 @@ const AdminPortal = () => {
 
     checkAuth();
 
-    // Set up auth state listener
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_OUT' || !session) {
         setAdminUser(null);
@@ -54,7 +50,6 @@ const AdminPortal = () => {
       }
     });
 
-    // Cleanup listener on unmount
     return () => {
       if (authListener && authListener.subscription) {
         authListener.subscription.unsubscribe();
@@ -67,7 +62,7 @@ const AdminPortal = () => {
     setAdminUser(null)
   }
 
-  // Fetch applications only when selected
+  // Fetch applications
   useEffect(() => {
     const fetchApplications = async () => {
       if (selected === 'applications') {
@@ -82,7 +77,7 @@ const AdminPortal = () => {
     fetchApplications()
   }, [selected])
 
-  // Fetch blogs when the blogs tab is selected
+  // Fetch blogs
   useEffect(() => {
     const fetchBlogs = async () => {
       if (selected === 'blogs') {
@@ -98,7 +93,7 @@ const AdminPortal = () => {
     fetchBlogs()
   }, [selected])
 
-  // Fetch case studies when the case studies tab is selected
+  // Fetch case studies
   useEffect(() => {
     const fetchCaseStudies = async () => {
       if (selected === 'casestudies') {
@@ -114,10 +109,9 @@ const AdminPortal = () => {
     fetchCaseStudies()
   }, [selected])
 
-  // Function to handle application deletion
+  // Handle deletions
   const handleDelete = async (applicationId) => {
     if (!confirm('Are you sure you want to delete this application?')) return;
-
     try {
       const { error } = await supabase
         .from('job_applications')
@@ -125,8 +119,6 @@ const AdminPortal = () => {
         .eq('id', applicationId)
 
       if (error) throw error;
-
-      // Update the applications state by removing the deleted application
       setApplications(applications.filter(app => app.id !== applicationId))
       alert('Application deleted successfully.')
     } catch (error) {
@@ -135,10 +127,8 @@ const AdminPortal = () => {
     }
   }
 
-  // Function to handle blog deletion
   const handleDeleteBlog = async (blogId) => {
     if (!confirm('Are you sure you want to delete this blog post?')) return;
-
     try {
       const { error } = await supabase
         .from('blogs')
@@ -146,8 +136,6 @@ const AdminPortal = () => {
         .eq('id', blogId)
 
       if (error) throw error;
-
-      // Update the blogs state by removing the deleted blog
       setBlogs(blogs.filter(blog => blog.id !== blogId))
       alert('Blog deleted successfully.')
     } catch (error) {
@@ -156,10 +144,8 @@ const AdminPortal = () => {
     }
   }
 
-  // Function to handle case study deletion
   const handleDeleteCaseStudy = async (caseStudyId) => {
     if (!confirm('Are you sure you want to delete this case study?')) return;
-
     try {
       const { error } = await supabase
         .from('casestd')
@@ -167,8 +153,6 @@ const AdminPortal = () => {
         .eq('id', caseStudyId)
 
       if (error) throw error;
-
-      // Update the case studies state by removing the deleted case study
       setCaseStudies(caseStudies.filter(cs => cs.id !== caseStudyId))
       alert('Case study deleted successfully.')
     } catch (error) {
@@ -177,11 +161,83 @@ const AdminPortal = () => {
     }
   }
 
-  // Function to convert applications data to CSV
+  // Handle updates
+  const handleUpdateBlog = async (blog) => {
+    try {
+      const { error } = await supabase
+        .from('blogs')
+        .update({
+          title: blog.title,
+          author: blog.author,
+          description: blog.description,
+          date_posted: blog.date_posted
+        })
+        .eq('id', blog.id)
+
+      if (error) throw error;
+      setBlogs(blogs.map(b => b.id === blog.id ? blog : b))
+      setShowModal(false)
+      alert('Blog updated successfully.')
+    } catch (error) {
+      console.error('Update failed:', error)
+      alert('Failed to update blog. Please try again.')
+    }
+  }
+
+  const handleUpdateCaseStudy = async (caseStudy) => {
+    try {
+      const { error } = await supabase
+        .from('casestd')
+        .update({
+          title: caseStudy.title,
+          author: caseStudy.author,
+          description: caseStudy.description,
+          date_posted: caseStudy.date_posted
+        })
+        .eq('id', caseStudy.id)
+
+      if (error) throw error;
+      setCaseStudies(caseStudies.map(cs => cs.id === caseStudy.id ? caseStudy : cs))
+      setShowModal(false)
+      alert('Case study updated successfully.')
+    } catch (error) {
+      console.error('Update failed:', error)
+      alert('Failed to update case study. Please try again.')
+    }
+  }
+
+  const handleUpdateApplication = async (application) => {
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .update({
+          full_name: application.full_name,
+          email: application.email,
+          phone: application.phone,
+          availability: application.availability,
+          salary_expectations: application.salary_expectations,
+          cover_letter: application.cover_letter,
+          resume_url: application.resume_url,
+          portfolio_link: application.portfolio_link,
+          linkedin_profile: application.linkedin_profile,
+          additional_info: application.additional_info
+        })
+        .eq('id', application.id)
+
+      if (error) throw error;
+      setApplications(applications.map(app => app.id === application.id ? application : app))
+      setShowModal(false)
+      alert('Application updated successfully.')
+    } catch (error) {
+      console.error('Update failed:', error)
+      alert('Failed to update application. Please try again.')
+    }
+  }
+
+  // Export to CSV
   const exportToCSV = async () => {
     setExportLoading(true)
     try {
-      // Get all applications data, even if not all loaded in state
       const { data, error } = await supabase
         .from('job_applications')
         .select('*')
@@ -190,23 +246,17 @@ const AdminPortal = () => {
       if (error) throw error
       
       if (data && data.length > 0) {
-        // Get headers from first object keys
         const headers = Object.keys(data[0]).filter(key => 
-          // Optional: exclude fields you don't want to export
           !['id', 'created_at', 'updated_at'].includes(key)
         )
-        
-        // Add removed fields back if you want them in the export
-        headers.unshift('id') 
+        headers.unshift('id')
         headers.push('created_at')
         
-        // Create CSV rows
         let csvContent = headers.join(',') + '\n'
         
         data.forEach(app => {
           const row = headers.map(header => {
             let cell = app[header] || ''
-            // Handle cells with commas, quotes, or newlines
             if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
               cell = `"${cell.replace(/"/g, '""')}"`
             }
@@ -215,7 +265,6 @@ const AdminPortal = () => {
           csvContent += row.join(',') + '\n'
         })
         
-        // Create and download the file
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
         const url = URL.createObjectURL(blob)
         const link = document.createElement('a')
@@ -234,7 +283,7 @@ const AdminPortal = () => {
     }
   }
 
-  // Function to truncate long text for display
+  // Truncate text for display
   const truncateText = (text, maxLength = 100) => {
     if (!text) return '';
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
@@ -249,7 +298,6 @@ const AdminPortal = () => {
     { id: 'applications', label: 'Applications' },
   ];
 
-  // Show loading state while checking authentication
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -260,13 +308,12 @@ const AdminPortal = () => {
     );
   }
 
-  // If not authenticated, show login page
   if (!adminUser) return <AdminLogin onLogin={setAdminUser} />
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with shadow card */}
+        {/* Header */}
         <div className="bg-white rounded-xl shadow-md p-6 mb-8">
           <div className="flex justify-between items-center">
             <div>
@@ -282,7 +329,7 @@ const AdminPortal = () => {
           </div>
         </div>
         
-        {/* Tabs Navigation - simplified without icons */}
+        {/* Tabs Navigation */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex flex-wrap -mb-px">
@@ -300,8 +347,6 @@ const AdminPortal = () => {
                   `}
                 >
                   {tab.label}
-                  
-                  {/* Blue gradient indicator */}
                   {selected === tab.id && (
                     <span className="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600"></span>
                   )}
@@ -357,6 +402,15 @@ const AdminPortal = () => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <button
+                                onClick={() => {
+                                  setEditingItem({ type: 'blog', data: blog })
+                                  setShowModal(true)
+                                }}
+                                className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-sm mr-2"
+                              >
+                                Update
+                              </button>
+                              <button
                                 onClick={() => handleDeleteBlog(blog.id)}
                                 className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
                               >
@@ -411,6 +465,15 @@ const AdminPortal = () => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <button
+                                onClick={() => {
+                                  setEditingItem({ type: 'casestudy', data: cs })
+                                  setShowModal(true)
+                                }}
+                                className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-sm mr-2"
+                              >
+                                Update
+                              </button>
+                              <button
                                 onClick={() => handleDeleteCaseStudy(cs.id)}
                                 className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
                               >
@@ -426,7 +489,7 @@ const AdminPortal = () => {
               </div>
             )}
             
-            {/* Applications Listing (Existing) */}
+            {/* Applications Listing */}
             {selected === 'applications' && (
               <div>
                 <div className="mb-6 flex justify-between items-center">
@@ -447,9 +510,7 @@ const AdminPortal = () => {
                         Exporting...
                       </>
                     ) : (
-                      <>
-                        Export to CSV
-                      </>
+                      <>Export to CSV</>
                     )}
                   </button>
                 </div>
@@ -471,6 +532,15 @@ const AdminPortal = () => {
                             <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
                               Applied: {new Date(app.applied_at || app.created_at).toLocaleDateString()}
                             </span>
+                            <button
+                              onClick={() => {
+                                setEditingItem({ type: 'application', data: app })
+                                setShowModal(true)
+                              }}
+                              className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-sm"
+                            >
+                              Update
+                            </button>
                             <button
                               onClick={() => handleDelete(app.id)}
                               className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
@@ -557,9 +627,282 @@ const AdminPortal = () => {
             )}
           </div>
         </div>
+
+        {/* Modal for Editing */}
+        {showModal && editingItem && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              <h2 className="text-xl font-semibold mb-4">
+                Edit {editingItem.type === 'blog' ? 'Blog' : editingItem.type === 'casestudy' ? 'Case Study' : 'Application'}
+              </h2>
+              {editingItem.type === 'blog' && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    const formData = new FormData(e.target)
+                    handleUpdateBlog({
+                      id: editingItem.data.id,
+                      title: formData.get('title'),
+                      author: formData.get('author'),
+                      description: formData.get('description'),
+                      date_posted: formData.get('date_posted')
+                    })
+                  }}
+                >
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Title</label>
+                    <input
+                      name="title"
+                      defaultValue={editingItem.data.title}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Author</label>
+                    <input
+                      name="author"
+                      defaultValue={editingItem.data.author}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                      name="description"
+                      defaultValue={editingItem.data.description}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Date Posted</label>
+                    <input
+                      name="date_posted"
+                      type="date"
+                      defaultValue={new Date(editingItem.data.date_posted).toISOString().split('T')[0]}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              )}
+              {editingItem.type === 'casestudy' && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    const formData = new FormData(e.target)
+                    handleUpdateCaseStudy({
+                      id: editingItem.data.id,
+                      title: formData.get('title'),
+                      author: formData.get('author'),
+                      description: formData.get('description'),
+                      date_posted: formData.get('date_posted')
+                    })
+                  }}
+                >
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Title</label>
+                    <input
+                      name="title"
+                      defaultValue={editingItem.data.title}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Author</label>
+                    <input
+                      name="author"
+                      defaultValue={editingItem.data.author}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                      name="description"
+                      defaultValue={editingItem.data.description}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Date Posted</label>
+                    <input
+                      name="date_posted"
+                      type="date"
+                      defaultValue={new Date(editingItem.data.date_posted).toISOString().split('T')[0]}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              )}
+              {editingItem.type === 'application' && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    const formData = new FormData(e.target)
+                    handleUpdateApplication({
+                      id: editingItem.data.id,
+                      full_name: formData.get('full_name'),
+                      email: formData.get('email'),
+                      phone: formData.get('phone'),
+                      availability: formData.get('availability'),
+                      salary_expectations: formData.get('salary_expectations'),
+                      cover_letter: formData.get('cover_letter'),
+                      resume_url: formData.get('resume_url'),
+                      portfolio_link: formData.get('portfolio_link'),
+                      linkedin_profile: formData.get('linkedin_profile'),
+                      additional_info: formData.get('additional_info')
+                    })
+                  }}
+                >
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input
+                      name="full_name"
+                      defaultValue={editingItem.data.full_name}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                      name="email"
+                      type="email"
+                      defaultValue={editingItem.data.email}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Phone</label>
+                    <input
+                      name="phone"
+                      defaultValue={editingItem.data.phone}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Availability</label>
+                    <input
+                      name="availability"
+                      defaultValue={editingItem.data.availability}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Salary Expectations</label>
+                    <input
+                      name="salary_expectations"
+                      defaultValue={editingItem.data.salary_expectations}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Cover Letter</label>
+                    <textarea
+                      name="cover_letter"
+                      defaultValue={editingItem.data.cover_letter}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Resume URL</label>
+                    <input
+                      name="resume_url"
+                      type="url"
+                      defaultValue={editingItem.data.resume_url}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Portfolio Link</label>
+                    <input
+                      name="portfolio_link"
+                      type="url"
+                      defaultValue={editingItem.data.portfolio_link}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">LinkedIn Profile</label>
+                    <input
+                      name="linkedin_profile"
+                      type="url"
+                      defaultValue={editingItem.data.linkedin_profile}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Additional Info</label>
+                    <textarea
+                      name="additional_info"
+                      defaultValue={editingItem.data.additional_info}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       
-      {/* Add animation CSS */}
       <style jsx>{`
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-in-out;
