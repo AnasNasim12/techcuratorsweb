@@ -13,8 +13,9 @@ const AdminPortal = () => {
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState('')
   const [applications, setApplications] = useState([])
-  const [blogs, setBlogs] = useState([])
+  const [ blogs, setBlogs] = useState([])
   const [caseStudies, setCaseStudies] = useState([])
+  const [jobs, setJobs] = useState([])
   const [exportLoading, setExportLoading] = useState(false)
   const [editingItem, setEditingItem] = useState(null)
   const [showModal, setShowModal] = useState(false)
@@ -35,7 +36,7 @@ const AdminPortal = () => {
         setAdminUser(session.user);
         setLoading(false);
       } catch (error) {
-        console.error('Authentication error:', error);
+        console.error('Authentication error:', error.message || error);
         setLoading(false);
       }
     };
@@ -72,6 +73,7 @@ const AdminPortal = () => {
           .order('created_at', { ascending: false })
 
         if (!error) setApplications(data)
+        else console.error('Error fetching applications:', error.message || error)
       }
     }
     fetchApplications()
@@ -87,7 +89,7 @@ const AdminPortal = () => {
           .order('date_posted', { ascending: false })
 
         if (!error) setBlogs(data || [])
-        else console.error('Error fetching blogs:', error)
+        else console.error('Error fetching blogs:', error.message || error)
       }
     }
     fetchBlogs()
@@ -103,10 +105,34 @@ const AdminPortal = () => {
           .order('date_posted', { ascending: false })
 
         if (!error) setCaseStudies(data || [])
-        else console.error('Error fetching case studies:', error)
+        else console.error('Error fetching case studies:', error.message || error)
       }
     }
     fetchCaseStudies()
+  }, [selected])
+
+  // Fetch jobs
+  useEffect(() => {
+    const fetchJobs = async () => {
+      if (selected === 'jobs') {
+        try {
+          const { data, error } = await supabase
+            .from('job_postings')
+            .select('id, title, category, location, experience, description, requirements, created_at')
+            .order('created_at', { ascending: false })
+
+          if (error) {
+            throw new Error(`Supabase error: ${error.message || JSON.stringify(error)}`)
+          }
+
+          setJobs(data || [])
+        } catch (error) {
+          console.error('Error fetching jobs:', error.message || error)
+          setJobs([])
+        }
+      }
+    }
+    fetchJobs()
   }, [selected])
 
   // Handle deletions
@@ -122,7 +148,7 @@ const AdminPortal = () => {
       setApplications(applications.filter(app => app.id !== applicationId))
       alert('Application deleted successfully.')
     } catch (error) {
-      console.error('Delete failed:', error)
+      console.error('Delete failed:', error.message || error)
       alert('Failed to delete application. Please try again.')
     }
   }
@@ -139,7 +165,7 @@ const AdminPortal = () => {
       setBlogs(blogs.filter(blog => blog.id !== blogId))
       alert('Blog deleted successfully.')
     } catch (error) {
-      console.error('Delete failed:', error)
+      console.error('Delete failed:', error.message || error)
       alert('Failed to delete blog. Please try again.')
     }
   }
@@ -156,8 +182,25 @@ const AdminPortal = () => {
       setCaseStudies(caseStudies.filter(cs => cs.id !== caseStudyId))
       alert('Case study deleted successfully.')
     } catch (error) {
-      console.error('Delete failed:', error)
+      console.error('Delete failed:', error.message || error)
       alert('Failed to delete case study. Please try again.')
+    }
+  }
+
+  const handleDeleteJob = async (jobId) => {
+    if (!confirm('Are you sure you want to delete this job posting?')) return;
+    try {
+      const { error } = await supabase
+        .from('job_postings')
+        .delete()
+        .eq('id', jobId)
+
+      if (error) throw error;
+      setJobs(jobs.filter(job => job.id !== jobId))
+      alert('Job posting deleted successfully.')
+    } catch (error) {
+      console.error('Delete failed:', error.message || error)
+      alert('Failed to delete job posting. Please try again.')
     }
   }
 
@@ -179,7 +222,7 @@ const AdminPortal = () => {
       setShowModal(false)
       alert('Blog updated successfully.')
     } catch (error) {
-      console.error('Update failed:', error)
+      console.error('Update failed:', error.message || error)
       alert('Failed to update blog. Please try again.')
     }
   }
@@ -201,8 +244,8 @@ const AdminPortal = () => {
       setShowModal(false)
       alert('Case study updated successfully.')
     } catch (error) {
-      console.error('Update failed:', error)
-      alert('Failed to update case study. Please try again.')
+      console.error('Update failed:', error.message || error)
+      alert('Failed to delete case study. Please try again.')
     }
   }
 
@@ -229,8 +272,40 @@ const AdminPortal = () => {
       setShowModal(false)
       alert('Application updated successfully.')
     } catch (error) {
-      console.error('Update failed:', error)
+      console.error('Update failed:', error.message || error)
       alert('Failed to update application. Please try again.')
+    }
+  }
+
+  const handleUpdateJob = async (job) => {
+    try {
+      // Convert requirements to array if it's a string
+      let requirements = job.requirements;
+      if (typeof requirements === 'string') {
+        requirements = requirements
+          .split(',')
+          .map(item => item.trim())
+          .filter(Boolean);
+      }
+      const { error } = await supabase
+        .from('job_postings')
+        .update({
+          title: job.title,
+          category: job.category,
+          location: job.location,
+          experience: job.experience,
+          description: job.description,
+          requirements: requirements,
+        })
+        .eq('id', job.id)
+
+      if (error) throw error;
+      setJobs(jobs.map(j => j.id === job.id ? { ...job, requirements } : j))
+      setShowModal(false)
+      alert('Job posting updated successfully.')
+    } catch (error) {
+      console.error('Update failed:', error.message || error)
+      alert('Failed to update job posting. Please try again.')
     }
   }
 
@@ -276,7 +351,7 @@ const AdminPortal = () => {
         document.body.removeChild(link)
       }
     } catch (error) {
-      console.error('Export failed:', error)
+      console.error('Export failed:', error.message || error)
       alert('Failed to export data. Please try again.')
     } finally {
       setExportLoading(false)
@@ -295,6 +370,7 @@ const AdminPortal = () => {
     { id: 'casestd', label: 'Add Case Study' },
     { id: 'casestudies', label: 'Manage Case Studies' },
     { id: 'job', label: 'Upload Job' },
+    { id: 'jobs', label: 'Manage Jobs' },
     { id: 'applications', label: 'Applications' },
   ];
 
@@ -489,6 +565,73 @@ const AdminPortal = () => {
               </div>
             )}
             
+            {/* Jobs Listing */}
+            {selected === 'jobs' && (
+              <div>
+                <div className="mb-6 flex justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-gray-800 pb-2">Manage Job Postings</h2>
+                </div>
+                
+                {jobs.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-gray-400 text-2xl">0</span>
+                    </div>
+                    <p className="text-gray-500">No job postings found.</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Requirements</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {jobs.map((job) => (
+                          <tr key={job.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{truncateText(job.title, 40)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.category}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.location}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{job.experience}</td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">{truncateText(job.description, 60)}</td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">{truncateText(job.requirements, 60)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(job.created_at).toLocaleDateString()}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                onClick={() => {
+                                  setEditingItem({ type: 'job', data: job })
+                                  setShowModal(true)
+                                }}
+                                className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-sm mr-2"
+                              >
+                                Update
+                              </button>
+                              <button
+                                onClick={() => handleDeleteJob(job.id)}
+                                className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+            
             {/* Applications Listing */}
             {selected === 'applications' && (
               <div>
@@ -633,7 +776,7 @@ const AdminPortal = () => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
               <h2 className="text-xl font-semibold mb-4">
-                Edit {editingItem.type === 'blog' ? 'Blog' : editingItem.type === 'casestudy' ? 'Case Study' : 'Application'}
+                Edit {editingItem.type === 'blog' ? 'Blog' : editingItem.type === 'casestudy' ? 'Case Study' : editingItem.type === 'job' ? 'Job Posting' : 'Application'}
               </h2>
               {editingItem.type === 'blog' && (
                 <form
@@ -753,6 +896,100 @@ const AdminPortal = () => {
                       type="date"
                       defaultValue={new Date(editingItem.data.date_posted).toISOString().split('T')[0]}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              )}
+              {editingItem.type === 'job' && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    const formData = new FormData(e.target)
+                    handleUpdateJob({
+                      id: editingItem.data.id,
+                      title: formData.get('title'),
+                      category: formData.get('category'),
+                      location: formData.get('location'),
+                      experience: formData.get('experience'),
+                      description: formData.get('description'),
+                      // Always pass requirements as string from the form
+                      requirements: formData.get('requirements'),
+                    })
+                  }}
+                >
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Title</label>
+                    <input
+                      name="title"
+                      defaultValue={editingItem.data.title}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Category</label>
+                    <input
+                      name="category"
+                      defaultValue={editingItem.data.category}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Location</label>
+                    <input
+                      name="location"
+                      defaultValue={editingItem.data.location}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Experience</label>
+                    <input
+                      name="experience"
+                      defaultValue={editingItem.data.experience}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                      name="description"
+                      defaultValue={editingItem.data.description}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Requirements</label>
+                    <textarea
+                      name="requirements"
+                      defaultValue={
+                        Array.isArray(editingItem.data.requirements)
+                          ? editingItem.data.requirements.join(', ')
+                          : editingItem.data.requirements || ''
+                      }
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      rows="4"
                       required
                     />
                   </div>

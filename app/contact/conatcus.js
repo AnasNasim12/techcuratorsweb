@@ -11,7 +11,9 @@ const Contact = () => {
     const scrollToContactForm = () => {
         // If already on /contact, scroll to form
         if (contactFormRef.current) {
-            contactFormRef.current.scrollIntoView({ behavior: 'smooth' }); 
+            // Adjust scroll position so form is closer to top (e.g., offset by 100px)
+            const y = contactFormRef.current.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         } else {
             // If not, redirect to /contact
             router.push('/contact');
@@ -46,11 +48,11 @@ const Contact = () => {
                 </div>
 
                 <div className="relative z-10 text-center px-4">
-                    <h1 className="text-4xl md:text-5xl font-semibold text-gray-900">
-                        Hire a <span className="text-black">Copywriter</span>
+                    <h1 className="text-4xl md:text-5xl font-semibold text-black">
+                        Bring Ideas. We Bring Skills.
                     </h1>
-                    <p className="text-4xl md:text-5xl text-white font-bold mt-4">
-                        Professional Copywriting Service in India
+                    <p className="text-4xl md:text-5xl  font-bold mt-4 text-black">
+                        Let's Create!
                     </p>
                     <button
                         className="mt-8 bg-white text-[#326B3F] px-6 py-3 rounded-md shadow hover:bg-gray-100 transition"

@@ -186,12 +186,12 @@ export default function Example() {
   // Track scroll position to apply shadow conditionally
   const [hasScrolled, setHasScrolled] = useState(false);
 
-  // Simplified handlers for click-based navigation
+  // Improved handlers for mouse-based navigation
   const handleMenuMouseLeave = () => {
     clearTimeout(menuTimeoutRef.current);
     menuTimeoutRef.current = setTimeout(() => {
       setActiveService(null);
-    }, 150); // Reduced from 300ms for snappier response
+    }, 100); // Even quicker response time for better UX
   };
 
   const handleMenuMouseEnter = () => {
@@ -294,37 +294,42 @@ export default function Example() {
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" />
       <div className="relative z-100">
         <div className="max-w-9xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
+          
+          {/* Mobile menu button - unchanged */}
           <div className="-mr-2 -my-2 md:hidden">
             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 ">
               <span className="sr-only">Open menu</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
+          
           <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
             <Link href="/">
               <Image 
                 src="/Trans_logo.svg" 
                 alt="Logo" 
-                width={192} // 48 * 4 (w-48)
-                height={32} // 8 * 4 (h-8)
+                width={192}
+                height={32}
                 className="h-8 w-48"
               />
             </Link>
+            
             <Popover.Group as="nav" className="flex space-x-10">
               <Popover>
-                {({ open }) => (
+                {({ open, close }) => (
                   <>
                     <Popover.Button
                       className={classNames(
                         open ? 'text-[#326B3F] font-bold' : 'text-gray-900 font-bold',
                         'group bg-white rounded-md inline-flex items-center text-base hover:text-[#326B3F] focus:outline-none cursor-pointer transition-colors duration-150'
                       )}
+                      onMouseEnter={() => handleMenuMouseEnter()}
                     >
                       <span>Services</span>
                       <ChevronDownIcon
                         className={classNames(
                           open ? 'text-[#326B3F] rotate-180' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-[#326B3F] transition-all duration-200' // Faster rotation
+                          'ml-2 h-5 w-5 group-hover:text-[#326B3F] transition-all duration-200'
                         )}
                         aria-hidden="true"
                       />
@@ -332,17 +337,21 @@ export default function Example() {
 
                     <Transition
                       as={Fragment}
-                      enter="transition ease-out duration-150" // Faster enter
+                      enter="transition ease-out duration-150"
                       enterFrom="opacity-0 -translate-y-1"
                       enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-100" // Faster leave
+                      leave="transition ease-in duration-100"
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 -translate-y-1"
+                      afterLeave={() => setActiveService(null)}
                     >
                       <Popover.Panel 
-                        className="hidden md:block absolute z-100 top-full inset-x-0 transform shadow-lg bg-white" // Removed border-t border-[#E0F3E8]
+                        className="hidden md:block absolute z-100 top-full inset-x-0 transform shadow-lg bg-white"
                         onMouseEnter={handleMenuMouseEnter}
-                        onMouseLeave={handleMenuMouseLeave}
+                        onMouseLeave={() => {
+                          handleMenuMouseLeave();
+                          setTimeout(() => close(), 100);
+                        }}
                       >
                         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 xl:py-12">
                           <div className="transition-all duration-200 ease-in-out"> {/* Faster transition */}
@@ -430,13 +439,13 @@ export default function Example() {
                                         
                                         <div className="grid grid-cols-3 gap-3">
                                           {service.subServices.map((subService, index) => (
-                                            <a
+                                            <Link
                                               key={`${service.name}-${index}`}
                                               href="writers"
                                               className="py-3 px-4 text-sm text-gray-700 hover:text-[#326B3F] hover:bg-[#F0FAF5] rounded-md transition-all duration-150 hover:border-[#D0EFDC] border border-transparent" // Streamlined hover effect
                                             >
                                               {subService}
-                                            </a>
+                                            </Link>
                                           ))}
                                         </div>
                                       </div>
@@ -463,6 +472,7 @@ export default function Example() {
                         open ? 'text-gray-900 font-bold' : 'text-gray-900 font-bold',
                         'group bg-white rounded-md inline-flex items-center text-base hover:text-[#326B3F] focus:outline-none cursor-pointer transition-colors duration-150'
                       )}
+                      onMouseEnter={() => handleMenuMouseEnter()}
                     >
                       <span>Resources</span>
                       <ChevronDownIcon
@@ -483,7 +493,14 @@ export default function Example() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 -translate-y-1"
                     >
-                      <Popover.Panel className="hidden md:block absolute z-100 top-full inset-x-0 transform shadow-lg">
+                      <Popover.Panel 
+                        className="hidden md:block absolute z-100 top-full inset-x-0 transform shadow-lg"
+                        onMouseEnter={handleMenuMouseEnter}
+                        onMouseLeave={() => {
+                          handleMenuMouseLeave();
+                          setTimeout(() => close(), 100);
+                        }}
+                      >
                         <div className="absolute inset-0 flex">
                           <div className="bg-white w-1/2" />
                           <div className="bg-white w-1/2" />
@@ -496,13 +513,13 @@ export default function Example() {
                               <ul role="list" className="mt-5 space-y-6">
                                 {industries.map((item) => (
                                   <li key={item.name} className="flow-root">
-                                    <a
+                                    <Link
                                       href="writers"
                                       className="-m-3 p-3 flex group items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50"
                                     >
                                       <item.icon className="flex-shrink-0 h-6 w-6 text-[rgba(50,107,63,0.5)]" aria-hidden="true" />
                                       <span className="ml-4 text-base font-normal text-gray-500 group-hover:translate-x-1.5 duration-300 ease-in-out transition-all">{item.name}</span>
-                                    </a>
+                                    </Link>
                                   </li>
                                 ))}
                               </ul>
@@ -517,7 +534,7 @@ export default function Example() {
                               <ul role="list" className="mt-6 space-y-6">
                                 {blogPosts.map((post) => (
                                   <li key={post.id} className="flow-root">
-                                    <a href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
+                                    <Link href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
                                         <Image
                                           src={post.imageUrl}
@@ -531,7 +548,7 @@ export default function Example() {
                                         <h4 className="text-base font-medium text-gray-900 truncate">{post.name}</h4>
                                         <p className="mt-1 text-sm text-gray-500">{post.preview}</p>
                                       </div>
-                                    </a>
+                                    </Link>
                                   </li>
                                 ))}
                               </ul>
@@ -552,7 +569,7 @@ export default function Example() {
                               <ul role="list" className="mt-6 space-y-6">
                                 {blogPosts.map((post) => (
                                   <li key={post.id} className="flow-root">
-                                    <a href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
+                                    <Link href="writers" className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 group">
                                       <div className="hidden sm:block flex-shrink-0">
                                         <Image
                                           src={post.imageUrl}
@@ -566,7 +583,7 @@ export default function Example() {
                                         <h4 className="text-base font-medium text-gray-900 truncate">{post.name}</h4>
                                         <p className="mt-1 text-sm text-gray-500">{post.preview}</p>
                                       </div>
-                                    </a>
+                                    </Link>
                                   </li>
                                 ))}
                               </ul>
@@ -586,9 +603,9 @@ export default function Example() {
               </Popover>
             </Popover.Group>
             <div className="flex items-center md:ml-12">
-              <a href="writers" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
-                For Writers
-              </a>
+              <Link href="/careers" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
+                Careers
+              </Link>
               <Link 
                 href="/contact" 
                 className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-bold text-base text-gray-900 hover:text-[#326B3F] transition-shadow duration-300"
@@ -696,13 +713,13 @@ export default function Example() {
                   <h3 className="text-sm font-medium text-gray-700 mb-3">Our Services</h3>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {selectedService.subServices && selectedService.subServices.map((subService, idx) => (
-                      <a 
-                        key={idx} 
-                        href="writers" 
+                      <Link
+                        key={idx}
+                        href="writers"
                         className="px-3 py-1.5 text-xs sm:text-sm bg-white border border-gray-200 rounded-full text-gray-600 hover:border-[#326B3F]/40 hover:text-[#326B3F] hover:bg-[#F0FAF5]/50 transition-colors duration-150"
                       >
                         {subService}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -724,13 +741,13 @@ export default function Example() {
                   
                   <div className="grid gap-3 sm:grid-cols-2">
                     {selectedCategory.items.map((item, idx) => (
-                      <a 
+                      <Link
                         key={idx} 
                         href="writers" 
                         className="py-3 px-4 text-sm text-gray-700 hover:bg-gray-50 rounded-md border border-gray-100"
                       >
                         {item}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -741,12 +758,12 @@ export default function Example() {
             
             <div className="py-6 px-5">
               <div className="grid grid-cols-2 gap-4">
-                <a href="writers" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
-                  For Writers
-                </a>
-                <a href="writers" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
+                <Link href="/careers" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
+                  Careers
+                </Link>
+                <Link href="/contact" className="rounded-md text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                   Talk to Sales
-                </a>
+                </Link>
               </div>
             </div>
           </div>

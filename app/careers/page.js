@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 import { useRef } from 'react'; // Import useRef for scrolling
 import OpenPositions from '../components/openpostion/page';
-import TeamSection from '../components/teamsection/page';
+
 const Careers = () => {
   // Reference to the OpenPositions section for smooth scrolling
   const openPositionsRef = useRef(null);
@@ -53,7 +53,7 @@ const Careers = () => {
        
       </section>
       
-       <TeamSection /> 
+       
       <div ref={openPositionsRef}>
          <OpenPositions /> 
       </div>

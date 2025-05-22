@@ -54,7 +54,7 @@ function AboutUs() {
   const founders = [
   {
     name: "Harneet Singh",
-    position: "CEO & Co-Founder",
+    position: "Co-Founder",
     img: "/hsn.png", // Add leading slash for local images
     alt: "Founder 1",
     width: 400,
@@ -70,7 +70,7 @@ function AboutUs() {
   },
   {
     name: "Nandini Marwah",
-    position: "COO & Co-Founder",
+    position: "Co-Founder",
     img: "/nand.png",
     alt: "Founder 3",
     width: 400,
@@ -307,7 +307,7 @@ function AboutUs() {
 <section className="w-screen bg-[#D9E9DD] py-20 md:mt-22 mt-12">
     <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-4">
       <div className="flex-1">
-        <p className="text-[#326B3F] text-lg mb-4 font-medium">Our Team</p>
+        <p className="text-[#326B3F] text-lg mb-4 font-medium">Our Founding Team</p>
         <h2 className="text-3xl md:text-4xl mb-5 leading-tight">
           <span className="text-[#326B3F]">High-octane<br />Storytellers</span> that fuel<br />
           <span className="text-black">Brand Loyalty</span>

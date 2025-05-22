@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Facebook, Instagram, Twitter, Mail, Phone, ArrowRight } from "lucide-react"
+import { Linkedin, Instagram, Twitter, Mail, Phone, ArrowRight } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -15,21 +15,16 @@ export default function Footer() {
               height={200}
               className="h-8 sm:h-10"
               style={{ filter: "invert(100%)" }}
-            />
-          </div>
-          <div className="flex space-x-3">
-            <a href="#" className="bg-[#326B3F] hover:bg-green-800 rounded-full p-2 transition-colors">
-              <Facebook size={20} className="text-white" />
-              <span className="sr-only">Facebook</span>
+            />          </div>          <div className="flex space-x-3">
+            <a href="https://www.linkedin.com/company/transcurators/" className="bg-[#326B3F] hover:bg-green-800 rounded-full p-2 transition-colors">
+              <Linkedin size={20} className="text-white" />
+              <span className="sr-only">LinkedIn</span>
             </a>
-            <a href="#" className="bg-[#326B3F] hover:bg-green-800 rounded-full p-2 transition-colors">
+            <a href="https://www.instagram.com/transcurators/?hl=en" className="bg-[#326B3F] hover:bg-green-800 rounded-full p-2 transition-colors">
               <Instagram size={20} className="text-white" />
               <span className="sr-only">Instagram</span>
             </a>
-            <a href="#" className="bg-[#326B3F] hover:bg-green-800 rounded-full p-2 transition-colors">
-              <Twitter size={20} className="text-white" />
-              <span className="sr-only">Twitter</span>
-            </a>
+         
           </div>
         </div>
 
@@ -40,31 +35,31 @@ export default function Footer() {
             <h3 className="text-lg font-medium mb-3 sm:mb-4">Important Links</h3>
             <ul className="space-y-1.5 text-sm">
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/aboutus" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>About Us</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/contact" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Contact Us</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/careers" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
-                  <span>For Writers</span>
+                  <span>Careers</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/blogs" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Blogs</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/case-studies" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Case Study</span>
                 </a>
@@ -193,3 +188,5 @@ export default function Footer() {
     </footer>
   )
 }
+
+

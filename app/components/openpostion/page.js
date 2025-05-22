@@ -468,18 +468,8 @@ const OpenPositions = () => {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden hidden sm:block">
-        <svg 
-          className="w-full" 
-          height="150" 
-          viewBox="0 0 1440 150" 
-          preserveAspectRatio="none"
-        >
-          <path d="M 0,150 C 480,0 960,0 1440,150" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-        </svg>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 mt-12 md:mt-22 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-12 md:mt-22 relative">
         <div className="text-center mb-8 sm:mb-12 mt-12 md:mt-22 space-y-2 sm:space-y-4">
           <h2 className="text-2xl md:text-3xl font-medium text-gray-900">Open Positions</h2>
           <p className="text-sm sm:text-base text-gray-600">Find your next career opportunity with us.</p>

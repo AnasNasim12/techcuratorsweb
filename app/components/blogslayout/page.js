@@ -289,7 +289,7 @@ const BlogLayout = () => {
                         {truncateDescription(featuredPosts[0].content, 150)}
                       </p>
                       <Link 
-                        href={`/blog/${featuredPosts[0].id}`} 
+                        href={`/blog/${featuredPosts[0].slug}`} 
                         className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm transition-all duration-300 mt-2"
                       >
                         Read Article

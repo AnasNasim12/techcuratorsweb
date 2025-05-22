@@ -15,6 +15,7 @@ const sections = [
     id: 1,
     title: "The spark of an idea",
     headingColor: "#326b3f",
+    image: "/journey1.png",
     content:
       "Every great journey begins with a vision. Ours was to redefine content marketing by mixing creativity with strategy. We aim to bring brands to life through compelling storytelling, ensuring every piece of content engages, inspires, and converts. With a mission to disrupt and innovate, we built a platform that amplifies engagement by 30-50% and transforms content into powerful brand experiences.",
   },
@@ -22,6 +23,7 @@ const sections = [
     id: 2,
     title: "Building the foundation",
     headingColor: "#326b3f",
+    image: "/journey2.png",
     content:
       "A strong foundation is key to success. We built a powerhouse team of strategists, writers, designers, and marketers passionate about innovation. Our 5K+ creators from premier institutes like IIT Delhi and DTU craft content that captivates and delivers impact. Whether it's animated videos, editorial services, or digital storytelling, our expertise ensures brands stand out in a crowded market.",
   },
@@ -29,12 +31,14 @@ const sections = [
     id: 3,
     title: "Delivering impact",
     headingColor: "#326b3f",
+    image: "/journey3.png",
     content:
       "Content should do more than inform—it should inspire and drive action. With 1M+ creatives delivered, we specialize in animated videos, graphic design, gamified learning, and corporate training modules. Every project is designed to elevate brand engagement, enhance digital presence, and create measurable success. We don't just create content—we transform ideas into powerful marketing assets.",
   },
   {
     id: 4,
     title: "Scaling beyond borders",
+    image: "/journey4.png",
     headingColor: "#326b3f",
     content:
       "What started as a mission soon became a global movement. Today, we serve over 600 brands across industries, offering end-to-end digital solutions tailored for impact. With a commitment to 97% on-time delivery, we ensure our content reaches audiences effectively. Our digital factory produces high-quality content, from e-publications to corporate training modules, making an impact worldwide.",

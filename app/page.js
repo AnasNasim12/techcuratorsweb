@@ -115,11 +115,6 @@ const Landing_Page = () => {
   ];
   const processItems = [
     {
-      title: "Our Unique Strengths",
-      description: "",
-      highlight: true,
-    },
-    {
       title: "Content for 500+ brands",
       description: "Serving startups, enterprises, and everything in between with tailored content solutions.",
     },
@@ -444,7 +439,7 @@ const Landing_Page = () => {
         transition={{ duration: 0.8 }}
         className="flex justify-center w-full relative overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row bg-white border-4 border-[#429450] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row bg-[linear-gradient(90deg,_rgba(66,148,80,0.3)_0%,_rgba(255,255,255,0.3)_35%)] border-4 border-[#429450] md:rounded-4xl min-h-fit md:min-h-[50vh] md:h-[90vh] md:max-w-[calc(100vw-40px)] lg:max-w-[calc(100vw-70px)] w-full mt-4 py-8 md:py-4 relative overflow-hidden">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -453,16 +448,9 @@ const Landing_Page = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6  md:max-w-[800%] mb-3'
+              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6 md:max-w-[800%]'
             >
-              Transform Your  <div className='mt-3'>Brand's Voice with</div>
-            </motion.h1>
-            <motion.h1
-              variants={itemVariants}
-              className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6 md:max-w-[800%] mt-[-10px] md:mt-[-5px]'
-            >
-              Our Content Writing Service!
-              
+              Transform Your Brand's Voice with <span className='text-[#4B7D57]'>Our Content Writing Service!</span>
             </motion.h1>    
 
             <motion.h2
@@ -517,7 +505,7 @@ const Landing_Page = () => {
               muted
               playsInline
               controls={false}
-              className="w-full max-w-[900px] h-[1000px] aspect-video object-contain bg-white rounded-xl shadow-none"
+              className="w-full max-w-[800px] h-[900px] aspect-video object-contain bg-white rounded-xl shadow-none"
               style={{ minHeight: '400px', maxHeight: '900px', background: 'white' }}
             >
               Your browser does not support the video tag.
@@ -563,43 +551,42 @@ const Landing_Page = () => {
         </div>
       </section>
 
-      <section className="md:mt-22 mt-12 bg-white px-4 md:px-6">
-        <div className="max-w-screen-xl mx-auto">
-          <motion.div
-            className="text-center mb-10 md:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+      <section className="md:mt-22 mt-12 px-0">
+  {/* Full-width green background */}
+  <div className="w-screen bg-[#429054]/20 flex flex-col items-center py-12 px-0">
+    <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6">
+      <motion.div
+        className="text-center mb-10 md:mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className="text-2xl md:text-3xl font-medium">
+          What Makes Us <span className="text-[#326B3F]">Different?</span>
+        </h2>
+      </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        {processItems.map((item, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-[24px] shadow-md px-8 py-8 flex flex-col items-center text-center"
+            style={{ minHeight: 260 }}
           >
-            <h2 className="text-2xl md:text-3xl font-medium">
-              What Makes Us <span className="text-[#326B3F]">Different?</span>
-            </h2>
-
-          </motion.div>
-          <div className="max-w-screen-xl mx-auto md:mt-6 mt-4 px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3">
-              {processItems.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={`rounded-xl border border-[#B3D3BB] p-8 flex flex-col justify-center items-center text-center min-h-[180px] ${item.highlight
-                      ? "bg-[#B3D3BB] text-gray-900 font-medium text-2xl"
-                      : "bg-white"
-                    }`}
-                >
-                  <div className={`mb-2 ${item.highlight ? "text-3xl" : "text-xl font-semibold"}`}>
-                    {item.title}
-                  </div>
-                  {item.description && (
-                    <div className="text-gray-500 text-sm mt-2">{item.description}</div>
-                  )}
-                </div>
-              ))}
+            <div className="text-[20px] font-semibold mb-3 text-black leading-tight">
+              {item.title}
             </div>
+            {item.description && (
+              <div className="text-gray-500 text-base leading-snug">
+                {item.description}
+              </div>
+            )}
           </div>
-
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       <motion.section
         initial={{ opacity: 0 }}
