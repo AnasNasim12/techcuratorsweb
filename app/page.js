@@ -1180,7 +1180,6 @@ const Landing_Page = () => {
         className='max-w-screen-xl flex justify-center md:mt-22 mt-16 mb-6 md:mb-10 mx-auto items-center px-4 md:px-6'
       >
         <div className='text-center flex-row'>
-          <p className='text-md text-[#326B3F] font-regular'>FAQ&apos;s</p>
           <p className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>
             Frequently Asked<span className='text-[#326B3F]'> Questions</span>
           </p>

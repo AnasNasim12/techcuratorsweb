@@ -345,7 +345,7 @@ function AboutUs() {
         <div className="md:text-2xl ml-2 text-xl justify-center text-[#326B3F]">
         Watch your brand come alive.
       </div>
-      <div href="/careers"
+      <div href="/contact"
             className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-white text-[#487040] transition-shadow duration-300">Book a call</div>
         </div>
     </div>

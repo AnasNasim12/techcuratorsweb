@@ -1,7 +1,7 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/navbar/page";
+import Example from "./components/navbar/page";
 import Footer from "./components/footer/page";
 import { usePathname } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-         {!hideLayout && <Header />}
+         {!hideLayout && <Example />}
         <main className="flex-1">{children}</main>
         {!hideLayout && <Footer />}
       </body>
