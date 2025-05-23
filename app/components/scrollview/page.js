@@ -1,12 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Images from 'next/image';
 import {
   motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
 
@@ -46,121 +43,107 @@ const sections = [
 ];
 
 export default function ScrollContentSection() {
-  const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  // Track scroll within this section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Map scroll progress (0 to 1) to section indices (0 to 4)
-  const sectionIndex = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, sections.length + 1]
-  );
-
-  // Log scroll progress (for debugging)
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("ScrollYProgress:", latest.toFixed(2));
-  });
-
-  // Update active section based on scroll
-  useMotionValueEvent(sectionIndex, "change", (latest) => {
-    const index = Math.floor(latest);
-    console.log("Mapped section index:", index);
-    if (index >= 0 && index < sections.length) {
-      setActiveIndex(index);
-    }
-  });
-
   const activeSection = sections[activeIndex];
 
   return (
-    <div ref={sectionRef} className="mt-12 relative">
-      <div className="top-0 h-screen flex items-center justify-center">
-        <section className="max-w-screen-xl mx-auto px-4">
-          <div className="text-3xl md:mb-18 mb-8 text-[#326b3f] font-semibold text-center">
-            Our Journey
-          </div>
-          
-          <div className="relative">
-            <div className="rounded-lg overflow-hidden shadow-lg">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSection.id}
-                  className="flex flex-col md:flex-row"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {/* Left Section */}
-                  <div className="w-full md:w-1/2 bg-white p-8">
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <div className="text-6xl font-bold text-[#326B3F] mb-4">
-                        {activeSection.id}
-                      </div>
-                      <h2  className="text-2xl font-semibold mb-4">
-                        {activeSection.title}
-                      </h2>
-                      <p className="text-[#6a6a6a]">{activeSection.content}</p>
-                    </motion.div>
-                  </div>
+    <div className="py-12 relative">
+      <section className="max-w-screen-xl mx-auto px-4">
+        <h2 className="text-2xl md:text-3xl md:mb-16 mb-8 text-[#326b3f] font-semibold text-center">
+          Our Journey
+        </h2>
+        
+        <div className="relative">
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSection.id}
+                className="flex flex-col md:flex-row"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Left Section - Content */}
+                <div className="w-full md:w-1/2 bg-white p-5 sm:p-6 md:p-8">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#326B3F] mb-3 md:mb-4">
+                      {activeSection.id}
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-semibold mb-3 md:mb-4">
+                      {activeSection.title}
+                    </h2>
+                    <p className="text-sm md:text-base text-[#6a6a6a]">
+                      {activeSection.content}
+                    </p>
+                  </motion.div>
+                </div>
 
-                  {/* Right Section */}
-                  <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center min-h-[250px] relative">
-                    <motion.div
-                      className="w-full h-full"
-                      initial={{ opacity: 0, scale: 1.1 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {activeSection.image ? (
+                {/* Right Section - Image */}
+                <div className="w-full md:w-1/2 bg-gray-200 flex items-center justify-center min-h-[200px] sm:min-h-[250px] md:min-h-[300px] relative">
+                  <motion.div
+                    className="w-full h-full"
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {activeSection.image && (
+                      <div className="relative w-full h-full min-h-[200px] sm:min-h-[250px] md:min-h-[300px]">
                         <Images
                           src={activeSection.image}
                           alt={activeSection.title}
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          style={{ objectFit: 'cover' }}
                           className="rounded-lg"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
-                      ) : (
-                        <Images
-                          src="https://miro.medium.com/v2/resize:fit:1400/1*tDvPpTA8Jw5P_B5xV8gsjw.jpeg"
-                          alt={activeSection.title}
-                          layout="fill"
-                          objectFit="cover"
-                          className="rounded-lg"
-                        />
-                      )}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Pagination indicators */}
-            <div className="flex justify-center md:mt-22 mt-12 space-x-1">
-              {sections.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${
-                    activeIndex === index ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+                      </div>
+                    )}
+                  </motion.div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </section>
-      </div>
+
+          {/* Pagination indicators - Larger tap targets for mobile */}
+          <div className="flex justify-center mt-8 md:mt-12 space-x-2 md:space-x-3">
+            {sections.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-2 md:h-2.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${
+                  activeIndex === index 
+                    ? 'w-10 md:w-12 bg-[#429054]/70' 
+                    : 'w-5 md:w-6 bg-gray-400 hover:bg-gray-600'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+          
+          {/* Mobile navigation buttons for easier tapping */}
+          <div className="flex justify-between mt-6 md:hidden">
+            <button
+              onClick={() => setActiveIndex(prev => (prev > 0 ? prev - 1 : sections.length - 1))}
+              className="bg-[#E8F3EB] text-[#326B3F] px-4 py-2 rounded-lg"
+              aria-label="Previous slide"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setActiveIndex(prev => (prev < sections.length - 1 ? prev + 1 : 0))}
+              className="bg-[#326B3F] text-white px-4 py-2 rounded-lg"
+              aria-label="Next slide"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

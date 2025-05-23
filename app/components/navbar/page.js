@@ -303,6 +303,22 @@ export default function Example() {
             </Popover.Button>
           </div>
           
+          {/* Logo for mobile - centered */}
+          <div className="flex justify-center items-center md:hidden flex-1">
+            <Link href="/" className="flex items-center justify-center">
+              <Image 
+                src="/Trans_logo.svg" 
+                alt="Logo" 
+                width={150}
+                height={28}
+                className="h-7 w-auto"
+              />
+            </Link>
+          </div>
+          
+          {/* Empty div for layout balance on mobile */}
+          <div className="w-10 md:hidden"></div>
+          
           <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
             <Link href="/">
               <Image 
