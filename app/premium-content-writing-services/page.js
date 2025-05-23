@@ -465,33 +465,32 @@ const LandingPage = () => {
         </Link>
 
         {/* Talk to Sales Button */}
-        <Link
-          href="/contact"
+        <div
+          onClick={() => {
+              document.getElementById('contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
           className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900"
         >
           Talk to Sales
-        </Link>
+        </div>
       </div>
     </header>
             {/* Hero Section - Ad Landing Version */}
            <section className="w-full mb-5 bg-[#B3D3BB] h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
-      {/* Radial Gradient Overlay */}
-      <div className="absolute inset-0 flex items-center mt-140 justify-center pointer-events-none">
-        {/* Red - outermost ring */}
-        <div className="absolute w-[800px] h-[800px] rounded-full bg-[#abcfb4]"></div>
-        <div className="absolute w-[745px] h-[745px] rounded-full bg-[#a3cbad]"></div>
-        {/* Orange */}
-        <div className="absolute w-[690px] h-[690px] rounded-full bg-[#9cc7a6]"></div>
-        {/* Yellow */}
-        <div className="absolute w-[635px] h-[635px] rounded-full bg-[#95c4a0]"></div>
-        {/* Green */}
-        <div className="absolute w-[580px] h-[580px] rounded-full bg-[#8ec19a]"></div>
-        {/* Blue */}
-        <div className="absolute w-[525px] h-[525px] rounded-full bg-[#88be95]"></div>
-        {/* Indigo */}
-        <div className="absolute w-[470px] h-[470px] rounded-full bg-[#82bb90]"></div>
-        {/* Violet - innermost circle */}
-        <div className="absolute w-[415px] h-[415px] rounded-full bg-[#7db88b]"></div>
+      {/* Semi-circle Gradient Overlay */}
+      <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
+        {/* Concentric semi-circles starting from bottom center */}
+        <div className="absolute bottom-0 w-[160vw] h-[160vw] md:w-[130vw] md:h-[130vw] lg:w-[100vw] lg:h-[100vw] rounded-[50%] bg-[#abcfb4] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[150vw] h-[150vw] md:w-[120vw] md:h-[120vw] lg:w-[94vw] lg:h-[94vw] rounded-[50%] bg-[#a3cbad] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[140vw] h-[140vw] md:w-[110vw] md:h-[110vw] lg:w-[88vw] lg:h-[88vw] rounded-[50%] bg-[#9cc7a6] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[130vw] h-[130vw] md:w-[100vw] md:h-[100vw] lg:w-[82vw] lg:h-[82vw] rounded-[50%] bg-[#95c4a0] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[120vw] h-[120vw] md:w-[90vw] md:h-[90vw] lg:w-[76vw] lg:h-[76vw] rounded-[50%] bg-[#8ec19a] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[110vw] h-[110vw] md:w-[80vw] md:h-[80vw] lg:w-[70vw] lg:h-[70vw] rounded-[50%] bg-[#88be95] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[100vw] h-[100vw] md:w-[70vw] md:h-[70vw] lg:w-[64vw] lg:h-[64vw] rounded-[50%] bg-[#82bb90] translate-y-[45%]"></div>
+        <div className="absolute bottom-0 w-[90vw] h-[90vw] md:w-[60vw] md:h-[60vw] lg:w-[58vw] lg:h-[58vw] rounded-[50%] bg-[#7db88b] translate-y-[45%]"></div>
       </div>
 
        <motion.div 

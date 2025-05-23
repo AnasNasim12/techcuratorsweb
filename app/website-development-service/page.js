@@ -624,12 +624,17 @@ const founders = [
             </Link>
     
             {/* Talk to Sales Button */}
-            <Link
-              href="/contact"
+            <div
+              onClick={() => {
+              document.getElementById('contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
               className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900"
             >
               Talk to Sales
-            </Link>
+            </div>
           </div>
         </header>
                 
@@ -676,12 +681,14 @@ const founders = [
               <div
                 className="text-black text-sm sm:text-base md:text-lg lg:text-lg font-normal mt-4 md:mt-6 lg:mt-8 xl:mt-10 leading-[1.5] max-w-[95%] md:max-w-[95%]">
                   From Idea to Launch- Fast, Flexible and Focused on Results
-                </div>
-
-
-              <motion.button
+                </div>              <motion.button
                 variants={itemVariants}
-                onClick={() => window.location.href = "/contact"}
+                onClick={() => {
+              document.getElementById('contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
@@ -698,7 +705,7 @@ const founders = [
                 >
                   <path
                     d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
-                    7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+                    7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315
                     8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
                     15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
                     className="fill-white group-hover:fill-[#326B3F]"
@@ -790,18 +797,7 @@ const founders = [
                     </div>
                 </div>
             </section>
-            <section className="max-w-screen-2xl text-center mx-auto md:mt-22 mt-12 px-4">
-    <div className="max-w-screen-xl mx-auto">
-      <h2 className="text-2xl md:text-3xl mb-4">About Us</h2>
-      <p className="text-[#6a6a6a] text-sm font-light mb-6 leading-relaxed">
-        We at TransCurators believe in delivering quality, original, and well-researched content across various niches. Founded in 2018 with our head office in New Delhi, India, we believe in empowering brands by crafting compelling stories that resonate with their target audience.
-      </p>
-      <p className="text-[#6a6a6a] text-sm font-light leading-relaxed">
-        With over 500 experts, ranging from gifted wordsmiths to field experts from first-rate institutions, including DTU and IIT Delhi, we have successfully dispensed over 1 million creatives to over 600 clients globally.
-      </p>
-    </div>
-  </section>
-  <section className="w-full py-16 px-4 bg-white">
+  <section className="w-full md:mt-22 mt-12 px-4 bg-white">
     <div className="max-w-6xl mx-auto">
       <h2 className="text-2xl md:text-3xl text-center mb-2">Our services</h2>
       <p className="text-[#6a6a6a] text-center mb-12 text-sm md:text-base max-w-2xl mx-auto">
@@ -928,8 +924,13 @@ const founders = [
       <div className="max-w-4xl mx-auto text-center space-y-4">
         <h2 className="md:text-2xl text-xl font-medium text-black">
           Your Industry, <span className="text-[#326B3F]">Our Expertise</span>
-        </h2>
-      <div href="/careers"
+        </h2>      <div
+            onClick={() => {
+              document.getElementById('contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
             className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-[#487040] text-white transition-shadow duration-300">Tell Us About Your Project</div>
         </div>
     </div>
@@ -937,14 +938,11 @@ const founders = [
      <section className="w-screen bg-[#D9E9DD] py-12 sm:py-16 md:py-20 md:mt-22 mt-12">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 px-4 sm:px-6">
           <div className="w-full md:flex-1 text-center md:text-left mb-8 md:mb-0">
-            <p className="text-[#326B3F] text-base md:text-lg mb-3 md:mb-4 font-medium">Our Founding Team</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-5 leading-tight">
-              <span className="text-[#326B3F]">High-octane<br className="hidden sm:block" /> Storytellers</span> that fuel<br className="hidden sm:block" />
-              <span className="text-black"> Brand Loyalty</span>
+              <span className="text-[#326B3F]">About Us</span>
             </h2>
             <p className="text-[#6a6a6a] text-sm md:text-base mx-auto md:mx-0 max-w-md mt-3 md:mt-4">
-              Meet the minds behind the magic-visionaries who don't just think outside the box, they crush it.
-            </p>
+Founded in 2018 in New Delhi, TransCurators delivers cutting-edge content and IT solutions across diverse tech niches. Our team of 500+ experts—including alumni from IIT Delhi and DTU—has crafted over 1 million pieces for 600+ global clients. We empower brands through impactful storytelling, led by a visionary team that doesn’t just think outside the box—they redefine it.            </p>
           </div>
           
           {/* Mobile grid layout - new design */}
@@ -1235,8 +1233,13 @@ At TransCurators, we have a well-established and thorough procedure that guarant
       <div className="max-w-4xl mx-auto text-center space-y-4">
         <h2 className="md:text-2xl text-xl font-medium text-black">
           Let's Build Something <span className="text-[#326B3F]">Great Together</span>
-        </h2>
-      <div href="/careers"
+        </h2>      <div
+            onClick={() => {
+              document.getElementById('contact-form').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
             className="cursor-pointer md:text-sm text-sm inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-[#487040] text-white transition-shadow duration-300">Fill Out The Form Below</div>
         </div>
     </div>
