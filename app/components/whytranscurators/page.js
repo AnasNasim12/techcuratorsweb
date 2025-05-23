@@ -19,7 +19,7 @@ export default function WhyTransCurators() {
     <>
     <div className="flex flex-col md:flex-row max-w-screen-xl mx-auto gap-6 my-14 md:my-24">
       <div className="text-center flex">
-          <div className="w-full overflow-hidden text-left flex flex-col gap-2 justify-center">
+          <div className="w-full overflow-hidden text-center md:text-left flex flex-col gap-2 justify-center">
             <h2 className=" text-[30px] mx-5 md:mx-0 md:text-[60px]  font-bold text-black md:leading-16">
               Why Choose <span className="text-[#326B3F]">TransCurators?</span>
             </h2>

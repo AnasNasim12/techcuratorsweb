@@ -277,24 +277,30 @@ const WebDesService = () => {
   },
 ];
 
- const founders = [
+const founders = [
   {
     name: "Harneet Singh",
     position: "Co-Founder",
-    img: "/hsn.png", // Replace with your image path or prop
+    img: "/hsn.png", // Add leading slash for local images
     alt: "Founder 1",
+    width: 400,
+    height: 400,
   },
   {
     name: "Kshitij Goel",
     position: "Co-Founder",
     img: "/kg.png",
     alt: "Founder 2",
+    width: 400,
+    height: 400,
   },
   {
     name: "Nandini Marwah",
     position: "Co-Founder",
     img: "/nand.png",
     alt: "Founder 3",
+    width: 400,
+    height: 400,
   },
 ];
           const faqs = [
@@ -748,14 +754,14 @@ const WebDesService = () => {
             {/* Metrics Section - with animated counter */}
             <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
                 <div className="max-w-screen-xl mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-8 sm:mb-12 md:mb-16">
                         <h2 className="text-2xl md:text-3xl font-medium">
                             <span className="text-[#326B3F]">Metrics</span> That Speak For Themselves
                         </h2>
-                        <p className="text-[#6a6a6a] mt-4 text-sm">See the impact we've made for our clients</p>
+                        <p className="text-[#6a6a6a] mt-2 md:mt-4 text-sm">See the impact we've made for our clients</p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                         {metrics.map((metric, index) => (
                             <motion.div
                                 key={index}
@@ -763,24 +769,24 @@ const WebDesService = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="bg-white p-8 rounded-xl shadow-[0_0_15px_#CCE3DE] hover:shadow-[0_0_25px_#A8D5BA] transition-all duration-300 text-center"
+                                className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-[0_0_15px_#CCE3DE] hover:shadow-[0_0_25px_#A8D5BA] transition-all duration-300 text-center"
                             >
-                                <div className="text-5xl md:text-6xl font-bold text-[#326B3F] min-h-[80px] flex items-center justify-center">
+                                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#326B3F] min-h-[60px] sm:min-h-[70px] md:min-h-[80px] flex items-center justify-center">
                                     {counters[metric.value]}
                                 </div>
-                                <p className="mt-4 text-[#6a6a6a] text-lg">{metric.description}</p>
+                                <p className="mt-2 md:mt-4 text-[#6a6a6a] text-xs sm:text-sm md:text-base lg:text-lg">{metric.description}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
-            <section className="max-w-screen-2xl py-16 px-4">
+            <section className="max-w-screen-2xl text-center mx-auto md:mt-22 mt-12 px-4">
     <div className="max-w-screen-xl mx-auto">
       <h2 className="text-2xl md:text-3xl mb-4">About Us</h2>
-      <p className="text-[#6a6a6a] text-lg font-light mb-6 leading-relaxed">
+      <p className="text-[#6a6a6a] text-sm font-light mb-6 leading-relaxed">
         We at TransCurators believe in delivering quality, original, and well-researched content across various niches. Founded in 2018 with our head office in New Delhi, India, we believe in empowering brands by crafting compelling stories that resonate with their target audience.
       </p>
-      <p className="text-[#6a6a6a] text-lg font-light leading-relaxed">
+      <p className="text-[#6a6a6a] text-sm font-light leading-relaxed">
         With over 500 experts, ranging from gifted wordsmiths to field experts from first-rate institutions, including DTU and IIT Delhi, we have successfully dispensed over 1 million creatives to over 600 clients globally.
       </p>
     </div>
@@ -862,7 +868,7 @@ const WebDesService = () => {
 <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-56" style={{ backgroundImage: 'url(/Industry1.jpg)' }}>
   <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
     <span className="text-[#3c6446] font-bold sm:text-base block">Automotive</span>
-    <p className="text-[#3c6446] text-xs sm:text-sm mt-1 leading-snug">
+    <p className="text-[#6a6a6a] text-xs sm:text-sm mt-1 leading-snug">
       Creating dynamic websites and apps with vehicle specifications, dealer networks, and consumer engagement tools.
     </p>
   </div>
@@ -871,7 +877,7 @@ const WebDesService = () => {
 <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-56" style={{ backgroundImage: 'url(/Industry2.jpg)' }}>
   <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
     <span className="text-[#3c6446] font-bold sm:text-base block">Healthcare</span>
-    <p className="text-[#3c6446] text-xs sm:text-sm mt-1 leading-snug">
+    <p className="text-[#6a6a6a] text-xs sm:text-sm mt-1 leading-snug">
       Creating secure sites for patient portals, appointment scheduling, and telehealth, while focusing on privacy and accessibility for users.
     </p>
   </div>
@@ -880,7 +886,7 @@ const WebDesService = () => {
 <div className="relative col-span-1 sm:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-56" style={{ backgroundImage: 'url(/Industry3.jpg)' }}>
   <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
     <span className="text-[#3c6446] font-bold sm:text-base block">Fintech</span>
-    <p className="text-[#3c6446] text-xs sm:text-sm mt-1 leading-snug">
+    <p className="text-[#6a6a6a] text-xs sm:text-sm mt-1 leading-snug">
       Developing safe platforms for lending, payment processing, account management, or real-time analytics, including compliance with industry regulations.
     </p>
   </div>
@@ -889,7 +895,7 @@ const WebDesService = () => {
 <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-56" style={{ backgroundImage: 'url(/Industry4.jpg)' }}>
   <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
     <span className="text-[#3c6446] font-bold sm:text-base block">EdTech</span>
-    <p className="text-[#3c6446] text-xs sm:text-sm mt-1 leading-snug">
+    <p className="text-[#6a6a6a] text-xs sm:text-sm mt-1 leading-snug">
       Designing learning management systems, virtual classrooms, and student (learner) portals for education or training stakeholders.
     </p>
   </div>
@@ -898,7 +904,7 @@ const WebDesService = () => {
 <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-56" style={{ backgroundImage: 'url(/Industry5.jpg)' }}>
   <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
     <span className="text-[#3c6446] font-bold sm:text-base block">Real Estate</span>
-    <p className="text-[#3c6446] text-xs sm:text-sm mt-1 leading-snug">
+    <p className="text-[#6a6a6a] text-xs sm:text-sm mt-1 leading-snug">
       Developing listing platforms, virtual tours, and agent-client communication for better purchasing.
     </p>
   </div>
@@ -918,39 +924,102 @@ const WebDesService = () => {
         </div>
     </div>
             </section>
-<section className="w-screen bg-[#D9E9DD] py-20 md:mt-22 mt-12">
-    <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 px-4">
-      <div className="flex-1">
-        <p className="text-[#326B3F] text-lg mb-4 font-medium">Our Founding Team</p>
-        <h2 className="text-3xl md:text-4xl mb-5 leading-tight">
-          <span className="text-[#326B3F]">High-octane<br />Storytellers</span> that fuel<br />
-          <span className="text-black">Brand Loyalty</span>
-        </h2>
-        <p className="text-[#6a6a6a] max-w-md mt-4">
-          Meet the minds behind the magic-visionaries who don’t just think outside the box, they crush it.
-        </p>      </div>
-      <div className="flex-1 flex gap-6 justify-center">
-        {founders.map((founder, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-xl shadow-md overflow-hidden w-32 md:w-40 lg:w-54 h-72 md:h-80 lg:h-96 flex items-center justify-center relative group"
-          >
-            <Image
-              src={founder.img}
-              alt={founder.alt}
-              width={400}
-              height={300}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-[#326B3F]/80 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition-opacity duration-300 p-4">
-              <h3 className="font-bold text-xl text-center mb-2">{founder.name}</h3>
-              <p className="text-center text-white/90">{founder.position}</p>
+     <section className="w-screen bg-[#D9E9DD] py-12 sm:py-16 md:py-20 md:mt-22 mt-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 px-4 sm:px-6">
+          <div className="w-full md:flex-1 text-center md:text-left mb-8 md:mb-0">
+            <p className="text-[#326B3F] text-base md:text-lg mb-3 md:mb-4 font-medium">Our Founding Team</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-5 leading-tight">
+              <span className="text-[#326B3F]">High-octane<br className="hidden sm:block" /> Storytellers</span> that fuel<br className="hidden sm:block" />
+              <span className="text-black"> Brand Loyalty</span>
+            </h2>
+            <p className="text-[#6a6a6a] text-sm md:text-base mx-auto md:mx-0 max-w-md mt-3 md:mt-4">
+              Meet the minds behind the magic-visionaries who don't just think outside the box, they crush it.
+            </p>
+          </div>
+          
+          {/* Mobile grid layout - new design */}
+          <div className="w-full md:hidden grid grid-cols-2 gap-4 sm:gap-6">
+            {/* Featured founder - larger card spanning full width */}
+            <div className="col-span-2 bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="relative h-56 sm:h-64">
+                <Image
+                  src={founders[0].img}
+                  alt={founders[0].alt}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 100vw, 0"
+                  className="rounded-t-xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#326B3F]/90 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-4 text-white">
+                  <h3 className="font-bold text-xl">{founders[0].name}</h3>
+                  <p className="text-white/90 text-sm">{founders[0].position}</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Second founder - smaller card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="relative h-40">
+                <Image
+                  src={founders[1].img}
+                  alt={founders[1].alt}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 50vw, 0"
+                  className="rounded-t-xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#326B3F]/90 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-3 text-white">
+                  <h3 className="font-bold text-base">{founders[1].name}</h3>
+                  <p className="text-white/90 text-xs">{founders[1].position}</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Third founder - smaller card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="relative h-40">
+                <Image
+                  src={founders[2].img}
+                  alt={founders[2].alt}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 50vw, 0"
+                  className="rounded-t-xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#326B3F]/90 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-3 text-white">
+                  <h3 className="font-bold text-base">{founders[2].name}</h3>
+                  <p className="text-white/90 text-xs">{founders[2].position}</p>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
+          
+          {/* Desktop layout - unchanged */}
+          <div className="hidden md:flex md:flex-1 gap-4 lg:gap-6 justify-center">
+            {founders.map((founder, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-xl shadow-md overflow-hidden w-32 md:w-40 lg:w-54 h-72 md:h-80 lg:h-96 flex items-center justify-center relative group"
+              >
+                <Image
+                  src={founder.img}
+                  alt={founder.alt}
+                  width={founder.width}
+                  height={founder.height}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[#326B3F]/80 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition-opacity duration-300 p-4">
+                  <h3 className="font-bold text-xl text-center mb-2">{founder.name}</h3>
+                  <p className="text-center text-white/90">{founder.position}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
   <section className="bg-[#D9E9DD] py-10 px-2 md:px-8 rounded-2xl max-w-7xl mx-auto mt-12 md:mt-22">
     <h2 className="text-2xl md:text-3xl text-center mb-2">Portfolio / Case Studies</h2>
     <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8 text-base">
@@ -1211,8 +1280,8 @@ At TransCurators, we have a well-established and thorough procedure that guarant
           {/* Contact Form */}
           <div className="w-full lg:w-2/3 bg-[#429054]/10 p-8 lg:p-12">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl lg:text-3xl text-black font-medium">Got content goals?<br/><span className='text-[#326b3f]'>We've got the words to match. Let's collaborate.</span></h2>
-              <p className="text-sm text-[#6a6a6a] md:text-sm mb-6 lg:mb-8 mt-4">Tell us a bit about your brand and how we can help elevate your content.</p>
+              <h2 className="text-2xl lg:text-3xl text-black font-medium">Got digital goals?<br/><span className='text-[#326b3f]'>We’ve got the tools to build them. Let’s collaborate</span></h2>
+              <p className="text-sm text-[#6a6a6a] md:text-sm mb-6 lg:mb-8 mt-4">From Idea to Launch — We Bring Your Website to Life</p>
               
               {/* Rest of the form */}
               <form className="space-y-4" onSubmit={handleSubmit}>
@@ -1290,12 +1359,11 @@ At TransCurators, we have a well-established and thorough procedure that guarant
         <label className="block text-sm font-medium mb-3">How can we help?</label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { id: 'website-content', label: 'Website Content' },
-            { id: 'seo-blog-writing', label: 'SEO Blog Writing' },
-            { id: 'product-descriptions', label: 'Product Descriptions' },
-            { id: 'content-strategy-planning', label: 'Content Strategy & Planning' },
-            { id: 'whitepapers-case-studies', label: 'Whitepapers & Case Studies' },
-            { id: 'something-else', label: 'Something else' }
+            { id: 'custom-website-design', label: 'Custom Website Design' },
+            { id: 'e-commerce-development', label: 'E-Commerce Development' },
+            { id: 'content-management-system', label: 'Content Management Systems (CMS)' },
+            { id: 'mobile-app-development', label: 'Mobile App Development' },
+            { id: 'ui-ux-design', label: 'UI/UX Design' }
           ].map((service) => (
             <div key={service.id} className="flex items-center">
               <input 
