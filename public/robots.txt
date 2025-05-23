@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /?r=
+Disallow: /admin
+Disallow: /adminportal
+
+Sitemap: https://www.transcurators.com/sitemap.xml
