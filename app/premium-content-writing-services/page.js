@@ -517,7 +517,12 @@ const LandingPage = () => {
               
               <motion.button
                 variants={itemVariants}
-                onClick={() => window.location.href = "/contact"}
+                onClick={() => {
+                        document.getElementById('contact-form').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
@@ -599,81 +604,112 @@ const LandingPage = () => {
 
             {/* Metrics Section - with animated counter */}
             <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
-                <div className="max-w-screen-xl mx-auto px-4">
-                    <div className="text-center mb-16">
-                        <h2 className="text-2xl md:text-3xl font-medium">
-                            <span className="text-[#326B3F]">Metrics</span> That Speak For Themselves
-                        </h2>
-                        <p className="text-[#6a6a6a] mt-4 text-sm">See the impact we've made for our clients</p>
+    <div className="max-w-screen-xl mx-auto px-4">
+        <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-2xl md:text-3xl font-medium">
+                <span className="text-[#326B3F]">Metrics</span> That Speak For Themselves
+            </h2>
+            <p className="text-[#6a6a6a] mt-4 text-sm">See the impact we've made for our clients</p>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            {metrics.map((metric, index) => (
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-[0_0_15px_#CCE3DE] hover:shadow-[0_0_25px_#A8D5BA] transition-all duration-300 text-center"
+                >
+                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#326B3F] min-h-[60px] md:min-h-[80px] flex items-center justify-center">
+                        {counters[metric.value]}
                     </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {metrics.map((metric, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="bg-white p-8 rounded-xl shadow-[0_0_15px_#CCE3DE] hover:shadow-[0_0_25px_#A8D5BA] transition-all duration-300 text-center"
-                            >
-                                <div className="text-5xl md:text-6xl font-bold text-[#326B3F] min-h-[80px] flex items-center justify-center">
-                                    {counters[metric.value]}
-                                </div>
-                                <p className="mt-4 text-[#6a6a6a] text-lg">{metric.description}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                    <p className="mt-2 md:mt-4 text-[#6a6a6a] text-sm sm:text-base md:text-lg">{metric.description}</p>
+                </motion.div>
+            ))}
+        </div>
+    </div>
+</section>
 
             {/* What Makes Us Different Section */}
-                        <div className="flex max-w-screen-xl mx-auto gap-6 my-24">
-                              <div className="text-center flex">
-                                  <div className="w-full overflow-hidden text-left flex flex-col gap-2 justify-center">
-                                    
-                                    <h2 className=" text-[30px] md:text-[60px]  font-bold text-black leading-16">
-                                      What Makes Us<br/> <span className="text-[#326B3F]">Different?</span>
-                                    </h2>
-                                  </div>
-                              </div>
-                        
-                              <div className="relative flex flex-col overflow-hidden gap-9 justify-center items-center mx-auto">
-                                  <div className="max-w-screen-xl flex justify-center items-center mx-auto">
-                                    <Carousel gap={40} className="h-fit">
-                                      {benefits.map((benefits, index) => (
-                                        <div key={index} className="w-[400px] p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
-                                          <h4 className="text-md font-semibold pointer-events-none">{benefits.title}</h4>
-                                          
-                                        </div>
-                                      ))}
-                                    </Carousel>
-                                  </div>
-                        
-                                   <div className="max-w-screen-xl flex justify-center items-center mx-auto">
-                                    <CarouselTwo gap={40} className="h-fit">
-                                      {benefits.map((benefits, index) => (
-                                        <div key={index} className="w-[400px] p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
-                                          <h4 className="text-md font-semibold pointer-events-none">{benefits.title}</h4>
-                                
-                                        </div>
-                                      ))}
-                                    </CarouselTwo>
-                                  </div> 
-                                </div>
-                            </div>
-                            <div className="text-center md:mt-22 mt-12">
-                        <button onClick={() => {
-                                        document.getElementById('contact-form').scrollIntoView({ 
-                                            behavior: 'smooth',
-                                            block: 'start'
-                                        });
-                                    }}
-                                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
-                          
-                            Start Your Content Journey Today
-                        </button>
+            <div className="max-w-screen-xl mx-auto px-4 my-12 md:my-24">
+    {/* Mobile-only centered heading (shown only on small screens) */}
+    <div className="md:hidden text-center mb-8">
+        <h2 className="text-[28px] sm:text-[32px] font-bold text-black leading-tight">
+            What Makes Us<span className="text-[#326B3F]"> Different?</span>
+        </h2>
+    </div>
+    
+    {/* Desktop layout with heading on left (original layout) */}
+    <div className="hidden md:flex max-w-screen-xl mx-auto gap-6">
+        <div className="text-center flex">
+            <div className="w-full overflow-hidden text-left flex flex-col gap-2 justify-center">
+                <h2 className="text-[42px] lg:text-[60px] font-bold text-black leading-tight">
+                    What Makes Us<br/> <span className="text-[#326B3F]">Different?</span>
+                </h2>
+            </div>
+        </div>
+        
+        <div className="relative flex flex-col overflow-hidden gap-9 justify-center items-center mx-auto">
+            {/* Desktop carousels (moved back to original layout) */}
+            <div className="max-w-screen-xl flex justify-center items-center mx-auto">
+                <Carousel gap={40} className="h-fit">
+                    {benefits.map((benefit, index) => (
+                        <div key={index} className="w-[400px] p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
+                            <h4 className="text-md font-semibold pointer-events-none">{benefit.title}</h4>
+                        </div>
+                    ))}
+                </Carousel>
+            </div>
+            
+            <div className="max-w-screen-xl flex justify-center items-center mx-auto">
+                <CarouselTwo gap={40} className="h-fit">
+                    {benefits.map((benefit, index) => (
+                        <div key={index} className="w-[400px] p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
+                            <h4 className="text-md font-semibold pointer-events-none">{benefit.title}</h4>
+                        </div>
+                    ))}
+                </CarouselTwo>
+            </div>
+        </div>
+    </div>
+    
+    {/* Mobile-only carousels stacked vertically (shown only on small screens) */}
+    <div className="md:hidden flex flex-col gap-8">
+        <div className="w-full">
+            <Carousel gap={20} className="h-fit">
+                {benefits.map((benefit, index) => (
+                    <div key={index} className="w-[280px] sm:w-[340px] p-4 sm:p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
+                        <h4 className="text-sm sm:text-md font-semibold pointer-events-none">{benefit.title}</h4>
                     </div>
+                ))}
+            </Carousel>
+        </div>
+        
+        <div className="w-full">
+            <CarouselTwo gap={20} className="h-fit">
+                {benefits.map((benefit, index) => (
+                    <div key={index} className="w-[280px] sm:w-[340px] p-4 sm:p-6 bg-white shadow-lg flex flex-col items-center justify-center text-center">
+                        <h4 className="text-sm sm:text-md font-semibold pointer-events-none">{benefit.title}</h4>
+                    </div>
+                ))}
+            </CarouselTwo>
+        </div>
+    </div>
+</div>
+
+<div className="text-center md:mt-22 mt-12">
+    <button onClick={() => {
+        document.getElementById('contact-form').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }}
+    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
+        Start Your Content Journey Today
+    </button>
+</div>
             <section>
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
@@ -771,56 +807,62 @@ const LandingPage = () => {
     </div>
                 <section className="w-full bg-[#D9E9DD]">
   {/* Green strip with heading and intro, spans full width */}
-  <div className="max-w-5xl mx-auto px-4 py-12 text-center">
-                           <p className='md:text-3xl text-2xl text-black font-medium mt-4'>
-                        Reimagining Content. Elevating Brands.<span className='text-[#326B3F]'> Celebrating Impact.</span>
-                        </p>
-                        <p className='text-sm text-[#6a6a6a] mt-4 leading-[25px] max-w-screen-lg mx-auto px-4'>
-                        Every successful brand is fueled by connecting the content that we produce. We are a results-oriented content writing agency working with startups, enterprises, and growing companies to create content rich with narrative to engage their customers.</p>
+  <div className="max-w-5xl mx-auto px-4 py-8 md:py-12 text-center">
+    <p className='md:text-3xl text-xl text-black font-medium mt-4'>
+      Reimagining Content. Elevating Brands.<span className='text-[#326B3F]'> Celebrating Impact.</span>
+    </p>
+    <p className='text-xs sm:text-sm text-[#6a6a6a] mt-3 md:mt-4 leading-[22px] md:leading-[25px] max-w-screen-lg mx-auto px-2 md:px-4'>
+      Every successful brand is fueled by connecting the content that we produce. We are a results-oriented content writing agency working with startups, enterprises, and growing companies to create content rich with narrative to engage their customers.
+    </p>
   </div>
 
   {/* Cards grid - placed outside the green strip for white background */}
-  <div className="w-full bg-white py-10">
-    <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  <div className="w-full bg-white py-8 md:py-10">
+    <div className="max-w-6xl mx-auto px-3 md:px-4 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-8">
       {/* Card 1 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">Authentic &amp; Original</div>
-        <div className="text-gray-700 text-base">
-          Every piece is 100% plagiarism-free and uniquely crafted to match your brand’s voice.
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">Authentic &amp; Original</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
+          Every piece is 100% plagiarism-free and uniquely crafted to match your brand's voice.
         </div>
       </div>
+      
       {/* Card 2 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">SEO-Focused</div>
-        <div className="text-gray-700 text-base">
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">SEO-Focused</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
           We optimize content to boost visibility, increase traffic, and improve search engine rankings.
         </div>
       </div>
+      
       {/* Card 3 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">Research-Driven</div>
-        <div className="text-gray-700 text-base">
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">Research-Driven</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
           In-depth research ensures high-quality content that informs, convinces, and converts.
         </div>
       </div>
+      
       {/* Card 4 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">Fast &amp; Reliable</div>
-        <div className="text-gray-700 text-base">
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">Fast &amp; Reliable</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
           Quick turnaround times with zero compromise on quality.
         </div>
       </div>
+      
       {/* Card 5 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">Tailored to You</div>
-        <div className="text-gray-700 text-base">
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">Tailored to You</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
           Customized solutions to meet industry-specific and business-specific goals.
         </div>
       </div>
+      
       {/* Card 6 */}
-      <div className="bg-[#D9E9DD] rounded-2xl p-6 text-center">
-        <div className="font-semibold text-lg mb-2">Always Here for You</div>
-        <div className="text-gray-700 text-base">
+      <div className="bg-[#D9E9DD] rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 text-center h-full">
+        <div className="font-semibold text-sm sm:text-base md:text-lg mb-1 md:mb-2">Always Here for You</div>
+        <div className="text-gray-700 text-xs sm:text-sm md:text-base">
           Our dedicated content support team is available <span className="italic">24/7</span>.
         </div>
       </div>
@@ -838,12 +880,12 @@ const LandingPage = () => {
 
             <section>
               {/* industry section */}
-              <div className='relativepy-16 mt-12 h-auto md:mt-22'>
+              <div className='relative mt-12 h-auto md:mt-22'>
                 <div className='max-w-screen-xl mx-auto px-4'>
                   <div className='text-center mb-12'>
-                    <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
+                    <h2 className='md:text-3xl text-2xl text-[#326B3F]'>
                       Content Solutions That Speak
-                      <span className='md:text-3xl text-xl font-semibold text-black'> Your Brand's Language</span>
+                      <span className='md:text-3xl text-2xl text-black'> Your Brand's Language</span>
                     </h2>
                     <p className='text-sm font-regular mt-6 text-[#6a6a6a] max-w-2xl mx-auto'>
                       Each industry requires a unique voice — and we customize our content writing services to suit your industry, objectives, and audience. Our writers blend technical expertise with strategic storytelling to create content that educates, engages, and converts across various industries.
@@ -1032,32 +1074,33 @@ const LandingPage = () => {
 
 
 
-            <section className="relative bg-[#429054]/20 py-16 mt-12 md:mt-22 overflow-hidden">
-                <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-5/12 mb-8 md:mb-0">
-                    <h1 className="md:text-3xl text-xl font-medium mb-3">
-                        Words that Work.
-                        <span className="text-[#326B3F] block">Content that Converts.</span>
-                    </h1>
-                    </div>
-                    <div className="w-full md:w-7/12 md:pl-8">
-                    <p className="text-[#6a6a6a] ml-35 mb-6">
+            <section className="relative bg-[#429054]/20 py-8 sm:py-12 md:py-16 mt-12 md:mt-22 overflow-hidden">
+    <div className="max-w-6xl mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+            {/* Left side - Text content */}
+            <div className="w-full md:w-full text-center md:text-left">
+                <h2 className="text-2xl md:text-3xl font-medium mb-3">
+                    Words that Work.
+                    <span className="text-[#326B3F] block mt-1">Content that Converts.</span>
+                </h2>
+                <p className="text-sm md:text-base text-[#6a6a6a] mb-6 max-w-md mx-auto md:mx-0">
                     We turn ideas into compelling content that grabs attention and fuels growth.
-                    </p>
-                    <div className="mt-8 ml-35">
-                        <button onClick={() => {
-                                        document.getElementById('contact-form').scrollIntoView({ 
-                                            behavior: 'smooth',
-                                            block: 'start'
-                                        });
-                                    }}
-                                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
-                        Start Your Journey
-                        </button>
-                    </div>
-                    </div>
-                </div>
-            </section>
+                </p>
+                <button 
+                    onClick={() => {
+                        document.getElementById('contact-form').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }}
+                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-sm md:text-base transition-shadow duration-300 bg-[#326B3F] text-white"
+                >
+                    Start Your Journey
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
             
             <div className='max-w-screen-xl flex justify-center md:mt-20 mt-12 mb-10 mx-auto items-center'>     
         <div className='text-center flex-row'>

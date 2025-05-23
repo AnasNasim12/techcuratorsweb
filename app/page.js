@@ -444,18 +444,18 @@ const Landing_Page = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10 "
+            className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-4 lg:space-y-6 px-4 sm:px-5 md:px-8 lg:px-12 overflow-hidden z-10"
           >
             <motion.h1
               variants={itemVariants}
-              className='text-black font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[800%] ml-6 md:max-w-[800%]'
+              className='text-black font-medium text-center md:text-left text-[24px] sm:text-[30px] md:text-[42px] lg:text-[50px] xl:text-[60px] leading-tight md:leading-none tracking-tight w-full md:max-w-[800%] mx-auto md:ml-6'
             >
               Transform Your Brand's Voice with <span className='text-[#4B7D57]'>Our Content Writing Service!</span>
             </motion.h1>    
 
             <motion.h2
               variants={itemVariants}
-              className='text-[#6a6a6a] text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight text-left overflow-y-hidden tracking-[0.015em] max-w-[800%] ml-6 md:max-w-[800%] mt-4'
+              className='text-[#6a6a6a] text-center md:text-left text-[12px] sm:text-[14px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight overflow-y-hidden tracking-[0.015em] w-full md:max-w-[800%] mx-auto md:ml-6 mt-2 md:mt-4'
             >
               Words That Win —
               <br />Content Writing Services That Spark Engagement,
@@ -470,13 +470,13 @@ const Landing_Page = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="gap-2 md:gap-3 mt-4 md:mt-6 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
+              className="gap-2 md:gap-3 mt-6 md:mt-6 flex justify-center items-center self-center md:self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
               border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
-              hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
+              hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-4 md:px-4 py-2 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
             >
               Book Your Free Consultation!
               <svg
-                className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
+                className="w-5 h-5 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
                 rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
                 viewBox="0 0 16 19"
                 xmlns="http://www.w3.org/2000/svg"
@@ -553,10 +553,10 @@ const Landing_Page = () => {
 
       <section className="md:mt-22 mt-12 px-0">
   {/* Full-width green background */}
-  <div className="w-screen bg-[#429054]/20 flex flex-col items-center py-12 px-0">
-    <div className="max-w-screen-xl w-full mx-auto px-4 md:px-6">
+  <div className="w-screen bg-[#429054]/20 flex flex-col items-center py-8 sm:py-10 md:py-12 px-4 sm:px-0">
+    <div className="max-w-screen-xl w-full mx-auto px-2 sm:px-4 md:px-6">
       <motion.div
-        className="text-center mb-10 md:mb-16"
+        className="text-center mb-8 md:mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -566,18 +566,18 @@ const Landing_Page = () => {
           What Makes Us <span className="text-[#326B3F]">Different?</span>
         </h2>
       </motion.div>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
         {processItems.map((item, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-[24px] shadow-md px-8 py-8 flex flex-col items-center text-center"
-            style={{ minHeight: 260 }}
+            className="bg-white rounded-[16px] sm:rounded-[20px] md:rounded-[24px] shadow-md px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col items-center text-center"
+            style={{ minHeight: 'auto', height: '100%' }}
           >
-            <div className="text-[20px] font-semibold mb-3 text-black leading-tight">
+            <div className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold mb-2 sm:mb-3 text-black leading-tight">
               {item.title}
             </div>
             {item.description && (
-              <div className="text-gray-500 text-base leading-snug">
+              <div className="text-gray-500 text-sm sm:text-base leading-snug">
                 {item.description}
               </div>
             )}
@@ -809,11 +809,10 @@ const Landing_Page = () => {
       >
         <Images src="/transPen.png" alt="Trans logo" className='absolute opacity-5 -left-16 top-0 md:h-72 md:w-72 h-40 w-40' width={300} height={300} />
         <div className='max-w-screen-xl flex flex-col md:flex-row justify-center items-center mx-auto gap-6 md:gap-8'>
-          <div className="flex justify-center items-center mx-auto md:w-2/3 w-full">
+          <div className="hidden md:flex justify-center items-center mx-auto md:w-2/3 w-full">
             <Images
               src="/Homepage 2.png"
               alt="Icon1"
-
               width={400}
               height={400}
             />
@@ -824,7 +823,7 @@ const Landing_Page = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className='flex-row justify-center items-center space-y-4 md:space-y-6 md:w-2/3'
+            className='flex-row justify-center items-center space-y-4 md:space-y-6 md:w-2/3 w-full'
           >
             <h3 className='text-xl sm:text-2xl md:text-3xl font-semibold text-[#326B3F] leading-tight'>
               Transforming Content,<br />
@@ -1034,7 +1033,7 @@ const Landing_Page = () => {
                 range of viewers.
               </p>
             </div>
-            <div className="ml-4 flex-shrink-0">
+            <div className="ml-4 flex-shrink-0 hidden sm:block">
               <motion.div
                 className="w-50 h-50"
                 whileHover={{ rotate: [0, -5, 5, -5, 0] }}
@@ -1110,7 +1109,7 @@ const Landing_Page = () => {
                 money on other essential business areas.
               </p>
             </div>
-            <div className="ml-4 flex-shrink-0">
+            <div className="ml-4 flex-shrink-0 hidden sm:block">
               <motion.div
                 className="w-50 h-50"
                 whileHover={{ scale: 1.05 }}
@@ -1140,7 +1139,7 @@ const Landing_Page = () => {
                 Indian authors specialize in SEO, producing content that ranks high in search engines and generates genuine traffic to your website. Their experience in keyword research and optimization increases your online presence.
               </p>
             </div>
-            <div className="ml-4 flex-shrink-0">
+            <div className="ml-4 flex-shrink-0 hidden sm:block">
               <motion.div
                 className="w-50 h-50"
                 whileHover={{ rotate: 3 }}
@@ -1284,6 +1283,7 @@ const Landing_Page = () => {
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
+       
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5 }}
