@@ -370,23 +370,6 @@ function AboutUs() {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-        ))}
-      </div>
-    </div>
-  </section>
-  <div className="w-full bg-[#e5efe5] py-12 mb-20 md:mt-22 mt-12">
-      <div className="max-w-4xl mx-auto text-center space-y-4">
-        <h2 className="md:text-2xl text-xl font-medium text-black">
-          Step into the realm of limitless possibilities and
-        </h2>
-        <div className="md:text-2xl ml-2 text-xl justify-center text-[#326B3F]">
-        Watch your brand come alive.
-      </div>
-      <div href="/contact"
-            className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-white text-[#487040] transition-shadow duration-300">Book a call</div>
-=======
-          
           {/* Desktop layout - unchanged */}
           <div className="hidden md:flex md:flex-1 gap-4 lg:gap-6 justify-center">
             {founders.map((founder, idx) => (
@@ -408,7 +391,6 @@ function AboutUs() {
               </div>
             ))}
           </div>
->>>>>>> 5492a5ae240cec0aaac2cc459b4701643248d5e0
         </div>
       </section>
       <div className="w-full bg-[#e5efe5] py-12 mb-20 md:mt-22 mt-12">
@@ -417,11 +399,11 @@ function AboutUs() {
             Step into the realm of limitless possibilities and
           </h2>
           <div className="md:text-2xl ml-2 text-xl justify-center text-[#326B3F]">
-          Watch your brand come alive.
-        </div>
-        <div href="/careers"
-              className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-white text-[#487040] transition-shadow duration-300">Book a call</div>
+            Watch your brand come alive.
           </div>
+          <div href="/careers"
+            className="cursor-pointer md:text-lg text-lg inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-white text-[#487040] transition-shadow duration-300">Book a call</div>
+        </div>
       </div>
     </div>
   );
