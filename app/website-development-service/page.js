@@ -58,13 +58,13 @@ const WebDesService = () => {
       email: '',
       project: '',
       services: {
-        'website-content': false,
-        'seo-blog-writing': false,
-        'product-descriptions': false,
-        'content-strategy-planning': false,
-        'whitepapers-case-studies': false,
-        'something-else': false
-      }
+            'custom-website-design': false,
+            'e-commerce-development': false,
+            'content-management-system': false,
+            'mobile-app-development': false,
+            'ui-ux-design': false,
+            'something-else': false,
+          }
     });
     
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,8 +98,7 @@ const WebDesService = () => {
         .filter(key => formData.services[key])
         .map(key => key.replace(/-/g, ' '))
         .join(', ');
-      
-      // Prepare the data for Google Sheets
+        // Prepare the data for Google Sheets
       const dataToSend = {
         name: formData.name,
         company: formData.company,
@@ -109,18 +108,29 @@ const WebDesService = () => {
         services: selectedServices,
         timestamp: new Date().toISOString()
       };
-  
+      
+      // Log the data being sent for debugging
+      console.log('Sending form data:', dataToSend);
+      
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbx5DQDJ_h8F6clbp-VvV_dGom3TDaTM5BvxvUxko2S2aA197j-TzMiOPm2e4arEq0g0yg/exec', {
-          method: 'POST',
-          mode: 'no-cors', // Important for Google Sheets Web App
-          cache: 'no-cache',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataToSend)
+        // Using the updated script URL that works with both GET and POST
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz4I5RxosQUTgQsC6GjQywLwBhRlQRE-Vy7HDcGN9aB0pYUwAdYsrWgGEiyOTmZXZnS/exec';
+        
+        console.log('Submitting to Google Apps Script...');
+        
+        // Create URL parameters for GET request
+        const params = new URLSearchParams();
+        for (const key in dataToSend) {
+          params.append(key, dataToSend[key]);
+        }
+        
+        const response = await fetch(`${scriptURL}?${params.toString()}`, {
+          method: 'GET',
+          mode: 'no-cors',
+          cache: 'no-cache'
         });
         
+        console.log('Form submission completed');
         // Since 'no-cors' doesn't give us response details, we assume success
         setSubmitStatus('success');
           // Reset form after successful submission
@@ -131,12 +141,12 @@ const WebDesService = () => {
           email: '',
           project: '',
           services: {
-            'website-content': false,
-            'seo-blog-writing': false,
-            'product-descriptions': false,
-            'content-strategy-planning': false,
-            'whitepapers-case-studies': false,
-            'something-else': false
+            'custom-website-design': false,
+            'e-commerce-development': false,
+            'content-management-system': false,
+            'mobile-app-development': false,
+            'ui-ux-design': false,
+            'something-else': false,
           }
         });
 
@@ -1363,7 +1373,8 @@ At TransCurators, we have a well-established and thorough procedure that guarant
             { id: 'e-commerce-development', label: 'E-Commerce Development' },
             { id: 'content-management-system', label: 'Content Management Systems (CMS)' },
             { id: 'mobile-app-development', label: 'Mobile App Development' },
-            { id: 'ui-ux-design', label: 'UI/UX Design' }
+            { id: 'ui-ux-design', label: 'UI/UX Design' },
+            { id: 'something-else', label: 'Something Else' },
           ].map((service) => (
             <div key={service.id} className="flex items-center">
               <input 
