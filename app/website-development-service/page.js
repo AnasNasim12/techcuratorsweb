@@ -92,74 +92,81 @@ const WebDesService = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setIsSubmitting(true);
-      
-      // Format services for Google Sheets
-      const selectedServices = Object.keys(formData.services)
-        .filter(key => formData.services[key])
-        .map(key => key.replace(/-/g, ' '))
-        .join(', ');
-        // Prepare the data for Google Sheets
-      const dataToSend = {
-        name: formData.name,
-        company: formData.company,
-        phone: formData.phone,
-        email: formData.email,
-        project: formData.project,
-        services: selectedServices,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Log the data being sent for debugging
-      console.log('Sending form data:', dataToSend);
-      
+      setSubmitStatus(null);
       try {
-        // Using the updated script URL that works with both GET and POST
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbz4I5RxosQUTgQsC6GjQywLwBhRlQRE-Vy7HDcGN9aB0pYUwAdYsrWgGEiyOTmZXZnS/exec';
+        // Format services for Google Sheets
+        const selectedServices = Object.keys(formData.services)
+          .filter(key => formData.services[key])
+          .map(key => key.replace(/-/g, ' '))
+          .join(', ');
+          // Prepare the data for Google Sheets
+        const dataToSend = {
+          name: formData.name,
+          company: formData.company,
+          phone: formData.phone,
+          email: formData.email,
+          project: formData.project,
+          services: selectedServices,
+          timestamp: new Date().toISOString()
+        };
         
-        console.log('Submitting to Google Apps Script...');
+        // Log the data being sent for debugging
+        console.log('Sending form data:', dataToSend);
         
-        // Create URL parameters for GET request
-        const params = new URLSearchParams();
-        for (const key in dataToSend) {
-          params.append(key, dataToSend[key]);
-        }
-        
-        const response = await fetch(`${scriptURL}?${params.toString()}`, {
-          method: 'GET',
-          mode: 'no-cors',
-          cache: 'no-cache'
-        });
-        
-        console.log('Form submission completed');
-        // Since 'no-cors' doesn't give us response details, we assume success
-        setSubmitStatus('success');
-          // Reset form after successful submission
-        setFormData({
-          name: '',
-          company: '',
-          phone: '',
-          email: '',
-          project: '',
-          services: {
-            'custom-website-design': false,
-            'e-commerce-development': false,
-            'content-management-system': false,
-            'mobile-app-development': false,
-            'ui-ux-design': false,
-            'something-else': false,
+        try {
+          // Using the updated script URL that works with both GET and POST
+          const scriptURL = 'https://script.google.com/macros/s/AKfycbz4I5RxosQUTgQsC6GjQywLwBhRlQRE-Vy7HDcGN9aB0pYUwAdYsrWgGEiyOTmZXZnS/exec';
+          
+          console.log('Submitting to Google Apps Script...');
+          
+          // Create URL parameters for GET request
+          const params = new URLSearchParams();
+          for (const key in dataToSend) {
+            params.append(key, dataToSend[key]);
           }
-        });
+          
+          const response = await fetch(`${scriptURL}?${params.toString()}`, {
+            method: 'GET',
+            mode: 'no-cors',
+            cache: 'no-cache'
+          });
+          
+          console.log('Form submission completed');
+          // Since 'no-cors' doesn't give us response details, we assume success
+          setSubmitStatus('success');
+            // Reset form after successful submission
+          setFormData({
+            name: '',
+            company: '',
+            phone: '',
+            email: '',
+            project: '',
+            services: {
+              'custom-website-design': false,
+              'e-commerce-development': false,
+              'content-management-system': false,
+              'mobile-app-development': false,
+              'ui-ux-design': false,
+              'something-else': false,
+            }
+          });
 
-        // Redirect to thank you page
-        window.location.href = '/ThankYou';
-        
+          // Redirect after a short delay so user sees the success message
+          setTimeout(() => {
+            window.location.href = '/new'; // Change to your desired route
+          }, 1200);
+          
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          setSubmitStatus('error');
+        } finally {
+          setIsSubmitting(false);
+          // Reset status after 5 seconds
+          setTimeout(() => setSubmitStatus(null), 5000);
+        }
       } catch (error) {
-        console.error('Error submitting form:', error);
         setSubmitStatus('error');
-      } finally {
         setIsSubmitting(false);
-        // Reset status after 5 seconds
-        setTimeout(() => setSubmitStatus(null), 5000);
       }
     };
     // Close mobile menu when clicking outside
