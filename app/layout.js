@@ -4,8 +4,8 @@ import "./globals.css";
 import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
 
 export const metadata = {
-  title: "Your Site Title",
-  description: "Your site description",
+  title: "TransCurators - Curate Your Digital Experience",
+  description: "This is an online platform for curating and sharing digital content, including articles, videos, and more.",
   other: {
     "google-site-verification": "0IvUSzCK_JefzDYiMri8LYBU1ie-Wu65B7sAS-ls4Hg",
   },
@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+           <link rel="icon" href="/Trans-icon.ico" />
         {/* ✅ Google Tag Manager Head Script */}
         <script
           dangerouslySetInnerHTML={{
