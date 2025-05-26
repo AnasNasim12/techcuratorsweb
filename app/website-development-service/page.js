@@ -640,7 +640,7 @@ const founders = [
                 
             
             {/* Hero Section - Ad Landing Version */}
-           <section className="w-full mb-5 bg-[#B3D3BB] h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
+           <section className="w-full mb-5 bg-[#B3D3BB] h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
       {/* Radial Gradient Overlay */}
       <div className="absolute inset-0 flex items-center mt-140 justify-center pointer-events-none">
         {/* Red - outermost ring */}
@@ -658,30 +658,26 @@ const founders = [
         <div className="absolute w-[470px] h-[470px] rounded-full bg-[#82bb90]"></div>
         {/* Violet - innermost circle */}
         <div className="absolute w-[415px] h-[415px] rounded-full bg-[#7db88b]"></div>
-      </div>
-
-       <motion.div 
+      </div>       <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-4 md:space-y-4 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
-            >
-              <motion.h1 
+              className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
+            ><motion.h1 
                 variants={itemVariants}
-                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
+                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-1 sm:mb-2 md:mb-3'
               >
                 Custom web development 
               </motion.h1>
               <motion.h1 
                 variants={itemVariants}
-                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
-              >
-                services that drive 10x business growth
+                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-0'
+              >                services that drive 10x business growth
               </motion.h1>
               <div
-                className="text-black text-sm sm:text-base md:text-lg lg:text-lg font-normal mt-4 md:mt-6 lg:mt-8 xl:mt-10 leading-[1.5] max-w-[95%] md:max-w-[95%]">
+                className="text-black text-sm sm:text-base md:text-lg lg:text-lg font-normal mt-3 sm:mt-4 md:mt-6 lg:mt-7 leading-[1.5] max-w-[95%] md:max-w-[95%]">
                   From Idea to Launch- Fast, Flexible and Focused on Results
-                </div>              <motion.button
+                </div><motion.button
                 variants={itemVariants}
                 onClick={() => {
               document.getElementById('contact-form').scrollIntoView({ 

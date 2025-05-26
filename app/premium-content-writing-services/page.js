@@ -477,9 +477,8 @@ const LandingPage = () => {
           Talk to Sales
         </div>
       </div>
-    </header>
-            {/* Hero Section - Ad Landing Version */}
-           <section className="w-full mb-5 bg-[#B3D3BB] h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
+    </header>            {/* Hero Section - Ad Landing Version */}
+           <section className="w-full mb-5 bg-[#B3D3BB] h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
       {/* Semi-circle Gradient Overlay */}
       <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
         {/* Concentric semi-circles starting from bottom center */}
@@ -501,13 +500,13 @@ const LandingPage = () => {
             >
               <motion.h1 
                 variants={itemVariants}
-                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-0'
+                className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-1 sm:mb-2 md:mb-3'
               >
                 Delivering Success with the
               </motion.h1>
               <motion.h1 
                 variants={itemVariants}
-                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-[-10px] md:mt-[-5px]'
+                className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-0'
               >
                 Best Content Writing Service
               </motion.h1>
