@@ -175,7 +175,7 @@ export default function Footer() {
         <div className="border-t border-white mt-8 sm:mt-10 pt-4 sm:pt-6 flex flex-col md:flex-row justify-between text-xs text-white">
           <div className="text-center md:text-left">
             <span className="block sm:inline">
-              Copyright @2023 TransCurators-Quality Content Writing Company | Powered by TransCurators-Quality Content Writing Company
+              Copyright @{new Date().getFullYear()} TransCurators-Quality Content Writing Company | Powered by TransCurators-Quality Content Writing Company
             </span>
           </div>
           <div className="mt-2 md:mt-0 text-center md:text-right">

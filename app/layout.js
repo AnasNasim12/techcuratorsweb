@@ -1,9 +1,14 @@
-"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Example from "./components/navbar/page";
-import Footer from "./components/footer/page";
-import { usePathname } from "next/navigation";
+import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
+
+export const metadata = {
+  title: "Trancurators - Curate Your Digital Experience",
+  description: "This is online platform for curating and sharing digital content, including articles, videos, and more.",
+  other: {
+    "google-site-verification": "0IvUSzCK_JefzDYiMri8LYBU1ie-Wu65B7sAS-ls4Hg",
+  },
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,23 +20,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
-
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-
-  // List of routes where you want to hide header/footer
-  const hideLayoutRoutes = ["/premium-content-writing-services","/website-development-service"];
-
-  const hideLayout = hideLayoutRoutes.includes(pathname);
   return (
     <html lang="en">
+       <head>
+        <link rel="icon" href="/Trans-icon.ico" type="image/x-icon" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-         {!hideLayout && <Example />}
-        <main className="flex-1">{children}</main>
-        {!hideLayout && <Footer />}
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );
