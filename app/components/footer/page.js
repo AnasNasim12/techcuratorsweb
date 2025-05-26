@@ -179,7 +179,7 @@ export default function Footer() {
             </span>
           </div>
           <div className="mt-2 md:mt-0 text-center md:text-right">
-            <a href="#" className="hover:text-[#326B3F] transition-colors">
+            <a href="/PrivacyPolicy" className="hover:text-[#326B3F] transition-colors">
               Privacy Policy
             </a>
           </div>

@@ -465,24 +465,80 @@ const LandingPage = () => {
       />
     </Link>
 
-    {/* Right Side Buttons */}
+        {/* Nav buttons - desktop and mobile versions */}
+        <div className="hidden md:flex items-center space-x-3">
+          {/* Careers Button */}
+          <Link href="/careers" className="inline-block text-[#326B3F] border border-[#326B3F] px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300">
+            Careers
+          </Link>
+          
+      {/* Right Side Buttons */}
     <div className="flex items-center gap-4">
       <Link href="/careers">
         <div className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900">
           Careers
         </div>
       </Link>
-      <div
-        onClick={() => {
-          document.getElementById('contact-form').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        }}
-        className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
-      >
-        Talk to Sales
-      </div>
+        <div
+          onClick={() => {
+            document.getElementById('contact-form').scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }}
+          className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer cursor-pointer"
+        >
+          Talk to Sales
+        </div>
+        </div>
+        
+        {/* Mobile menu button */}
+        <div className="md:hidden flex items-center">
+          <button 
+            id="menu-button"
+            onClick={toggleMobileMenu}
+            className="text-gray-600 hover:text-gray-900 focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+        
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div 
+            id="mobile-menu"
+            className="absolute top-full left-0 right-0 bg-white shadow-md py-4 px-4 md:hidden flex flex-col space-y-4 z-50"
+          >
+            <Link 
+              href="/careers" 
+              className="text-[#B3D3BB] border border-[#B3D3BB] px-5 py-2 rounded-lg text-sm font-medium hover:bg-[#B3D3BB] hover:text-white transition-colors duration-300 text-center"
+            >
+              Careers
+            </Link>
+            
+            <div
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                document.getElementById('contact-form').scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
+              className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer text-center"
+            >
+              Talk to Sales
+            </div>
+          </div>
+        )}
     </div>
 
   </div>
@@ -492,14 +548,14 @@ const LandingPage = () => {
         {/* Semi-circle Gradient Overlay */}
         <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
           {/* Concentric semi-circles starting from bottom center */}
-          <div className="absolute bottom-0 w-[160vw] h-[160vw] md:w-[130vw] md:h-[130vw] lg:w-[100vw] lg:h-[100vw] rounded-[50%] bg-[#abcfb4] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[150vw] h-[150vw] md:w-[120vw] md:h-[120vw] lg:w-[94vw] lg:h-[94vw] rounded-[50%] bg-[#a3cbad] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[140vw] h-[140vw] md:w-[110vw] md:h-[110vw] lg:w-[88vw] lg:h-[88vw] rounded-[50%] bg-[#9cc7a6] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[130vw] h-[130vw] md:w-[100vw] md:h-[100vw] lg:w-[82vw] lg:h-[82vw] rounded-[50%] bg-[#95c4a0] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[120vw] h-[120vw] md:w-[90vw] md:h-[90vw] lg:w-[76vw] lg:h-[76vw] rounded-[50%] bg-[#8ec19a] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[110vw] h-[110vw] md:w-[80vw] md:h-[80vw] lg:w-[70vw] lg:h-[70vw] rounded-[50%] bg-[#88be95] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[100vw] h-[100vw] md:w-[70vw] md:h-[70vw] lg:w-[64vw] lg:h-[64vw] rounded-[50%] bg-[#82bb90] translate-y-[45%]"></div>
-          <div className="absolute bottom-0 w-[90vw] h-[90vw] md:w-[60vw] md:h-[60vw] lg:w-[58vw] lg:h-[58vw] rounded-[50%] bg-[#7db88b] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[112vw] h-[112vw] md:w-[91vw] md:h-[91vw] lg:w-[70vw] lg:h-[70vw] rounded-[50%] bg-[#abcfb4] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[105vw] h-[105vw] md:w-[84vw] md:h-[84vw] lg:w-[66vw] lg:h-[66vw] rounded-[50%] bg-[#a3cbad] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[98vw] h-[98vw] md:w-[77vw] md:h-[77vw] lg:w-[61vw] lg:h-[61vw] rounded-[50%] bg-[#9cc7a6] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[91vw] h-[91vw] md:w-[70vw] md:h-[70vw] lg:w-[57vw] lg:h-[57vw] rounded-[50%] bg-[#95c4a0] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[84vw] h-[84vw] md:w-[63vw] md:h-[63vw] lg:w-[53vw] lg:h-[53vw] rounded-[50%] bg-[#8ec19a] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[77vw] h-[77vw] md:w-[56vw] md:h-[56vw] lg:w-[49vw] lg:h-[49vw] rounded-[50%] bg-[#88be95] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[70vw] h-[70vw] md:w-[49vw] md:h-[49vw] lg:w-[45vw] lg:h-[45vw] rounded-[50%] bg-[#82bb90] translate-y-[45%]"></div>
+  <div className="absolute bottom-0 w-[63vw] h-[63vw] md:w-[42vw] md:h-[42vw] lg:w-[41vw] lg:h-[41vw] rounded-[50%] bg-[#7db88b] translate-y-[45%]"></div>
         </div>
 
         <motion.div
@@ -712,84 +768,83 @@ const LandingPage = () => {
           document.getElementById('contact-form').scrollIntoView({
             behavior: 'smooth',
             block: 'start'
-          });
-        }}
-          className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
-        >
-          Start Your Content Journey Today
-        </button>
-      </div>
-      <section>
-        <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
-          <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
-            <div className='flex items-center mx-auto scale-70'>
-              <Image src="/ads page cw.png" alt="Icon1" className='md:block hidden' width={400} height={400} priority />
-            </div>
-            <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
-              <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
-                Why Choose TransCurators
-                <span className='md:text-3xl text-xl font-semibold text-black'> for Your Content Needs<br />
-                </span>
-              </h2>
-              <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
-                The Right Content Partner Changes Everything – From Brand Perception to SEO to Recall. At TransCurators, we go beyond words to deliver strategy, creativity, and results.
-              </p>
-              <ul className='mt-6 space-y-4'>
-                {[
-                  {
-                    heading: "Industry-Specific Content",
-                    desc: "Writers with real domain expertise for content that connects."
-                  },
-                  {
-                    heading: "SEO-Focused",
-                    desc: "Optimized for rankings, traffic, and conversions."
-                  },
-                  {
-                    heading: "Custom Solutions",
-                    desc: "Content tailored to your brand's voice and audience."
-                  },
-                  {
-                    heading: "Fast Turnarounds",
-                    desc: "On-time delivery without compromising quality."
-                  },
-                  {
-                    heading: "Original & Authentic",
-                    desc: "No AI fluff—just unique, brand-driven storytelling."
-                  },
-                  {
-                    heading: "Transparent Process",
-                    desc: "Collaborative, clear, and goal-focused at every step."
-                  }
-                ].map((item, index) => (
-                  <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
-                    <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
-                      <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
-                      </svg>
-
-                    </span>
-                    <span>
-                      <span className="font-semibold">{item.heading}</span>: {item.desc}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-col sm:flex-row md:mt-4 mt-4">
-                <button
-                  onClick={() => {
-                    document.getElementById('contact-form').scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start'
-                    });
-                  }}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
-                >
-                  Contact Us
-                </button>
-              </div>
-            </div>
-          </div>
+        });
+    }}
+    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white">
+        Start Your Content Journey Today
+    </button>
+</div>
+            <section>
+            <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
+        <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
+        <div className='flex items-center mx-auto scale-70'>
+          <Image src="/ads page cw.png" alt="Icon1" className='md:block hidden' width={400} height={400} priority />
         </div>
+        <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
+          <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
+          Why Choose TransCurators 
+          <span className='md:text-3xl text-xl font-semibold text-black'> for Your Content Needs<br/>
+          </span>
+          </h2>
+          <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
+          The Right Content Partner Changes Everything – From Brand Perception to SEO to Recall. At TransCurators, we go beyond words to deliver strategy, creativity, and results. 
+          </p>
+          <ul className='mt-6 space-y-4'>
+            {[
+              {
+                heading: "Industry-Specific Content",
+                desc: "Writers with real domain expertise for content that connects."
+              },
+              {
+                heading: "SEO-Focused",
+                desc: "Optimized for rankings, traffic, and conversions."
+              },
+              {
+                heading: "Custom Solutions",
+                desc: "Content tailored to your brand's voice and audience."
+              },
+              {
+                heading: "Fast Turnarounds",
+                desc: "On-time delivery without compromising quality."
+              },
+              {
+                heading: "Original & Authentic",
+                desc: "No AI fluff—just unique, brand-driven storytelling."
+              },
+              {
+                heading: "Transparent Process",
+                desc: "Collaborative, clear, and goal-focused at every step."
+              }
+            ].map((item, index) => (
+              <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
+                <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
+                <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                  </svg>
+                  
+                </span>
+                <span>
+                  <span className="font-semibold">{item.heading}</span>: {item.desc}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col sm:flex-row md:mt-4 mt-4">
+                                <button 
+                                    onClick={() => {
+                                        document.getElementById('contact-form').scrollIntoView({ 
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    }}
+                                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
+                                >
+                                    Contact Us
+                                </button>
+                            </div>
+        </div>
+        </div>
+      </div>
       </section>
       <div className="w-full mb-20 md:mt-22 mt-12">
         <div className="max-w-4xl mx-auto text-center space-y-4">
