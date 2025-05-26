@@ -563,7 +563,7 @@ const WebDevelopment = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Image Section */}
             <div className="relative h-64 lg:h-auto">
-              <img
+              <Image
                 src={currentSolution.image}
                 alt={activeTab}
                 className="w-full h-full object-cover"
@@ -683,7 +683,7 @@ const WebDevelopment = () => {
                                     {servicesoffered.slice(0, 5).map((service, index) => (
                                       <div key={index} className='flex items-start justify-start'>
                                         <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group `}>
-                                          <img src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                          <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
                                           <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                           <p className='text-sm font-regular text-[#6a6a6a] mt-2 '>{service.description}</p>
                                         </div>
@@ -723,7 +723,7 @@ const WebDevelopment = () => {
     <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-8 md:py-8'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex justify-center items-center mx-auto scale-70'>
-          <img src="/Images/section3.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/Images/section3.png" alt="Icon1" className='md:block hidden' />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -830,7 +830,7 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
         {/* Card 1 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
-          <img
+          <Image
             src="/rc1.png" // Replace with your image path
             alt="High-Growth Ecommerce Platform"
             className="rounded-xl w-full h-48 object-cover mb-4"
@@ -842,7 +842,7 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         </div>
         {/* Card 2 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
-          <img
+          <Image
             src="/rc2.png" // Replace with your image path
             alt="Custom CRM for Healthcare Startup"
             className="rounded-xl w-full h-48 object-cover mb-4"
@@ -854,7 +854,7 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         </div>
         {/* Card 3 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
-          <img
+          <Image
             src="rc3.png" // Replace with your image path
             alt="More Client Wins"
             className="rounded-xl w-full h-48 object-cover mb-4"
