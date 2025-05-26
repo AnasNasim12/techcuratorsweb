@@ -1,10 +1,11 @@
+// app/layout.js
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientLayoutWrapper from "./components/ClientLayoutWrapper";
 
 export const metadata = {
-  title: "Trancurators - Curate Your Digital Experience",
-  description: "This is online platform for curating and sharing digital content, including articles, videos, and more.",
+  title: "Your Site Title",
+  description: "Your site description",
   other: {
     "google-site-verification": "0IvUSzCK_JefzDYiMri8LYBU1ie-Wu65B7sAS-ls4Hg",
   },
@@ -23,12 +24,31 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <head>
-        <link rel="icon" href="/Trans-icon.ico" type="image/x-icon" />
+      <head>
+        {/* ✅ Google Tag Manager Head Script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KR79DX3H');`,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
+        {/* ✅ Google Tag Manager noscript (inside body) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KR79DX3H"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
