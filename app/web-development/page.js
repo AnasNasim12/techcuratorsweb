@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -394,13 +394,13 @@ const WebDevelopment = () => {
     }
     
     // Handle carousel navigation
-    const nextSlide = () => {
+    const nextSlide = useCallback(() => {
         setCurrentSlide((prev) => (prev === chunkedServices.length - 1 ? 0 : prev + 1));
-    };
+    }, [chunkedServices.length]);
     
-    const prevSlide = () => {
+    const prevSlide = useCallback(() => {
         setCurrentSlide((prev) => (prev === 0 ? chunkedServices.length - 1 : prev - 1));
-    };
+    }, [chunkedServices.length]);
     
     // Auto-rotate carousel (optional)
     useEffect(() => {
@@ -409,7 +409,7 @@ const WebDevelopment = () => {
         }, 5000); // Change slide every 5 seconds
         
         return () => clearInterval(interval);
-    }, []);
+    }, [nextSlide]); // Add nextSlide to the dependency array
 
     return (
         <>
@@ -566,6 +566,8 @@ const WebDevelopment = () => {
               <Image
                 src={currentSolution.image}
                 alt={activeTab}
+                width={1000}
+                height={600}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -683,7 +685,13 @@ const WebDevelopment = () => {
                                     {servicesoffered.slice(0, 5).map((service, index) => (
                                       <div key={index} className='flex items-start justify-start'>
                                         <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group `}>
-                                          <Image src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                          <Image 
+                                            src={service.icon} 
+                                            alt={service.title} 
+                                            width={50} 
+                                            height={50} 
+                                            className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' 
+                                          />
                                           <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                           <p className='text-sm font-regular text-[#6a6a6a] mt-2 '>{service.description}</p>
                                         </div>
@@ -723,7 +731,13 @@ const WebDevelopment = () => {
     <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-8 md:py-8'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex justify-center items-center mx-auto scale-70'>
-          <Image src="/Images/section3.png" alt="Icon1" className='md:block hidden' />
+          <Image 
+            src="/Images/section3.png" 
+            alt="Icon1" 
+            width={400} 
+            height={300} 
+            className='md:block hidden' 
+          />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -761,60 +775,61 @@ const WebDevelopment = () => {
         </div>
       </div>
       {/* 2 case study + one paragraph section */}
-
-
   
     <div className="relative">
-    {/* Green bar spanning full width */}
-    <div className="absolute top-0 left-0 w-screen h-55 bg-[#D9E9DD] -z-10" />
-    <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
-      <h2 className="text-2xl md:text-3xl text-center mb-6">
-        Transparent Pricing for Every Stage of Growth
-      </h2>
-      <p className="text-[#6a6a6a] text-sm mt-4 text-center mx-auto max-w-3xl">
-At Transcurators, we value straightforward, upfront pricing that corresponds with your business goals and its current growth stage. Whether working towards your first website or scaling to an enterprise-grade system, our pricing is flexible to ensure you can receive value without the hidden surprises.         </p>
-      <div className="flex flex-col md:flex-row justify-center items-stretch gap-4">
-        {steps.map((step, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-xl mt-3 shadow-md px-6 py-8 flex-1 min-w-[220px] max-w-xs mx-auto"
-          >
-            <div className="font-semibold text-lg mb-2 text-center">{step.title}</div>
-            <div className="text-gray-500 text-sm text-center">{step.description}</div>
+      {/* Green bar spanning full width */}
+      <div className="absolute top-0 left-0 w-screen h-55 bg-[#D9E9DD] -z-10" />
+      <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
+        <h2 className="text-2xl md:text-3xl text-center mb-6">
+          Transparent Pricing for Every Stage of Growth
+        </h2>
+        <p className="text-[#6a6a6a] text-sm mt-4 text-center mx-auto max-w-3xl">
+          At Transcurators, we value straightforward, upfront pricing that corresponds with your business goals and its current growth stage. Whether working towards your first website or scaling to an enterprise-grade system, our pricing is flexible to ensure you can receive value without the hidden surprises.         </p>
+        <div className="flex flex-col md:flex-row justify-center items-stretch gap-4">
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl mt-3 shadow-md px-6 py-8 flex-1 min-w-[220px] max-w-xs mx-auto"
+            >
+              <div className="font-semibold text-lg mb-2 text-center">{step.title}</div>
+              <div className="text-gray-500 text-sm text-center">{step.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <section className="max-w-screen-xl mx-auto text-left py-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {Pricing.map((benefit) => (
+          <div key={benefit.number}>
+            <span className="text-[#326B3F] font-medium text-2xl">{benefit.number}</span>
+            <p className="mt-2 text-md font-semibold text-[#1b223c]">{benefit.title}</p>
+            <p className="mt-2 text-sm text-[#6a6a6a]">{benefit.description}</p>
           </div>
         ))}
       </div>
-    </div>
-  </div>
-            <section className="max-w-screen-xl mx-auto text-left py-4">
-  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {Pricing.map((benefit) => (
-      <div key={benefit.number}>
-        <span className="text-[#326B3F] font-medium text-2xl">{benefit.number}</span>
-        <p className="mt-2 text-md font-semibold text-[#1b223c]">{benefit.title}</p>
-        <p className="mt-2 text-sm text-[#6a6a6a]">{benefit.description}</p>
-      </div>
-    ))}
-  </div>
-            </section>
-            <div className="w-full py-8 mb-20 md:mt-22 mt-12">
+    </section>
+    
+    <div className="w-full py-8 mb-20 md:mt-22 mt-12">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="md:text-3xl text-xl font-medium text-black">
           Want a tailored quote
         </h2>
         <p className="md:text-3xl ml-2 text-xl font-medium justify-center text-[#326B3F]">
-        that fits your exact needs?
+          that fits your exact needs?
         </p>
         <div className="mt-8">
           <a
             href="/careers"
             className=" cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base bg-white text-gray-500 transition-shadow duration-300"
-            >
+          >
             Request a Free Estimate
           </a>
         </div>
       </div>
     </div>
+    
     <section className="w-full md:mt-22 mt-12">
       {/* Title */}
       <div className="text-center mb-6">
@@ -831,9 +846,11 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         {/* Card 1 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
           <Image
-            src="/rc1.png" // Replace with your image path
+            src="/rc1.png"
             alt="High-Growth Ecommerce Platform"
             className="rounded-xl w-full h-48 object-cover mb-4"
+            width={500}
+            height={500} 
           />
           <h3 className="font-semibold text-[#6a6a6a] text-lg mb-2">High-Growth Ecommerce Platform</h3>
           <p className="text-[#6a6a6a] text-sm">
@@ -843,9 +860,11 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         {/* Card 2 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
           <Image
-            src="/rc2.png" // Replace with your image path
+            src="/rc2.png"
             alt="Custom CRM for Healthcare Startup"
             className="rounded-xl w-full h-48 object-cover mb-4"
+            width={500}
+            height={500} 
           />
           <h3 className="font-semibold text-[#6a6a6a] text-lg mb-2">Custom CRM for Healthcare Startup</h3>
           <p className="text-[#6a6a6a] text-sm">
@@ -855,9 +874,11 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         {/* Card 3 */}
         <div className="bg-white border border-[#B3D3BB] rounded-2xl shadow-sm flex flex-col h-full p-4 transition hover:shadow-lg">
           <Image
-            src="rc3.png" // Replace with your image path
+            src="/rc3.png"
             alt="More Client Wins"
-            className="rounded-xl w-full h-48 object-cover mb-4"
+            width={400}
+            height={300}
+            className="rounded-xl w-full h-48 object-cover mb-4" 
           />
           <h3 className="font-semibold text-[#6a6a6a] text-lg mb-2">More Client Wins</h3>
           <p className="text-[#6a6a6a] text-sm">
@@ -866,48 +887,50 @@ At Transcurators, we value straightforward, upfront pricing that corresponds wit
         </div>
       </div>
     </section>
-            <section className="relative bg-[#429054]/20 py-10 md:py-16 mt-8 md:mt-22 overflow-hidden">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-start md:items-center">
-                    <div className="w-full md:w-5/12 mb-6 md:mb-0">
-                        <h2 className="text-2xl md:text-3xl font-semibold mb-3">
-                            Let's build something<br/>
-                            <span className="text-[#326B3F] block">Great Together</span>
-                        </h2>
-                    </div>
-                    <div className="w-full md:w-7/12 md:pl-8">
-                        <div className="text-[#6a6a6a] mb-6">
-                            <p className="mb-4">
-                                Whether you are launching a new platform, redesigning an existing system, or simply looking to refresh your existing digital presence — Transcurators is here for you. We're a high-rated website development company and web design company that delivers personalized digital solutions that drive growth, performance, and ROI.
-                            </p>
-                            
-                            <p className="mb-4">
-                                Our expertise crosses industries and project sizes — from high-energy corporate sites to large enterprise applications. Whether your business is in healthcare, ecommerce, education, or travel, our team has the technical know-how and creative passion to take your project to success. We're not just another web designing company in Delhi — your technology partner for the long haul.
-                            </p>
-                            
-                            <p className="mb-4">
-                                Let's construct thoughtful, scalable, and conversion-focused platforms together. Start by choosing the engagement that suits you best:
-                            </p>
-                            
-                            <div className="mb-4">
-                                <p><span className="font-medium">Request a Quote</span> – Get a personalised estimate from our experts.</p>
-                                <p><span className="font-medium">Schedule a Call</span> – Let's discuss your vision, challenges, and timelines.</p>
-                                <p><span className="font-medium">Start a Project</span> – Ready to begin? Let's build something amazing!</p>
-                            </div>
-                            
-                            <p>
-                                Trust a website designing agency that combines strategy, creativity, and technology to bring your ideas to life.
-                            </p>
-                        </div>
+    
+    <section className="relative bg-[#429054]/20 py-10 md:py-16 mt-8 md:mt-22 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-start md:items-center">
+        <div className="w-full md:w-5/12 mb-6 md:mb-0">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-3">
+            Let's build something<br />
+            <span className="text-[#326B3F] block">Great Together</span>
+          </h2>
+        </div>
+        <div className="w-full md:w-7/12 md:pl-8">
+          <div className="text-[#6a6a6a] mb-6">
+            <p className="mb-4">
+              Whether you are launching a new platform, redesigning an existing system, or simply looking to refresh your existing digital presence — Transcurators is here for you. We're a high-rated website development company and web design company that delivers personalized digital solutions that drive growth, performance, and ROI.
+            </p>
 
-                        <div className="mt-6">
-                            <a href="#" className="bg-white inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base text-gray-500 transition-all duration-300 hover:-translate-y-1">
-                                Start Your Journey
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/* testimonial section */}
+            <p className="mb-4">
+              Our expertise crosses industries and project sizes — from high-energy corporate sites to large enterprise applications. Whether your business is in healthcare, ecommerce, education, or travel, our team has the technical know-how and creative passion to take your project to success. We're not just another web designing company in Delhi — your technology partner for the long haul.
+            </p>
+
+            <p className="mb-4">
+              Let's construct thoughtful, scalable, and conversion-focused platforms together. Start by choosing the engagement that suits you best:
+            </p>
+
+            <div className="mb-4">
+              <p><span className="font-medium">Request a Quote</span> – Get a personalised estimate from our experts.</p>
+              <p><span className="font-medium">Schedule a Call</span> – Let's discuss your vision, challenges, and timelines.</p>
+              <p><span className="font-medium">Start a Project</span> – Ready to begin? Let's build something amazing!</p>
+            </div>
+
+            <p>
+              Trust a website designing agency that combines strategy, creativity, and technology to bring your ideas to life.
+            </p>
+          </div>
+
+          <div className="mt-6">
+            <a href="#" className="bg-white inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base text-gray-500 transition-all duration-300 hover:-translate-y-1">
+              Start Your Journey
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* testimonial section */}
     <section className="max-w-screen-xl mx-auto md:mt-22 mt-12 mb-16">
       <div className="text-center mb-16">
         <h2 className="md:text-3xl text-xl mt-4 font-medium">
