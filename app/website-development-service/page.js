@@ -441,26 +441,6 @@ const founders = [
     }
     ];
     
-    const testimonials = [
-        {
-          name: "Lokesh",
-          title: "Acko",
-          text: "We developed our entire health insurance and car insurance vertical through TransCurators. The quality and the speed at which we received content was superb.",
-          highlight: "Superb Quality & Speed"
-        },
-        {
-          name: "Adnan",
-          title: "DMI Finance",
-          text: "With the help of team TC, we churned out a huge chunk of blogs on the financial sector and insurance. The understanding the team has about the financial sector is very good.",
-          highlight: "Deep Understanding of Finance"
-        },
-        {
-          name: "Vaibhavi Mehta",
-          title: "Senior Manager, SMFG India Credit Co. Ltd.",
-          text: "We 'Thank you' and your team for their dedication, creativity, and hard work. It has truly made a significant impact on our success. We deeply appreciate our partnership and look forward to more collaborations in the future.",
-          highlight: "A True Impact on Our Success"
-        }
-      ];
       
         const [activeIndex, setActiveIndex] = useState(0);
       
@@ -642,23 +622,18 @@ const founders = [
             {/* Hero Section - Ad Landing Version */}
            <section className="w-full mb-5 bg-[#B3D3BB] h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
       {/* Radial Gradient Overlay */}
-      <div className="absolute inset-0 flex items-center mt-140 justify-center pointer-events-none">
-        {/* Red - outermost ring */}
-        <div className="absolute w-[800px] h-[800px] rounded-full bg-[#abcfb4]"></div>
-        <div className="absolute w-[745px] h-[745px] rounded-full bg-[#a3cbad]"></div>
-        {/* Orange */}
-        <div className="absolute w-[690px] h-[690px] rounded-full bg-[#9cc7a6]"></div>
-        {/* Yellow */}
-        <div className="absolute w-[635px] h-[635px] rounded-full bg-[#95c4a0]"></div>
-        {/* Green */}
-        <div className="absolute w-[580px] h-[580px] rounded-full bg-[#8ec19a]"></div>
-        {/* Blue */}
-        <div className="absolute w-[525px] h-[525px] rounded-full bg-[#88be95]"></div>
-        {/* Indigo */}
-        <div className="absolute w-[470px] h-[470px] rounded-full bg-[#82bb90]"></div>
-        {/* Violet - innermost circle */}
-        <div className="absolute w-[415px] h-[415px] rounded-full bg-[#7db88b]"></div>
-      </div>       <motion.div 
+      <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
+        {/* Concentric semi-circles starting from bottom center */}
+<div className="absolute bottom-0 w-[112vw] h-[112vw] md:w-[91vw] md:h-[91vw] lg:w-[70vw] lg:h-[70vw] rounded-[50%] bg-[#abcfb4] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[105vw] h-[105vw] md:w-[84vw] md:h-[84vw] lg:w-[66vw] lg:h-[66vw] rounded-[50%] bg-[#a3cbad] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[98vw] h-[98vw] md:w-[77vw] md:h-[77vw] lg:w-[61vw] lg:h-[61vw] rounded-[50%] bg-[#9cc7a6] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[91vw] h-[91vw] md:w-[70vw] md:h-[70vw] lg:w-[57vw] lg:h-[57vw] rounded-[50%] bg-[#95c4a0] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[84vw] h-[84vw] md:w-[63vw] md:h-[63vw] lg:w-[53vw] lg:h-[53vw] rounded-[50%] bg-[#8ec19a] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[77vw] h-[77vw] md:w-[56vw] md:h-[56vw] lg:w-[49vw] lg:h-[49vw] rounded-[50%] bg-[#88be95] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[70vw] h-[70vw] md:w-[49vw] md:h-[49vw] lg:w-[45vw] lg:h-[45vw] rounded-[50%] bg-[#82bb90] translate-y-[45%]"></div>
+<div className="absolute bottom-0 w-[63vw] h-[63vw] md:w-[42vw] md:h-[42vw] lg:w-[41vw] lg:h-[41vw] rounded-[50%] bg-[#7db88b] translate-y-[45%]"></div>
+      </div>      
+      <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -797,7 +772,7 @@ const founders = [
     <div className="max-w-6xl mx-auto">
       <h2 className="text-2xl md:text-3xl text-center mb-2">Our services</h2>
       <p className="text-[#6a6a6a] text-center mb-12 text-sm md:text-base max-w-2xl mx-auto">
-        Transcurators offers expansive web development services to help your business build a successful and effective online presence.
+        TransCurators offers expansive web development services to help your business build a successful and effective online presence.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
   {services.slice(0, 3).map((service, idx) => (
@@ -1087,71 +1062,6 @@ Founded in 2018 in New Delhi, TransCurators delivers cutting-edge content and IT
       
     </div>
   </section>
-    <section className="px-4 md:px-6">
-            <div className="max-w-screen-2xl mx-auto md:mt-22 mt-12">
-              <motion.div 
-                className="text-center mb-4 md:mb-8" // Changed from mb-10 md:mb-16 to mb-4 md:mb-8
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-medium">
-                  Testimonials
-                </h2>
-              </motion.div>
-    
-             <div className="flex flex-col max-w-screen-2xl items-center bg-white">
-          <div className="flex items-center space-x-6">
-            {/* Previous Arrow */}
-            <button
-              onClick={prevTestimonial}
-              className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
-              aria-label="Previous testimonial"
-            >
-              &lt;
-            </button>
-            {/* Testimonials */}
-            {testimonials.map((testimonial, idx) => (
-              <div
-                key={idx}
-                className={`transition-all duration-300 w-80 p-6 rounded-xl shadow-lg bg-white flex flex-col items-center
-                  ${idx === activeIndex ? "scale-105 z-10" : "opacity-50 scale-95"}
-                  ${idx === activeIndex ? "" : "hidden md:flex"}
-                `}
-              >
-                
-                <div className="text-lg font-semibold">{testimonial.name}</div>
-                <div className="text-gray-400 text-sm mb-3">{testimonial.title}</div>
-                <p className="text-center italic text-gray-700">{testimonial.text}</p>
-                <p className="text-xs text-[#326B3F] font-medium mt-4">{testimonial.highlight}</p>
-              </div>
-            ))}
-            {/* Next Arrow */}
-            <button
-              onClick={nextTestimonial}
-              className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
-              aria-label="Next testimonial"
-            >
-              &gt;
-            </button>
-          </div>
-          {/* Dots */}
-          <div className="flex justify-center mt-6 md:mt-10 space-x-1">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${
-                  activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
-                }`}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-            </div>
-          </section>
       <div className="text-center mb-8 space-y-4 mt-12 md:mt-22 max-w-screen-xl mx-auto">
                 <h2 className="text-2xl md:text-3xl text-center mb-2">
                     Process/Workflow
