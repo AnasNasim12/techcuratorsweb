@@ -153,7 +153,7 @@ const WebDesService = () => {
 
           // Redirect after a short delay so user sees the success message
           setTimeout(() => {
-            window.location.href = '/new'; // Change to your desired route
+            window.location.href = '/thank-you'; // Change to your desired route
           }, 1200);
           
         } catch (error) {
