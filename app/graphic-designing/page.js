@@ -518,24 +518,23 @@ const Designing = () => {
         </div>
       </div>   
 
-      {/* Responsive container for tab content */}
-      <div className="w-full mb-5 md:mt-22 mt-8 bg-[#B3D3BB] min-h-[500px] sm:min-h-[550px] md:h-auto md:aspect-[16/9] flex items-center justify-center relative overflow-hidden rounded-[20px] sm:rounded-[30px] mx-auto max-w-[95%]">
-        <div className="max-w-7xl mx-auto w-full px-3 sm:px-4 py-6 sm:py-8 md:py-12">
+      {/* Responsive container for tab content */}      <div className="w-full mb-5 md:mt-22 mt-8 bg-[#B3D3BB] min-h-[450px] sm:min-h-[500px] md:min-h-[550px] flex items-center justify-center relative overflow-hidden rounded-[20px] sm:rounded-[30px] mx-auto max-w-[95%]">
+        <div className="max-w-7xl mx-auto w-full px-3 sm:px-4 py-6 sm:py-8 md:py-10">
 
           {/* Header with fixed height to prevent shifting */}
-          <div className="text-center mb-6 sm:mb-8 md:mb-12 min-h-[60px] sm:min-h-[80px] flex items-center justify-center">
+          <div className="text-center mb-4 sm:mb-6 md:mb-8 min-h-[60px] sm:min-h-[70px] flex items-center justify-center">
             <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 px-2">
               {currentContent.heading}
             </h1>
           </div>
 
-          {/* Fixed height container for cards with better mobile handling */}
-          <div className="w-full overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+          {/* Content container with better overflow handling */}
+          <div className="w-full overflow-visible h-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6">
               {currentContent.points.map((point, index) => (
                 <div 
                   key={index}
-                  className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100 flex flex-col"
+                  className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100 flex flex-col h-full"
                 >
                   <h2 className="text-base sm:text-lg font-medium text-[#1B223C] mb-2 sm:mb-4 leading-tight">
                     {point.title}
