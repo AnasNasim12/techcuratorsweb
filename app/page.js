@@ -2,7 +2,7 @@ import Landing_Page from "./landingpage";
 
 
 export const metadata = {
-  title: 'Trancurators - Curate Your Digital Experience',
+  title: 'TransCurators - Curate Your Digital Experience',
   description: 'This is online platform for curating and sharing digital content, including articles, videos, and more.',
   // Injecting custom meta tag (Google Site Verification)
   other: {

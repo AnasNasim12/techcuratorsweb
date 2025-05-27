@@ -13,6 +13,40 @@ const containerVariants = {
     }
   }
 };
+const webdevservices = [
+  {
+    title: "Business Analysis & Consultation",
+    description:
+      "We conduct an in-depth analysis of your industry, objectives, and challenges to establish a roadmap that delivers results. Our consultants ensure consistent alignment between strategy and execution and help businesses link broad objectives to digital delivery. This is where we build the foundation to provide value in your website development services.",
+  },
+  {
+    title: "UX & UI Design",
+    description:
+      "Design isn't just about aesthetics; it's about how the audience feels when interacting with your brand. Our design team creates beautiful, intuitive interfaces using several deliverables, such as wireframes, user flows, and prototypes. As a website designing agency, we aspire for clarity and success with every click rather than confusion.",
+  },
+  {
+    title: "Front-End & Back-End Development",
+    description:
+      "We build finished designs using several modern frameworks such as React, Angular, and Vue.js. In addition, our back-end team builds a secure, clear, scalable and performance-evidenced stack using modern labels like Laravel, Django, Node.js, .net, etc. As a web development company, we consider best practices throughout our stack.",
+  },
+  {
+    title: "API & Third-Party Integrations",
+    description:
+      "Data sync is important to a real-time user action, and we integrate interdependencies like CRMs, payment gateways, 3rd-party analytics, shipping APIS, etc., to ensure endless experiences for end users and their administrators. Regardless of your other technology, our web development efforts will ensure they are synced, and your systems are talking to one another.",
+  },
+  {
+    title: "QA & Testing",
+    description:
+      "Before publicly launching your product, we ensure it has been through an exhaustive, manual and automated quality assurance process. We check for bugs, compatibility across browsers, mobile responsiveness, and security vulnerabilities. We build websites and applications that meet a high standard, which is why we are our clients' trusted web development company.",
+  },
+  {
+    title: "Deployment & Support",
+    description:
+      "With our established Continuous Integration (CI) and Continuous Delivery (CD), we can seamlessly roll out your digital assets with no downtime. After launch, we monitor performance, security, and user engagement. When you partner with Transcurators, you have peace of mind knowing we are always creating long-term value and can provide you with ongoing support.",
+  },
+];
+
+
 const processSteps = [
   {
     icon: "/i1.png",
@@ -192,44 +226,7 @@ const WebDevelopment = () => {
               setOpenFAQ((prev) => (prev === id ? null : id));
             };
             
-        const servicesoffered = [
-            {
-              icon: "/Images/messageIcon.png",
-              title: "Business Analysis & Consultation",
-              description:
-                "We conduct an in-depth analysis of your industry, objectives, and challenges to establish a roadmap that delivers results. Our consultants ensure consistent alignment between strategy and execution and help businesses link broad objectives to digital delivery.",
-            },
-            {
-              icon: "/Images/messageIcon.png",
-              title: "UX & UI Design",
-              description:
-                "Design isn't just about aesthetics; it's about how the audience feels when interacting with your brand. Our team creates beautiful, intuitive interfaces using deliverables like wireframes, user flows, and prototypes to ensure clarity and success with every click.",
-            },
-            {
-              icon: "/Images/messageIcon.png",
-              title: "Front-End & Back-End Development",
-              description:
-                "We build modern, responsive designs using frameworks like React, Angular, and Vue.js, while our backend team ensures a secure, scalable, and high-performance architecture using technologies like Laravel, Django, Node.js, and .NET.",
-            },
-            {
-              icon: "/Images/messageIcon.png",
-              title: "API & Third-Party Integrations",
-              description:
-                "We integrate CRMs, payment gateways, analytics tools, shipping APIs, and more to deliver seamless digital experiences. Our web development ensures real-time data sync and smooth interaction between systems.",
-            },
-            {
-              icon: "/Images/messageIcon.png",
-              title: "QA & Testing",
-              description:
-                "Before launch, we conduct extensive manual and automated testing to catch bugs, ensure cross-browser compatibility, mobile responsiveness, and safeguard against vulnerabilities—delivering reliable and secure products.",
-            },
-            {
-              icon: "/Images/messageIcon.png",
-              title: "Deployment & Support",
-              description:
-                "With CI/CD pipelines in place, we ensure smooth, zero-downtime launches. Post-deployment, we offer continuous monitoring, proactive maintenance, and long-term support to maximize your ROI.",
-            },
-          ];
+
             const solutionsData = {
     'Web Portals': {
       image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
@@ -531,7 +528,7 @@ const WebDevelopment = () => {
             </div>
 </section>
 <section>
-      <div className="w-full py-16">
+      <div className="w-full md:mt-22 mt-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -600,6 +597,78 @@ const WebDevelopment = () => {
         </div>
       </div>
     </div>
+</section>
+    <section>
+  {/* Services Carousel Component */}
+  {(() => {
+    // Define services carousel component inside section to use existing webdevservices data
+    function ServicesCarousel() {
+      const [current, setCurrent] = useState(0);
+
+      const cardsPerPage = 3;
+      const totalPages = Math.ceil(webdevservices.length / cardsPerPage);
+
+      const pagedServices = webdevservices.slice(
+        current * cardsPerPage,
+        current * cardsPerPage + cardsPerPage
+      );
+
+      return (
+        <section className="w-full md:mt-22 mt-12">
+          {/* Title */}
+          <h2 className="text-2xl md:text-3xl font-medium text-center mb-12">
+            Web Development{" "}
+            <span className="text-[#3c6446]">Services We Offer</span>
+          </h2>
+
+          {/* Cards */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl px-4 mx-auto">
+              {pagedServices.map((service, idx) => (
+                <div
+                  key={service.title}
+                  className="bg-white rounded-[24px] shadow-[#B3D3BB] border border-[#B3D3BB] flex flex-col items-center p-8 transition hover:shadow-lg"
+                  style={{ height: "420px" }}
+                >
+                  <div className="h-[80px] flex items-center justify-center mb-6">
+                    <h3 className="text-2xl font-medium text-[#4B7D57] text-center">
+                      {service.title}
+                    </h3>
+                  </div>
+                  <div className="bg-[#D9E9DD] rounded-xl p-6 text-black text-center flex-1 overflow-auto">
+                    <div className="flex items-center justify-center h-full">
+                      <p className="text-sm">
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center mt-10 space-x-3">
+            {[...Array(totalPages)].map((_, idx) => (
+              <button
+                key={idx}
+                aria-label={`Go to page ${idx + 1}`}
+                onClick={() => setCurrent(idx)}
+                className={`h-2 w-10 rounded-full transition-all duration-200 ${
+                  current === idx
+                    ? "bg-[#326B3F]"
+                    : "bg-[#9BCDA8] hover:bg-[#326B3F] hover:w-12"
+                }`}
+              />
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    // Render the carousel component
+    return <ServicesCarousel />;
+  })()}
 </section>
       <div className="text-center mb-8 space-y-4 mt-12 md:mt-22 max-w-screen-xl mx-auto">
                 <h2 className="text-2xl md:text-3xl text-center mb-2">
@@ -672,164 +741,6 @@ const WebDevelopment = () => {
         ))}
       </div>
     </section>
-
-            <section>
-            <div className="text-center mb-16 mt-22 md:mt-12space-y-4">
-        <h2 className="md:text-3xl text-xl mt-4 font-medium">
-          Web Development Services{' '}<br />
-          <span className="text-[#326B3F]">We Offer</span>
-        </h2>
-      </div>
-
-            <div className=" max-w-screen-xl mx-auto grid grid-cols-1 gap-4 lg:grid-cols-5 lg:gap-5 md:mt-16 mt-12 text-left">
-                                    {servicesoffered.slice(0, 5).map((service, index) => (
-                                      <div key={index} className='flex items-start justify-start'>
-                                        <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group `}>
-                                          <Image 
-                                            src={service.icon} 
-                                            alt={service.title} 
-                                            width={50} 
-                                            height={50} 
-                                            className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' 
-                                          />
-                                          <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
-                                          <p className='text-sm font-regular text-[#6a6a6a] mt-2 '>{service.description}</p>
-                                        </div>
-                                      </div>
-                                    ))}
-                            </div>
-            </section>
-            <div className="text-center mb-16 mt-22 md:mt-12 space-y-4">
-        <h2 className="md:text-3xl text-xl mt-4 font-medium">
-          What Sets Us{' '}
-          <span className="text-[#326B3F]">Apart</span>
-        </h2>
-        <p className="text-[#6a6a6a] text-sm mt-4">
-        Being a professional web development company and web design company, Transcurators does not simply create websites—<br/>we create scalable, reliable, and future-proof digital experiences. Here's why we stand out in the crowded website designing services and website development services field.
-        </p>
-      </div>
-      <div className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-22">
-      {/* Splitting content into two equal columns */}
-      {[0, 1].map((colIndex) => (
-        <div key={colIndex} className="space-y-4 max-w-md">
-          {setsusapart
-            .slice(colIndex * 2, colIndex * 2 + 2) // Split into two groups of 3
-            .map((benefit, idx) => (
-              <div
-                key={idx}
-                className="bg-white md:p-4 p-1 rounded-lg transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-100"
-              >
-                <h3 className="font-semibold text-lg text-[#326B3F]">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{benefit.description}</p>
-              </div>
-            ))}
-        </div>
-      ))}
-    </div>
-    <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-8 md:py-8'>
-        <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
-        <div className='flex justify-center items-center mx-auto scale-70'>
-          <Image 
-            src="/Images/section3.png" 
-            alt="Icon1" 
-            width={400} 
-            height={300} 
-            className='md:block hidden' 
-          />
-        </div>
-        <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
-          <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
-          Industries We 
-          <span className='md:text-3xl text-xl font-semibold text-black'> Serve<br/>
-          </span>
-          </h2>
-          <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
-          Transcurators, a top web development company and website designing agency, serves various industries through its high-performance, customized web solutions. Our skilled teams offer world-class website development services and website designing services  that are carefully designed to meet the unique requirements of various industries.
-          </p>
-          <ul className='mt-6 space-y-4'>
-            {[
-  "Healthcare & Wellness - Our web design company builds HIPAA-compliant patient portals, telemedicine platforms, and scheduling systems that enhance the delivery of care and safeguard sensitive data.",
-  "Ecommerce & Retail - We are a website development company known for creating scalable, mobile-first e-commerce sites that drive traffic and conversion. Our hallmark includes smooth integrations and intuitive interfaces.",
-  "Finance & Insurance - From compliant dashboards to payment gateways, our web development capabilities power fintech innovation with regulatory compliance and data protection.",
-  "Education & eLearning - With our website development services, we provide LMS systems, online test software, and virtual classrooms that enable easier access and interaction with education.",
-  "Travel & Hospitality - As a web design company in India, we create robust booking engines and multilingual portals that streamline customer journeys and boost direct bookings.",
-  "Logistics & Manufacturing - Our Delhi-based web development company offers strong systems of inventory management, vendor management, and logistics monitoring."
-].map((item, index) => (
-              <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
-                <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
-                  <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
-                  </svg>
-                </span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className='text-sm font-regular mt-6 mb-4 text-[#6a6a6a]'>
-          Need solutions for your business? Let our website development company in Delhi assist you in growing online.
-          </p>
-        </div>
-
-        </div>
-      </div>
-      {/* 2 case study + one paragraph section */}
-  
-    <div className="relative">
-      {/* Green bar spanning full width */}
-      <div className="absolute top-0 left-0 w-screen h-55 bg-[#D9E9DD] -z-10" />
-      <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
-        <h2 className="text-2xl md:text-3xl text-center mb-6">
-          Transparent Pricing for Every Stage of Growth
-        </h2>
-        <p className="text-[#6a6a6a] text-sm mt-4 text-center mx-auto max-w-3xl">
-          At Transcurators, we value straightforward, upfront pricing that corresponds with your business goals and its current growth stage. Whether working towards your first website or scaling to an enterprise-grade system, our pricing is flexible to ensure you can receive value without the hidden surprises.         </p>
-        <div className="flex flex-col md:flex-row justify-center items-stretch gap-4">
-          {steps.map((step, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-xl mt-3 shadow-md px-6 py-8 flex-1 min-w-[220px] max-w-xs mx-auto"
-            >
-              <div className="font-semibold text-lg mb-2 text-center">{step.title}</div>
-              <div className="text-gray-500 text-sm text-center">{step.description}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-    
-    <section className="max-w-screen-xl mx-auto text-left py-4">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {Pricing.map((benefit) => (
-          <div key={benefit.number}>
-            <span className="text-[#326B3F] font-medium text-2xl">{benefit.number}</span>
-            <p className="mt-2 text-md font-semibold text-[#1b223c]">{benefit.title}</p>
-            <p className="mt-2 text-sm text-[#6a6a6a]">{benefit.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-    
-    <div className="w-full py-8 mb-20 md:mt-22 mt-12">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="md:text-3xl text-xl font-medium text-black">
-          Want a tailored quote
-        </h2>
-        <p className="md:text-3xl ml-2 text-xl font-medium justify-center text-[#326B3F]">
-          that fits your exact needs?
-        </p>
-        <div className="mt-8">
-          <a
-            href="/careers"
-            className=" cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base bg-white text-gray-500 transition-shadow duration-300"
-          >
-            Request a Free Estimate
-          </a>
-        </div>
-      </div>
-    </div>
-    
     <section className="w-full md:mt-22 mt-12">
       {/* Title */}
       <div className="text-center mb-6">
@@ -837,7 +748,7 @@ const WebDevelopment = () => {
           Real <span className="text-[#3c6446]">Results</span>, Real <span className="text-[#3c6446]">Clients</span>
         </h2>
         <p className="mt-4 text-[#6a6a6a] max-w-3xl mx-auto">
-          At Transcurators, we create more than digital products; we build solutions that deliver measurable results. Our clients have enjoyed better performance, scalability, and user engagement, from startup companies to enterprises. User-centred design and strong development are important to our success stories.
+          At TransCurators, we create more than digital products; we build solutions that deliver measurable results. Our clients have enjoyed better performance, scalability, and user engagement, from startup companies to enterprises. User-centred design and strong development are important to our success stories.
         </p>
       </div>
 
@@ -887,57 +798,135 @@ const WebDevelopment = () => {
         </div>
       </div>
     </section>
-    
-    <section className="relative bg-[#429054]/20 py-10 md:py-16 mt-8 md:mt-22 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-start md:items-center">
-        <div className="w-full md:w-5/12 mb-6 md:mb-0">
-          <h2 className="text-2xl md:text-3xl font-semibold mb-3">
-            Let's build something<br />
-            <span className="text-[#326B3F] block">Great Together</span>
-          </h2>
-        </div>
-        <div className="w-full md:w-7/12 md:pl-8">
-          <div className="text-[#6a6a6a] mb-6">
-            <p className="mb-4">
-              Whether you are launching a new platform, redesigning an existing system, or simply looking to refresh your existing digital presence — Transcurators is here for you. We're a high-rated website development company and web design company that delivers personalized digital solutions that drive growth, performance, and ROI.
-            </p>
-
-            <p className="mb-4">
-              Our expertise crosses industries and project sizes — from high-energy corporate sites to large enterprise applications. Whether your business is in healthcare, ecommerce, education, or travel, our team has the technical know-how and creative passion to take your project to success. We're not just another web designing company in Delhi — your technology partner for the long haul.
-            </p>
-
-            <p className="mb-4">
-              Let's construct thoughtful, scalable, and conversion-focused platforms together. Start by choosing the engagement that suits you best:
-            </p>
-
-            <div className="mb-4">
-              <p><span className="font-medium">Request a Quote</span> – Get a personalised estimate from our experts.</p>
-              <p><span className="font-medium">Schedule a Call</span> – Let's discuss your vision, challenges, and timelines.</p>
-              <p><span className="font-medium">Start a Project</span> – Ready to begin? Let's build something amazing!</p>
+    <div className="relative md:mt-22 mt-12">
+      {/* Green bar spanning full width */}
+      <div className="absolute top-0 left-0 w-screen h-55 bg-[#D9E9DD] -z-10" />
+      <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
+        <h2 className="text-2xl md:text-3xl text-center mb-6">
+          Transparent Pricing for Every Stage of Growth
+        </h2>
+        <p className="text-[#6a6a6a] text-sm mt-4 text-center mx-auto max-w-3xl">
+          At Transcurators, we value straightforward, upfront pricing that corresponds with your business goals and its current growth stage. Whether working towards your first website or scaling to an enterprise-grade system, our pricing is flexible to ensure you can receive value without the hidden surprises.         </p>
+        <div className="flex flex-col md:flex-row justify-center items-stretch gap-4">
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl mt-3 shadow-md px-6 py-8 flex-1 min-w-[220px] max-w-xs mx-auto"
+            >
+              <div className="font-semibold text-lg mb-2 text-center">{step.title}</div>
+              <div className="text-gray-500 text-sm text-center">{step.description}</div>
             </div>
-
-            <p>
-              Trust a website designing agency that combines strategy, creativity, and technology to bring your ideas to life.
-            </p>
-          </div>
-
-          <div className="mt-6">
-            <a href="#" className="bg-white inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium text-base text-gray-500 transition-all duration-300 hover:-translate-y-1">
-              Start Your Journey
-            </a>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
+        <div className="w-full bg-[#e5efe5] py-20 mb-20 md:mt-22 mt-12">
+      <div className="max-w-4xl mx-auto text-center space-y-4">
+        <h2 className="md:text-3xl text-xl font-medium text-black">
+          Want a tailored quote that fits your exact needs?
+        </h2>
+         <div href="/careers"
+            className="cursor-pointer inline-flex mt-4 items-center text-sm justify-center px-3 py-1.5 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-[#3c6446] text-white transition-shadow duration-300">Request a Free Estimate</div>
+      </div>
+    </div>
+    <div className="text-center mb-16 mt-12 md:mt-22 space-y-4">
+        <h2 className="md:text-3xl text-xl mt-4 font-medium">
+          Industries We{' '}
+          <span className="text-[#326B3F]">Serve</span>
+        </h2>
+        <p className="text-[#6a6a6a] text-sm mt-4">
+Transcurators, a top web development company and website designing agency, serves various industries through its high-performance, <br/>customized web solutions. Our skilled teams offer world-class website development services and website designing services that<br/> are carefully designed to meet the unique requirements of various industries.
+        </p>
+      </div>
+    <section className="md:mt-22 mt-12">
+  <div className="max-w-screen-lg mx-auto px-4 sm:px-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+<div className="relative col-span-1 sm:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind1.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Ecommerce & Retail</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+We are a website development company known for creating scalable, mobile-first e-commerce sites that drive traffic and conversion. Our hallmark includes smooth integrations and intuitive interfaces.</p>
+  </div>
+</div>
+<div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind2.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Healthcare & Wellness</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+Our web design company builds HIPAA-compliant patient portals, telemedicine platforms, and scheduling systems that enhance the delivery of care and safeguard sensitive data.</p>
+  </div>
+</div>
+<div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind3.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Finance & Insurance</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+From compliant dashboards to payment gateways, our web development capabilities power fintech innovation with regulatory compliance and data protection.
+</p>
+  </div>
+</div>
+      {/* Row 2 */}
+<div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind4.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Logistics & Manufacturing</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+Our Delhi-based web development company offers strong systems of inventory management, vendor management, and logistics monitoring.
+    </p>
+  </div>
+</div>
 
-    {/* testimonial section */}
-    <section className="max-w-screen-xl mx-auto md:mt-22 mt-12 mb-16">
+<div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind5.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Travel & Hospitality</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+As a web design company in India, we create robust booking engines and multilingual portals that streamline customer journeys and boost direct bookings.</p>
+  </div>
+</div>
+
+<div className="relative col-span-1 sm:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-64" style={{ backgroundImage: 'url(/ind6.png)' }}>
+  <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center px-2">
+    <span className="text-[#3c6446] font-bold sm:text-base block">Education & eLearning</span>
+    <p className="text-[#6a6a6a] text-xs sm:text-xs mt-1 leading-snug">
+With our website development services, we provide LMS systems, online test software, and virtual classrooms that enable easier access and interaction with education.</p>
+  </div>
+</div>
+  </div>
+  </div>
+</section>
+ <div className="text-center mb-16 mt-12 md:mt-22 space-y-4">
+        <h2 className="md:text-3xl text-xl mt-4 font-medium">
+          What Sets Us{' '}
+          <span className="text-[#326B3F]">Apart</span>
+        </h2>
+        <p className="text-[#6a6a6a] text-sm mt-4">
+        Being a professional web development company and web design company, Transcurators does not simply create websites—<br/>we create scalable, reliable, and future-proof digital experiences. Here's why we stand out in the crowded website designing services and website development services field.
+        </p>
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-22">
+      {/* Splitting content into two equal columns */}
+      {[0, 1].map((colIndex) => (
+        <div key={colIndex} className="space-y-4 max-w-md">
+          {setsusapart
+            .slice(colIndex * 2, colIndex * 2 + 2) // Split into two groups of 3
+            .map((benefit, idx) => (
+              <div
+                key={idx}
+                className="bg-white md:p-4 p-1 rounded-lg transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-100"
+              >
+                <h3 className="font-semibold text-lg text-[#326B3F]">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-600 text-sm">{benefit.description}</p>
+              </div>
+            ))}
+        </div>
+      ))}
+    </div>
+     <section className="max-w-screen-xl mx-auto md:mt-22 mt-12 mb-16">
       <div className="text-center mb-16">
         <h2 className="md:text-3xl text-xl mt-4 font-medium">
           Client <span className="text-[#326B3F]">Testimonials</span>
         </h2>
         <p className="text-[#6a6a6a] text-sm mt-4 max-w-2xl mx-auto">
-          At Transcurators, we pride ourselves on being more than just a web development company — we are a reliable digital partner. Our clients across industries trust our website development services and website designing services to turn ideas into high-performing digital products.
+          At TransCurators, we pride ourselves on being more than just a web development company — we are a reliable digital partner. Our clients across industries trust our website development services and website designing services to turn ideas into high-performing digital products.
         </p>
       </div>
 
@@ -945,7 +934,7 @@ const WebDevelopment = () => {
         {/* Testimonial 1 */}
         <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-2">
           <p className="text-[#6a6a6a] text-sm italic mb-6">
-            "Transcurators turned our vision into a fully functional web app with precision and professionalism. A reliable partner from day one."
+            "TransCurators turned our vision into a fully functional web app with precision and professionalism. A reliable partner from day one."
           </p>
           <div className="mt-auto">
             <p className="font-semibold text-[#1b223c]">CTO, Healthcare Startup</p>
@@ -994,6 +983,85 @@ const WebDevelopment = () => {
       </div>
     </div>
     </section>
+      {/* 2 case study + one paragraph section */}
+    
+      <section className="relative bg-[#429054]/20 py-10 md:py-16 mt-8 md:mt-22 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          {/* Image on the left */}
+          <div className="w-full md:w-5/12">
+            <Image
+              src="/buildtgther.png"
+              alt="Let's Build Together"
+              width={500}
+              height={400}
+              className="w-full h-auto"
+            />
+          </div>
+          
+          {/* Content on the right */}
+          <div className="w-full md:w-7/12">
+            <h2 className="text-2xl md:text-3xl mb-6">
+              Let's build something
+              <span className="text-black"> Great Together</span>
+            </h2>
+            
+            <div className="text-[#6a6a6a]">
+              <p className="mb-4">
+                Whether you are launching a new platform, redesigning an existing system, or simply looking to refresh your existing digital presence — Transcurators is here for you. We're a high-rated website development company and web design company that delivers personalized digital solutions that drive growth, performance, and ROI.
+              </p>
+
+              <p className="mb-4">
+                Our expertise crosses industries and project sizes — from high-energy corporate sites to large enterprise applications. Whether your business is in healthcare, ecommerce, education, or travel, our team has the technical know-how and creative passion to take your project to success. We're not just another web designing company in Delhi — your technology partner for the long haul.
+              </p>
+
+              <p className="mb-4">
+                Let's construct thoughtful, scalable, and conversion-focused platforms together. Start by choosing the engagement that suits you best:
+              </p>              
+              <div className="mb-4 space-y-3">
+                <div className="flex items-start">
+                  <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white mr-3'>
+                <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                  </svg>
+                  
+                </span>
+                  <p>
+                <span className="underline font-semibold">Request a Quote</span><br/>Get a personalised estimate from our experts.</p>
+                </div>
+                <div className="flex items-start">
+                 <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white mr-3'>
+                <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                  </svg>
+                  
+                </span>
+                  <p><span className="underline font-semibold">Schedule a Call</span><br/>Let's discuss your vision, challenges, and timelines.</p>
+                </div>
+                <div className="flex items-start">
+                  <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white mr-3'>
+                <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                  </svg>
+                  
+                </span>
+                  <p><span className="underline font-semibold">Start a Project</span><br/>Ready to begin? Let's build something amazing!</p>
+                </div>
+              </div>
+
+              <p>
+                Trust a website designing agency that combines strategy, creativity, and technology to bring your ideas to life.
+              </p>
+              
+         
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* testimonial section */}
+   
             <div className='max-w-screen-xl flex justify-center md:mt-22 mt-12 mb-10 mx-auto items-center'>     
         <div className='text-center flex-row'>
             <p className='text-md text-[#326B3F] font-regular'>FAQ&apos;s</p>

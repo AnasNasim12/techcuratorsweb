@@ -465,35 +465,29 @@ const LandingPage = () => {
       />
     </Link>
 
-        {/* Nav buttons - desktop and mobile versions */}
+        {/* Desktop nav buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          {/* Careers Button */}
-          <Link href="/careers" className="inline-block text-[#326B3F] border border-[#326B3F] px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300">
-            Careers
-          </Link>
-          
-      {/* Right Side Buttons */}
-    <div className="flex items-center gap-4">
-      <Link href="/careers">
-        <div className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900">
-          Careers
-        </div>
-      </Link>
-        <div
-          onClick={() => {
-            document.getElementById('contact-form').scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-          }}
-          className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer cursor-pointer"
-        >
-          Talk to Sales
-        </div>
+          {/* Right Side Buttons */}
+          <div className="flex items-center gap-4">
+            <Link href="/careers" className="inline-block text-[#326B3F] border border-[#326B3F] px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300">
+              Careers
+            </Link>
+            <div
+              onClick={() => {
+                document.getElementById('contact-form').scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              }}
+              className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
+            >
+              Talk to Sales
+            </div>
+          </div>
         </div>
         
         {/* Mobile menu button */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden">
           <button 
             id="menu-button"
             onClick={toggleMobileMenu}
@@ -511,37 +505,35 @@ const LandingPage = () => {
             )}
           </button>
         </div>
-        
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div 
-            id="mobile-menu"
-            className="absolute top-full left-0 right-0 bg-white shadow-md py-4 px-4 md:hidden flex flex-col space-y-4 z-50"
-          >
-            <Link 
-              href="/careers" 
-              className="text-[#B3D3BB] border border-[#B3D3BB] px-5 py-2 rounded-lg text-sm font-medium hover:bg-[#B3D3BB] hover:text-white transition-colors duration-300 text-center"
-            >
-              Careers
-            </Link>
-            
-            <div
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                document.getElementById('contact-form').scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }}
-              className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer text-center"
-            >
-              Talk to Sales
-            </div>
-          </div>
-        )}
-    </div>
-
   </div>
+  
+  {/* Mobile menu - moved outside the flex container for better positioning */}
+  {isMobileMenuOpen && (
+    <div 
+      id="mobile-menu"
+      className="absolute top-full left-0 right-0 bg-white shadow-md py-4 px-4 md:hidden flex flex-col space-y-4 z-50"
+    >
+      <Link 
+        href="/careers" 
+        className="text-[#326B3F] border border-[#326B3F] px-5 py-2 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300 text-center"
+      >
+        Careers
+      </Link>
+      
+      <div
+        onClick={() => {
+          setIsMobileMenuOpen(false);
+          document.getElementById('contact-form').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }}
+        className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer text-center"
+      >
+        Talk to Sales
+      </div>
+    </div>
+  )}
 </header>
           {/* Hero Section - Ad Landing Version */}
       <section className="w-full mb-5 bg-[#B3D3BB] h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-[90vh] flex items-center justify-center relative overflow-hidden rounded-[30px] mx-auto mt-6 max-w-[95%]">
@@ -781,9 +773,9 @@ const LandingPage = () => {
           <Image src="/ads page cw.png" alt="Icon1" className='md:block hidden' width={400} height={400} priority />
         </div>
         <div className='flex-row justify-center items-center px-6 py-8 md:py-12'>
-          <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
+          <h2 className='md:text-3xl text-xl font-medium text-[#326B3F]'>
           Why Choose TransCurators 
-          <span className='md:text-3xl text-xl font-semibold text-black'> for Your Content Needs<br/>
+          <span className='md:text-3xl text-xl font-medium text-black'> for Your Content Needs<br/>
           </span>
           </h2>
           <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
