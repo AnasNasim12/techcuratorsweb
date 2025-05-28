@@ -825,7 +825,7 @@ const WebDevelopment = () => {
         <h2 className="md:text-3xl text-xl font-medium text-black">
           Want a tailored quote that fits your exact needs?
         </h2>
-         <div href="/careers"
+         <div href="/contact"
             className="cursor-pointer inline-flex mt-4 items-center text-sm justify-center px-3 py-1.5 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_15px_#A8D5BA] font-medium bg-[#3c6446] text-white transition-shadow duration-300">Request a Free Estimate</div>
       </div>
     </div>
