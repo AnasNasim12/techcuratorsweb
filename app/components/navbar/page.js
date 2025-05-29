@@ -142,11 +142,14 @@ const servicesList = [
 ]
 
 const industries = [
-  { name: 'BFSI & Fintech', href: 'writers', icon: UserGroupIcon },
-  { name: 'Fashion & Lifestyle', href: 'writers', icon: GlobeAltIcon },
-  { name: 'Education & Edtech', href: 'writers', icon: BookmarkAltIcon },
-  { name: 'Healthcare & Sports', href: 'writers', icon: DesktopComputerIcon },
-  { name: 'Automotive', href: 'writers', icon: DesktopComputerIcon },
+  { name: 'BFSI & Fintech', href: '/bfsi-fintech', icon: UserGroupIcon },
+  { name: 'Fashion & Lifestyle', href: '/fashion-lifestyle', icon: GlobeAltIcon },
+  { name: 'Education & Edtech', href: '/education', icon: BookmarkAltIcon },
+  { name: 'Sports & Fitness', href: '/sports-fitness', icon: DesktopComputerIcon },
+  { name: 'Automotive', href: '/automotive', icon: DesktopComputerIcon },
+  { name: 'Entertainment & Gaming', href: '/entertainment-gaming', icon: BriefcaseIcon },
+  { name: 'Marketing & Advertising', href: '/marketing-advertising', icon: FilmIcon },
+  { name: 'Health & Beauty', href: '/health-beauty', icon: OfficeBuildingIcon }
 ]
 const blogPosts = [
   {
@@ -526,11 +529,10 @@ export default function Example() {
                             
                             <div>
                               <h3 className="text-sm font-medium tracking-wide text-black uppercase">Industries</h3>
-                              <ul role="list" className="mt-5 space-y-6">
-                                {industries.map((item) => (
+                              <ul role="list" className="mt-5 space-y-6">                                {industries.map((item) => (
                                   <li key={item.name} className="flow-root">
                                     <Link
-                                      href="writers"
+                                      href={item.href}
                                       className="-m-3 p-3 flex group items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50"
                                     >
                                       <item.icon className="flex-shrink-0 h-6 w-6 text-[rgba(50,107,63,0.5)]" aria-hidden="true" />
