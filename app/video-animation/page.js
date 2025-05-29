@@ -4,10 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import Images from 'next/image';
 import Image from 'next/image';
-import { CarouselTwo } from "../components/caruseltwo/page";
-import Carousel from "../components/carousel/page";
-import WhyTransCurators from '../components/whytranscurators/page';
-import WorkflowStrategy from '../components/workflowtrans/page';
+
 
 // ScrollContentSection component
 const sections = [
@@ -232,60 +229,8 @@ const faqs = [
   };
 
 
-  const contentData = [
-    {
-      icon: "/messageIcon.png",
-      heading: "Expertise Across Industries",
-      text: "Our content writers bring industry expertise and create content consistent with your brand's personality and goals. They understand worldwide markets, meaning your content can be helpful to a wide range of viewers."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Cultural Sensitivity and Localization ",
-      text: "With a deep awareness of cultural settings, Indian writers create components that appeal to local and international consumers, making your brand more approachable."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Timely Delivery",
-      text: "Top Indian companies deliver content on time, meeting deadlines without compromising quality. They can quickly grow to handle projects of any size, ensuring your needs are always satisfied."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Cost-Effective Quality",
-      text: "High-quality content at lower prices allows you to get the most out of your investment. This cost-effectiveness will enable you to spend money on other essential business areas."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "SEO-Focused Content",
-      text: "Indian authors specialize in SEO, producing content that ranks high in search engines and generates genuine traffic to your website. Their experience in keyword research and optimization increases your online presence."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Strategic Insight",
-      text: "These businesses do more than write; they also guide you to optimize your content strategy and ensure it relates to your overall business objectives."
-    }
-  ];
-  const processItems = [
-    {
-      title: "Content for 500+ brands",
-      description: "Serving startups, enterprises, and everything in between with tailored content solutions.",
-    },
-    {
-      title: "90%+ keyword ranking success",
-      description: "SEO-optimized content that actually ranks and drives organic traffic to your website.",
-    },
-    {
-      title: "50+ Expert Writers & Editors",
-      description: "Specialists in multiple industries and niches to ensure your content is accurate and compelling.",
-    },
-    {
-      title: "35+ business domains",
-      description: "Extensive experience across diverse industries gives us unmatched versatility and expertise.",
-    },
-    {
-      title: "Unlimited revisions",
-      description: "We're not done until you're 100% satisfied with the final content delivered.",
-    },
-  ];
+
+
   const textSectionRef = useRef(null);
     const firstTextRef = useRef(null);
     const secondTextRef = useRef(null);
