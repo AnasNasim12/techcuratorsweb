@@ -312,6 +312,8 @@ const features = [
             <Image
               src={feature.image}
               alt={feature.alt}
+              width={336}
+              height={175}
               className="object-cover w-full h-full rounded-xl"
             />
           </div>
