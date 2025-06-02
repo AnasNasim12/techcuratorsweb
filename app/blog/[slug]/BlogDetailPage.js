@@ -40,29 +40,32 @@ const BlogDetailPage = ({ blog }) => {
   const headingRefs = useRef({});
 
   // Custom heading renderer to add ids and refs
-  const HeadingRenderer = (level) => (props) => {
-    // Find the heading in the headings array to get its id
-    const heading = headings.find(
-      (h) => h.text === String(props.children) && h.level === level
-    );
-    const id = heading ? heading.id : undefined;
-    return React.createElement(
-      `h${level}`,
-      {
-        id,
-        ref: (el) => {
-          if (id) headingRefs.current[id] = el;
+  const HeadingRenderer = (level) => {
+    const Component = (props) => {
+      const heading = headings.find(
+        (h) => h.text === String(props.children) && h.level === level
+      );
+      const id = heading ? heading.id : undefined;
+      return React.createElement(
+        `h${level}`,
+        {
+          id,
+          ref: (el) => {
+            if (id) headingRefs.current[id] = el;
+          },
+          className:
+            level === 1
+              ? 'text-3xl font-bold my-4 scroll-mt-32'
+              : level === 2
+              ? 'text-2xl font-bold my-3 scroll-mt-32'
+              : 'text-xl font-bold my-2 scroll-mt-32',
+          ...props,
         },
-        className:
-          level === 1
-            ? 'text-3xl font-bold my-4 scroll-mt-32'
-            : level === 2
-            ? 'text-2xl font-bold my-3 scroll-mt-32'
-            : 'text-xl font-bold my-2 scroll-mt-32',
-        ...props,
-      },
-      props.children
-    );
+        props.children
+      );
+    };
+    Component.displayName = `HeadingRenderer${level}`;
+    return Component;
   };
 
   // Scroll to heading when TOC button is clicked
