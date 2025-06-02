@@ -1,10 +1,9 @@
 // /app/blog/[slug]/BlogDetailPage.js
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import Image from 'next/image';
 
 const BlogDetailPage = ({ blog }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -12,6 +11,69 @@ const BlogDetailPage = ({ blog }) => {
   const [fadeIn, setFadeIn] = useState(false);
 
   const contentRef = useRef(null);
+
+  // Extract headings and their line numbers from the markdown description
+  const headings = useMemo(() => {
+    const lines = (blog.description || '').split('\n');
+    let count = {};
+    return lines
+      .map((line, idx) => {
+        const match = line.match(/^(#{1,3})\s+(.*)/);
+        if (match) {
+          // Ensure unique IDs for duplicate headings
+          const base = match[2].replace(/\s+/g, '-').toLowerCase();
+          count[base] = (count[base] || 0) + 1;
+          const id = `${base}-${count[base]}`;
+          return {
+            id,
+            level: match[1].length,
+            text: match[2],
+            line: idx,
+          };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }, [blog.description]);
+
+  // Map of heading id to ref
+  const headingRefs = useRef({});
+
+  // Custom heading renderer to add ids and refs
+  const HeadingRenderer = (level) => (props) => {
+    // Find the heading in the headings array to get its id
+    const heading = headings.find(
+      (h) => h.text === String(props.children) && h.level === level
+    );
+    const id = heading ? heading.id : undefined;
+    return React.createElement(
+      `h${level}`,
+      {
+        id,
+        ref: (el) => {
+          if (id) headingRefs.current[id] = el;
+        },
+        className:
+          level === 1
+            ? 'text-3xl font-bold my-4 scroll-mt-32'
+            : level === 2
+            ? 'text-2xl font-bold my-3 scroll-mt-32'
+            : 'text-xl font-bold my-2 scroll-mt-32',
+        ...props,
+      },
+      props.children
+    );
+  };
+
+  // Scroll to heading when TOC button is clicked
+  const scrollToHeading = (id) => {
+    const el = headingRefs.current[id];
+    if (el) {
+      // Adjust scroll offset if you have a fixed header (change 80 if needed)
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => setFadeIn(true), 100);
@@ -49,20 +111,10 @@ const BlogDetailPage = ({ blog }) => {
         style={{ width: `${readingProgress}%` }}
       />
 
-      {/* Header Image */}
-      <div className="relative h-96 bg-gray-900 mb-16">
-        <div className="absolute inset-0 opacity-80">
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            fill
-            className="w-full h-full object-cover"
-            priority
-            sizes="100vw"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-70"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+      {/* Header Color Block (replaces image) */}
+      <div className="relative h-96 bg-[#326B3F] mb-16 flex items-end">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#326B3F] opacity-70"></div>
+        <div className="relative z-10 bottom-0 left-0 right-0 p-8 text-white w-full">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blog.title}</h1>
             <div className="flex items-center text-gray-200 mb-6">
@@ -79,6 +131,23 @@ const BlogDetailPage = ({ blog }) => {
         </div>
       </div>
 
+      {/* Table of Contents */}
+      {headings.length > 0 && (
+        <div className="max-w-4xl mx-auto px-4 mb-8">
+          <div className="flex flex-wrap gap-2">
+            {headings.map((heading) => (
+              <button
+                key={heading.id}
+                onClick={() => scrollToHeading(heading.id)}
+                className="px-3 py-1 rounded-full text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-[#e6f2ea]"
+              >
+                {heading.text}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Blog Content */}
       <div
         ref={contentRef}
@@ -90,9 +159,9 @@ const BlogDetailPage = ({ blog }) => {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              h1: ({ node, ...props }) => <h1 className="text-3xl font-bold my-4" {...props} />,
-              h2: ({ node, ...props }) => <h2 className="text-2xl font-bold my-3" {...props} />,
-              h3: ({ node, ...props }) => <h3 className="text-xl font-bold my-2" {...props} />,
+              h1: HeadingRenderer(1),
+              h2: HeadingRenderer(2),
+              h3: HeadingRenderer(3),
               p: ({ node, ...props }) => <p className="my-4" {...props} />,
               a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
               blockquote: ({ node, ...props }) => (

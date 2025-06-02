@@ -212,18 +212,24 @@ const AdminPortal = () => {
         .update({
           title: blog.title,
           author: blog.author,
+          slug: blog.slug,
+          meta_title: blog.meta_title,
+          meta_description: blog.meta_description,
+          meta_keywords: blog.meta_keywords,
           description: blog.description,
-          date_posted: blog.date_posted
+          content: blog.content,
+          faqs: blog.faqs,
+          date_posted: blog.date_posted,
         })
-        .eq('id', blog.id)
+        .eq('id', blog.id);
 
       if (error) throw error;
-      setBlogs(blogs.map(b => b.id === blog.id ? blog : b))
-      setShowModal(false)
-      alert('Blog updated successfully.')
+      setBlogs(blogs.map(b => b.id === blog.id ? blog : b));
+      setShowModal(false);
+      alert('Blog updated successfully.');
     } catch (error) {
-      console.error('Update failed:', error.message || error)
-      alert('Failed to update blog. Please try again.')
+      console.error('Update failed:', error.message || error);
+      alert('Failed to update blog. Please try again.');
     }
   }
 
@@ -780,68 +786,85 @@ const AdminPortal = () => {
               </h2>
               {editingItem.type === 'blog' && (
                 <form
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    const formData = new FormData(e.target)
+                  onSubmit={e => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    let faqs = [];
+                    try {
+                      faqs = JSON.parse(formData.get('faqs') || '[]');
+                    } catch {
+                      alert('Invalid FAQ JSON. Please enter a valid JSON array.');
+                      return;
+                    }
                     handleUpdateBlog({
                       id: editingItem.data.id,
                       title: formData.get('title'),
                       author: formData.get('author'),
+                      slug: formData.get('slug'),
+                      meta_title: formData.get('meta_title'),
+                      meta_description: formData.get('meta_description'),
+                      meta_keywords: formData.get('meta_keywords'),
                       description: formData.get('description'),
-                      date_posted: formData.get('date_posted')
-                    })
+                      content: formData.get('content'),
+                      faqs,
+                      date_posted: formData.get('date_posted'),
+                    });
                   }}
                 >
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">Title</label>
-                    <input
-                      name="title"
-                      defaultValue={editingItem.data.title}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      required
-                    />
+                    <input name="title" defaultValue={editingItem.data.title} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
                   </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">Author</label>
-                    <input
-                      name="author"
-                      defaultValue={editingItem.data.author}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      required
-                    />
+                    <input name="author" defaultValue={editingItem.data.author} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Slug</label>
+                    <input name="slug" defaultValue={editingItem.data.slug} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Meta Title</label>
+                    <input name="meta_title" defaultValue={editingItem.data.meta_title} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Meta Description</label>
+                    <textarea name="meta_description" defaultValue={editingItem.data.meta_description} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" rows="2" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Meta Keywords</label>
+                    <input name="meta_keywords" defaultValue={editingItem.data.meta_keywords} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                   </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea name="description" defaultValue={editingItem.data.description} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" rows="3" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Content</label>
+                    <textarea name="content" defaultValue={editingItem.data.content} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" rows="3" />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">FAQs (JSON)</label>
                     <textarea
-                      name="description"
-                      defaultValue={editingItem.data.description}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      name="faqs"
+                      defaultValue={JSON.stringify(editingItem.data.faqs || [], null, 2)}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm font-mono"
                       rows="4"
-                      required
+                      placeholder='[{"question":"Q1?","answer":"A1"}]'
                     />
+                    <span className="text-xs text-gray-500">
+                      Enter as JSON array: [{`{"question":"Q?","answer":"A?"}`}]
+                    </span>
                   </div>
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">Date Posted</label>
-                    <input
-                      name="date_posted"
-                      type="date"
-                      defaultValue={new Date(editingItem.data.date_posted).toISOString().split('T')[0]}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      required
-                    />
+                    <input name="date_posted" type="date" defaultValue={new Date(editingItem.data.date_posted).toISOString().split('T')[0]} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
                   </div>
                   <div className="flex justify-end gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowModal(false)}
-                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-                    >
+                    <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
                       Cancel
                     </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                    >
+                    <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                       Save Changes
                     </button>
                   </div>
