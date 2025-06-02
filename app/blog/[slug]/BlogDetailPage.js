@@ -134,119 +134,123 @@ const BlogDetailPage = ({ blog }) => {
         </div>
       </div>
 
-      {/* Table of Contents */}
-      {headings.length > 0 && (
-        <div className="max-w-4xl mx-auto px-4 mb-8">
-          <div className="flex flex-wrap gap-2">
-            {headings.map((heading) => (
-              <button
-                key={heading.id}
-                onClick={() => scrollToHeading(heading.id)}
-                className="px-3 py-1 rounded-full text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-[#e6f2ea]"
-              >
-                {heading.text}
-              </button>
-            ))}
+      <div className="max-w-4xl mx-auto px-4 transition-opacity duration-1000 ease-out flex flex-col md:flex-row gap-8"
+           style={{ opacity: fadeIn ? 1 : 0 }}>
+        {/* TOC Sidebar */}
+        {headings.length > 0 && (
+          <aside className="hidden md:block md:w-1/4">
+            <div className="sticky top-28">
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold mb-3 text-gray-700">Contents</h3>
+                <div className="flex flex-col gap-2">
+                  {headings.map((heading) => (
+                    <button
+                      key={heading.id}
+                      onClick={() => scrollToHeading(heading.id)}
+                      className="text-left px-2 py-1 rounded text-sm font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
+                      style={{ marginLeft: `${(heading.level - 1) * 12}px` }}
+                    >
+                      {heading.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </aside>
+        )}
+
+        {/* Blog Content */}
+        <div ref={contentRef} className="flex-1">
+          <div className="prose prose-lg max-w-none text-gray-700">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h1: HeadingRenderer(1),
+                h2: HeadingRenderer(2),
+                h3: HeadingRenderer(3),
+                p: ({ node, ...props }) => <p className="my-4" {...props} />,
+                a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
+                blockquote: ({ node, ...props }) => (
+                  <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4" {...props} />
+                ),
+                code: ({ node, ...props }) => <code className="bg-gray-100 p-1 rounded" {...props} />,
+                pre: ({ node, ...props }) => (
+                  <pre className="bg-gray-100 p-4 rounded my-4 overflow-auto" {...props} />
+                ),
+                table: ({ node, ...props }) => <table className="table-auto my-6 w-full" {...props} />,
+                thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
+                tbody: ({ node, ...props }) => <tbody {...props} />,
+                tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
+                th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
+                td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
+                del: ({ node, ...props }) => <del className="line-through" {...props} />,
+              }}
+            >
+              {blog.description?.replace(/\\n/g, '\n') || ''}
+            </ReactMarkdown>
+          </div>
+
+          {/* Tags */}
+          {blog.tags?.length > 0 && (
+            <div className="mt-10 pt-6 border-t border-gray-100">
+              <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Topics</h3>
+              <div className="flex flex-wrap gap-2">
+                {blog.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-100 cursor-pointer"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="mt-12 md:mt-22 md:mb-22 mb-12 flex justify-center">
+            <div className="flex items-center text-gray-500 text-sm">
+              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+              <span>Published on {formatDate(blog.date_posted)}</span>
+            </div>
           </div>
         </div>
-      )}
 
-      {/* Blog Content */}
-      <div
-        ref={contentRef}
-        className={`max-w-4xl mx-auto px-4 transition-opacity duration-1000 ease-out ${
-          fadeIn ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="prose prose-lg max-w-none text-gray-700">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              h1: HeadingRenderer(1),
-              h2: HeadingRenderer(2),
-              h3: HeadingRenderer(3),
-              p: ({ node, ...props }) => <p className="my-4" {...props} />,
-              a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
-              blockquote: ({ node, ...props }) => (
-                <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4" {...props} />
-              ),
-              code: ({ node, ...props }) => <code className="bg-gray-100 p-1 rounded" {...props} />,
-              pre: ({ node, ...props }) => (
-                <pre className="bg-gray-100 p-4 rounded my-4 overflow-auto" {...props} />
-              ),
-              table: ({ node, ...props }) => <table className="table-auto my-6 w-full" {...props} />,
-              thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
-              tbody: ({ node, ...props }) => <tbody {...props} />,
-              tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
-              th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
-              td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
-              del: ({ node, ...props }) => <del className="line-through" {...props} />,
-            }}
-          >
-            {blog.description?.replace(/\\n/g, '\n') || ''}
-          </ReactMarkdown>
-        </div>
-
-        {/* Tags */}
-        {blog.tags?.length > 0 && (
-          <div className="mt-10 pt-6 border-t border-gray-100">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Topics</h3>
-            <div className="flex flex-wrap gap-2">
-              {blog.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-100 cursor-pointer"
-                >
-                  {tag}
-                </span>
+        {/* FAQ Section */}
+        {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
+          <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
+            <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {blog.faqs.map((faq, idx) => (
+                <div key={idx} className="bg-white rounded-lg shadow p-5">
+                  <h4 className="font-semibold text-lg mb-2 text-gray-900">
+                    Q{idx + 1}. {faq.question}
+                  </h4>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Footer */}
-        <div className="mt-12 md:mt-22 md:mb-22 mb-12 flex justify-center">
-          <div className="flex items-center text-gray-500 text-sm">
-            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-            <span>Published on {formatDate(blog.date_posted)}</span>
-          </div>
-        </div>
+        {/* Scroll to Top Button */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-110 ${
+            showScrollButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+          }`}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
       </div>
-
-      {/* FAQ Section */}
-      {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
-        <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {blog.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white rounded-lg shadow p-5">
-                <h4 className="font-semibold text-lg mb-2 text-gray-900">
-                  Q{idx + 1}. {faq.question}
-                </h4>
-                <p className="text-gray-700">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-110 ${
-          showScrollButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-        }`}
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
     </div>
   );
 };

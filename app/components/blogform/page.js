@@ -92,7 +92,7 @@ const BlogForm = () => {
   }
 
   // Enhanced helper function to insert markdown syntax
-  const insertMarkdown = (syntax, placeholder = '', isFullScreenMode = false) => {
+  const insertMarkdown = (syntax, placeholder = '', isFullScreenMode = false, url = '') => {
     const textarea = isFullScreenMode ? fullScreenTextareaRef.current : descriptionTextareaRef.current;
     if (!textarea) return;
 
@@ -103,19 +103,22 @@ const BlogForm = () => {
 
     const beforeText = text.substring(0, start);
     const afterText = text.substring(end);
-    
+
     let newText;
-    
+
     switch(syntax) {
       case 'h1':
-        newText = `${beforeText}# ${selectedText}${afterText}`
-        break
+        newText = `${beforeText.replace(/(\n)?$/, '\n')}# ${selectedText}\n${afterText.replace(/^\n?/, '')}`;
+        break;
       case 'h2':
-        newText = `${beforeText}## ${selectedText}${afterText}`
-        break
+        newText = `${beforeText.replace(/(\n)?$/, '\n')}## ${selectedText}\n${afterText.replace(/^\n?/, '')}`;
+        break;
       case 'h3':
-        newText = `${beforeText}### ${selectedText}${afterText}`
-        break
+        newText = `${beforeText.replace(/(\n)?$/, '\n')}### ${selectedText}\n${afterText.replace(/^\n?/, '')}`;
+        break;
+      case 'h4':
+        newText = `${beforeText.replace(/(\n)?$/, '\n')}#### ${selectedText}\n${afterText.replace(/^\n?/, '')}`;
+        break;
       case 'bold':
         newText = `${beforeText}**${selectedText}**${afterText}`
         break
@@ -129,7 +132,7 @@ const BlogForm = () => {
         newText = `${beforeText}[${selectedText}](url)${afterText}`
         break
       case 'image':
-        newText = `${beforeText}![${selectedText}](image-url)${afterText}`
+        newText = `${beforeText}![${selectedText}](${url || 'image-url'})${afterText}`;
         break
       case 'code':
         newText = `${beforeText}\`${selectedText}\`${afterText}`
@@ -141,11 +144,19 @@ const BlogForm = () => {
         newText = `${beforeText}> ${selectedText}${afterText}`
         break
       case 'list':
-        newText = `${beforeText}\n- ${selectedText}\n- Item 2\n- Item 3${afterText}`
-        break
+        // For multiple lines, add "- " to each line
+        newText = `${beforeText}${selectedText
+          .split('\n')
+          .map(line => line ? `- ${line}` : '')
+          .join('\n')}${afterText}`;
+        break;
       case 'numbered':
-        newText = `${beforeText}\n1. ${selectedText}\n2. Item 2\n3. Item 3${afterText}`
-        break
+        // For multiple lines, add "1. ", "2. ", etc.
+        newText = `${beforeText}${selectedText
+          .split('\n')
+          .map((line, i) => line ? `${i + 1}. ${line}` : '')
+          .join('\n')}${afterText}`;
+        break;
       case 'checkbox':
         newText = `${beforeText}\n- [ ] ${selectedText}\n- [ ] Task 2\n- [x] Completed task${afterText}`
         break
@@ -163,9 +174,12 @@ const BlogForm = () => {
     
     // Focus and set cursor position after update
     setTimeout(() => {
-      textarea.focus();
-      const newCursorPos = start + newText.length - text.length;
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
+      // Only set focus if textarea is already focused
+      if (document.activeElement === textarea) {
+        textarea.focus();
+        const newCursorPos = start + newText.length - text.length;
+        textarea.setSelectionRange(newCursorPos, newCursorPos);
+      }
     }, 0);
   };
 
@@ -250,6 +264,7 @@ const BlogForm = () => {
     h1: ({node, ...props}) => <h1 className="text-2xl font-bold my-3" {...props} />,
     h2: ({node, ...props}) => <h2 className="text-xl font-bold my-2" {...props} />,
     h3: ({node, ...props}) => <h3 className="text-lg font-bold my-2" {...props} />,
+    h4: ({node, ...props}) => <h4 className="text-base font-semibold my-2" {...props} />,
     p: ({node, ...props}) => <p className="my-2 text-gray-800" {...props} />,
     ul: ({node, ...props}) => <ul className="list-disc ml-5 my-2" {...props} />,
     ol: ({node, ...props}) => <ol className="list-decimal ml-5 my-2" {...props} />,
@@ -295,6 +310,16 @@ const BlogForm = () => {
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
               <path d="M7.637 13V3.669H6.379V7.62H1.758V3.67H.5V13h1.258V8.728h4.62V13h1.259zm3.625-4.272h1.018c1.142 0 1.935.67 1.949 1.674.013 1.005-.78 1.737-2.01 1.73-1.08-.007-1.853-.588-1.935-1.32H9.108c.069 1.327 1.224 2.386 3.083 2.386 1.935 0 3.343-1.155 3.309-2.789-.027-1.51-1.251-2.16-2.037-2.249v-.068c.704-.123 1.764-.91 1.723-2.229-.035-1.353-1.176-2.4-2.954-2.385-1.873.006-2.857 1.162-2.898 2.358h1.196c.062-.69.711-1.299 1.696-1.299.998 0 1.695.622 1.695 1.525.007.922-.718 1.592-1.695 1.592h-.964v1.074z"/>
+            </svg>
+          </button>
+          <button 
+            type="button" 
+            onClick={() => insertMarkdown('h4', 'Heading 4', isFullScreen)} 
+            className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
+            title="Heading 4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <text x="2" y="15" fontSize="14" fontWeight="bold">H4</text>
             </svg>
           </button>
         </div>
@@ -383,11 +408,11 @@ const BlogForm = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
                 <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
-              </svg>
+            </svg>
             </button>
             <button 
               type="button" 
-              onClick={() => insertMarkdown('image', 'image alt', isFullScreen)} 
+              onClick={() => document.getElementById('markdown-image-upload').click()} 
               className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
               title="Image"
             >
@@ -857,6 +882,26 @@ const BlogForm = () => {
           </div>
         </div>
       )}
+
+      {/* Hidden file input for image upload in markdown */}
+      <input
+        type="file"
+        accept="image/*"
+        id="markdown-image-upload"
+        style={{ display: 'none' }}
+        onChange={async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          try {
+            const alt = prompt('Enter image alt text:') || 'image';
+            const url = await uploadImage(file);
+            insertMarkdown('image', alt, isFullScreen, url);
+          } catch (err) {
+            setError(err.message || 'Image upload failed.');
+          }
+          e.target.value = '';
+        }}
+    />
     </div>
   )
 }
