@@ -221,36 +221,36 @@ const BlogDetailPage = ({ blog }) => {
             </div>
           </div>
         </div>
-
-        {/* FAQ Section */}
-        {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
-          <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
-            <div className="space-y-6">
-              {blog.faqs.map((faq, idx) => (
-                <div key={idx} className="bg-white rounded-lg shadow p-5">
-                  <h4 className="font-semibold text-lg mb-2 text-gray-900">
-                    Q{idx + 1}. {faq.question}
-                  </h4>
-                  <p className="text-gray-700">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Scroll to Top Button */}
-        <button
-          onClick={scrollToTop}
-          className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-110 ${
-            showScrollButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-          }`}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-          </svg>
-        </button>
       </div>
+
+      {/* FAQ Section - always at the bottom */}
+      {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
+        <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {blog.faqs.map((faq, idx) => (
+              <div key={idx} className="bg-white rounded-lg shadow p-5">
+                <h4 className="font-semibold text-lg mb-2 text-gray-900">
+                  Q{idx + 1}. {faq.question}
+                </h4>
+                <p className="text-gray-700">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-110 ${
+          showScrollButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </button>
     </div>
   );
 };
