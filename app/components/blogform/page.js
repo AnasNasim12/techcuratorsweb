@@ -15,7 +15,8 @@ const BlogForm = () => {
     slug: '',
     meta_title: '',
     meta_description: '',
-    meta_keywords: ''
+    meta_keywords: '',
+    faqs: [] // <-- Add this line
   })
   const [imageFile, setImageFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
@@ -232,7 +233,8 @@ const BlogForm = () => {
         slug: '',
         meta_title: '',
         meta_description: '',
-        meta_keywords: ''
+        meta_keywords: '',
+        faqs: [] // <-- Reset FAQs
       })
       setImageFile(null)
       setPreviewUrl(null)
@@ -471,7 +473,7 @@ const BlogForm = () => {
                 <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z"/>
               ) : (
                 // Enter full screen icon
-                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
               )}
             </svg>
             <span className="ml-1 text-sm font-medium hidden sm:inline">
@@ -607,9 +609,7 @@ const BlogForm = () => {
         {/* Markdown editor with live preview */}
         <div className="flex flex-col md:flex-row gap-6">
           <div className={`${activeTab === 'edit' ? 'block' : 'hidden'} md:block md:w-1/2`}>
-            <label className="block взят
-
-System: text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Description (Markdown)
             </label>
             
@@ -702,6 +702,93 @@ System: text-sm font-medium text-gray-700 mb-1">
               </div>
             </div>
           )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">FAQs</label>
+          {/* Upload JSON file for FAQs */}
+          <div className="flex items-center gap-3 mb-2">
+            <input
+              type="file"
+              accept="application/json"
+              id="faq-json-upload"
+              className="hidden"
+              onChange={e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = evt => {
+                  try {
+                    const json = JSON.parse(evt.target.result);
+                    // Accept array of {question, answer}
+                    if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
+                      setFormData(f => ({ ...f, faqs: json }));
+                      setError(null);
+                    } else {
+                      setError('Invalid FAQ JSON format. Must be an array of {question, answer}.');
+                    }
+                  } catch {
+                    setError('Invalid JSON file.');
+                  }
+                };
+                reader.readAsText(file);
+              }}
+            />
+            <label
+              htmlFor="faq-json-upload"
+              className="px-3 py-1 bg-blue-100 text-blue-700 rounded cursor-pointer hover:bg-blue-200"
+            >
+              Upload FAQs JSON
+            </label>
+            <span className="text-xs text-gray-500">Upload a JSON file: <code>[{"{question, answer}"}]</code></span>
+          </div>
+          {formData.faqs.map((faq, idx) => (
+            <div key={idx} className="mb-2 flex gap-2">
+              <input
+                type="text"
+                placeholder="Question"
+                value={faq.question}
+                onChange={e => {
+                  const newFaqs = [...formData.faqs];
+                  newFaqs[idx].question = e.target.value;
+                  setFormData(f => ({ ...f, faqs: newFaqs }));
+                }}
+                className="flex-1 p-2 border border-gray-300 rounded"
+              />
+              <input
+                type="text"
+                placeholder="Answer"
+                value={faq.answer}
+                onChange={e => {
+                  const newFaqs = [...formData.faqs];
+                  newFaqs[idx].answer = e.target.value;
+                  setFormData(f => ({ ...f, faqs: newFaqs }));
+                }}
+                className="flex-1 p-2 border border-gray-300 rounded"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(f => ({
+                    ...f,
+                    faqs: f.faqs.filter((_, i) => i !== idx)
+                  }));
+                }}
+                className="px-2 text-red-600"
+                title="Remove FAQ"
+              >✕</button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setFormData(f => ({
+              ...f,
+              faqs: [...f.faqs, { question: '', answer: '' }]
+            }))}
+            className="mt-2 px-3 py-1 bg-blue-100 text-blue-700 rounded"
+          >
+            Add FAQ
+          </button>
         </div>
         
         <div className="flex justify-center pt-4">

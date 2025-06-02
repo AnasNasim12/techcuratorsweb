@@ -147,6 +147,23 @@ const BlogDetailPage = ({ blog }) => {
         </div>
       </div>
 
+      {/* FAQ Section */}
+      {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
+        <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {blog.faqs.map((faq, idx) => (
+              <div key={idx} className="bg-white rounded-lg shadow p-5">
+                <h4 className="font-semibold text-lg mb-2 text-gray-900">
+                  Q{idx + 1}. {faq.question}
+                </h4>
+                <p className="text-gray-700">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}

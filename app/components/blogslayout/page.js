@@ -205,6 +205,16 @@ const BlogLayout = () => {
     }
   };
 
+  // Slugify function to create URL-friendly slugs from titles
+  function slugify(text) {
+    return text
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/[\s\W-]+/g, '-') // Replace spaces and non-word chars with -
+      .replace(/^-+|-+$/g, '');  // Remove leading/trailing hyphens
+  }
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -289,7 +299,7 @@ const BlogLayout = () => {
                         {truncateDescription(featuredPosts[0].content, 150)}
                       </p>
                       <Link 
-                        href={`/blog/${featuredPosts[0].slug}`} 
+                        href={`/blog/${slugify(featuredPosts[0].slug)}`} 
                         className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm transition-all duration-300 mt-2"
                       >
                         Read Article
