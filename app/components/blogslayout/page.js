@@ -55,11 +55,12 @@ const BlogLayout = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [moreBlogs, setMoreBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
-  const [showAllBlogs, setShowAllBlogs] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('newest');
   const [scrollY, setScrollY] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [touchedCardId, setTouchedCardId] = useState(null);
+  const postsPerPage = 12;
 
   // Animation variants
   const containerVariants = {
@@ -92,11 +93,6 @@ const BlogLayout = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Toggle function to show all/fewer blogs
-  const toggleShowAllBlogs = () => {
-    setShowAllBlogs(!showAllBlogs);
-  };
 
   // Filter blogs based on date
   const filterBlogsByDate = (blogs, filter) => {
@@ -135,6 +131,7 @@ const BlogLayout = () => {
   const handleSortChange = (e) => {
     const value = e.target.value;
     setSortOrder(value);
+    setCurrentPage(1); // Reset to first page on sort change
     const filtered = filterBlogsByDate(moreBlogs, value);
     setFilteredBlogs(filtered);
   };
@@ -194,6 +191,7 @@ const BlogLayout = () => {
   useEffect(() => {
     const filtered = filterBlogsByDate(moreBlogs, sortOrder);
     setFilteredBlogs(filtered);
+    setCurrentPage(1); // Reset to first page when filtered blogs change
   }, [moreBlogs, sortOrder]);
 
   // Function to truncate the description
@@ -238,7 +236,18 @@ const BlogLayout = () => {
       .trim()
       .replace(/[\s\W-]+/g, '-')
       .replace(/^-+|-+$/g, '');
-  }
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredBlogs.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentBlogs = filteredBlogs.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <motion.div
@@ -427,94 +436,130 @@ const BlogLayout = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {isLoading ? (
-            Array(4).fill(0).map((_, index) => (
+            Array(12).fill(0).map((_, index) => (
               <div key={`skeleton-more-${index}`}>
                 <RegularPostSkeleton />
               </div>
             ))
           ) : (
-            <>
-              {(showAllBlogs ? filteredBlogs : filteredBlogs.slice(0, 4)).map((blog) => (
-                <motion.div
-                  key={blog.id}
-                  className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
-                    touchedCardId === blog.id ? 'touched-card' : ''
-                  }`}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                  onTouchStart={() => handleCardTouch(blog.id)}
-                  onTouchEnd={handleTouchEnd}
-                >
-                  <div className="relative overflow-hidden h-full">
-                    <Image
-                      src={blog.image}
-                      alt={blog.title}
-                      width={400}
-                      height={250}
-                      className="w-full h-[250px] object-cover"
-                    />
-                    {blog.category && (
-                      <div className="absolute top-3 right-3 z-20">
-                        <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
-                          {blog.category}
-                        </span>
-                      </div>
-                    )}
-                    <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
-                      ${(touchedCardId === blog.id) ? 'opacity-0' : 'group-hover:opacity-0'} transition-opacity duration-300`}>
-                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <div className="flex justify-between items-center mb-1">
-                          <p className="text-white/80 text-xs">{blog.author}</p>
-                          <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
-                        </div>
-                        <h3 className="font-medium">{blog.title}</h3>
-                      </div>
+            currentBlogs.map((blog) => (
+              <motion.div
+                key={blog.id}
+                variants={itemVariants}
+                className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
+                  touchedCardId === blog.id ? 'touched-card' : ''
+                }`}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+                onTouchStart={() => handleCardTouch(blog.id)}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div className="relative overflow-hidden h-full">
+                  <Image
+                    src={blog.image}
+                    alt={blog.title}
+                    width={400}
+                    height={250}
+                    className="w-full h-[250px] object-cover"
+                  />
+                  {blog.category && (
+                    <div className="absolute top-3 right-3 z-20">
+                      <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
+                        {blog.category}
+                      </span>
                     </div>
-                    <div className={`absolute inset-0 bg-white
-                      ${(touchedCardId === blog.id) ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
-                      transition-opacity duration-300 z-10 flex flex-col justify-center`}>
-                      <div className={`p-5 transform ${
-                        (touchedCardId === blog.id) ? 'translate-y-0' : 'translate-y-4 group-hover:translate-y-0'
-                      } transition-transform duration-300`}>
-                        <h3 className="text-gray-900 font-semibold mb-3">{blog.title}</h3>
-                        <div className="flex justify-between items-center mb-3 text-sm text-gray-500">
-                          <p>{blog.author}</p>
-                          <p>{formatDate(blog.date_posted)}</p>
-                        </div>
-                        <p className="text-gray-700 mb-4 text-sm line-clamp-3">
-                          {truncateDescription(blog.content, 120)}
-                        </p>
-                        <Link
-                          href={`/blog/${blog.slug}`}
-                          className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
-                        >
-                          Read More
-                          <svg className="ml-1 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </Link>
+                  )}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                    ${(touchedCardId === blog.id) ? 'opacity-0' : 'group-hover:opacity-0'} transition-opacity duration-300`}>
+                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      <div className="flex justify-between items-center mb-1">
+                        <p className="text-white/80 text-xs">{blog.author}</p>
+                        <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
                       </div>
+                      <h3 className="font-medium">{blog.title}</h3>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </>
+                  <div className={`absolute inset-0 bg-white
+                    ${(touchedCardId === blog.id) ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
+                    transition-opacity duration-300 z-10 flex flex-col justify-center`}>
+                    <div className={`p-5 transform ${
+                      (touchedCardId === blog.id) ? 'translate-y-0' : 'translate-y-4 group-hover:translate-y-0'
+                    } transition-transform duration-300`}>
+                      <h3 className="text-gray-900 font-semibold mb-3">{blog.title}</h3>
+                      <div className="flex justify-between items-center mb-3 text-sm text-gray-500">
+                        <p>{blog.author}</p>
+                        <p>{formatDate(blog.date_posted)}</p>
+                      </div>
+                      <p className="text-gray-700 mb-4 text-sm line-clamp-3">
+                        {truncateDescription(blog.content, 120)}
+                      </p>
+                      <Link
+                        href={`/blog/${blog.slug}`}
+                        className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
+                      >
+                        Read More
+                        <svg className="ml-1 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))
           )}
-        </div>
+        </motion.div>
 
-        {/* Show More/Less Button */}
-        {!isLoading && filteredBlogs.length > 4 && (
-          <div className="flex justify-center mt-12 mb-12">
+        {/* Pagination Controls */}
+        {!isLoading && filteredBlogs.length > postsPerPage && (
+          <div className="flex justify-center mt-12 mb-12 space-x-2">
             <motion.button
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-lg hover:shadow-xl transition-all duration-500 font-medium text-base bg-[#326B3F] text-white hover:-translate-y-1"
-              onClick={toggleShowAllBlogs}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                currentPage === 1
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-[#326B3F] text-white hover:bg-[#2a5a34]'
+              }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
+              whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
             >
-              {showAllBlogs ? 'Show Less' : 'Explore All'}
+              Previous
+            </motion.button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <motion.button
+                key={index + 1}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  currentPage === index + 1
+                    ? 'bg-[#326B3F] text-white'
+                    : 'bg-white text-[#326B3F] border border-[#326B3F] hover:bg-[#326B3F]/10'
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {index + 1}
+              </motion.button>
+            ))}
+            <motion.button
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                currentPage === totalPages
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-[#326B3F] text-white hover:bg-[#2a5a34]'
+              }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
+              whileTap={{ scale: currentPage === totalPages ? 1 : 0.95 }}
+            >
+              Next
             </motion.button>
           </div>
         )}
