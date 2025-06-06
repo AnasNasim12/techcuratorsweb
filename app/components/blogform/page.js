@@ -555,6 +555,53 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     </div>
   );
 
+  // Add this function before your return statement in BlogForm
+  const generateFaqJsonLd = (faqs) => {
+    if (!faqs || !faqs.length) return '';
+    const faqEntities = faqs
+      .filter(f => f.question && f.answer)
+      .map(f => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.answer
+        }
+      }));
+    return JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqEntities
+    }, null, 2);
+  };
+
+  // Shared function to handle FAQ JSON upload
+  const handleFaqJsonUpload = (file) => {
+    const reader = new FileReader();
+    reader.onload = evt => {
+      try {
+        const json = JSON.parse(evt.target.result);
+        // Try parsing as array of {question, answer}
+        if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
+          setFormData(f => ({ ...f, faqs: json }));
+          setError(null);
+        } else {
+          // Try parsing as JSON-LD FAQ script
+          const faqsFromScript = parseJsonLdFaq(json);
+          if (faqsFromScript && faqsFromScript.length) {
+            setFormData(f => ({ ...f, faqs: faqsFromScript }));
+            setError(null);
+          } else {
+            setError('Invalid FAQ JSON. Must be an array of {question, answer} or a valid FAQPage script.');
+          }
+        }
+      } catch {
+        setError('Invalid JSON file.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white my-8">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 pb-4">
@@ -788,31 +835,18 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
               onChange={e => {
                 const file = e.target.files[0];
                 if (!file) return;
-                const reader = new FileReader();
-                reader.onload = evt => {
-                  try {
-                    const json = JSON.parse(evt.target.result);
-                    // Accept array of {question, answer}
-                    if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
-                      setFormData(f => ({ ...f, faqs: json }));
-                      setError(null);
-                    } else {
-                      setError('Invalid FAQ JSON format. Must be an array of {question, answer}.');
-                    }
-                  } catch {
-                    setError('Invalid JSON file.');
-                  }
-                };
-                reader.readAsText(file);
+                handleFaqJsonUpload(file);
               }}
             />
             <label
               htmlFor="faq-json-upload"
               className="px-3 py-1 bg-blue-100 text-blue-700 rounded cursor-pointer hover:bg-blue-200"
             >
-              Upload FAQs JSON
+              Upload FAQs JSON/Script
             </label>
-            <span className="text-xs text-gray-500">Upload a JSON file: <code>[{"{question, answer}"}]</code></span>
+            <span className="text-xs text-gray-500">
+              Upload <code>[{"{question, answer}"}]</code> or <code>FAQPage script</code>
+            </span>
           </div>
           {formData.faqs.map((faq, idx) => (
             <div key={idx} className="mb-2 flex gap-2">
@@ -958,6 +992,14 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
           e.target.value = '';
         }}
     />
+    {/* Render the SEO FAQ JSON-LD script if there are FAQs */}
+    {formData.faqs && formData.faqs.length > 0 && (
+      <script
+        type="application/ld+json"
+        // This will inject the JSON-LD into the page for SEO
+        dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(formData.faqs) }}
+      />
+    )}
     </div>
   )
 }
