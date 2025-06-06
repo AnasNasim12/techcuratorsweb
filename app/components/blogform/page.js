@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
 
-const BlogForm = () => {
+const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) => {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -16,8 +16,8 @@ const BlogForm = () => {
     meta_title: '',
     meta_description: '',
     meta_keywords: '',
-    faqs: [] // <-- Add this line
-  })
+    faqs: []
+  });
   const [imageFile, setImageFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -72,6 +72,31 @@ const BlogForm = () => {
       document.body.style.overflow = '';
     };
   }, [isFullScreen]);
+
+  // Populate formData if editing
+  useEffect(() => {
+    if (initialData) {
+      let faqs = [];
+      if (Array.isArray(initialData.faqs)) {
+        faqs = initialData.faqs;
+      } else if (typeof initialData.faqs === 'string') {
+        try {
+          const parsed = JSON.parse(initialData.faqs);
+          if (Array.isArray(parsed)) faqs = parsed;
+        } catch {
+          faqs = [];
+        }
+      }
+      setFormData({
+        ...initialData,
+        faqs,
+        date_posted: initialData.date_posted
+          ? new Date(initialData.date_posted).toISOString().split('T')[0]
+          : '',
+      });
+      if (initialData.image) setPreviewUrl(initialData.image);
+    }
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -213,49 +238,69 @@ const BlogForm = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError(null)
-    setSuccessMsg(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setSuccessMsg(null);
+    setLoading(true);
 
     try {
-      let imageUrl = null
-
+      let imageUrl = previewUrl;
       if (imageFile) {
-        imageUrl = await uploadImage(imageFile)
+        imageUrl = await uploadImage(imageFile);
       }
 
-      const { error: insertError } = await supabase
-        .from('blogs')
-        .insert([
-          {
+      if (isEdit && initialData) {
+        // Update existing blog
+        const { data, error } = await supabase
+          .from('blogs')
+          .update({
             ...formData,
             image: imageUrl,
             date_posted: formData.date_posted || new Date().toISOString().split('T')[0],
-          },
-        ])
+          })
+          .eq('id', initialData.id)
+          .select()
+          .single();
 
-      if (insertError) throw insertError
+        if (error) throw error;
+        setSuccessMsg('Blog post updated successfully!');
+        if (onSuccess) onSuccess(data);
+      } else {
+        // Create new blog
+        const { data, error } = await supabase
+          .from('blogs')
+          .insert([
+            {
+              ...formData,
+              image: imageUrl,
+              date_posted: formData.date_posted || new Date().toISOString().split('T')[0],
+            },
+          ])
+          .select()
+          .single();
 
-      setSuccessMsg('Blog post created successfully!')
-      setFormData({
-        title: '',
-        author: '',
-        date_posted: '',
-        description: '',
-        content: '',
-        slug: '',
-        meta_title: '',
-        meta_description: '',
-        meta_keywords: '',
-        faqs: [] // <-- Reset FAQs
-      })
-      setImageFile(null)
-      setPreviewUrl(null)
+        if (error) throw error;
+        setSuccessMsg('Blog post created successfully!');
+        setFormData({
+          title: '',
+          author: '',
+          date_posted: '',
+          description: '',
+          content: '',
+          slug: '',
+          meta_title: '',
+          meta_description: '',
+          meta_keywords: '',
+          faqs: []
+        });
+        setImageFile(null);
+        setPreviewUrl(null);
+        if (onSuccess) onSuccess(data);
+      }
     } catch (err) {
-      setError(err.message || 'Something went wrong.')
+      setError(err.message || 'Something went wrong.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -512,7 +557,9 @@ const BlogForm = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white my-8">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 pb-4">Create Blog Post</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 pb-4">
+        {isEdit ? 'Update Blog Post' : 'Create Blog Post'}
+      </h2>
       
       {(successMsg || error) && (
         <div className={`mb-4 p-3 rounded-md ${successMsg ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
@@ -828,10 +875,19 @@ const BlogForm = () => {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Submitting...
+                {isEdit ? 'Updating...' : 'Submitting...'}
               </span>
-            ) : 'Submit Post'}
+            ) : isEdit ? 'Update Post' : 'Submit Post'}
           </button>
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="ml-4 px-8 py-3 font-medium rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+          )}
         </div>
       </form>
 
