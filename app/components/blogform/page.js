@@ -575,32 +575,58 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     }, null, 2);
   };
 
-  // Shared function to handle FAQ JSON upload
-  const handleFaqJsonUpload = (file) => {
-    const reader = new FileReader();
-    reader.onload = evt => {
-      try {
-        const json = JSON.parse(evt.target.result);
-        // Try parsing as array of {question, answer}
-        if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
-          setFormData(f => ({ ...f, faqs: json }));
+const handleFaqJsonUpload = (file) => {
+  const reader = new FileReader();
+  reader.onload = evt => {
+    try {
+      let content = evt.target.result;
+
+      // Remove <script> tags and extract JSON content
+      const scriptMatch = content.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+      if (scriptMatch && scriptMatch[1]) {
+        content = scriptMatch[1].trim();
+      }
+
+      const json = JSON.parse(content);
+
+      // Try parsing as array of {question, answer}
+      if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
+        setFormData(f => ({ ...f, faqs: json }));
+        setError(null);
+      } else {
+        // Try parsing as JSON-LD FAQ script
+        const faqsFromScript = parseJsonLdFaq(json);
+        if (faqsFromScript && faqsFromScript.length) {
+          setFormData(f => ({ ...f, faqs: faqsFromScript }));
           setError(null);
         } else {
-          // Try parsing as JSON-LD FAQ script
-          const faqsFromScript = parseJsonLdFaq(json);
-          if (faqsFromScript && faqsFromScript.length) {
-            setFormData(f => ({ ...f, faqs: faqsFromScript }));
-            setError(null);
-          } else {
-            setError('Invalid FAQ JSON. Must be an array of {question, answer} or a valid FAQPage script.');
-          }
+          setError('Invalid FAQ JSON. Must be an array of {question, answer} or a valid FAQPage JSON-LD object.');
         }
-      } catch {
-        setError('Invalid JSON file.');
       }
-    };
-    reader.readAsText(file);
+    } catch (err) {
+      setError('Invalid JSON file. Ensure it contains valid JSON or a valid FAQPage JSON-LD script.');
+      console.error(err); // For debugging
+    }
   };
+  reader.readAsText(file);
+};
+  // Function to parse JSON-LD FAQ script and extract FAQs
+const parseJsonLdFaq = (json) => {
+  try {
+    // Check if the JSON is a valid FAQPage schema
+    if (json['@context'] === 'https://schema.org' && json['@type'] === 'FAQPage' && Array.isArray(json.mainEntity)) {
+      return json.mainEntity
+        .filter(item => item['@type'] === 'Question' && item.name && item.acceptedAnswer && item.acceptedAnswer.text)
+        .map(item => ({
+          question: item.name,
+          answer: item.acceptedAnswer.text
+        }));
+    }
+    return [];
+  } catch {
+    return [];
+  }
+};
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white my-8">
