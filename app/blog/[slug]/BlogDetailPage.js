@@ -1,9 +1,9 @@
-// /app/blog/[slug]/BlogDetailPage.js
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { generateFaqJsonLd } from '@/lib/utils';
 
 const BlogDetailPage = ({ blog }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -11,6 +11,43 @@ const BlogDetailPage = ({ blog }) => {
   const [fadeIn, setFadeIn] = useState(false);
 
   const contentRef = useRef(null);
+
+  // Function to generate FAQ JSON-LD
+  const generateFaqJsonLd = (faqs) => {
+    if (!faqs || !faqs.length) return '';
+    const faqEntities = faqs
+      .filter((f) => f.question && f.answer)
+      .map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: f.answer,
+        },
+      }));
+    return JSON.stringify(
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqEntities,
+      },
+      null,
+      2
+    );
+  };
+
+  // Parse FAQs to ensure consistency
+  let faqs = [];
+  if (Array.isArray(blog.faqs)) {
+    faqs = blog.faqs;
+  } else if (typeof blog.faqs === 'string') {
+    try {
+      const parsed = JSON.parse(blog.faqs);
+      if (Array.isArray(parsed)) faqs = parsed;
+    } catch {
+      faqs = [];
+    }
+  }
 
   // Extract headings and their line numbers from the markdown description
   const headings = useMemo(() => {
@@ -134,8 +171,10 @@ const BlogDetailPage = ({ blog }) => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 transition-opacity duration-1000 ease-out flex flex-col md:flex-row gap-8"
-           style={{ opacity: fadeIn ? 1 : 0 }}>
+      <div
+        className="max-w-4xl mx-auto px-4 transition-opacity duration-1000 ease-out flex flex-col md:flex-row gap-8"
+        style={{ opacity: fadeIn ? 1 : 0 }}
+      >
         {/* TOC Sidebar */}
         {headings.length > 0 && (
           <aside className="hidden md:block md:w-1/4">
@@ -224,11 +263,11 @@ const BlogDetailPage = ({ blog }) => {
       </div>
 
       {/* FAQ Section - always at the bottom */}
-      {Array.isArray(blog.faqs) && blog.faqs.length > 0 && (
+      {faqs.length > 0 && (
         <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
           <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
           <div className="space-y-6">
-            {blog.faqs.map((faq, idx) => (
+            {faqs.map((faq, idx) => (
               <div key={idx} className="bg-white rounded-lg shadow p-5">
                 <h4 className="font-semibold text-lg mb-2 text-gray-900">
                   Q{idx + 1}. {faq.question}
@@ -238,6 +277,14 @@ const BlogDetailPage = ({ blog }) => {
             ))}
           </div>
         </div>
+      )}
+
+      {/* FAQ JSON-LD Script for SEO */}
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(faqs) }}
+        />
       )}
 
       {/* Scroll to Top Button */}

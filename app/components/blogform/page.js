@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabaseClient';
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image';
+import { generateFaqJsonLd } from '@/lib/utils';
 
 const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) => {
   const [formData, setFormData] = useState({
