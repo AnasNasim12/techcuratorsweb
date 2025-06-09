@@ -1,12 +1,13 @@
 "use client";
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabaseClient';
 
-// Fallback image URL (replace with your actual fallback image)
-const FALLBACK_IMAGE = '/images/fallback-image.jpg'; // Ensure this image exists in your public folder
+// Fallback image URL (corrected path)
+const FALLBACK_IMAGE = '/fallback-image.jpg'; // Ensure this image exists in the public folder
 
 // Skeleton components for loading state
 const FeaturedPostSkeleton = () => (
@@ -149,7 +150,7 @@ const BlogLayout = () => {
           .limit(5);
 
         if (error) {
-          console.error(error);
+          console.error('Error fetching featured blogs:', error);
           return;
         }
 
@@ -160,11 +161,11 @@ const BlogLayout = () => {
           .order('date_posted', { ascending: false });
 
         if (moreBlogsError) {
-          console.error(moreBlogsError);
+          console.error('Error fetching additional blogs:', moreBlogsError);
           return;
         }
 
-        // Ensure image fields are valid (replace empty strings with null)
+        // Ensure image fields are valid (replace empty or invalid URLs with fallback)
         const sanitizedFeaturedBlogs = featuredBlogs.map(blog => ({
           ...blog,
           image: blog.image && blog.image.trim() !== '' ? blog.image : FALLBACK_IMAGE
@@ -246,7 +247,6 @@ const BlogLayout = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -298,6 +298,7 @@ const BlogLayout = () => {
                     width={800}
                     height={400}
                     className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    priority // Prioritize loading for the featured image
                   />
                   <div className="absolute top-5 left-5 z-20">
                     <span className="bg-white/90 text-[#326B3F] text-xs tracking-wider uppercase font-semibold px-3 py-1 rounded">
@@ -399,7 +400,7 @@ const BlogLayout = () => {
                           {truncateDescription(post.content, 60)}
                         </p>
                         <Link
-                          href={`/blog/${post.slug}`}
+                          href={`/blog/${slugify(post.slug)}`}
                           className="text-[#326B3F] text-xs font-medium inline-flex items-center hover:underline"
                         >
                           Read More
@@ -501,7 +502,7 @@ const BlogLayout = () => {
                         {truncateDescription(blog.content, 120)}
                       </p>
                       <Link
-                        href={`/blog/${blog.slug}`}
+                        href={`/blog/${slugify(blog.slug)}`}
                         className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
                       >
                         Read More
