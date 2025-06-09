@@ -1,10 +1,7 @@
 // This is now a Server Component by default
 
 import AboutUs from "./AboutClient.";
-import dynamic from 'next/dynamic';
 
-// Dynamically import the client component
-const AboutUs = dynamic(() => import('./AboutClient'), { ssr: false });
 
 export const metadata = {
   title: 'Simplifying complexity, Amplifying brand impact',
