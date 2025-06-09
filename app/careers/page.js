@@ -1,9 +1,9 @@
 import Careers from "./carrerspage";
 
 export const metadata = {
-  title: "Join Our Team | Careers at TransCurators",
+  title: "Join Our Team – Content Writing Careers at TransCurators",
   description:
-    "Explore exciting career opportunities at TransCurators. We're building a team of creative thinkers, problem solvers, and passionate doers.",
+    "Looking to grow your writing career? TransCurators invites passionate creators to craft impactful content and collaborate with top industry brands.",
   alternates: {
     canonical: "https://www.transcurators.com/careers",
   },

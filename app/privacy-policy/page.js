@@ -4,7 +4,7 @@ import React from "react";
 export const metadata = {
   title: "Privacy Policy | TransCurators",
   description:
-    "Read the privacy policy of TransCurators. Learn how we collect, use, and protect your personal information.",
+    "We respect your privacy. Read our policy to learn how TransCurators collects, uses, and protects your personal data when you use our services.",
   alternates: {
     canonical: "https://www.transcurators.com/privacy-policy",
   },
