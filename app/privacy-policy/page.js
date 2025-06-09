@@ -1,5 +1,6 @@
-"use client";
+
 import React from "react";
+import Head from "next/head";
 
 
 // Modular data for the policy sections
@@ -352,6 +353,12 @@ function renderListItems(items) {
 
 export default function PrivacyPolicy() {
   return (
+    <>
+     <Head>
+        <title>Privacy Policy | TransCurators</title>
+        <link rel="canonical" href="https://www.transcurators.com/privacy-policy" />
+        <meta name="description" content="Read the privacy policy of TransCurators. Learn how we collect, use, and protect your personal information." />
+      </Head>
     <div className="min-h-screen bg-white">
       
       <div className="bg-[#326B3F]/15 py-16">
@@ -401,5 +408,6 @@ export default function PrivacyPolicy() {
       </main>
       
     </div>
+    </>
   );
 }

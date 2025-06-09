@@ -35,7 +35,7 @@ export default function Footer() {
             <h3 className="text-lg font-medium mb-3 sm:mb-4">Important Links</h3>
             <ul className="space-y-1.5 text-sm">
               <li>
-                <a href="/aboutus" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/about-us" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>About Us</span>
                 </a>
@@ -179,7 +179,7 @@ export default function Footer() {
             </span>
           </div>
           <div className="mt-2 md:mt-0 text-center md:text-right">
-            <a href="/PrivacyPolicy" className="hover:text-[#326B3F] transition-colors">
+            <a href="/privacy-policy" className="hover:text-[#326B3F] transition-colors">
               Privacy Policy
             </a>
           </div>

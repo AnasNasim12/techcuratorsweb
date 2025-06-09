@@ -480,7 +480,7 @@ export default function Example() {
                   </>
                 )}
               </Popover>
-              <Link href="/aboutus" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
+              <Link href="/about-us" className="text-base font-bold text-gray-900 hover:text-[#326B3F] transition-colors duration-150">
                 About Us
               </Link>
               <Popover>
@@ -698,7 +698,7 @@ export default function Example() {
                     </div>
                     
                     <div className="mt-6 space-y-4">
-                      <Link href="/aboutus" className="block px-3 py-2 text-base font-bold text-gray-900 hover:text-[#326B3F] rounded-md transition-colors duration-150">
+                      <Link href="/about-us" className="block px-3 py-2 text-base font-bold text-gray-900 hover:text-[#326B3F] rounded-md transition-colors duration-150">
                         About Us
                       </Link>
                       <div className="px-3 py-2 text-base font-bold text-gray-900 hover:text-[#326B3F] rounded-md cursor-pointer transition-colors duration-150">

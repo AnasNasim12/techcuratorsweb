@@ -1,5 +1,5 @@
 import Landing_Page from "./landingpage";
-
+import Head from "next/head";
 
 export const metadata = {
   title: 'Quality Content Writing Services | Content Writing Agency | TransCurators',
@@ -11,5 +11,13 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <Landing_Page />;
+  return (
+    <>
+    <Head>
+      
+        <link rel="canonical" href="https://www.transcurators.com/" />
+    </Head>
+  <Landing_Page />
+  </>
+);
 }

@@ -1,6 +1,8 @@
 // This is now a Server Component by default
 
 import AboutUs from "./AboutClient.";
+import Head from "next/head";
+
 
 export const metadata = {
     title: 'Simplifying complexity, Amplifying brand impact',
@@ -14,5 +16,13 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-    return <AboutUs />;
+    return (
+        <>
+  <Head>
+      
+        <link rel="canonical" href="https://www.transcurators.com/about-us" />
+    </Head>
+    <AboutUs />
+    </>
+);
 }
