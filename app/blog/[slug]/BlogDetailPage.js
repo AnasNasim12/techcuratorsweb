@@ -3,14 +3,50 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { generateFaqJsonLd } from '@/lib/utils';
+import { createClient } from '@supabase/supabase-js';
+import Link from 'next/link';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 const BlogDetailPage = ({ blog }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
   const [fadeIn, setFadeIn] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [formStatus, setFormStatus] = useState({ submitted: false, error: null });
+  const [recentBlogs, setRecentBlogs] = useState([]);
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+  const [blogError, setBlogError] = useState(null);
 
   const contentRef = useRef(null);
+
+  // Fetch recent blogs from Supabase
+  useEffect(() => {
+    const fetchRecentBlogs = async () => {
+      try {
+        setIsLoadingBlogs(true);
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('id, title, slug')
+          .neq('id', blog.id)
+          .order('date_posted', { ascending: false })
+          .limit(3);
+
+        if (error) throw error;
+        setRecentBlogs(data || []);
+      } catch (err) {
+        console.error('Error fetching recent blogs:', err);
+        setBlogError('Failed to load related blogs.');
+      } finally {
+        setIsLoadingBlogs(false);
+      }
+    };
+
+    fetchRecentBlogs();
+  }, [blog.id]);
 
   // Function to generate FAQ JSON-LD
   const generateFaqJsonLd = (faqs) => {
@@ -36,7 +72,7 @@ const BlogDetailPage = ({ blog }) => {
     );
   };
 
-  // Parse FAQs to ensure consistency
+  // Parse FAQs
   let faqs = [];
   if (Array.isArray(blog.faqs)) {
     faqs = blog.faqs;
@@ -49,7 +85,7 @@ const BlogDetailPage = ({ blog }) => {
     }
   }
 
-  // Extract headings and their line numbers from the markdown description
+  // Extract headings from markdown
   const headings = useMemo(() => {
     const lines = (blog.description || '').split('\n');
     let count = {};
@@ -57,7 +93,6 @@ const BlogDetailPage = ({ blog }) => {
       .map((line, idx) => {
         const match = line.match(/^(#{1,3})\s+(.*)/);
         if (match) {
-          // Ensure unique IDs for duplicate headings
           const base = match[2].replace(/\s+/g, '-').toLowerCase();
           count[base] = (count[base] || 0) + 1;
           const id = `${base}-${count[base]}`;
@@ -76,7 +111,7 @@ const BlogDetailPage = ({ blog }) => {
   // Map of heading id to ref
   const headingRefs = useRef({});
 
-  // Custom heading renderer to add ids and refs
+  // Custom heading renderer
   const HeadingRenderer = (level) => {
     const Component = (props) => {
       const heading = headings.find(
@@ -84,7 +119,7 @@ const BlogDetailPage = ({ blog }) => {
       );
       const id = heading ? heading.id : undefined;
       return React.createElement(
-        `h${level}`,
+        `h${level + 2}`,
         {
           id,
           ref: (el) => {
@@ -92,10 +127,10 @@ const BlogDetailPage = ({ blog }) => {
           },
           className:
             level === 1
-              ? 'text-3xl font-bold my-4 scroll-mt-32'
+              ? 'text-2xl font-bold my-4 scroll-mt-32'
               : level === 2
-              ? 'text-2xl font-bold my-3 scroll-mt-32'
-              : 'text-xl font-bold my-2 scroll-mt-32',
+              ? 'text-xl font-bold my-3 scroll-mt-32'
+              : 'text-lg font-bold my-2 scroll-mt-32',
           ...props,
         },
         props.children
@@ -105,16 +140,16 @@ const BlogDetailPage = ({ blog }) => {
     return Component;
   };
 
-  // Scroll to heading when TOC button is clicked
+  // Scroll to heading
   const scrollToHeading = (id) => {
     const el = headingRefs.current[id];
     if (el) {
-      // Adjust scroll offset if you have a fixed header (change 80 if needed)
       const y = el.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
+  // Scroll and progress handling
   useEffect(() => {
     setTimeout(() => setFadeIn(true), 100);
     window.scrollTo(0, 0);
@@ -139,9 +174,39 @@ const BlogDetailPage = ({ blog }) => {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  const handleFormChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({ submitted: false, error: null });
+
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+        });
+
+      if (error) throw error;
+
+      setFormStatus({ submitted: true, error: null });
+      setFormData({ name: '', email: '' });
+      setTimeout(() => setFormStatus({ submitted: false, error: null }), 3000);
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setFormStatus({ submitted: false, error: 'Failed to send message. Please try again.' });
+    }
+  };
+
+  // Calculate read time if not provided
+  const readTime = blog.read_time || Math.ceil((blog.description?.split(' ').length || 200) / 200);
 
   return (
     <div className="bg-gray-50 min-h-screen relative">
@@ -151,133 +216,233 @@ const BlogDetailPage = ({ blog }) => {
         style={{ width: `${readingProgress}%` }}
       />
 
-      {/* Header Color Block (replaces image) */}
+      {/* Header Color Block with Breadcrumbs and Metadata */}
       <div className="relative h-96 bg-[#326B3F] mb-16 flex items-end">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#326B3F] opacity-70"></div>
         <div className="relative z-10 bottom-0 left-0 right-0 p-8 text-white w-full">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-7xl mx-auto">
+            {/* Breadcrumbs */}
+            <nav className="mb-4 text-sm">
+              <Link href="/" className="hover:underline">Home</Link> &gt;
+              <Link href="/blog" className="hover:underline"> Blog</Link> &gt;
+              <span className="text-gray-300"> {blog.title}</span>
+            </nav>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blog.title}</h1>
-            <div className="flex items-center text-gray-200 mb-6">
+            <div className="flex flex-col gap-2 text-gray-200">
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
                   <span className="text-gray-600 font-medium">{blog.author?.charAt(0).toUpperCase()}</span>
                 </div>
-                <span className="font-medium">{blog.author}</span>
+                <span className="font-medium">Author: {blog.author || 'Tushar Pol'}</span>
               </div>
-              <span className="mx-3">•</span>
-              <span>{formatDate(blog.date_posted)}</span>
+              {blog.contributor && (
+                <span>Contributor: {blog.contributor || 'Alex Lindley'}</span>
+              )}
+              <div className="flex items-center gap-3">
+                <span>{readTime} min read</span>
+                <span>•</span>
+                <span>{formatDate(blog.date_posted || '2025-06-06')}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div
-        className="max-w-4xl mx-auto px-4 transition-opacity duration-1000 ease-out flex flex-col md:flex-row gap-8"
+        className="max-w-7xl mx-auto px-4 transition-opacity duration-1000 ease-out grid grid-cols-1 md:grid-cols-12 gap-6"
         style={{ opacity: fadeIn ? 1 : 0 }}
       >
-        {/* TOC Sidebar */}
-        {headings.length > 0 && (
-          <aside className="hidden md:block md:w-1/4">
-            <div className="sticky top-28">
-              <div className="mb-8">
-                <h3 className="text-lg font-semibold mb-3 text-gray-700">Contents</h3>
-                <div className="flex flex-col gap-2">
+        {/* Left: Table of Contents */}
+        <aside className="md:col-span-3">
+          <div className="sticky top-28">
+            {headings.length > 0 && (
+              <>
+                <h3 className="text-xl font-semibold mb-3 text-gray-700">Table of Contents</h3>
+                <div className="flex flex-col gap-2 bg-white rounded-lg shadow p-4">
                   {headings.map((heading) => (
                     <button
                       key={heading.id}
                       onClick={() => scrollToHeading(heading.id)}
-                      className="text-left px-2 py-1 rounded text-sm font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
+                      className="text-left px-2 py-1 rounded text-base font-semibold transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
                       style={{ marginLeft: `${(heading.level - 1) * 12}px` }}
                     >
                       {heading.text}
                     </button>
                   ))}
                 </div>
-              </div>
-            </div>
-          </aside>
-        )}
-
-        {/* Blog Content */}
-        <div ref={contentRef} className="flex-1">
-          <div className="prose prose-lg max-w-none text-gray-700">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                h1: HeadingRenderer(1),
-                h2: HeadingRenderer(2),
-                h3: HeadingRenderer(3),
-                p: ({ node, ...props }) => <p className="my-4" {...props} />,
-                a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
-                blockquote: ({ node, ...props }) => (
-                  <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4" {...props} />
-                ),
-                code: ({ node, ...props }) => <code className="bg-gray-100 p-1 rounded" {...props} />,
-                pre: ({ node, ...props }) => (
-                  <pre className="bg-gray-100 p-4 rounded my-4 overflow-auto" {...props} />
-                ),
-                table: ({ node, ...props }) => <table className="table-auto my-6 w-full" {...props} />,
-                thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
-                tbody: ({ node, ...props }) => <tbody {...props} />,
-                tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
-                th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
-                td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
-                del: ({ node, ...props }) => <del className="line-through" {...props} />,
-              }}
-            >
-              {blog.description?.replace(/\\n/g, '\n') || ''}
-            </ReactMarkdown>
+              </>
+            )}
           </div>
+        </aside>
 
-          {/* Tags */}
-          {blog.tags?.length > 0 && (
-            <div className="mt-10 pt-6 border-t border-gray-100">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Topics</h3>
-              <div className="flex flex-wrap gap-2">
-                {blog.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-100 cursor-pointer"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+        {/* Middle: Blog Content (More Stretched) */}
+        <div className="md:col-span-7">
+          <div ref={contentRef}>
+            <div className="prose prose-lg max-w-none text-gray-700">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: HeadingRenderer(1),
+                  h2: HeadingRenderer(2),
+                  h3: HeadingRenderer(3),
+                  p: ({ node, ...props }) => <p className="my-4" {...props} />,
+                  a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote className="border-l-4 border-gray-300 pl-4 italic my-5" {...props} />
+                  ),
+                  code: ({ node, ...props }) => <code className="bg-gray-50 p-1 rounded" {...props} />,
+                  pre: ({ node, children, ...props }) => (
+                    <pre className="bg-gray-50 p-4 rounded-lg my-5 overflow-auto" {...props}>
+                      {children}
+                    </pre>
+                  ),
+                  table: ({ node, ...props }) => <table className="table-auto my-6 w-full border-collapse" {...props} />,
+                  thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
+                  tbody: ({ node, ...props }) => <tbody {...props} />,
+                  tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
+                  th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
+                  td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
+                  del: ({ node, ...props }) => <del className="text-gray-500" {...props} />,
+                }}
+              >
+                {blog.description?.replace(/\n/g, '\n') || ''}
+              </ReactMarkdown>
             </div>
-          )}
 
-          {/* Footer */}
-          <div className="mt-12 md:mt-22 md:mb-22 mb-12 flex justify-center">
-            <div className="flex items-center text-gray-500 text-sm">
-              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span>Published on {formatDate(blog.date_posted)}</span>
+            {/* Tags -->
+            {blog.tags?.length > 0 && (
+              <div className="mt-10 pt-6 border-t border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-700 mb-3">Topics</h3>
+                <div className="flex flex-wrap gap-2">
+                  {blog.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-blue-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Footer */}
+            <div className="mt-12 mb-12 flex justify-center">
+              <div className="flex items-center text-gray-500 text-sm">
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <span>Published on {formatDate(blog.date_posted || '2025-06-06')}</span>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Right: Contact Form (Sticky) */}
+        <aside className="md:col-span-2">
+          <div className="sticky top-28 space-y-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-700">Get in Touch</h3>
+              {formStatus.submitted ? (
+                <p className="text-green-600 text-sm">Thank you for your submission!</p>
+              ) : (
+                <form onSubmit={handleFormSubmit} className="space-y-4">
+                  {formStatus.error && (
+                    <p className="text-red-600 text-sm">{formStatus.error}</p>
+                  )}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] sm:text-sm"
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] sm:text-sm"
+                      placeholder="Your email"
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#326B3F] text-white px-4 py-2 rounded-md hover:bg-[#2a5a33] transition"
+                  >
+                    Submit
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </aside>
       </div>
 
-      {/* FAQ Section - always at the bottom */}
+      {/* FAQ Section */}
       {faqs.length > 0 && (
-        <div className="max-w-4xl mx-auto px-4 mt-16 mb-12">
+        <div className="max-w-7xl mx-auto px-4 mt-16 mb-12">
           <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Frequently Asked Questions</h2>
           <div className="space-y-6">
             {faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white rounded-lg shadow p-5">
-                <h4 className="font-semibold text-lg mb-2 text-gray-900">
+              <div key={idx} className="bg-white rounded-lg shadow-sm p-4">
+                <h3 className="font-semibold text-lg mb-2 text-gray-900">
                   Q{idx + 1}. {faq.question}
-                </h4>
+                </h3>
                 <p className="text-gray-700">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
       )}
+
+      {/* Related Blogs Section */}
+      <div className="max-w-7xl mx-auto px-4 mt-16 mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-[#326B3F]">Related Blogs</h2>
+        {isLoadingBlogs ? (
+          <div className="flex flex-col gap-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="p-4 bg-gray-100 rounded-lg animate-pulse">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              </div>
+            ))}
+          </div>
+        ) : blogError ? (
+          <p className="text-red-600">{blogError}</p>
+        ) : recentBlogs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {recentBlogs.map((recentBlog) => (
+              <a
+                key={recentBlog.id}
+                href={`/blog/${recentBlog.slug}`}
+                className="block p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition"
+              >
+                <h3 className="text-base font-semibold text-gray-900">{recentBlog.title}</h3>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">No related blogs available.</p>
+        )}
+      </div>
 
       {/* FAQ JSON-LD Script for SEO */}
       {faqs.length > 0 && (
@@ -290,7 +455,7 @@ const BlogDetailPage = ({ blog }) => {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-110 ${
+        className={`fixed bottom-6 right-6 p-3 rounded-full bg-[#326B3F] text-white shadow-lg transition-all duration-300 hover:bg-[#2a5a33] hover:scale-110 ${
           showScrollButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
       >

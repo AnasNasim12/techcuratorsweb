@@ -128,7 +128,7 @@ function AboutUs() {
                   <Image
                     className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-2 ml-4'
                     src="/aboutushs.png"
-                    alt="Landing Page Hero"
+                    alt="Content writing experts at TransCurators"
                     width={600}
                     height={600}
                   />

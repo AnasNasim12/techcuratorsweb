@@ -6,13 +6,13 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabaseClient';
 
-// Fallback image URL (corrected path)
-const FALLBACK_IMAGE = '/fallback-image.jpg'; // Ensure this image exists in the public folder
+// Fallback image URL (ensure this exists in /public)
+const FALLBACK_IMAGE = '/fallback-image.jpg';
 
 // Skeleton components for loading state
 const FeaturedPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 h-[400px] w-full mb-4"></div>
+    <div className="rounded-lg bg-gray-200 h-[400px] w-full mb-4 md:h-[50vh] sm:h-[40vh]"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-4 bg-gray-200 rounded w-24"></div>
       <div className="h-4 bg-gray-200 rounded w-24"></div>
@@ -26,7 +26,7 @@ const FeaturedPostSkeleton = () => (
 
 const SmallPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 h-32 w-full mb-3"></div>
+    <div className="rounded-lg bg-gray-200 h-32 w-full mb-3 sm:h-40"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-16"></div>
       <div className="h-3 bg-gray-200 rounded w-16"></div>
@@ -40,7 +40,7 @@ const SmallPostSkeleton = () => (
 
 const RegularPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 aspect-square w-full mb-4"></div>
+    <div className="rounded-lg bg-gray-200 aspect-square w-full mb-4 sm:h-48"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-20"></div>
       <div className="h-3 bg-gray-200 rounded w-20"></div>
@@ -70,9 +70,9 @@ const BlogLayout = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
+        delayChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -81,9 +81,9 @@ const BlogLayout = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4
-      }
-    }
+        duration: 0.4,
+      },
+    },
   };
 
   // Track scroll position for parallax effects
@@ -132,17 +132,17 @@ const BlogLayout = () => {
   const handleSortChange = (e) => {
     const value = e.target.value;
     setSortOrder(value);
-    setCurrentPage(1); // Reset to first page on sort change
+    setCurrentPage(1);
     const filtered = filterBlogsByDate(moreBlogs, value);
     setFilteredBlogs(filtered);
   };
 
-  // Fetch data from Supabase on component mount
+  // Fetch data from Supabase
   useEffect(() => {
     const fetchBlogs = async () => {
       setIsLoading(true);
       try {
-        // Fetch the top featured blogs
+        // Fetch featured blogs
         let { data: featuredBlogs, error } = await supabase
           .from('blogs')
           .select('*')
@@ -154,7 +154,7 @@ const BlogLayout = () => {
           return;
         }
 
-        // Fetch all additional blogs for the "more blogs" section
+        // Fetch additional blogs
         let { data: additionalBlogs, error: moreBlogsError } = await supabase
           .from('blogs')
           .select('*')
@@ -165,14 +165,14 @@ const BlogLayout = () => {
           return;
         }
 
-        // Ensure image fields are valid (replace empty or invalid URLs with fallback)
+        // Sanitize image fields
         const sanitizedFeaturedBlogs = featuredBlogs.map(blog => ({
           ...blog,
-          image: blog.image && blog.image.trim() !== '' ? blog.image : FALLBACK_IMAGE
+          image: blog.image && blog.image.trim() !== '' && blog.image !== 'undefined' ? blog.image : FALLBACK_IMAGE,
         }));
         const sanitizedAdditionalBlogs = additionalBlogs.map(blog => ({
           ...blog,
-          image: blog.image && blog.image.trim() !== '' ? blog.image : FALLBACK_IMAGE
+          image: blog.image && blog.image.trim() !== '' && blog.image !== 'undefined' ? blog.image : FALLBACK_IMAGE,
         }));
 
         setFeaturedPosts(sanitizedFeaturedBlogs);
@@ -192,10 +192,10 @@ const BlogLayout = () => {
   useEffect(() => {
     const filtered = filterBlogsByDate(moreBlogs, sortOrder);
     setFilteredBlogs(filtered);
-    setCurrentPage(1); // Reset to first page when filtered blogs change
+    setCurrentPage(1);
   }, [moreBlogs, sortOrder]);
 
-  // Function to truncate the description
+  // Truncate description
   const truncateDescription = (text, length = 150) => {
     if (text && text.length > length) {
       return `${text.substring(0, length)}...`;
@@ -203,18 +203,18 @@ const BlogLayout = () => {
     return text || '';
   };
 
-  // Function to format date
+  // Format date
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
-  // Function to handle touch on cards for mobile
+  // Handle touch on cards for mobile
   const handleCardTouch = (id) => {
     if (touchedCardId === id) {
       return;
@@ -222,14 +222,13 @@ const BlogLayout = () => {
     setTouchedCardId(id);
   };
 
-  // Clear touched card state when touch ends without clicking a link
   const handleTouchEnd = (e) => {
     if (!e.target.closest('a')) {
       setTimeout(() => setTouchedCardId(null), 300);
     }
   };
 
-  // Slugify function to create URL-friendly slugs from titles
+  // Slugify function
   function slugify(text) {
     return text
       .toString()
@@ -237,7 +236,7 @@ const BlogLayout = () => {
       .trim()
       .replace(/[\s\W-]+/g, '-')
       .replace(/^-+|-+$/g, '');
-  };
+  }
 
   // Pagination logic
   const totalPages = Math.ceil(filteredBlogs.length / postsPerPage);
@@ -254,164 +253,206 @@ const BlogLayout = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-7xl md:mt-20 mt-12 mx-auto px-4 md:px-6 relative"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 md:mt-20 relative"
     >
-      {/* Subtle decorative element */}
+      {/* Decorative element */}
       <motion.div
-        className="absolute top-20 right-10 w-24 h-24 rounded-full bg-[#326B3F]/10 blur-xl -z-10"
+        className="absolute top-20 right-10 w-24 h-24 rounded-full bg-[#326B3F]/10 blur-xl -z-10 hidden md:block"
         style={{
           x: Math.sin(scrollY * 0.01) * 5,
-          y: Math.cos(scrollY * 0.01) * 5
+          y: Math.cos(scrollY * 0.01) * 5,
         }}
       ></motion.div>
 
       {/* Header Section */}
-      <div className="text-center mb-16">
-        <p className="text-[#326B3F] text-md mb-2">Blogs</p>
-        <h1 className="text-2xl md:text-4xl font-medium mt-2">A Heading will come in about 5-6 words</h1>
-        <p className="text-[#6a6a6a] mt-4 max-w-2xl mx-auto">A sub heading will come in about 10-15 words</p>
+      <div className="text-center mb-12 sm:mb-16">
+        <p className="text-[#326B3F] text-sm sm:text-md mb-2">Blogs</p>
+        <h1 className="text-xl sm:text-2xl md:text-4xl font-medium mt-2">Blog Highlights</h1>
+        <p className="text-[#6a6a6a] mt-4 text-sm sm:text-base max-w-2xl mx-auto">
+          Discover our latest insights and updates
+        </p>
       </div>
 
       {/* Featured Section */}
-      <section className="mb-20">
-        <h2 className="text-2xl font-medium mb-6">Top Featured</h2>
+      <section className="mb-12 sm:mb-16 md:mb-20">
+        <h2 className="text-xl sm:text-2xl font-medium mb-6">Top Featured</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Main Featured Post */}
           <div className="h-full">
             {isLoading ? (
               <FeaturedPostSkeleton />
             ) : featuredPosts[0] ? (
-              <motion.div
-                className={`group bg-white rounded-xl overflow-hidden shadow-lg h-full relative ${
-                  touchedCardId === featuredPosts[0].id ? 'touched-card' : ''
-                }`}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.3 }}
-                onTouchStart={() => handleCardTouch(featuredPosts[0].id)}
-                onTouchEnd={handleTouchEnd}
-              >
-                <div className="relative overflow-hidden h-full">
-                  <Image
-                    src={featuredPosts[0].image}
-                    alt="Featured post"
-                    width={800}
-                    height={400}
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    priority // Prioritize loading for the featured image
-                  />
-                  <div className="absolute top-5 left-5 z-20">
-                    <span className="bg-white/90 text-[#326B3F] text-xs tracking-wider uppercase font-semibold px-3 py-1 rounded">
-                      Featured
-                    </span>
-                  </div>
-                  <div className="w-full h-[400px]"></div>
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent
-                    ${(touchedCardId === featuredPosts[0].id) ? 'opacity-70' : 'opacity-80 group-hover:opacity-70'}
-                    transition-opacity duration-500`}>
-                  </div>
-                  <div className={`absolute bottom-0 left-0 right-0 p-7 transform transition-transform duration-500
-                    ${(touchedCardId === featuredPosts[0].id) ? 'translate-y-[-10px]' : 'group-hover:translate-y-[-10px]'}`}>
-                    <div className="flex justify-between items-center mb-3 text-white/90">
-                      <p className="text-sm font-light">{featuredPosts[0].author}</p>
-                      <p className="text-sm font-light">{formatDate(featuredPosts[0].date_posted)}</p>
+              <Link href={`/blog/${slugify(featuredPosts[0].slug)}`} className="block">
+                <motion.div
+                  className={`group bg-white rounded-xl overflow-hidden shadow-lg h-full relative ${
+                    touchedCardId === featuredPosts[0].id ? 'touched-card' : ''
+                  }`}
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  onTouchStart={() => handleCardTouch(featuredPosts[0].id)}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <div className="relative overflow-hidden h-full">
+                    <Image
+                      src={featuredPosts[0].image}
+                      alt={featuredPosts[0].title || 'Featured post'}
+                      width={800}
+                      height={400}
+                      className="absolute inset-0 w-full h-[40vh] sm:h-[50vh] md:h-[60vh] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      priority
+                    />
+                    <div className="absolute top-5 left-5 z-20">
+                      <span className="bg-white/90 text-[#326B3F] text-xs tracking-wider uppercase font-semibold px-3 py-1 rounded">
+                        Featured
+                      </span>
                     </div>
-                    <h3 className="text-2xl font-medium text-white mb-3 leading-tight">{featuredPosts[0].title}</h3>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out
-                      ${(touchedCardId === featuredPosts[0].id) ? 'max-h-32' : 'max-h-0 group-hover:max-h-32'}`}>
-                      <p className="text-white/90 text-sm mb-4 line-clamp-3">
-                        {truncateDescription(featuredPosts[0].content, 150)}
-                      </p>
-                      <Link
-                        href={`/blog/${slugify(featuredPosts[0].slug)}`}
-                        className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm transition-all duration-300 mt-2"
+                    <div className="w-full h-[40vh] sm:h-[50vh] md:h-[60vh]"></div>
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent
+                        ${
+                          touchedCardId === featuredPosts[0].id
+                            ? 'opacity-70'
+                            : 'opacity-80 group-hover:opacity-70'
+                        }
+                        transition-opacity duration-500`}
+                    ></div>
+                    <div
+                      className={`absolute bottom-0 left-0 right-0 p-5 sm:p-7 transform transition-transform duration-500
+                        ${
+                          touchedCardId === featuredPosts[0].id
+                            ? 'translate-y-[-10px]'
+                            : 'group-hover:translate-y-[-10px]'
+                        }`}
+                    >
+                      <div className="flex justify-between items-center mb-3 text-white/90">
+                        <p className="text-xs sm:text-sm font-light">{featuredPosts[0].author}</p>
+                        <p className="text-xs sm:text-sm font-light">{formatDate(featuredPosts[0].date_posted)}</p>
+                      </div>
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-white mb-3 leading-tight">
+                        {featuredPosts[0].title}
+                      </h3>
+                      <div
+                        className={`overflow-hidden transition-all duration-500 ease-in-out
+                          ${
+                            touchedCardId === featuredPosts[0].id
+                              ? 'max-h-32'
+                              : 'max-h-0 group-hover:max-h-32'
+                          }`}
                       >
-                        Read Article
-                        <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </Link>
+                        <p className="text-white/90 text-xs sm:text-sm mb-4 line-clamp-3">
+                          {truncateDescription(featuredPosts[0].content, 150)}
+                        </p>
+                        <span className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs sm:text-sm transition-all duration-300 mt-2">
+                          Read Article
+                          <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
+                    <div
+                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#326B3F]/80 to-transparent transform
+                        ${
+                          touchedCardId === featuredPosts[0].id
+                            ? 'scale-x-100'
+                            : 'scale-x-0 group-hover:scale-x-100'
+                        }
+                        transition-transform duration-500 ease-out`}
+                    ></div>
                   </div>
-                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#326B3F]/80 to-transparent transform
-                    ${(touchedCardId === featuredPosts[0].id) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
-                    transition-transform duration-500 ease-out`}>
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             ) : (
               <div className="text-center p-8 bg-white rounded-xl shadow-sm">No featured posts available</div>
             )}
           </div>
 
           {/* Right Side Grid - 2x2 Smaller Posts */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 h-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 h-full">
             {isLoading ? (
-              Array(4).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`}>
-                  <SmallPostSkeleton />
-                </div>
-              ))
+              Array(4)
+                .fill(0)
+                .map((_, index) => (
+                  <div key={`skeleton-${index}`}>
+                    <SmallPostSkeleton />
+                  </div>
+                ))
             ) : (
               featuredPosts.slice(1, 5).map((post) => (
-                <motion.div
-                  key={post.id}
-                  className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
-                    touchedCardId === post.id ? 'touched-card' : ''
-                  }`}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                  onTouchStart={() => handleCardTouch(post.id)}
-                  onTouchEnd={handleTouchEnd}
-                >
-                  <div className="relative overflow-hidden h-[200px]">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      width={400}
-                      height={200}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent
-                      ${(touchedCardId === post.id) ? 'opacity-0' : 'group-hover:opacity-0'}
-                      transition-opacity duration-300`}>
-                    </div>
-                    <div className={`absolute bottom-0 left-0 right-0 p-4 text-white
-                      ${(touchedCardId === post.id) ? 'opacity-0' : 'group-hover:opacity-0'}
-                      transition-opacity duration-300`}>
-                      <div className="flex justify-between items-center mb-1">
-                        <p className="text-white/80 text-xs">{post.author}</p>
-                        <p className="text-white/80 text-xs">{formatDate(post.date_posted)}</p>
-                      </div>
-                      <h3 className="text-sm font-medium">{post.title}</h3>
-                    </div>
-                    <div className={`absolute inset-0 bg-white
-                      ${(touchedCardId === post.id) ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
-                      transition-opacity duration-300 z-10 flex flex-col justify-center`}>
-                      <div className={`p-4 transform
-                        ${(touchedCardId === post.id) ? 'translate-y-0' : 'translate-y-4 group-hover:translate-y-0'}
-                        transition-transform duration-300`}>
-                        <h3 className="text-gray-900 font-semibold text-sm mb-2">{post.title}</h3>
-                        <div className="flex justify-between items-center mb-2 text-xs text-gray-500">
-                          <p>{post.author}</p>
-                          <p>{formatDate(post.date_posted)}</p>
+                <Link key={post.id} href={`/blog/${slugify(post.slug)}`} className="block">
+                  <motion.div
+                    className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
+                      touchedCardId === post.id ? 'touched-card' : ''
+                    }`}
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.3 }}
+                    onTouchStart={() => handleCardTouch(post.id)}
+                    onTouchEnd={handleTouchEnd}
+                  >
+                    <div className="relative overflow-hidden h-[30vh] sm:h-[20vh] md:h-[25vh]">
+                      <Image
+                        src={post.image}
+                        alt={post.title || 'Blog post'}
+                        width={400}
+                        height={200}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent
+                          ${touchedCardId === post.id ? 'opacity-0' : 'group-hover:opacity-0'}
+                          transition-opacity duration-300`}
+                      ></div>
+                      <div
+                        className={`absolute bottom-0 left-0 right-0 p-4 text-white
+                          ${touchedCardId === post.id ? 'opacity-0' : 'group-hover:opacity-0'}
+                          transition-opacity duration-300`}
+                      >
+                        <div className="flex justify-between items-center mb-1">
+                          <p className="text-white/80 text-xs">{post.author}</p>
+                          <p className="text-white/80 text-xs">{formatDate(post.date_posted)}</p>
                         </div>
-                        <p className="text-gray-700 mb-3 text-xs line-clamp-2">
-                          {truncateDescription(post.content, 60)}
-                        </p>
-                        <Link
-                          href={`/blog/${slugify(post.slug)}`}
-                          className="text-[#326B3F] text-xs font-medium inline-flex items-center hover:underline"
+                        <h3 className="text-sm font-medium">{post.title}</h3>
+                      </div>
+                      <div
+                        className={`absolute inset-0 bg-white
+                          ${touchedCardId === post.id ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
+                          transition-opacity duration-300 z-10 flex flex-col justify-center`}
+                      >
+                        <div
+                          className={`p-4 transform
+                            ${
+                              touchedCardId === post.id
+                                ? 'translate-y-0'
+                                : 'translate-y-4 group-hover:translate-y-0'
+                            }
+                            transition-transform duration-300`}
                         >
-                          Read More
-                          <svg className="ml-1 w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </Link>
+                          <h3 className="text-gray-900 font-semibold text-sm mb-2">{post.title}</h3>
+                          <div className="flex justify-between items-center mb-2 text-xs text-gray-500">
+                            <p>{post.author}</p>
+                            <p>{formatDate(post.date_posted)}</p>
+                          </div>
+                          <p className="text-gray-700 mb-3 text-xs line-clamp-2">
+                            {truncateDescription(post.content, 60)}
+                          </p>
+                          <span className="text-[#326B3F] text-xs font-medium inline-flex items-center hover:underline">
+                            Read More
+                            <svg
+                              className="ml-1 w-3 h-3"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               ))
             )}
           </div>
@@ -419,12 +460,12 @@ const BlogLayout = () => {
       </section>
 
       {/* More Blogs Section */}
-      <section className="mb-20">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-medium">More Blogs</h2>
+      <section className="mb-12 sm:mb-16 md:mb-20">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <h2 className="text-xl sm:text-2xl font-medium">More Blogs</h2>
           {!isLoading && (
             <select
-              className="border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#326B3F]"
+              className="border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#326B3F] w-full sm:w-auto"
               onChange={handleSortChange}
               value={sortOrder}
             >
@@ -438,91 +479,108 @@ const BlogLayout = () => {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {isLoading ? (
-            Array(12).fill(0).map((_, index) => (
-              <div key={`skeleton-more-${index}`}>
-                <RegularPostSkeleton />
-              </div>
-            ))
+            Array(12)
+              .fill(0)
+              .map((_, index) => (
+                <div key={`skeleton-more-${index}`}>
+                  <RegularPostSkeleton />
+                </div>
+              ))
           ) : (
             currentBlogs.map((blog) => (
-              <motion.div
-                key={blog.id}
-                variants={itemVariants}
-                className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
-                  touchedCardId === blog.id ? 'touched-card' : ''
-                }`}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.3 }}
-                onTouchStart={() => handleCardTouch(blog.id)}
-                onTouchEnd={handleTouchEnd}
-              >
-                <div className="relative overflow-hidden h-full">
-                  <Image
-                    src={blog.image}
-                    alt={blog.title}
-                    width={400}
-                    height={250}
-                    className="w-full h-[250px] object-cover"
-                  />
-                  {blog.category && (
-                    <div className="absolute top-3 right-3 z-20">
-                      <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
-                        {blog.category}
-                      </span>
-                    </div>
-                  )}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
-                    ${(touchedCardId === blog.id) ? 'opacity-0' : 'group-hover:opacity-0'} transition-opacity duration-300`}>
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      <div className="flex justify-between items-center mb-1">
-                        <p className="text-white/80 text-xs">{blog.author}</p>
-                        <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
+              <Link key={blog.id} href={`/blog/${slugify(blog.slug)}`} className="block">
+                <motion.div
+                  variants={itemVariants}
+                  className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
+                    touchedCardId === blog.id ? 'touched-card' : ''
+                  }`}
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  onTouchStart={() => handleCardTouch(blog.id)}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <div className="relative overflow-hidden h-full">
+                    <Image
+                      src={blog.image}
+                      alt={blog.title || 'Blog post'}
+                      width={400}
+                      height={250}
+                      className="w-full h-[30vh] sm:h-[25vh] md:h-[20vh] object-cover"
+                    />
+                    {blog.category && (
+                      <div className="absolute top-3 right-3 z-20">
+                        <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
+                          {blog.category}
+                        </span>
                       </div>
-                      <h3 className="font-medium">{blog.title}</h3>
-                    </div>
-                  </div>
-                  <div className={`absolute inset-0 bg-white
-                    ${(touchedCardId === blog.id) ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
-                    transition-opacity duration-300 z-10 flex flex-col justify-center`}>
-                    <div className={`p-5 transform ${
-                      (touchedCardId === blog.id) ? 'translate-y-0' : 'translate-y-4 group-hover:translate-y-0'
-                    } transition-transform duration-300`}>
-                      <h3 className="text-gray-900 font-semibold mb-3">{blog.title}</h3>
-                      <div className="flex justify-between items-center mb-3 text-sm text-gray-500">
-                        <p>{blog.author}</p>
-                        <p>{formatDate(blog.date_posted)}</p>
+                    )}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                        ${touchedCardId === blog.id ? 'opacity-0' : 'group-hover:opacity-0'}
+                        transition-opacity duration-300`}
+                    >
+                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                        <div className="flex justify-between items-center mb-1">
+                          <p className="text-white/80 text-xs">{blog.author}</p>
+                          <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
+                        </div>
+                        <h3 className="font-medium text-sm sm:text-base">{blog.title}</h3>
                       </div>
-                      <p className="text-gray-700 mb-4 text-sm line-clamp-3">
-                        {truncateDescription(blog.content, 120)}
-                      </p>
-                      <Link
-                        href={`/blog/${slugify(blog.slug)}`}
-                        className="text-[#326B3F] font-medium inline-flex items-center hover:underline"
+                    </div>
+                    <div
+                      className={`absolute inset-0 bg-white
+                        ${touchedCardId === blog.id ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
+                        transition-opacity duration-300 z-10 flex flex-col justify-center`}
+                    >
+                      <div
+                        className={`p-5 transform
+                          ${
+                            touchedCardId === blog.id
+                              ? 'translate-y-0'
+                              : 'translate-y-4 group-hover:translate-y-0'
+                          }
+                          transition-transform duration-300`}
                       >
-                        Read More
-                        <svg className="ml-1 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </Link>
+                        <h3 className="text-gray-900 font-semibold text-sm sm:text-base mb-3">{blog.title}</h3>
+                        <div className="flex justify-between items-center mb-3 text-xs text-gray-500">
+                          <p>{blog.author}</p>
+                          <p>{formatDate(blog.date_posted)}</p>
+                        </div>
+                        <p className="text-gray-700 mb-4 text-xs sm:text-sm line-clamp-3">
+                          {truncateDescription(blog.content, 120)}
+                        </p>
+                        <span className="text-[#326B3F] font-medium inline-flex items-center hover:underline text-xs sm:text-sm">
+                          Read More
+                          <svg
+                            className="ml-1 w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             ))
           )}
         </motion.div>
 
         {/* Pagination Controls */}
         {!isLoading && filteredBlogs.length > postsPerPage && (
-          <div className="flex justify-center mt-12 mb-12 space-x-2">
+          <div className="flex justify-center mt-8 sm:mt-12 mb-12 space-x-2">
             <motion.button
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+              className={`px-3 sm:px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
                 currentPage === 1
                   ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                   : 'bg-[#326B3F] text-white hover:bg-[#2a5a34]'
@@ -537,7 +595,7 @@ const BlogLayout = () => {
             {Array.from({ length: totalPages }, (_, index) => (
               <motion.button
                 key={index + 1}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                className={`px-3 sm:px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
                   currentPage === index + 1
                     ? 'bg-[#326B3F] text-white'
                     : 'bg-white text-[#326B3F] border border-[#326B3F] hover:bg-[#326B3F]/10'
@@ -550,7 +608,7 @@ const BlogLayout = () => {
               </motion.button>
             ))}
             <motion.button
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+              className={`px-3 sm:px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
                 currentPage === totalPages
                   ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                   : 'bg-[#326B3F] text-white hover:bg-[#2a5a34]'
@@ -566,12 +624,31 @@ const BlogLayout = () => {
         )}
       </section>
 
-      {/* Add CSS for touch states */}
+      {/* CSS for touch states and responsiveness */}
       <style jsx>{`
         @media (hover: none) {
           .touched-card {
             transform: translateY(-5px);
             transition: transform 0.3s;
+          }
+        }
+        /* Ensure images fit properly */
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+        /* Responsive typography */
+        h3 {
+          font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        /* Adjust grid gaps and padding for smaller screens */
+        @media (max-width: 640px) {
+          .grid {
+            gap: 1rem;
+          }
+          .p-5 {
+            padding: 1rem;
           }
         }
       `}</style>
