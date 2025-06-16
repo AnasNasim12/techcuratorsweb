@@ -129,7 +129,7 @@ const BlogDetailPage = ({ blog }) => {
       const id = heading ? heading.id : `fallback-${text.toLowerCase().replace(/\s+/g, '-')}`;
       
       // Choose the appropriate HTML heading tag based on level
-      const HeadingTag = level === 1 ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : 'h4';
+      const HeadingTag = level === 1 ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h2' : 'h4';
       
       return React.createElement(
         HeadingTag,
@@ -295,7 +295,7 @@ const BlogDetailPage = ({ blog }) => {
           <div className="sticky top-28">
             {headings.length > 0 && (
               <>
-                <h2 className="text-xl font-bold my-3 text-gray-900">Table of Contents</h2>
+                <p className="text-xl font-bold my-3 text-gray-900">Table of Contents</p>
                 <div className="flex flex-col gap-1 bg-white rounded-lg shadow p-3">
                   {headings.map((heading) => (
                     <button
@@ -326,7 +326,7 @@ const BlogDetailPage = ({ blog }) => {
                 components={{
                   h1: createHeadingRenderer(1),
                   h2: createHeadingRenderer(2),
-                  h3: createHeadingRenderer(3),
+                  h2: createHeadingRenderer(3),
                   h4: createHeadingRenderer(4),
                   h5: createHeadingRenderer(5),
                   h6: createHeadingRenderer(6),
