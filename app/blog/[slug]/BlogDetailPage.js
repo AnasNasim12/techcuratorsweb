@@ -20,6 +20,7 @@ const BlogDetailPage = ({ blog }) => {
   const [recentBlogs, setRecentBlogs] = useState([]);
   const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
   const [blogError, setBlogError] = useState(null);
+  const [activeHeading, setActiveHeading] = useState('');
 
   const contentRef = useRef(null);
 
@@ -85,64 +86,103 @@ const BlogDetailPage = ({ blog }) => {
     }
   }
 
-  // Extract headings from markdown
+  // Extract headings from markdown with better ID generation
   const headings = useMemo(() => {
     const lines = (blog.description || '').split('\n');
-    let count = {};
-    return lines
-      .map((line, idx) => {
-        const match = line.match(/^(#{1,3})\s+(.*)/);
-        if (match) {
-          const base = match[2].replace(/\s+/g, '-').toLowerCase();
-          count[base] = (count[base] || 0) + 1;
-          const id = `${base}-${count[base]}`;
-          return {
-            id,
-            level: match[1].length,
-            text: match[2],
-            line: idx,
-          };
-        }
-        return null;
-      })
-      .filter(Boolean);
+    const headingsList = [];
+    let headingCounter = 0;
+
+    lines.forEach((line, idx) => {
+      const match = line.match(/^(#{1,6})\s+(.*)/);
+      if (match) {
+        headingCounter++;
+        const level = match[1].length;
+        const text = match[2].trim();
+        // Create a more reliable ID
+        const id = `heading-${headingCounter}-${text
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')}`;
+        
+        headingsList.push({
+          id,
+          level,
+          text,
+          line: idx,
+        });
+      }
+    });
+
+    return headingsList;
   }, [blog.description]);
 
   // Map of heading id to ref
   const headingRefs = useRef({});
 
-  // Custom heading renderer (all mapped to h2 styling)
-  const HeadingRenderer = (level) => {
-    const Component = (props) => {
-      const heading = headings.find(
-        (h) => h.text === String(props.children) && h.level === level
-      );
-      const id = heading ? heading.id : undefined;
+  // Custom heading renderer that properly maps IDs
+  const createHeadingRenderer = (level) => {
+    return ({ children, ...props }) => {
+      const text = String(children);
+      const heading = headings.find(h => h.text === text && h.level === level);
+      const id = heading ? heading.id : `fallback-${text.toLowerCase().replace(/\s+/g, '-')}`;
+      
+      // Choose the appropriate HTML heading tag based on level
+      const HeadingTag = level === 1 ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : 'h4';
+      
       return React.createElement(
-        'h2',
+        HeadingTag,
         {
           id,
           ref: (el) => {
-            if (id) headingRefs.current[id] = el;
+            if (el && id) {
+              headingRefs.current[id] = el;
+            }
           },
-          className: 'text-2xl font-bold my-4 scroll-mt-32 text-gray-900',
+          className: `${level === 1 ? 'text-3xl' : level === 2 ? 'text-2xl' : 'text-xl'} font-bold my-4 scroll-mt-32 text-gray-900`,
           ...props,
         },
-        props.children
+        children
       );
     };
-    Component.displayName = `HeadingRenderer${level}`;
-    return Component;
   };
 
-  // Scroll to heading
+  // Scroll to heading with better positioning
   const scrollToHeading = (id) => {
-    const el = headingRefs.current[id];
-    if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+    const element = headingRefs.current[id] || document.getElementById(id);
+    if (element) {
+      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+      setActiveHeading(id);
     }
   };
+
+  // Intersection Observer to track active heading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target.id) {
+            setActiveHeading(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -80% 0px',
+        threshold: 0
+      }
+    );
+
+    // Observe all heading elements
+    const headingElements = headings.map(h => document.getElementById(h.id)).filter(Boolean);
+    headingElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [headings]);
 
   // Scroll and progress handling
   useEffect(() => {
@@ -261,7 +301,11 @@ const BlogDetailPage = ({ blog }) => {
                     <button
                       key={heading.id}
                       onClick={() => scrollToHeading(heading.id)}
-                      className="text-left px-2 py-1 rounded text-sm font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
+                      className={`text-left px-2 py-1 rounded text-sm font-medium transition-all duration-200 ${
+                        activeHeading === heading.id
+                          ? 'bg-[#326B3F] text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-[#e6f2ea] hover:text-[#326B3F]'
+                      }`}
                       style={{ marginLeft: `${(heading.level - 1) * 8}px` }}
                     >
                       {heading.text}
@@ -280,9 +324,12 @@ const BlogDetailPage = ({ blog }) => {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: HeadingRenderer(1),
-                  h2: HeadingRenderer(2),
-                  h2: HeadingRenderer(3),
+                  h1: createHeadingRenderer(1),
+                  h2: createHeadingRenderer(2),
+                  h3: createHeadingRenderer(3),
+                  h4: createHeadingRenderer(4),
+                  h5: createHeadingRenderer(5),
+                  h6: createHeadingRenderer(6),
                   p: ({ node, ...props }) => <p className="my-4 text-lg leading-relaxed" {...props} />,
                   a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
                   blockquote: ({ node, ...props }) => (
