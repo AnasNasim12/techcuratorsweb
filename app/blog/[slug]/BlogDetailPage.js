@@ -216,7 +216,7 @@ const BlogDetailPage = ({ blog }) => {
       <div className="relative h-96 bg-[#326B3F] mb-16 flex items-end">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#326B3F] opacity-70"></div>
         <div className="relative z-10 bottom-0 left-0 right-0 p-8 text-white w-full">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-5xl mx-auto px-2 sm:px-4">
             {/* Breadcrumbs */}
             <nav className="mb-4 text-sm flex items-center gap-2">
               <Link href="/" className="hover:underline">Home</Link>
@@ -282,7 +282,7 @@ const BlogDetailPage = ({ blog }) => {
           components={{
             h1: HeadingRenderer(1),
             h2: HeadingRenderer(2),
-            h3: HeadingRenderer(3),
+            h2: HeadingRenderer(3),
             p: ({ node, ...props }) => <p className="my-4" {...props} />,
             a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
             blockquote: ({ node, ...props }) => (
@@ -417,9 +417,9 @@ const BlogDetailPage = ({ blog }) => {
     <div className="space-y-4">
       {faqs.map((faq, idx) => (
         <div key={idx} className="bg-white rounded-lg shadow-sm p-4">
-          <h3 className="text-lg font-semibold my-2 text-gray-900">
+          <h2 className="text-lg font-semibold my-2 text-gray-900">
             Q{idx + 1}. {faq.question}
-          </h3>
+          </h2>
           <p className="text-gray-700 text-base">{faq.answer}</p>
         </div>
       ))}
@@ -448,7 +448,7 @@ const BlogDetailPage = ({ blog }) => {
           href={`/blog/${recentBlog.slug}`}
           className="block p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition"
         >
-          <h3 className="text-lg font-semibold my-2 text-gray-900">{recentBlog.title}</h3>
+          <h2 className="text-lg font-semibold my-2 text-gray-900">{recentBlog.title}</h2>
         </Link>
       ))}
     </div>

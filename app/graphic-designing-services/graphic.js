@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
-import Image from 'next/image'; // Add this import for the Image component
+import Image from 'next/image'; 
+import Link from 'next/link';// Add this import for the Image component
 
 const Designing = () => {
   const [activeTab, setActiveTab] = useState('UI/UX Design');
@@ -455,37 +456,33 @@ const Designing = () => {
                   Let's Build Something Amazing Together
                 </div>
                   
-                  <motion.button
-                    variants={itemVariants}
-                    onClick={() => {
-                            document.getElementById('contact-form').scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    type="submit"
-                    className="gap-2 md:gap-3 mt-6 md:mt-10 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
-                    border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
-                    hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
-                  >
-                    Book Your Free Consultation!
-                    <svg
-                      className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
-                      rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
-                      viewBox="0 0 16 19"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
-                        7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
-                        8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
-                        15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                        className="fill-white group-hover:fill-[#326B3F]"
-                      ></path>
-                    </svg>
-                  </motion.button>
+                  <Link href="/contact">
+      <motion.button
+        variants={itemVariants}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        type="submit"
+        className="gap-2 md:gap-3 mt-6 md:mt-10 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
+        border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
+        hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
+      >
+        Book Your Free Consultation!
+        <svg
+          className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
+          rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
+          viewBox="0 0 16 19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
+            7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+            8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
+            15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+            className="fill-white group-hover:fill-[#326B3F]"
+          ></path>
+        </svg>
+      </motion.button>
+    </Link>
                 </motion.div>
                 
                 {/* Removed the empty motion.div that was previously holding the image */}
@@ -606,7 +603,7 @@ const Designing = () => {
             
             <section ref={textSectionRef} className="relative w-full py-15 mt-4 bg-white overflow-hidden min-h-[400px] flex flex-col justify-center items-center">
               <div className="w-full overflow-hidden">
-                <h1 
+                <h2 
                   ref={firstTextRef}
                   className="text-6xl md:text-[150px] font-bold tracking-tight transform w-full"
                   style={{ 
@@ -616,11 +613,11 @@ const Designing = () => {
                   }}
                 >
                   YOU IMAGINE IT,
-                </h1>
+                </h2>
               </div>
 
               <div className="w-full overflow-hidden">
-                <h1 
+                <h2 
                   ref={secondTextRef}
                   className="text-6xl md:text-[150px] font-bold tracking-tight text-[#326B3F] transform w-full text-right"
                   style={{ 
@@ -630,109 +627,120 @@ const Designing = () => {
                   }}
                 >
                   WE CREATE IT.
-                </h1>
+                </h2>
               </div>
             </section>
-            <section>
-                <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
-                    <div className='max-w-screen-xl flex flex-col md:flex-row justify-between items-center mx-auto'>
-                        {/* Image container - taking 35% width on medium screens and above */}
-                        <div className='md:w-[35%] flex justify-center items-center mx-auto'>
-                            <Image src="/gfxdesign.png" alt="Graphic Design Services" className='md:block hidden' width={400} height={400} priority />
-                        </div>
-                        
-                        {/* Text container - taking 65% width on medium screens and above */}
-                        <div className='md:w-[65%] flex-row justify-center items-center px-4 md:px-6 py-8 md:py-12'>
-                            <h2 className='md:text-3xl text-xl font-semibold text-black'>
-                                Why Choose Transcurators for Your <span className='text-[#326B3F]'>Graphic Designing</span> Needs?
-                            </h2>
-                            <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
-                                Experience top-tier graphic design services with Transcurators—where creativity, precision, and custom solutions come together to elevate your brand.
-                            </p>
-                            <ul className='mt-6 space-y-4 text-sm'>
-                                {cardData.map((item, index) => (
-                                  <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
-                                    <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
-                                    <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
-                                        <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
-                                      </svg>
-                                      
-                                    </span>
-                                    <span>
-                                      <span className="font-semibold">{item.heading}</span>:<br/>{item.description}
-                                    </span>
-                                  </li>
-                                ))}
-                              </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+          <section>
+    <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto py-4 md:py-4'>
+        <div className='max-w-screen-xl flex flex-col md:flex-row justify-between items-center mx-auto'>
+            {/* Image container - taking 35% width on medium screens and above */}
+            <div className='md:w-[35%] flex justify-center items-center mx-auto'>
+                <Image src="/gfxdesign.png" alt="Graphic Design Services" className='md:block hidden' width={400} height={400} priority />
+            </div>
+            
+            {/* Text container - taking 65% width on medium screens and above */}
+            <div className='md:w-[65%] flex-row justify-center items-center px-4 md:px-6 py-8 md:py-12'>
+                <h2 className='md:text-3xl text-xl font-semibold text-black'>
+                    Why Choose Transcurators for Your <span className='text-[#326B3F]'>Graphic Designing</span> Needs?
+                </h2>
+                <p className='text-sm font-regular mt-6 text-[#6a6a6a]'>
+                    Experience top-tier graphic design services with Transcurators—where creativity, precision, and custom solutions come together to elevate your brand.
+                </p>
+                <ul className='mt-6 space-y-4 text-sm'>
+                    {cardData.map((item, index) => (
+                      <li key={index} className='text-sm font-normal text-[#6a6a6a] flex items-center gap-2'>
+                        <span className='w-5 h-5 flex items-center justify-center rounded-full bg-[#326B3F] text-white'>
+                        <svg className="h-full p-0.5" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M6.5 10.7l-2.9-2.9-1.1 1.1 4 4 8-8-1.1-1.1z"></path>
+                          </svg>
+                        </span>
+                        <span>
+                          <span className="font-semibold">{item.heading}</span>:<br/>{item.description}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+                <Link href="/contact">
+                    <motion.button
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        type="submit"
+                        className="gap-2 md:gap-3 mt-6 md:mt-10 flex justify-center items-center self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
+                        border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
+                        hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-3 md:px-4 py-1.5 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit"
+                    >
+                        Book Your Free Consultation!
+                        <svg
+                            className="w-6 h-6 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
+                            rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
+                            viewBox="0 0 16 19"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
+                                7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+                                8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
+                                15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+                                className="fill-white group-hover:fill-[#326B3F]"
+                            ></path>
+                        </svg>
+                    </motion.button>
+                </Link>
+            </div>
+        </div>
+    </div>
+</section>
 
             <div className='max-w-screen-xl flex justify-center md:mt-22 mt-12 mx-auto items-center'>     
-        <div className='text-center flex-row'>
-            <p className='md:text-3xl text-xl text-black font-medium mt-4'>
-            Frequently Asked<span className='text-[#326B3F]'> Questions</span>
-            </p>
-            <p className='text-sm text-[#6a6a6a] mt-4 leading-[25px] max-w-screen-lg'>
-            Get clear answers to common queries about graphics designing services, choosing the right company, and business benefits.          
-            </p>
+  <div className='text-center flex-row'>
+    <p className='md:text-3xl text-xl text-black font-medium mt-4'>
+      Frequently Asked<span className='text-[#326B3F]'> Questions</span>
+    </p>
+    <p className='text-sm text-[#6a6a6a] mt-4 leading-[25px] max-w-screen-lg'>
+      Get clear answers to common queries about graphics designing services, choosing the right company, and business benefits.          
+    </p>
+  </div>
+</div>
+
+<div className="max-w-screen-xl mx-auto p-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {faqs.slice(0, showMore ? faqs.length : 4).map((faq) => (
+      <div key={faq.id} className="bg-white hover:shadow-lg duration-300 transition-all ease-in-out shadow-md p-5 rounded-md">
+        <button
+          className="flex justify-between items-center w-full text-md font-normal cursor-pointer text-[#6a6a6a]"
+          onClick={() => toggleFAQ(faq.id)}
+        >
+          {faq.question}
+          <span className="text-xl transition-transform duration-300">
+            {openFAQ === faq.id ? "−" : "+"}
+          </span>
+        </button>
+        <div
+          className={`transition-all duration-500 overflow-hidden ${
+            openFAQ === faq.id ? "max-h-40 mt-3 text-[#326B3F] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          {faq.answer}
         </div>
       </div>
+    ))}
+  </div>
 
-    <div className="max-w-screen-xl mx-auto p-6">
-    
-      <div
-      onClick={() => toggleFAQ(faq.id)}
-      className="grid grid-cols-1 md:grid-cols-2 cursor-pointer gap-8">
-        {faqs.slice(0, showMore ? faqs.length : 10).map((faq) => (
-          <div key={faq.id} className="bg-white hover:shadow-lg duration-300 transition-all ease-in-out shadow-md p-5 rounded-md">
-            <button
-              className="flex justify-between items-center w-full text-md font-normal cursor-pointer text-[#6a6a6a]"
-              onClick={() => toggleFAQ(faq.id)}
-            >
-              {faq.question}
-              <span className="text-xl transition-transform duration-300">
-                {openFAQ === faq.id ? "−" : "+"}
-              </span>
-            </button>
-            <div
-              className={`transition-all duration-500 overflow-hidden ${
-                openFAQ === faq.id ? "max-h-40 mt-3 text-[#326B3F] opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              {faq.answer}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex justify-center mt-6">
-        {!showMore ? (
-          <button 
-          onClick={() => setShowMore(true)}
-          className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1">
-          <span className="flex items-center gap-3 relative z-10">
-            <svg viewBox="0 0 24 24" fill="#326B3F" className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1">
-              <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
-            </svg>
-            Show More
-          </span>
-        </button>
-        ) : (
-          <button 
-          onClick={() => setShowMore(false)}
-          className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1">
-          <span className="flex items-center gap-3 relative z-10">
-            <svg viewBox="0 0 24 24" fill="#326B3F" className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1">
-              <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
-            </svg>
-            Show Less
-          </span>
-        </button>
-        )}
-      </div>
-    </div>
+  <div className="flex justify-center mt-6">
+    <button
+      onClick={() => setShowMore(!showMore)}
+      className="cursor-pointer group relative text-[#326B3F] my-8 font-regular tracking-wide transition-all duration-300 ease-in-out active:border-b-0 active:translate-y-1"
+    >
+      <span className="flex items-center gap-3 relative z-10">
+        <svg viewBox="0 0 24 24" fill="#326B3F" className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1">
+          <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
+        </svg>
+        {showMore ? "Show Less" : "Show More"}
+      </span>
+    </button>
+  </div>
+</div>
             
 
     </>
