@@ -446,7 +446,7 @@ const faqs = [
               <span className="flex items-center gap-3 relative z-10">
                 Read more
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1">
-                  <path d="M12 4L10.6 5.4L16.2 11H4V13H16.2L10.6 18.6L12 20L20 12L12 4Z"></path>
+                  <path d="M12 4L10.6 5.4L16.2 11H4V13h26.2L10.6 18.6L12 20L20 12L12 4Z"></path>
                 </svg>
               </span>
             </button>
@@ -611,31 +611,31 @@ const faqs = [
             </motion.h2>
 
             <motion.button
-              variants={itemVariants}
-              onClick={() => window.location.href = "/contact"}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              className="gap-2 md:gap-3 mt-6 md:mt-6 flex justify-center items-center self-center md:self-start text-[#6a6a6a] text-xs sm:text-sm bg-gray-50 backdrop-blur-md lg:font-medium isolation-auto 
-              border-gray-50 before:absolute before:inset-0 before:w-0 before:h-full before:transition-all before:duration-500 before:bg-[#326B3F]
-              hover:text-gray-50 hover:before:w-full before:rounded-full before:-z-10 relative z-10 px-4 md:px-4 py-2 md:py-2 overflow-hidden border-2 rounded-full group tracking-wide w-fit md:ml-6"
-            >
-              Order Your Animation Now
-              <svg
-                className="w-5 h-5 md:w-7 md:h-7 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 
-                rounded-full border border-gray-700 group-hover:border-[#326B3F] p-1 md:p-1.5 rotate-45 bg-[#326B3F]"
-                viewBox="0 0 16 19"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
-                  7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
-                  8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
-                  15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                  className="fill-white group-hover:fill-[#326B3F]"
-                ></path>
-              </svg>
-            </motion.button>
+  variants={itemVariants}
+  onClick={() => window.location.href = "/contact"}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  type="submit"
+  className="gap-2 md:gap-3 mt-6 md:mt-6 flex justify-center items-center self-center md:self-start text-gray-50 text-xs sm:text-sm font-medium 
+  bg-[#326B3F] hover:bg-[#2a5b34] transition-all duration-300 ease-in-out 
+  border-2 border-[#326B3F] hover:border-[#2a5b34] rounded-full px-4 md:px-4 py-2 md:py-2 w-fit md:ml-6"
+>
+  Order Your Animation Now
+  <svg
+    className="w-5 h-5 md:w-7 md:h-7 justify-end group-hover:rotate-90 transition-all duration-300 
+    rounded-full border border-gray-50 p-1 md:p-1.5 rotate-45 bg-transparent"
+    viewBox="0 0 16 19"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 
+      7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 
+      8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 
+      15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+      className="fill-gray-50 group-hover:fill-gray-200"
+    />
+  </svg>
+</motion.button>
           </motion.div>
 
           <motion.div
@@ -647,7 +647,7 @@ const faqs = [
             <Image
                         className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-8 ml-4'
                         src="/vidanimation.png"
-                        alt="Landing Page Hero"
+                        alt="video animation services"
                         width={600}
                         height={400}
                         priority
@@ -675,7 +675,7 @@ Transform Your Ideas into Videos
           <div className="rounded-2xl overflow-hidden w-[859px] h-[476px] flex items-center justify-center shadow-lg">
             <Image
               src="/vidanimation2.png"
-              alt="Digital Marketing Illustration"
+              alt="video animation company"
               width={900}
               height={900}
               className="object-cover w-full h-full"
@@ -707,12 +707,12 @@ Transform Your Ideas into Videos
             animate="visible"
             className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-4 lg:space-y-6 px-4 sm:px-5 md:px-8 lg:px-12 overflow-hidden z-10"
           >
-            <motion.h1
+            <motion.h2
               variants={itemVariants}
               className='text-black font-medium text-center md:text-left text-[12px] sm:text-[15px] md:text-[21px] lg:text-[25px] xl:text-[30px] leading-tight md:leading-none tracking-tight w-full md:max-w-[800%] mx-auto md:ml-6'
             >
               Navigating the Path to Exceptional Content: <span className='text-[#4B7D57]'><br/>Our step-by-step Creating Journey</span>
-            </motion.h1>    
+            </motion.h2>    
 
             <motion.h2
               variants={itemVariants}
@@ -1029,7 +1029,7 @@ As a dedicated video animation agency, TransCurators is committed to delivering 
 </section>
 <section ref={textSectionRef} className="relative w-full py-15 mt-4 bg-white overflow-hidden min-h-[400px] flex flex-col justify-center items-center">
               <div className="w-full overflow-hidden">
-                <h1 
+                <h2 
                   ref={firstTextRef}
                   className="text-5xl md:text-[150px] font-bold tracking-tight transform w-full"
                   style={{ 
@@ -1039,11 +1039,11 @@ As a dedicated video animation agency, TransCurators is committed to delivering 
                   }}
                 >
                   TRANSFORM YOUR
-                </h1>
+                </h2>
               </div>
 
               <div className="w-full overflow-hidden">
-                <h1 
+                <h2 
                   ref={secondTextRef}
                   className="text-5xl md:text-[150px] font-bold tracking-tight text-[#326B3F] transform w-full text-right"
                   style={{ 
@@ -1053,7 +1053,7 @@ As a dedicated video animation agency, TransCurators is committed to delivering 
                   }}
                 >
                   IDEAS INTO VIDEOS.
-                </h1>
+                </h2>
               </div>
             </section>
 

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Carousel from './components/carousel/page';
 import WhyTransCurators from './components/whytranscurators/page';
 import WorkflowStrategy from './components/workflowtrans/page';
-
+import Link from 'next/link';
 
 
 
@@ -812,7 +812,7 @@ const Landing_Page = () => {
           <div className="hidden md:flex justify-center items-center mx-auto md:w-2/3 w-full">
             <Images
               src="/Homepage 2.png"
-              alt="Icon1"
+              alt="content writing team"
               width={400}
               height={400}
             />
@@ -874,14 +874,16 @@ const Landing_Page = () => {
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
+              <Link href="/contact">
               <motion.button
-                onClick={() => { }}
+                
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
               >
                 Contact Us
               </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -896,7 +898,7 @@ const Landing_Page = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <p className='text-md text-[#326B3F] font-regular'>Our Partners</p>
+            <h2 className='text-md text-[#326B3F] font-regular'>Our Partners</h2>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-medium mt-4">
               What Our <span className="text-[#326B3F]">Clients Say</span>
             </h2>
@@ -1000,10 +1002,10 @@ const Landing_Page = () => {
         className='max-w-screen-xl flex mt-12 md:mt-22 justify-center mx-auto items-center px-4 md:px-6'
       >
         <div className='text-center flex-row'>
-          <p className='text-md text-[#326B3F] font-regular'>Benefits of</p>
-          <p className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>
+          <h2 className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>Benefits of</h2>
+          <h2 className='text-xl sm:text-2xl md:text-3xl text-black font-medium mt-4'>
             Partnering with a<span className='text-[#326B3F]'> Leading Content Writing Company in India</span>
-          </p>
+          </h2>
           <p className='text-sm md:text-base text-[#6a6a6a] mt-4 leading-relaxed md:leading-[25px] max-w-screen-lg mx-auto px-2 sm:px-4 md:px-6 lg:px-8'>
             Partnering with a top content writing company in India gives your business significant tactical advantages. The evolving world of digital marketing demands content that connects with your specific audience increases engagement, and develops brand loyalty. Here's how working with a top-tier content writing agency in India might improve your content strategy:
           </p>
@@ -1039,7 +1041,7 @@ const Landing_Page = () => {
                 whileHover={{ rotate: [0, -5, 5, -5, 0] }}
                 transition={{ duration: 0.5 }}
               >
-                <Images src="/QA engineers-bro 1.png" alt="" width={400} height={400} />
+                <Images src="/QA engineers-bro 1.png" alt="Creating brand-aligned content" width={400} height={400} />
               </motion.div>
             </div>
           </motion.div>
@@ -1115,7 +1117,7 @@ const Landing_Page = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 10 }}
               >
-                <Images src="/Middlebro.png" alt="" width={400} height={400} />
+                <Images src="/Middlebro.png" alt="High-quality content" width={400} height={400} />
               </motion.div>
             </div>
           </motion.div>
@@ -1145,7 +1147,7 @@ const Landing_Page = () => {
                 whileHover={{ rotate: 3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 10 }}
               >
-                <Images src="/Statistics-bro 1.png" alt="" width={400} height={400} />
+                <Images src="/Statistics-bro 1.png" alt="writers creating SEO content" width={400} height={400} />
               </motion.div>
             </div>
           </motion.div>

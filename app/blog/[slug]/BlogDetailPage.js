@@ -216,7 +216,7 @@ const BlogDetailPage = ({ blog }) => {
       <div className="relative h-96 bg-[#326B3F] mb-16 flex items-end">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#326B3F] opacity-70"></div>
         <div className="relative z-10 bottom-0 left-0 right-0 p-8 text-white w-full">
-          <div className="max-w-5xl mx-auto px-2 sm:px-4">
+          <div className="max-w-7xl mx-auto">
             {/* Breadcrumbs */}
             <nav className="mb-4 text-sm flex items-center gap-2">
               <Link href="/" className="hover:underline">Home</Link>
@@ -247,215 +247,215 @@ const BlogDetailPage = ({ blog }) => {
       </div>
 
       <div
-  className="max-w-7xl mx-auto px-4 transition-opacity duration-1000 ease-out grid grid-cols-1 md:grid-cols-12 gap-6"
-  style={{ opacity: fadeIn ? 1 : 0 }}
->
-  {/* Left: Table of Contents */}
-  <aside className="md:col-span-3">
-    <div className="sticky top-28">
-      {headings.length > 0 && (
-        <>
-          <h2 className="text-2xl font-bold my-4 text-gray-900">Table of Contents</h2>
-          <div className="flex flex-col gap-2 bg-white rounded-lg shadow p-4">
-            {headings.map((heading) => (
-              <button
-                key={heading.id}
-                onClick={() => scrollToHeading(heading.id)}
-                className="text-left px-2 py-1 rounded text-base font-semibold transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
-                style={{ marginLeft: `${(heading.level - 1) * 12}px` }}
-              >
-                {heading.text}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  </aside>
-
-  {/* Middle: Blog Content */}
-  <div className="md:col-span-6">
-    <div ref={contentRef}>
-      <div className="prose prose-lg max-w-none text-gray-700">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            h1: HeadingRenderer(1),
-            h2: HeadingRenderer(2),
-            h2: HeadingRenderer(3),
-            p: ({ node, ...props }) => <p className="my-4" {...props} />,
-            a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
-            blockquote: ({ node, ...props }) => (
-              <blockquote className="border-l-4 border-gray-300 pl-4 italic my-5" {...props} />
-            ),
-            code: ({ node, ...props }) => <code className="bg-gray-50 p-1 rounded" {...props} />,
-            pre: ({ node, children, ...props }) => (
-              <pre className="bg-gray-50 p-4 rounded-lg my-5 overflow-auto" {...props}>
-                {children}
-              </pre>
-            ),
-            table: ({ node, ...props }) => <table className="table-auto my-6 w-full border-collapse" {...props} />,
-            thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
-            tbody: ({ node, ...props }) => <tbody {...props} />,
-            tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
-            th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
-            td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
-            del: ({ node, ...props }) => <del className="text-gray-500" {...props} />,
-          }}
-        >
-          {blog.description?.replace(/\n/g, '\n') || ''}
-        </ReactMarkdown>
-      </div>
-
-      {/* Tags */}
-      {blog.tags?.length > 0 && (
-        <div className="mt-10 pt-6 border-t border-gray-200">
-          <h2 className="text-2xl font-bold my-4 text-gray-900">Topics</h2>
-          <div className="flex flex-wrap gap-2">
-            {blog.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-blue-100"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Footer */}
-      <div className="mt-12 mb-12 flex justify-center">
-        <div className="flex items-center text-gray-500 text-sm">
-          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          <span>Published on {formatDate(blog.date_posted || '2025-06-06')}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {/* Right: Contact Form (Sticky) */}
-  <aside className="md:col-span-3">
-    <div className="sticky top-28 space-y-6 w-full">
-      <div className="bg-white rounded-lg shadow p-8">
-        <h2 className="text-2xl font-bold my-4 text-gray-900">Get in Touch</h2>
-        {formStatus.submitted ? (
-          <p className="text-green-600 text-sm">Thank you for your submission!</p>
-        ) : (
-          <form onSubmit={handleFormSubmit} className="space-y-5">
-            {formStatus.error && (
-              <p className="text-red-600 text-sm">{formStatus.error}</p>
+        className="w-full px-2 lg:px-4 transition-opacity duration-1000 ease-out grid grid-cols-1 lg:grid-cols-12 gap-4"
+        style={{ opacity: fadeIn ? 1 : 0 }}
+      >
+        {/* Left: Table of Contents - Positioned closer to left edge */}
+        <aside className="lg:col-span-2 lg:pl-2">
+          <div className="sticky top-28">
+            {headings.length > 0 && (
+              <>
+                <h2 className="text-xl font-bold my-3 text-gray-900">Table of Contents</h2>
+                <div className="flex flex-col gap-1 bg-white rounded-lg shadow p-3">
+                  {headings.map((heading) => (
+                    <button
+                      key={heading.id}
+                      onClick={() => scrollToHeading(heading.id)}
+                      className="text-left px-2 py-1 rounded text-sm font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-[#e6f2ea]"
+                      style={{ marginLeft: `${(heading.level - 1) * 8}px` }}
+                    >
+                      {heading.text}
+                    </button>
+                  ))}
+                </div>
+              </>
             )}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleFormChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] sm:text-sm"
-                placeholder="Your name"
-                required
-              />
+          </div>
+        </aside>
+
+        {/* Middle: Blog Content - Expanded width */}
+        <div className="lg:col-span-8 px-4">
+          <div ref={contentRef}>
+            <div className="prose prose-xl max-w-none text-gray-700">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: HeadingRenderer(1),
+                  h2: HeadingRenderer(2),
+                  h2: HeadingRenderer(3),
+                  p: ({ node, ...props }) => <p className="my-4 text-lg leading-relaxed" {...props} />,
+                  a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote className="border-l-4 border-gray-300 pl-4 italic my-5 text-lg" {...props} />
+                  ),
+                  code: ({ node, ...props }) => <code className="bg-gray-50 p-1 rounded" {...props} />,
+                  pre: ({ node, children, ...props }) => (
+                    <pre className="bg-gray-50 p-4 rounded-lg my-5 overflow-auto" {...props}>
+                      {children}
+                    </pre>
+                  ),
+                  table: ({ node, ...props }) => <table className="table-auto my-6 w-full border-collapse" {...props} />,
+                  thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
+                  tbody: ({ node, ...props }) => <tbody {...props} />,
+                  tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
+                  th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
+                  td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
+                  del: ({ node, ...props }) => <del className="text-gray-500" {...props} />,
+                }}
+              >
+                {blog.description?.replace(/\n/g, '\n') || ''}
+              </ReactMarkdown>
             </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleFormChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] sm:text-sm"
-                placeholder="Your email"
-                required
-              />
+
+            {/* Tags */}
+            {blog.tags?.length > 0 && (
+              <div className="mt-10 pt-6 border-t border-gray-200">
+                <h2 className="text-2xl font-bold my-4 text-gray-900">Topics</h2>
+                <div className="flex flex-wrap gap-2">
+                  {blog.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-blue-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Footer */}
+            <div className="mt-12 mb-12 flex justify-center">
+              <div className="flex items-center text-gray-500 text-sm">
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <span>Published on {formatDate(blog.date_posted || '2025-06-06')}</span>
+              </div>
             </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleFormChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] sm:text-sm"
-                placeholder="Your message"
-                rows="5"
-                required
-              />
+          </div>
+        </div>
+
+        {/* Right: Contact Form (Sticky) - Positioned closer to right edge */}
+        <aside className="lg:col-span-2 lg:pr-2">
+          <div className="sticky top-28 space-y-6 w-full">
+            <div className="bg-white rounded-lg shadow p-4">
+              <h2 className="text-lg font-bold my-3 text-gray-900">Get in Touch</h2>
+              {formStatus.submitted ? (
+                <p className="text-green-600 text-sm">Thank you for your submission!</p>
+              ) : (
+                <form onSubmit={handleFormSubmit} className="space-y-4">
+                  {formStatus.error && (
+                    <p className="text-red-600 text-sm">{formStatus.error}</p>
+                  )}
+                  <div>
+                    <label htmlFor="name" className="block text-xs font-medium text-gray-700">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] text-sm"
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-xs font-medium text-gray-700">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] text-sm"
+                      placeholder="Your email"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-xs font-medium text-gray-700">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleFormChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#326B3F] focus:ring-[#326B3F] text-sm"
+                      placeholder="Your message"
+                      rows="4"
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#326B3F] text-white px-3 py-2 rounded-md hover:bg-[#2a5a33] transition text-sm"
+                  >
+                    Send Message
+                  </button>
+                </form>
+              )}
             </div>
-            <button
-              type="submit"
-              className="w-full bg-[#326B3F] text-white px-4 py-2.5 rounded-md hover:bg-[#2a5a33] transition text-base"
-            >
-              Send Message
-            </button>
-          </form>
+          </div>
+        </aside>
+      </div>
+
+      {/* FAQ Section */}
+      {faqs.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 mt-12 mb-10">
+          <h2 className="text-xl font-bold my-3 text-[#326B3F]">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <div key={idx} className="bg-white rounded-lg shadow-sm p-4">
+                <h2 className="text-lg font-semibold my-2 text-gray-900">
+                  Q{idx + 1}. {faq.question}
+                </h2>
+                <p className="text-gray-700 text-base">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Related Blogs Section */}
+      <div className="max-w-7xl mx-auto px-4 mt-12 mb-10">
+        <h2 className="text-xl font-bold my-3 text-[#326B3F]">Related Blogs</h2>
+        {isLoadingBlogs ? (
+          <div className="flex flex-col gap-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="p-4 bg-gray-100 rounded-lg animate-pulse">
+                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              </div>
+            ))}
+          </div>
+        ) : blogError ? (
+          <p className="text-red-600 text-sm">{blogError}</p>
+        ) : recentBlogs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {recentBlogs.map((recentBlog) => (
+              <Link
+                key={recentBlog.id}
+                href={`/blog/${recentBlog.slug}`}
+                className="block p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition"
+              >
+                <h2 className="text-lg font-semibold my-2 text-gray-900">{recentBlog.title}</h2>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600 text-base">No related blogs available.</p>
         )}
       </div>
-    </div>
-  </aside>
-</div>
-
- {/* FAQ Section */}
-{faqs.length > 0 && (
-  <div className="max-w-7xl mx-auto px-4 mt-12 mb-10">
-    <h2 className="text-xl font-bold my-3 text-[#326B3F]">Frequently Asked Questions</h2>
-    <div className="space-y-4">
-      {faqs.map((faq, idx) => (
-        <div key={idx} className="bg-white rounded-lg shadow-sm p-4">
-          <h2 className="text-lg font-semibold my-2 text-gray-900">
-            Q{idx + 1}. {faq.question}
-          </h2>
-          <p className="text-gray-700 text-base">{faq.answer}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-
-{/* Related Blogs Section */}
-<div className="max-w-7xl mx-auto px-4 mt-12 mb-10">
-  <h2 className="text-xl font-bold my-3 text-[#326B3F]">Related Blogs</h2>
-  {isLoadingBlogs ? (
-    <div className="flex flex-col gap-4">
-      {[1, 2, 3].map((i) => (
-        <div key={i} className="p-4 bg-gray-100 rounded-lg animate-pulse">
-          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-        </div>
-      ))}
-    </div>
-  ) : blogError ? (
-    <p className="text-red-600 text-sm">{blogError}</p>
-  ) : recentBlogs.length > 0 ? (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {recentBlogs.map((recentBlog) => (
-        <Link
-          key={recentBlog.id}
-          href={`/blog/${recentBlog.slug}`}
-          className="block p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition"
-        >
-          <h2 className="text-lg font-semibold my-2 text-gray-900">{recentBlog.title}</h2>
-        </Link>
-      ))}
-    </div>
-  ) : (
-    <p className="text-gray-600 text-base">No related blogs available.</p>
-  )}
-</div>
 
       {/* FAQ JSON-LD Script for SEO */}
       {faqs.length > 0 && (

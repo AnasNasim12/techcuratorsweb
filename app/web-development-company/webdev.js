@@ -430,17 +430,17 @@ const WebDevelopment = () => {
               initial="hidden"
               animate="visible"
               className="w-full md:w-[55%] lg:w-[50%] xl:w-[45%] flex flex-col justify-center space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 px-5 md:px-8 lg:px-12 overflow-hidden z-10"
-            ><motion.h1 
+            ><motion.h2 
                 variants={itemVariants}
                 className='text-white font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mb-1 sm:mb-2 md:mb-3'
               >
                 Web Development Services – Crafting 
-              </motion.h1>
-              <motion.h1 
+              </motion.h2>
+              <motion.h2 
                 variants={itemVariants}
                 className='text-[#4B7D57] font-medium text-[28px] sm:text-[34px] md:text-[50px] lg:text-[50px] xl:text-[60px] text-left leading-none md:leading-none tracking-tight max-w-[95%] md:max-w-[95%] mt-0'
               >Custom Web Experiences That Perform
-              </motion.h1>
+              </motion.h2>
               <div
                 className="text-black text-sm sm:text-base md:text-lg lg:text-lg font-normal mt-3 sm:mt-4 md:mt-6 lg:mt-7 leading-[1.5] max-w-[95%] md:max-w-[95%]">
                  Empower your brand with TransCurators — a web development company crafting scalable, high-performance websites.
@@ -485,7 +485,7 @@ const WebDevelopment = () => {
               <Image
                 className='max-w-[100%] md:max-w-[90%] lg:max-w-[95%] xl:max-w-[90%] h-auto object-contain mt-10 ml-10'
                 src="/webdevhero.png"
-                alt="Landing Page Hero"
+                alt="web development services"
                 width={500}
                 height={200}
                 priority
@@ -532,10 +532,10 @@ const WebDevelopment = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-2xl md:text-3xl font-medium text-[#1B223C] mb-4">
+          <h2 className="text-2xl md:text-3xl font-medium text-[#1B223C] mb-4">
             Custom Web Solutions{' '}
             <span className="text-[#3c6446]">We Build</span>
-          </h1>
+          </h2>
         </div>
 
         {/* Tab Navigation */}
