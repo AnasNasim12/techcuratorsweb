@@ -263,9 +263,9 @@ const BlogDetailPage = ({ blog }) => {
             {/* Breadcrumbs */}
             <nav className="mb-4 text-sm flex items-center gap-2">
               <Link href="/" className="hover:underline">Home</Link>
-              <span className="text-gray-300">&gt;</span>
+              <span className="text-gray-300"></span>
               <Link href="/blog" className="hover:underline">Blog</Link>
-              <span className="text-gray-300">&gt;</span>
+              <span className="text-gray-300"></span>
               <span className="text-gray-300">{blog.title}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blog.title}</h1>
@@ -334,7 +334,7 @@ const BlogDetailPage = ({ blog }) => {
                   h5: createHeadingRenderer(5),
                   h6: createHeadingRenderer(6),
                   p: ({ node, ...props }) => <p className="my-4 text-lg leading-relaxed" {...props} />,
-                  a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} />,
+                  a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} target="_blank" rel={props.title === 'nofollow' ? 'nofollow' : 'noopener noreferrer'} />,
                   blockquote: ({ node, ...props }) => (
                     <blockquote className="border-l-4 border-gray-300 pl-4 italic my-5 text-lg" {...props} />
                   ),
@@ -344,12 +344,12 @@ const BlogDetailPage = ({ blog }) => {
                       {children}
                     </pre>
                   ),
-                  table: ({ node, ...props }) => <table className="table-auto my-6 w-full border-collapse" {...props} />,
+                  table: ({ node, ...props }) => <table className="border-collapse border border-gray-300 my-6 w-full" {...props} />,
                   thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
                   tbody: ({ node, ...props }) => <tbody {...props} />,
-                  tr: ({ node, ...props }) => <tr className="border-b" {...props} />,
-                  th: ({ node, ...props }) => <th className="px-4 py-2 text-left" {...props} />,
-                  td: ({ node, ...props }) => <td className="px-4 py-2" {...props} />,
+                  tr: ({ node, ...props }) => <tr className="border border-gray-300" {...props} />,
+                  th: ({ node, ...props }) => <th className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-left" {...props} />,
+                  td: ({ node, ...props }) => <td className="border border-gray-300 px-4 py-2" {...props} />,
                   del: ({ node, ...props }) => <del className="text-gray-500" {...props} />,
                 }}
               >

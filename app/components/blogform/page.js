@@ -24,34 +24,28 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [successMsg, setSuccessMsg] = useState(null)
-  const [activeTab, setActiveTab] = useState('edit') // 'edit' or 'preview' for mobile view
-  const [isFullScreen, setIsFullScreen] = useState(false) // Track full screen mode
+  const [activeTab, setActiveTab] = useState('edit')
+  const [isFullScreen, setIsFullScreen] = useState(false)
   const descriptionTextareaRef = useRef(null)
   const fullScreenTextareaRef = useRef(null)
 
-  // Effect to handle escape key press to exit full screen mode
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === 'Escape' && isFullScreen) {
         setIsFullScreen(false);
       }
     };
-    
     document.addEventListener('keydown', handleEscKey);
-    
     return () => {
       document.removeEventListener('keydown', handleEscKey);
     };
   }, [isFullScreen]);
 
-  // Effect to disable body scroll when fullscreen is active
   useEffect(() => {
     if (isFullScreen) {
       document.body.style.overflow = 'hidden';
-      // Focus the full screen textarea after opening
       if (fullScreenTextareaRef.current) {
         fullScreenTextareaRef.current.focus();
-        // Place cursor at the same position as in the original textarea
         if (descriptionTextareaRef.current) {
           const cursorPos = descriptionTextareaRef.current.selectionStart;
           fullScreenTextareaRef.current.setSelectionRange(cursorPos, cursorPos);
@@ -59,7 +53,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
       }
     } else {
       document.body.style.overflow = '';
-      // Sync the cursor position back when exiting
       if (descriptionTextareaRef.current && fullScreenTextareaRef.current) {
         const cursorPos = fullScreenTextareaRef.current.selectionStart;
         setTimeout(() => {
@@ -68,13 +61,11 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
         }, 0);
       }
     }
-    
     return () => {
       document.body.style.overflow = '';
     };
   }, [isFullScreen]);
 
-  // Populate formData if editing
   useEffect(() => {
     if (initialData) {
       let faqs = [];
@@ -104,7 +95,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  // Handle changes in full screen mode
   const handleFullScreenChange = (e) => {
     setFormData((prev) => ({ ...prev, description: e.target.value }));
   }
@@ -117,8 +107,53 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     }
   }
 
-  // Enhanced helper function to insert markdown syntax
-  const insertMarkdown = (syntax, placeholder = '', isFullScreenMode = false, url = '') => {
+  // Helper function to convert array data into markdown table
+  const arrayToMarkdownTable = (rows) => {
+    if (!rows || rows.length === 0) return '';
+
+    const headers = rows[0];
+    const headerRow = `| ${headers.join(' | ')} |`;
+    const separatorRow = `| ${headers.map(() => '---').join(' | ')} |`;
+    const bodyRows = rows.slice(1).map(row => `| ${row.join(' | ')} |`).join('\n');
+    
+    return `${headerRow}\n${separatorRow}\n${bodyRows}\n`;
+  };
+
+  // Handle CSV file upload and convert to markdown table
+  const handleTableCsvUpload = (file) => {
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const csvText = evt.target.result;
+        const rows = csvText.split('\n')
+          .map(row => row.split(',').map(cell => cell.trim()))
+          .filter(row => row.some(cell => cell));
+        const markdownTable = arrayToMarkdownTable(rows);
+        insertMarkdown('custom', markdownTable, isFullScreen);
+      } catch (err) {
+        setError('Failed to parse CSV file. Ensure it’s a valid CSV.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Handle pasted table data and convert to markdown table
+  const handleTablePaste = () => {
+    const pastedText = prompt('Paste your table data (tab-separated or CSV format):');
+    if (!pastedText) return;
+
+    try {
+      const rows = pastedText.split('\n')
+        .map(row => row.split(/\t|,/).map(cell => cell.trim()))
+        .filter(row => row.some(cell => cell));
+      const markdownTable = arrayToMarkdownTable(rows);
+      insertMarkdown('custom', markdownTable, isFullScreen);
+    } catch (err) {
+      setError('Failed to parse pasted table data. Use tab-separated or CSV format.');
+    }
+  };
+
+  const insertMarkdown = (syntax, placeholder = '', isFullScreenMode = false, url = '', rel = '') => {
     const textarea = isFullScreenMode ? fullScreenTextareaRef.current : descriptionTextareaRef.current;
     if (!textarea) return;
 
@@ -155,7 +190,9 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
         newText = `${beforeText}~~${selectedText}~~${afterText}`
         break
       case 'link':
-        newText = `${beforeText}[${selectedText}](url)${afterText}`
+        newText = rel === 'nofollow' 
+          ? `${beforeText}[${selectedText}](url "nofollow")${afterText}`
+          : `${beforeText}[${selectedText}](url)${afterText}`;
         break
       case 'image':
         newText = `${beforeText}![${selectedText}](${url || 'image-url'})${afterText}`;
@@ -170,14 +207,12 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
         newText = `${beforeText}> ${selectedText}${afterText}`
         break
       case 'list':
-        // For multiple lines, add "- " to each line
         newText = `${beforeText}${selectedText
           .split('\n')
           .map(line => line ? `- ${line}` : '')
           .join('\n')}${afterText}`;
         break;
       case 'numbered':
-        // For multiple lines, add "1. ", "2. ", etc.
         newText = `${beforeText}${selectedText
           .split('\n')
           .map((line, i) => line ? `${i + 1}. ${line}` : '')
@@ -192,15 +227,16 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
       case 'table':
         newText = `${beforeText}\n| Header 1 | Header 2 |\n| -------- | -------- |\n| Cell 1   | Cell 2   |\n| Cell 3   | Cell 4   |\n${afterText}`
         break
+      case 'custom':
+        newText = `${beforeText}${selectedText}${afterText}`;
+        break
       default:
         newText = text
     }
     
     setFormData({ ...formData, description: newText });
     
-    // Focus and set cursor position after update
     setTimeout(() => {
-      // Only set focus if textarea is already focused
       if (document.activeElement === textarea) {
         textarea.focus();
         const newCursorPos = start + newText.length - text.length;
@@ -209,7 +245,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     }, 0);
   };
 
-  // Function to toggle full screen mode
   const toggleFullScreen = () => {
     setIsFullScreen(prev => !prev);
   };
@@ -251,7 +286,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
       }
 
       if (isEdit && initialData) {
-        // Update existing blog
         const { data, error } = await supabase
           .from('blogs')
           .update({
@@ -267,7 +301,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
         setSuccessMsg('Blog post updated successfully!');
         if (onSuccess) onSuccess(data);
       } else {
-        // Create new blog
         const { data, error } = await supabase
           .from('blogs')
           .insert([
@@ -305,7 +338,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     }
   }
 
-  // Define custom components for markdown rendering
   const markdownComponents = {
     h1: ({node, ...props}) => <h1 className="text-2xl font-bold my-3" {...props} />,
     h2: ({node, ...props}) => <h2 className="text-xl font-bold my-2" {...props} />,
@@ -315,17 +347,19 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     ul: ({node, ...props}) => <ul className="list-disc ml-5 my-2" {...props} />,
     ol: ({node, ...props}) => <ol className="list-decimal ml-5 my-2" {...props} />,
     li: ({node, ...props}) => <li className="my-1" {...props} />,
-    a: ({node, ...props}) => <a className="text-blue-600 hover:underline" {...props} target="_blank" rel="noopener noreferrer" />,
+    a: ({node, ...props}) => <a className="text-blue-600 hover:underline" {...props} target="_blank" rel={props.title === 'nofollow' ? 'nofollow' : 'noopener noreferrer'} />,
     blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-3 text-gray-700" {...props} />,
     code: ({node, inline, ...props}) => inline 
       ? <code className="bg-gray-100 px-1 py-0.5 rounded text-pink-600 font-mono text-sm" {...props} />
-      : <code className="block bg-gray-100 p-3 rounded-md font-mono text-sm my-3 overflow-auto" {...props} />
+      : <code className="block bg-gray-100 p-3 rounded-md font-mono text-sm my-3 overflow-auto" {...props} />,
+    table: ({node, ...props}) => <table className="border-collapse border border-gray-300 my-3" {...props} />,
+    th: ({node, ...props}) => <th className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold" {...props} />,
+    td: ({node, ...props}) => <td className="border border-gray-300 px-4 py-2" {...props} />,
+    tr: ({node, ...props}) => <tr className="border border-gray-300" {...props} />
   };
 
-  // Shared Markdown Toolbar component
   const MarkdownToolbar = ({ isFullScreen = false }) => (
     <div className={`bg-gray-50 rounded-t-md border border-gray-300 border-b-0 ${isFullScreen ? 'border-0 shadow-lg' : ''}`}>
-      {/* Heading Group */}
       <div className="flex flex-wrap border-b border-gray-200">
         <div className="flex border-r border-gray-200 p-1">
           <button 
@@ -370,7 +404,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
           </button>
         </div>
         
-        {/* Text Formatting Group */}
         <div className="flex border-r border-gray-200 p-1">
           <button 
             type="button" 
@@ -404,7 +437,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
           </button>
         </div>
         
-        {/* Lists Group */}
         <div className="flex border-r border-gray-200 p-1">
           <button 
             type="button" 
@@ -441,20 +473,32 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
         </div>
       </div>
       
-      {/* Additional Elements Row */}
       <div className="flex flex-wrap p-1 justify-between">
         <div className="flex flex-1 flex-wrap">
           <div className="flex border-r border-gray-200 pr-1">
             <button 
               type="button" 
-              onClick={() => insertMarkdown('link', 'link text', isFullScreen)} 
+              onClick={() => insertMarkdown('link', 'Do follow link', isFullScreen, '', 'dofollow')} 
               className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
-              title="Link"
+              title="Do Follow Link"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
                 <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
-            </svg>
+              </svg>
+              <span className="ml-1 text-xs">Do Follow</span>
+            </button>
+            <button 
+              type="button" 
+              onClick={() => insertMarkdown('link', 'No follow link', isFullScreen, '', 'nofollow')} 
+              className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
+              title="No Follow Link"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span className="ml-1 text-xs">No Follow</span>
             </button>
             <button 
               type="button" 
@@ -521,16 +565,37 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
               type="button" 
               onClick={() => insertMarkdown('table', '', isFullScreen)} 
               className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
-              title="Table"
+              title="Insert Default Table"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
               </svg>
             </button>
+            <button 
+              type="button" 
+              onClick={() => document.getElementById('markdown-table-upload').click()} 
+              className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
+              title="Upload Table (CSV)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5z"/>
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2z"/>
+              </svg>
+            </button>
+            <button 
+              type="button" 
+              onClick={handleTablePaste} 
+              className="p-1.5 hover:bg-blue-50 rounded text-gray-700 hover:text-blue-600 transition-colors" 
+              title="Paste Table"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8.5 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6.5L8.5 1zM4 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-4V0H4z"/>
+                <path d="M5 4h2v2H5V4zm3 0h2v2H8V4zm-3 3h2v2H5V7zm3 0h2v2H8V7z"/>
+              </svg>
+            </button>
           </div>
         </div>
         
-        {/* Full Screen Toggle Button */}
         <div className="flex items-center pr-1">
           <button
             type="button"
@@ -540,10 +605,8 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
               {isFullScreen ? (
-                // Exit full screen icon
                 <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z"/>
               ) : (
-                // Enter full screen icon
                 <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
               )}
             </svg>
@@ -556,7 +619,6 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     </div>
   );
 
-  // Add this function before your return statement in BlogForm
   const generateFaqJsonLd = (faqs) => {
     if (!faqs || !faqs.length) return '';
     const faqEntities = faqs
@@ -576,58 +638,51 @@ const BlogForm = ({ initialData = null, onSuccess, onCancel, isEdit = false }) =
     }, null, 2);
   };
 
-const handleFaqJsonUpload = (file) => {
-  const reader = new FileReader();
-  reader.onload = evt => {
-    try {
-      let content = evt.target.result;
-
-      // Remove <script> tags and extract JSON content
-      const scriptMatch = content.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
-      if (scriptMatch && scriptMatch[1]) {
-        content = scriptMatch[1].trim();
-      }
-
-      const json = JSON.parse(content);
-
-      // Try parsing as array of {question, answer}
-      if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
-        setFormData(f => ({ ...f, faqs: json }));
-        setError(null);
-      } else {
-        // Try parsing as JSON-LD FAQ script
-        const faqsFromScript = parseJsonLdFaq(json);
-        if (faqsFromScript && faqsFromScript.length) {
-          setFormData(f => ({ ...f, faqs: faqsFromScript }));
+  const handleFaqJsonUpload = (file) => {
+    const reader = new FileReader();
+    reader.onload = evt => {
+      try {
+        let content = evt.target.result;
+        const scriptMatch = content.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+        if (scriptMatch && scriptMatch[1]) {
+          content = scriptMatch[1].trim();
+        }
+        const json = JSON.parse(content);
+        if (Array.isArray(json) && json.every(f => f.question && f.answer)) {
+          setFormData(f => ({ ...f, faqs: json }));
           setError(null);
         } else {
-          setError('Invalid FAQ JSON. Must be an array of {question, answer} or a valid FAQPage JSON-LD object.');
+          const faqsFromScript = parseJsonLdFaq(json);
+          if (faqsFromScript && faqsFromScript.length) {
+            setFormData(f => ({ ...f, faqs: faqsFromScript }));
+            setError(null);
+          } else {
+            setError('Invalid FAQ JSON. Must be an array of {question, answer} or a valid FAQPage JSON-LD object.');
+          }
         }
+      } catch (err) {
+        setError('Invalid JSON file. Ensure it contains valid JSON or a valid FAQPage JSON-LD script.');
+        console.error(err);
       }
-    } catch (err) {
-      setError('Invalid JSON file. Ensure it contains valid JSON or a valid FAQPage JSON-LD script.');
-      console.error(err); // For debugging
+    };
+    reader.readAsText(file);
+  };
+
+  const parseJsonLdFaq = (json) => {
+    try {
+      if (json['@context'] === 'https://schema.org' && json['@type'] === 'FAQPage' && Array.isArray(json.mainEntity)) {
+        return json.mainEntity
+          .filter(item => item['@type'] === 'Question' && item.name && item.acceptedAnswer && item.acceptedAnswer.text)
+          .map(item => ({
+            question: item.name,
+            answer: item.acceptedAnswer.text
+          }));
+      }
+      return [];
+    } catch {
+      return [];
     }
   };
-  reader.readAsText(file);
-};
-  // Function to parse JSON-LD FAQ script and extract FAQs
-const parseJsonLdFaq = (json) => {
-  try {
-    // Check if the JSON is a valid FAQPage schema
-    if (json['@context'] === 'https://schema.org' && json['@type'] === 'FAQPage' && Array.isArray(json.mainEntity)) {
-      return json.mainEntity
-        .filter(item => item['@type'] === 'Question' && item.name && item.acceptedAnswer && item.acceptedAnswer.text)
-        .map(item => ({
-          question: item.name,
-          answer: item.acceptedAnswer.text
-        }));
-    }
-    return [];
-  } catch {
-    return [];
-  }
-};
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white my-8">
@@ -730,7 +785,6 @@ const parseJsonLdFaq = (json) => {
           />
         </div>
         
-        {/* Mobile view tabs */}
         <div className="flex md:hidden mb-2 border-b">
           <button 
             type="button"
@@ -752,14 +806,12 @@ const parseJsonLdFaq = (json) => {
           </button>
         </div>
         
-        {/* Markdown editor with live preview */}
         <div className="flex flex-col md:flex-row gap-6">
           <div className={`${activeTab === 'edit' ? 'block' : 'hidden'} md:block md:w-1/2`}>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Description (Markdown)
             </label>
             
-            {/* Modern Markdown Toolbar */}
             <MarkdownToolbar isFullScreen={false} />
             
             <textarea
@@ -852,7 +904,6 @@ const parseJsonLdFaq = (json) => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">FAQs</label>
-          {/* Upload JSON file for FAQs */}
           <div className="flex items-center gap-3 mb-2">
             <input
               type="file"
@@ -952,7 +1003,6 @@ const parseJsonLdFaq = (json) => {
         </div>
       </form>
 
-      {/* Full Screen Editor Modal */}
       {isFullScreen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col">
           <div className="bg-white p-4 shadow-xl flex items-center justify-between">
@@ -1000,7 +1050,6 @@ const parseJsonLdFaq = (json) => {
         </div>
       )}
 
-      {/* Hidden file input for image upload in markdown */}
       <input
         type="file"
         accept="image/*"
@@ -1018,15 +1067,25 @@ const parseJsonLdFaq = (json) => {
           }
           e.target.value = '';
         }}
-    />
-    {/* Render the SEO FAQ JSON-LD script if there are FAQs */}
-    {formData.faqs && formData.faqs.length > 0 && (
-      <script
-        type="application/ld+json"
-        // This will inject the JSON-LD into the page for SEO
-        dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(formData.faqs) }}
       />
-    )}
+      <input
+        type="file"
+        accept=".csv"
+        id="markdown-table-upload"
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          handleTableCsvUpload(file);
+          e.target.value = '';
+        }}
+      />
+      {formData.faqs && formData.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(formData.faqs) }}
+        />
+      )}
     </div>
   )
 }

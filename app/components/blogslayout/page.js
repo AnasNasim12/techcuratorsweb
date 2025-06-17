@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -12,7 +13,7 @@ const FALLBACK_IMAGE = '/fallback-image.jpg';
 // Skeleton components for loading state
 const FeaturedPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 h-[400px] w-full mb-4 md:h-[50vh] sm:h-[40vh]"></div>
+    <div className="rounded-lg bg-gray-200 aspect-[16/9] w-full mb-4"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-4 bg-gray-200 rounded w-24"></div>
       <div className="h-4 bg-gray-200 rounded w-24"></div>
@@ -26,7 +27,7 @@ const FeaturedPostSkeleton = () => (
 
 const SmallPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 h-32 w-full mb-3 sm:h-40"></div>
+    <div className="rounded-lg bg-gray-200 aspect-[4/3] w-full mb-3"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-16"></div>
       <div className="h-3 bg-gray-200 rounded w-16"></div>
@@ -40,7 +41,7 @@ const SmallPostSkeleton = () => (
 
 const RegularPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 aspect-square w-full mb-4 sm:h-48"></div>
+    <div className="rounded-lg bg-gray-200 aspect-[4/3] w-full mb-4"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-20"></div>
       <div className="h-3 bg-gray-200 rounded w-20"></div>
@@ -219,13 +220,13 @@ const BlogLayout = () => {
     if (touchedCardId === id) {
       return;
     }
-    setTouchedCardId(id);
+    setTooltipCardId(id);
   };
 
   const handleTouchEnd = (e) => {
     if (!e.target.closest('a')) {
-      setTimeout(() => setTouchedCardId(null), 300);
-    }
+      setTimeout(() => setTooltipCard(null), 300);
+    };
   };
 
   // Slugify function
@@ -293,13 +294,12 @@ const BlogLayout = () => {
                   onTouchStart={() => handleCardTouch(featuredPosts[0].id)}
                   onTouchEnd={handleTouchEnd}
                 >
-                  <div className="relative overflow-hidden h-full">
+                  <div className="relative overflow-hidden aspect-[16/9]">
                     <Image
                       src={featuredPosts[0].image}
                       alt={featuredPosts[0].title || 'Featured post'}
-                      width={800}
-                      height={400}
-                      className="absolute inset-0 w-full h-[40vh] sm:h-[50vh] md:h-[60vh] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       priority
                     />
                     <div className="absolute top-5 left-5 z-20">
@@ -307,7 +307,7 @@ const BlogLayout = () => {
                         Featured
                       </span>
                     </div>
-                    <div className="w-full h-[40vh] sm:h-[50vh] md:h-[60vh]"></div>
+                    <div className="w-full aspect-[16/9]"></div>
                     <div
                       className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent
                         ${
@@ -345,8 +345,8 @@ const BlogLayout = () => {
                         </p>
                         <span className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs sm:text-sm transition-all duration-300 mt-2">
                           Read Article
-                          <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M15 12l-7-7 7 7-7 7" />
                           </svg>
                         </span>
                       </div>
@@ -390,13 +390,12 @@ const BlogLayout = () => {
                     onTouchStart={() => handleCardTouch(post.id)}
                     onTouchEnd={handleTouchEnd}
                   >
-                    <div className="relative overflow-hidden h-[30vh] sm:h-[20vh] md:h-[25vh]">
+                    <div className="relative overflow-hidden aspect-[4/3]">
                       <Image
                         src={post.image}
                         alt={post.title || 'Blog post'}
-                        width={400}
-                        height={200}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div
                         className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent
@@ -505,13 +504,12 @@ const BlogLayout = () => {
                   onTouchStart={() => handleCardTouch(blog.id)}
                   onTouchEnd={handleTouchEnd}
                 >
-                  <div className="relative overflow-hidden h-full">
+                  <div className="relative overflow-hidden aspect-[4/3]">
                     <Image
                       src={blog.image}
                       alt={blog.title || 'Blog post'}
-                      width={400}
-                      height={250}
-                      className="w-full h-[30vh] sm:h-[25vh] md:h-[20vh] object-cover"
+                      fill
+                      className="object-cover"
                     />
                     {blog.category && (
                       <div className="absolute top-3 right-3 z-20">
