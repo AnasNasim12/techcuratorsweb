@@ -73,27 +73,29 @@ const BlogDetailPage = ({ blog }) => {
     );
   };
 
-  // Parse FAQs
+  // Parse FAQs with improved error handling
   let faqs = [];
   if (Array.isArray(blog.faqs)) {
-    faqs = blog.faqs;
-  } else if (typeof blog.faqs === 'string') {
+    faqs = blog.faqs.filter(f => f.question && f.answer); // Ensure valid FAQs
+  } else if (typeof blog.faqs === 'string' && blog.faqs.trim()) {
     try {
       const parsed = JSON.parse(blog.faqs);
-      if (Array.isArray(parsed)) faqs = parsed;
-    } catch {
-      faqs = [];
+      if (Array.isArray(parsed)) {
+        faqs = parsed.filter(f => f.question && f.answer); // Ensure valid FAQs
+      }
+    } catch (err) {
+      console.error('Error parsing FAQs:', err);
     }
   }
 
-  // Extract headings from markdown with better ID generation
+  // Extract h2 headings from markdown with better ID generation
   const headings = useMemo(() => {
     const lines = (blog.description || '').split('\n');
     const headingsList = [];
     let headingCounter = 0;
 
     lines.forEach((line, idx) => {
-      const match = line.match(/^(#{1,6})\s+(.*)/);
+      const match = line.match(/^(#{2})\s+(.*)/); // Only match h2 (##)
       if (match) {
         headingCounter++;
         const level = match[1].length;
@@ -309,7 +311,7 @@ const BlogDetailPage = ({ blog }) => {
                           ? 'bg-[#326B3F] text-white'
                           : 'bg-gray-100 text-gray-700 hover:bg-[#e6f2ea] hover:text-[#326B3F]'
                       }`}
-                      style={{ marginLeft: `${(heading.level - 1) * 8}px` }}
+                      style={{ marginLeft: `${(heading.level - 2) * 8}px` }}
                     >
                       {heading.text}
                     </button>
