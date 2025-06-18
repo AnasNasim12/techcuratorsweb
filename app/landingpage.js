@@ -1,5 +1,6 @@
+
 "use client";
-import React from 'react'
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import Images from 'next/image';
@@ -8,9 +9,6 @@ import Carousel from './components/carousel/page';
 import WhyTransCurators from './components/whytranscurators/page';
 import WorkflowStrategy from './components/workflowtrans/page';
 import Link from 'next/link';
-
-
-
 
 const Landing_Page = () => {
   const testimonials = [
@@ -47,23 +45,23 @@ const Landing_Page = () => {
   const faqs = [
     { question: "What makes TransCurators a reliable content writing agency?", answer: "TransCurators is a trusted content writing agency known for delivering high-quality, engaging, and SEO-optimized content. With over five years of industry experience, we specialise in crafting original, plagiarism-free content tailored to various business needs. Our team ensures timely delivery, effective communication, and customised content strategies that align with your brand's voice, making us a preferred choice for content solutions. We are committed to excellence, helping businesses enhance their online presence, attract the right audience, and achieve long-term success through impactful content.", id: 1 },
     { question: "What types of content writing services do TransCurators offer?", answer: "We offer a wide range of content-writing services, including website content, blogs, articles, product descriptions, video scripts, and translations. Our team specialises in creating engaging and SEO-optimized content that enhances brand visibility, builds credibility, and drives audience engagement. Whether you need persuasive marketing content or informative blogs, we deliver high-quality, customised solutions tailored to your business needs. Our expertise ensures that every piece of content aligns with your brand's voice, effectively communicates your message, and maximises your online reach for sustained growth.", id: 2 },
-    { question: "How do TransCurators ensure high-quality content?", answer: "At TransCurators, quality is our priority. Our content writing company follows strict quality control measures, including thorough research, keyword optimisation, and multiple rounds of editing. Our expert writers craft engaging, well-structured, and plagiarism-free content that resonates with your audience. Every piece undergoes proofreading and revision to ensure it meets your expectations and industry standards. We are committed to delivering content that not only informs and engages but also strengthens your brand's credibility and drives measurable results. ", id: 3 },
+    { question: "How do TransCurators ensure high-quality content?", answer: "At TransCurators, quality is our priority. Our content writing company follows strict quality control measures, including thorough research, keyword optimisation, and multiple rounds of editing. Our expert writers craft engaging, well-structured, and plagiarism-free content that resonates with your audience. Every piece undergoes proofreading and revision to ensure it meets your expectations and industry standards. We are committed to delivering content that not only informs and engages but also strengthens your brand's credibility and drives measurable results.", id: 3 },
     { question: "Does TransCurators provide SEO-optimized content?", answer: "Yes, our content writing firm specialises in SEO-optimized content that improves search rankings and organic traffic. We strategically incorporate relevant keywords, maintain readability, and follow Google's content guidelines. Our SEO-friendly content enhances your online presence, boosts engagement, and helps you reach your target audience effectively. Additionally, we ensure a natural flow of keywords, creating content that is both user-friendly and search engine-compliant for maximum impact.", id: 4 },
     { question: "What industries do TransCurators cater to?", answer: "Our content writing services cover a wide range of industries, including healthcare, technology, finance, travel, real estate, education, and e-commerce. Our expert writers understand industry-specific trends and create relevant, informative, and engaging content that aligns with your business goals and audience preferences. We tailor our content strategies to suit each industry's unique requirements, ensuring high-quality, well-researched, and impactful content that drives results.", id: 5 },
     { question: "Do you provide customised content solutions?", answer: "Yes, we tailor our content writing service in India to meet your unique business needs. Whether you need website content, marketing copies, or technical writing, we create customised content strategies that reflect your brand's voice and objectives. Our flexible approach ensures impactful content that resonates with your audience. We take the time to understand your brand, industry, and target audience, delivering content that aligns with your goals and maximises engagement.", id: 6 },
     { question: "How do TransCurators handle revisions and edits?", answer: "Our content writing agency offers multiple revisions based on client feedback to ensure the final content meets expectations. We value collaboration and strive to refine content until it aligns perfectly with your brand's voice and messaging. Customer satisfaction is our priority, and we work closely with clients for the best results. Our revision process is designed to ensure clarity, accuracy, and impact, making sure every piece of content reflects your brand's essence and engages your audience effectively.", id: 7 },
-    { question: "What makes TransCurators different from other content writing agencies?", answer: "Unlike many agencies, our content writing firm prioritises originality, SEO, and industry expertise. We provide AI-free, human-written, 100% plagiarism-free content tailored to your business. With a focus on quality, timely delivery, and personalised content strategies, we help brands build a strong online presence and engage their audience effectively. Additionally, our transparent communication and dedicated customer support set us apart, ensuring a seamless experience and content that truly resonates with your target audience", id: 8 },
+    { question: "What makes TransCurators different from other content writing agencies?", answer: "Unlike many agencies, our content writing firm prioritises originality, SEO, and industry expertise. We provide AI-free, human-written, 100% plagiarism-free content tailored to your business. With a focus on quality, timely delivery, and personalised content strategies, we help brands build a strong online presence and engage their audience effectively. Additionally, our transparent communication and dedicated customer support set us apart, ensuring a seamless experience and content that truly resonates with your target audience.", id: 8 },
     { question: "Can TransCurators handle bulk content requirements?", answer: "Yes, our content writing company efficiently manages bulk content projects without compromising quality. We have a team of skilled writers who can deliver large volumes of content within deadlines while ensuring originality, accuracy, and SEO optimisation. Whether for blogs, website content, or marketing materials, we cater to all content needs. Our streamlined workflow, rigorous quality checks, and dedicated project management ensure consistency and excellence in every piece, making us a reliable choice for bulk content requirements.", id: 9 },
     { question: "Does TransCurators provide content for international clients?", answer: "Absolutely! Our content writing services cater to both Indian and global clients. We provide localised, culturally relevant content tailored to different regions, ensuring it connects with the target audience. Our expertise in multiple industries makes us a preferred choice for businesses worldwide. We adapt our content strategies to suit diverse markets, maintaining clarity, engagement, and SEO effectiveness to help brands establish a strong presence both locally and internationally.", id: 10 },
     { question: "How do you ensure plagiarism-free content?", answer: "Our content writing agency follows strict plagiarism-checking processes. All content is manually written, thoroughly researched, and cross-checked using premium plagiarism detection tools. This ensures 100% originality and uniqueness, helping brands maintain credibility and trust with their audience. Additionally, our rigorous quality control measures, including multiple rounds of editing and proofreading, guarantee error-free and engaging content that aligns with your brand's voice and objectives.", id: 11 },
-    { question: "Do you provide website content writing services?", answer: "Yes, our website content writing service specialises in creating compelling, SEO-friendly website content that engages visitors, enhances brand credibility and drives conversions. We cover everything from homepages to service pages, blogs, and product descriptions to ensure a strong online presence. Aligned with your brand's voice, helping you stand out in a competitive digital landscape.", id: 12 },
+    { question: "Do you provide website content writing services?", answer: "Yes, our website content writing service specialises in creating compelling, SEO-friendly website content that engages visitors, enhances brand credibility, and drives conversions. We cover everything from homepages to service pages, blogs, and product descriptions to ensure a strong online presence. Aligned with your brand's voice, helping you stand out in a competitive digital landscape.", id: 12 },
     { question: "Can you create engaging blog and article content?", answer: "Absolutely! Our content writing company delivers engaging, informative, and SEO-optimized blogs and articles that enhance brand authority and audience engagement. We ensure well-researched, original content that keeps readers informed, entertained, and connected with your brand. Our expert writers craft content tailored to your industry, incorporating relevant keywords and compelling storytelling to maximise reach and impact.", id: 13 },
     { question: "Do you provide product descriptions for e-commerce businesses?", answer: "Yes, our content writing firm specialises in crafting compelling, SEO-optimized product descriptions that highlight key features and benefits, persuade customers, and improve search rankings. Whether for e-commerce platforms, catalogues, or marketing materials, we ensure impactful content that boosts conversions. Our expert writers create clear, concise, and engaging product descriptions that align with your brand's voice, making your products stand out and attract potential buyers effectively.", id: 14 },
     { question: "Do you offer content translation services?", answer: "Yes, our content writing service in India includes high-quality translation services. We ensure accurate, culturally relevant translations that maintain the original meaning, tone, and clarity. Our expert translators help businesses connect with global audiences seamlessly. Our translation services cover multiple languages and industries, ensuring your content resonates with diverse audiences while maintaining accuracy and engagement.", id: 15 },
     { question: "Can you provide professional video script writing?", answer: "Yes, our content writing agency creates engaging and story-driven video scripts for advertisements, explainer videos, corporate presentations, and brand storytelling. Our scripts enhance viewer engagement and effectively communicate your message to the target audience. We focus on crafting compelling narratives, clear messaging, and audience engagement to ensure your videos leave a lasting impact and drive desired actions.", id: 16 },
     { question: "What is your pricing structure for content writing services?", answer: "Our content writing services are competitively priced based on content type, length, and complexity. We offer cost-effective solutions to suit different business needs while ensuring high-quality content that delivers value and results. For a detailed quote tailored to your specific requirements, feel free to contact us, and we'll provide a customised pricing plan that fits your budget and content goals.", id: 17 },
     { question: "How quickly can you deliver content?", answer: "Our content writing company ensures timely delivery without compromising quality. Turnaround times vary based on project scope, but we strive to meet deadlines efficiently. Urgent requests can also be accommodated with prior notice. We prioritise efficiency and reliability, ensuring that your content is delivered on time while maintaining high standards. If you have urgent requirements, we are flexible and can expedite delivery as needed.", id: 18 },
-    { question: "How can I get started with TransCurators?", answer: "Getting started with our content writing firm is simple. Contact us with your content requirements, and our team will guide you through the process, from strategy development to content delivery. We ensure a smooth, hassle-free experience for every client by understanding their needs, setting clear content goals, out today, and let's create impactful content together.", id: 19 },
+    { question: "How can I get started with TransCurators?", answer: "Getting started with our content writing firm is simple. Contact us with your content requirements, and our team will guide you through the process, from strategy development to content delivery. We ensure a smooth, hassle-free experience for every client by understanding their needs, setting clear content goals, and delivering exceptional results. Reach out today, and let's create impactful content together.", id: 19 },
     { question: "How do I know if my business needs professional content writing services?", answer: "If you want high-quality, SEO-friendly content that enhances brand visibility, engagement, and credibility, professional content writing services are essential. Whether you need website content, blogs, marketing copies, or product descriptions, expert writers ensure impactful messaging that drives business success. Investing in professional content writing services helps you maintain a strong online presence, connect with your target audience, and achieve long-term growth with well-crafted, engaging content.", id: 20 },
   ];
 
@@ -72,7 +70,6 @@ const Landing_Page = () => {
 
   const [expandedIndex, setExpandedIndex] = useState(null);
   const toggleExpanded = (index) => {
-    // If the clicked service is already expanded, collapse it; otherwise, expand it.
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
@@ -80,39 +77,20 @@ const Landing_Page = () => {
     setOpenFAQ((prev) => (prev === id ? null : id));
   };
 
+  // JSON-LD Structured Data for FAQs
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 
-  const contentData = [
-    {
-      icon: "/messageIcon.png",
-      heading: "Expertise Across Industries",
-      text: "Our content writers bring industry expertise and create content consistent with your brand's personality and goals. They understand worldwide markets, meaning your content can be helpful to a wide range of viewers."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Cultural Sensitivity and Localization ",
-      text: "With a deep awareness of cultural settings, Indian writers create components that appeal to local and international consumers, making your brand more approachable."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Timely Delivery",
-      text: "Top Indian companies deliver content on time, meeting deadlines without compromising quality. They can quickly grow to handle projects of any size, ensuring your needs are always satisfied."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Cost-Effective Quality",
-      text: "High-quality content at lower prices allows you to get the most out of your investment. This cost-effectiveness will enable you to spend money on other essential business areas."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "SEO-Focused Content",
-      text: "Indian authors specialize in SEO, producing content that ranks high in search engines and generates genuine traffic to your website. Their experience in keyword research and optimization increases your online presence."
-    },
-    {
-      icon: "/messageIcon.png",
-      heading: "Strategic Insight",
-      text: "These businesses do more than write; they also guide you to optimize your content strategy and ensure it relates to your overall business objectives."
-    }
-  ];
   const processItems = [
     {
       title: "Content for 500+ brands",
@@ -135,6 +113,7 @@ const Landing_Page = () => {
       description: "We're not done until you're 100% satisfied with the final content delivered.",
     },
   ];
+
   const services = [
     {
       icon: "/messageIcon.png",
@@ -262,12 +241,10 @@ const Landing_Page = () => {
       image: "https://dummyimage.com/250x300/ffffff/fff.png",
       slug: "/read-more-xyz",
     },
-
   ];
 
   const CardComponent = ({ productionName, date, heading, description, image, slug }) => (
     <div className="cursor-pointer grid grid-rows-[auto_auto] w-full mx-auto sm:w-[200px] md:w-[250px] gap-4 hover:bg-gray-50 duration-300 transition-all ease-in-out rounded-[14px] p-4 group">
-      {/* Image Section */}
       <div>
         <Images
           src={image}
@@ -277,8 +254,6 @@ const Landing_Page = () => {
           height={300}
         />
       </div>
-
-      {/* Content Section */}
       <div className="grid gap-2 max-w-full sm:max-w-[200px] md:max-w-[250px]">
         <div className="grid grid-cols-2 mt-6">
           <p className="text-[#6a6a6a] font-regular text-xs sm:text-sm">{productionName}</p>
@@ -306,42 +281,34 @@ const Landing_Page = () => {
     </div>
   );
 
-  // Add counter state
   const [counters, setCounters] = useState({
     "10M+": "0+",
-    "250+": "0+", // Updated from 3000+ to 250+
+    "250+": "0+",
     "4.5/5": "0.0/5",
     "1000+": "0+"
   });
-  // Animation timing ref
+
   const animationRef = useRef(null);
 
-  // Counter effect function
   useEffect(() => {
     let startTimestamp;
-    const duration = 1500; // Animation duration in milliseconds
+    const duration = 1500;
 
-    // Animation function
     const step = (timestamp) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
 
-      // Update each counter based on progress
       const updatedCounters = {};
 
-      // For "10M+"
       const millions = Math.floor(progress * 10 * 10) / 10;
       updatedCounters["10M+"] = `${millions >= 10 ? "10" : millions.toFixed(1)}M+`;
 
-      // For "250+" (previously "3000+")
       const clients = Math.floor(progress * 250);
       updatedCounters["250+"] = `${clients}+`;
 
-      // For "4.5/5"
       const rating = (progress * 4.5).toFixed(1);
       updatedCounters["4.5/5"] = `${rating}/5`;
 
-      // For "1000+"
       const writers = Math.floor(progress * 1000);
       updatedCounters["1000+"] = `${writers}+`;
 
@@ -352,7 +319,6 @@ const Landing_Page = () => {
       }
     };
 
-    // Start animation when component is in view
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -363,7 +329,6 @@ const Landing_Page = () => {
       { threshold: 0.1 }
     );
 
-    // Target the metrics section
     const metricsSection = document.querySelector('#landing-metrics-section');
     if (metricsSection) {
       observer.observe(metricsSection);
@@ -374,6 +339,7 @@ const Landing_Page = () => {
       observer.disconnect();
     };
   }, []);
+
   const metrics = [
     {
       value: '10M+',
@@ -393,7 +359,6 @@ const Landing_Page = () => {
     }
   ];
 
-  // Animation variants for staggered animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -418,7 +383,6 @@ const Landing_Page = () => {
     }
   };
 
-  // Scroll progress for parallax effects
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
     const handleScroll = () => {
@@ -430,9 +394,13 @@ const Landing_Page = () => {
 
   return (
     <>
+      {/* Add JSON-LD Structured Data for FAQs */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
-
-      {/*top section*/}
+      {/* Top Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -452,7 +420,6 @@ const Landing_Page = () => {
             >
               Transform Your Brand's Voice with <span className='text-[#4B7D57]'>Our Content Writing Service!</span>
             </motion.h1>    
-
             <motion.h2
               variants={itemVariants}
               className='text-[#6a6a6a] text-center md:text-left text-[12px] sm:text-[14px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight overflow-y-hidden tracking-[0.015em] w-full md:max-w-[800%] mx-auto md:ml-6 mt-2 md:mt-4'
@@ -463,7 +430,6 @@ const Landing_Page = () => {
               <span className='text-[#6a6a6a] tracking-normal'>Build Trust,
                 and Elevate Your Brand.</span>
             </motion.h2>
-
             <motion.button
               variants={itemVariants}
               onClick={() => window.location.href = "/contact"}
@@ -491,7 +457,6 @@ const Landing_Page = () => {
               </svg>
             </motion.button>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -511,10 +476,10 @@ const Landing_Page = () => {
               Your browser does not support the video tag.
             </video>
           </motion.div>
-          
         </div>
       </motion.div>
 
+      {/* Metrics Section */}
       <section id="landing-metrics-section" className="md:mt-22 mt-12 bg-white">
         <div className="max-w-screen-xl mx-auto px-4">
           <motion.div
@@ -529,7 +494,6 @@ const Landing_Page = () => {
             </h2>
             <p className="text-[#6a6a6a] mt-4 text-sm">See the impact we've made for our clients</p>
           </motion.div>
-
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {metrics.map((metric, index) => (
               <motion.div
@@ -551,43 +515,44 @@ const Landing_Page = () => {
         </div>
       </section>
 
+      {/* What Makes Us Different Section */}
       <section className="md:mt-22 mt-12 px-0">
-  {/* Full-width green background */}
-  <div className="w-screen bg-[#429054]/20 flex flex-col items-center py-8 sm:py-10 md:py-12 px-4 sm:px-0">
-    <div className="max-w-screen-xl w-full mx-auto px-2 sm:px-4 md:px-6">
-      <motion.div
-        className="text-center mb-8 md:mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="text-2xl md:text-3xl font-medium">
-          What Makes Us <span className="text-[#326B3F]">Different?</span>
-        </h2>
-      </motion.div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
-        {processItems.map((item, idx) => (
-          <div
-            key={idx}
-            className="bg-white rounded-[16px] sm:rounded-[20px] md:rounded-[24px] shadow-md px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col items-center text-center"
-            style={{ minHeight: 'auto', height: '100%' }}
-          >
-            <div className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold mb-2 sm:mb-3 text-black leading-tight">
-              {item.title}
+        <div className="w-screen bg-[#429054]/20 flex flex-col items-center py-8 sm:py-10 md:py-12 px-4 sm:px-0">
+          <div className="max-w-screen-xl w-full mx-auto px-2 sm:px-4 md:px-6">
+            <motion.div
+              className="text-center mb-8 md:mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-2xl md:text-3xl font-medium">
+                What Makes Us <span className="text-[#326B3F]">Different?</span>
+              </h2>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
+              {processItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white rounded-[16px] sm:rounded-[20px] md:rounded-[24px] shadow-md px-4 sm:px-6 md:px-8 py-6 sm:py-8 flex flex-col items-center text-center"
+                  style={{ minHeight: 'auto', height: '100%' }}
+                >
+                  <div className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold mb-2 sm:mb-3 text-black leading-tight">
+                    {item.title}
+                  </div>
+                  {item.description && (
+                    <div className="text-gray-500 text-sm sm:text-base leading-snug">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            {item.description && (
-              <div className="text-gray-500 text-sm sm:text-base leading-snug">
-                {item.description}
-              </div>
-            )}
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
+      {/* Call to Action Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -619,6 +584,7 @@ const Landing_Page = () => {
         </div>
       </motion.section>
 
+      {/* Services Section */}
       <div className='flex justify-center items-center md:mt-22 mt-12 max-w-screen-xl mx-auto px-4 md:px-6'>
         <div className='text-center flex-row'>
           <motion.div
@@ -635,110 +601,21 @@ const Landing_Page = () => {
               Words That Work for You – Creating compelling narratives that drive engagement, build trust, and boost your brand.
             </p>
           </motion.div>
-
-
         </div>
-
       </div>
       <section className="md:mt-16">
         <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 flex-wrap justify-center">
-            {[
-              {
-                number: 1,
-                title: "Blog Writing",
-                description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic."
-              },
-              {
-                number: 2,
-                title: "SEO Content Writing",
-                description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement."
-              },
-              {
-                number: 3,
-                title: "Technical Content Writing",
-                description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions."
-              },
-              {
-                number: 4,
-                title: "Article Writing",
-                description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines."
-              },
-              {
-                number: 5,
-                title: "Website Content",
-                description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers."
-              },
-              {
-                number: 6,
-                title: "Editing & Proofreading",
-                description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards."
-              },
-              {
-                number: 7,
-                title: "Product Description",
-                description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores."
-              },
-              {
-                number: 8,
-                title: "Hindi Content Writing",
-                description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust."
-              },
-              {
-                number: 9,
-                title: "White Paper",
-                description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers."
-              },
-              {
-                number: 10,
-                title: "Press Release",
-                description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press."
-              },
-              {
-                number: 11,
-                title: "Article Rewriting",
-                description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent."
-              },
-              {
-                number: 12,
-                title: "Copy Writing",
-                description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns."
-              },
-              {
-                number: 13,
-                title: "Emailers",
-                description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement."
-              },
-              {
-                number: 14,
-                title: "Newsletter Writing",
-                description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories."
-              },
-              {
-                number: 15,
-                title: "Magazine Writing",
-                description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility."
-              },
-              {
-                number: 16,
-                title: "E-book",
-                description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand."
-              }
-            ].slice(0, showAllServices ? undefined : 4).map((card, idx) => (
+            {services.slice(0, showAllServices ? undefined : 4).map((card, idx) => (
               <div key={idx} className="relative bg-white border border-[#9BCDA8] rounded-xl p-4 sm:p-5 md:p-6 w-full flex flex-col shadow-sm h-full">
-                {/* Vertical number bar - responsive width */}
                 <div className="absolute top-0 right-0 h-full w-[18%] sm:w-[15%] md:w-1/5 flex flex-col items-end">
                   <div className="bg-[#9bcda8] rounded-tr-xl w-full flex items-center justify-center h-1/4 min-h-[40px] sm:min-h-[45px] md:min-h-[50px]">
-                    <span className="text-white text-lg sm:text-xl md:text-2xl font-semibold">{card.number}</span>
+                    <span className="text-white text-lg sm:text-xl md:text-2xl font-semibold">{idx + 1}</span>
                   </div>
                   <div className="bg-[#d9e9dd] w-full h-3/4 rounded-br-xl"></div>
                 </div>
-
-                {/* Content with icon above text - responsive padding */}
                 <div className="flex flex-col items-left text-left mb-3 sm:mb-4 md:mb-5 pr-8 sm:pr-10 md:pr-12">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                    {/* Example icon: Responsive size */}
                     <Images src="/messageIcon.png" alt="" className="w-8 h-8 sm:w-10 sm:h-10" width={40} height={40} />
                   </div>
                   <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2">{card.title}</h3>
@@ -747,8 +624,6 @@ const Landing_Page = () => {
               </div>
             ))}
           </div>
-
-          {/* Responsive button container */}
           <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
             <motion.button
               onClick={() => setShowAllServices(!showAllServices)}
@@ -756,19 +631,15 @@ const Landing_Page = () => {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 md:py-3 border border-transparent rounded-md shadow-[0_0_10px_#CCE3DE] hover:shadow-[0_0_20px_#A8D5BA] font-medium text-xs sm:text-sm md:text-base bg-[#326B3F] text-white transition-all duration-300 hover:-translate-y-1"
             >
-              {showAllServices ? (
-                <>Show Less</>
-              ) : (
-                <>Explore All</>
-              )}
+              {showAllServices ? "Show Less" : "Explore All"}
             </motion.button>
           </div>
         </div>
       </section>
 
+      {/* Google Standards Section */}
       <section className="w-full bg-[#e3f3eb] md:mt-22 mt-12 py-16 px-4">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-          {/* Google Standards Heading */}
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             <span className="inline-block">
               <span className="text-blue-600 font-semibold">G</span>
@@ -783,23 +654,24 @@ const Landing_Page = () => {
           <div className="text-2xl md:text-3xl font-normal text-black mb-8">
             We Follow While Writing Content
           </div>
-          {/* Supporting Paragraphs */}
           <div className="text-[#6a6a6a] text-base md:text-s space-y-4 max-w-5xl">
             <p>
-              At TransCurators, we adhere to Google&apos;s highest content standards, ensuring every piece is engaging, SEO-friendly, and highly relevant. As a leading content writing agency in Delhi, India, we specialise in delivering well-researched, original, and compelling content that enhances brand credibility.
+              At TransCurators, we adhere to Google's highest content standards, ensuring every piece is engaging, SEO-friendly, and highly relevant. As a leading content writing agency in Delhi, India, we specialise in delivering well-researched, original, and compelling content that enhances brand credibility.
             </p>
             <p>
-              Our expert content writing services focus on quality, readability, and keyword optimisation, helping businesses rank higher, attract the right audience, and achieve long-term success. Whether it&apos;s blogs, website content, or marketing copies, we craft content that informs, inspires, and drives results.
+              Our expert content writing services focus on quality, readability, and keyword optimisation, helping businesses rank higher, attract the right audience, and achieve long-term success. Whether it's blogs, website content, or marketing copies, we craft content that informs, inspires, and drives results.
             </p>
           </div>
         </div>
       </section>
 
+      {/* WhyTransCurators and WorkflowStrategy */}
       <div>
         <WhyTransCurators />
         <WorkflowStrategy />
       </div>
 
+      {/* Success Celebration Section */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -817,7 +689,6 @@ const Landing_Page = () => {
               height={400}
             />
           </div>
-
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -875,20 +746,20 @@ const Landing_Page = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <Link href="/contact">
-              <motion.button
-                
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
-              >
-                Contact Us
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
+                >
+                  Contact Us
+                </motion.button>
               </Link>
             </motion.div>
           </motion.div>
         </div>
       </motion.div>
 
+      {/* Testimonials Section */}
       <section className="px-4 md:px-6">
         <div className="max-w-screen-2xl mx-auto md:mt-22 mt-12">
           <motion.div
@@ -904,50 +775,42 @@ const Landing_Page = () => {
             </h2>
             <p className="text-[#6a6a6a] mt-4 text-xs sm:text-sm">Real feedback from our valued partners</p>
           </motion.div>
-
           <div className="flex flex-col max-w-screen-2xl items-center bg-white">
             <div className="flex items-center space-x-6">
-              {/* Previous Arrow */}
               <button
                 onClick={prevTestimonial}
                 className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
                 aria-label="Previous testimonial"
               >
-                &lt;
+                
               </button>
-              {/* Testimonials */}
               {testimonials.map((testimonial, idx) => (
                 <div
                   key={idx}
                   className={`transition-all duration-300 w-80 p-6 rounded-xl shadow-lg bg-white flex flex-col items-center
-              ${idx === activeIndex ? "scale-105 z-10" : "opacity-50 scale-95"}
-              ${idx === activeIndex ? "" : "hidden md:flex"}
-            `}
+                    ${idx === activeIndex ? "scale-105 z-10" : "opacity-50 scale-95"}
+                    ${idx === activeIndex ? "" : "hidden md:flex"}
+                  `}
                 >
-
                   <div className="text-lg font-semibold">{testimonial.name}</div>
                   <div className="text-gray-400 text-sm mb-3">{testimonial.title}</div>
                   <p className="text-center italic text-gray-700">{testimonial.text}</p>
                   <p className="text-xs text-[#326B3F] font-medium mt-4">{testimonial.highlight}</p>
                 </div>
               ))}
-              {/* Next Arrow */}
               <button
                 onClick={nextTestimonial}
                 className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
-                aria-label="Next testimonial"
-              >
-                &gt;
+                aria-label="Next testimonial" >
+                
               </button>
             </div>
-            {/* Dots */}
             <div className="flex justify-center mt-6 md:mt-10 space-x-1">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveIndex(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'
-                    }`}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer hover:opacity-80 ${activeIndex === idx ? 'w-10 bg-[#429054]/40' : 'w-4 bg-gray-400 hover:bg-gray-600'}`}
                   aria-label={`Go to testimonial ${idx + 1}`}
                 />
               ))}
@@ -956,6 +819,7 @@ const Landing_Page = () => {
         </div>
       </section>
 
+      {/* Client Logos Carousel */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -994,11 +858,11 @@ const Landing_Page = () => {
         </div>
       </motion.div>
 
+      {/* Benefits Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
         className='max-w-screen-xl flex mt-12 md:mt-22 justify-center mx-auto items-center px-4 md:px-6'
       >
         <div className='text-center flex-row'>
@@ -1173,6 +1037,7 @@ const Landing_Page = () => {
         </div>
       </section>
 
+      {/* FAQs Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -1186,7 +1051,6 @@ const Landing_Page = () => {
           </p>
         </div>
       </motion.div>
-
       <div className="max-w-screen-xl mx-auto p-4 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 cursor-pointer gap-4 md:gap-8">
           {faqs.slice(0, showMore ? faqs.length : 10).map((faq, index) => (
@@ -1202,7 +1066,7 @@ const Landing_Page = () => {
                 className="flex justify-between items-center w-full text-md font-normal cursor-pointer text-[#6a6a6a]"
                 onClick={() => toggleFAQ(faq.id)}
               >
-                {faq.question}
+                <span>{faq.question}</span>
                 <motion.span
                   className="text-xl transition-transform duration-300"
                   animate={{ rotate: openFAQ === faq.id ? 180 : 0 }}
@@ -1211,7 +1075,6 @@ const Landing_Page = () => {
                   {openFAQ === faq.id ? "−" : "+"}
                 </motion.span>
               </button>
-
               <AnimatePresence>
                 {openFAQ === faq.id && (
                   <motion.div
@@ -1227,7 +1090,6 @@ const Landing_Page = () => {
             </motion.div>
           ))}
         </div>
-
         <div className="flex justify-center mt-8 md:mt-12 lg:mt-22">
           {!showMore ? (
             <motion.button
@@ -1283,9 +1145,9 @@ const Landing_Page = () => {
         </div>
       </div>
 
+      {/* Careers Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-       
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5 }}
@@ -1311,12 +1173,8 @@ const Landing_Page = () => {
           </motion.div>
         </div>
       </motion.div>
-
-
     </>
-  )
-}
+  );
+};
 
-
-export default Landing_Page
-
+export default Landing_Page;
