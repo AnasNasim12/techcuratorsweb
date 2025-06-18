@@ -76,12 +76,12 @@ const BlogDetailPage = ({ blog }) => {
   // Parse FAQs with improved error handling
   let faqs = [];
   if (Array.isArray(blog.faqs)) {
-    faqs = blog.faqs.filter(f => f.question && f.answer); // Ensure valid FAQs
+    faqs = blog.faqs.filter(f => f.question && f.answer);
   } else if (typeof blog.faqs === 'string' && blog.faqs.trim()) {
     try {
       const parsed = JSON.parse(blog.faqs);
       if (Array.isArray(parsed)) {
-        faqs = parsed.filter(f => f.question && f.answer); // Ensure valid FAQs
+        faqs = parsed.filter(f => f.question && f.answer);
       }
     } catch (err) {
       console.error('Error parsing FAQs:', err);
@@ -95,12 +95,11 @@ const BlogDetailPage = ({ blog }) => {
     let headingCounter = 0;
 
     lines.forEach((line, idx) => {
-      const match = line.match(/^(#{2})\s+(.*)/); // Only match h2 (##)
+      const match = line.match(/^(#{2})\s+(.*)/);
       if (match) {
         headingCounter++;
         const level = match[1].length;
         const text = match[2].trim();
-        // Create a more reliable ID
         const id = `heading-${headingCounter}-${text
           .toLowerCase()
           .replace(/[^a-z0-9\s-]/g, '')
@@ -130,7 +129,6 @@ const BlogDetailPage = ({ blog }) => {
       const heading = headings.find(h => h.text === text && h.level === level);
       const id = heading ? heading.id : `fallback-${text.toLowerCase().replace(/\s+/g, '-')}`;
       
-      // Choose the appropriate HTML heading tag based on level
       const HeadingTag = level === 1 ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : 'h4';
       
       return React.createElement(
@@ -182,7 +180,6 @@ const BlogDetailPage = ({ blog }) => {
       }
     );
 
-    // Observe all heading elements
     const headingElements = headings.map(h => document.getElementById(h.id)).filter(Boolean);
     headingElements.forEach(el => observer.observe(el));
 
@@ -246,7 +243,6 @@ const BlogDetailPage = ({ blog }) => {
     }
   };
 
-  // Calculate read time if not provided
   const readTime = blog.read_time || Math.ceil((blog.description?.split(' ').length || 200) / 200);
 
   return (
@@ -295,7 +291,7 @@ const BlogDetailPage = ({ blog }) => {
         className="w-full px-2 lg:px-4 transition-opacity duration-1000 ease-out grid grid-cols-1 lg:grid-cols-12 gap-4"
         style={{ opacity: fadeIn ? 1 : 0 }}
       >
-        {/* Left: Table of Contents - Positioned closer to left edge */}
+        {/* Left: Table of Contents */}
         <aside className="lg:col-span-2 lg:pl-2">
           <div className="sticky top-28">
             {headings.length > 0 && (
@@ -322,7 +318,7 @@ const BlogDetailPage = ({ blog }) => {
           </div>
         </aside>
 
-        {/* Middle: Blog Content - Expanded width */}
+        {/* Middle: Blog Content */}
         <div className="lg:col-span-8 px-4">
           <div ref={contentRef}>
             <div className="prose prose-xl max-w-none text-gray-700">
@@ -336,7 +332,14 @@ const BlogDetailPage = ({ blog }) => {
                   h5: createHeadingRenderer(5),
                   h6: createHeadingRenderer(6),
                   p: ({ node, ...props }) => <p className="my-4 text-lg leading-relaxed" {...props} />,
-                  a: ({ node, ...props }) => <a className="text-blue-500 hover:underline" {...props} target="_blank" rel={props.title === 'nofollow' ? 'nofollow' : 'noopener noreferrer'} />,
+                  a: ({ node, ...props }) => (
+                    <a
+                      className="text-blue-500 hover:underline"
+                      {...props}
+                      target="_blank"
+                      rel={props.title === 'nofollow' ? 'nofollow' : 'noopener noreferrer'}
+                    />
+                  ),
                   blockquote: ({ node, ...props }) => (
                     <blockquote className="border-l-4 border-gray-300 pl-4 italic my-5 text-lg" {...props} />
                   ),
@@ -350,9 +353,14 @@ const BlogDetailPage = ({ blog }) => {
                   thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
                   tbody: ({ node, ...props }) => <tbody {...props} />,
                   tr: ({ node, ...props }) => <tr className="border border-gray-300" {...props} />,
-                  th: ({ node, ...props }) => <th className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-left" {...props} />,
+                  th: ({ node, ...props }) => (
+                    <th className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-left" {...props} />
+                  ),
                   td: ({ node, ...props }) => <td className="border border-gray-300 px-4 py-2" {...props} />,
                   del: ({ node, ...props }) => <del className="text-gray-500" {...props} />,
+                  ul: ({ node, ...props }) => <ul className="list-disc ml-6 my-4" {...props} />,
+                  ol: ({ node, ...props }) => <ol className="list-decimal ml-6 my-4" {...props} />,
+                  li: ({ node, ...props }) => <li className="my-1" {...props} />,
                 }}
               >
                 {blog.description?.replace(/\n/g, '\n') || ''}
@@ -392,7 +400,7 @@ const BlogDetailPage = ({ blog }) => {
           </div>
         </div>
 
-        {/* Right: Contact Form (Sticky) - Positioned closer to right edge */}
+        {/* Right: Contact Form */}
         <aside className="lg:col-span-2 lg:pr-2">
           <div className="sticky top-28 space-y-6 w-full">
             <div className="bg-white rounded-lg shadow p-4">
