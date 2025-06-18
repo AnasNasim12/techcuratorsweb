@@ -13,7 +13,7 @@ const AdminPortal = () => {
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState('')
   const [applications, setApplications] = useState([])
-  const [ blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([])
   const [caseStudies, setCaseStudies] = useState([])
   const [jobs, setJobs] = useState([])
   const [exportLoading, setExportLoading] = useState(false)
@@ -337,7 +337,7 @@ const AdminPortal = () => {
         
         data.forEach(app => {
           const row = headers.map(header => {
-            let cell = app[header] || ''
+            let cell = app[header];
             if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
               cell = `"${cell.replace(/"/g, '""')}"`
             }
@@ -483,6 +483,12 @@ const AdminPortal = () => {
                               {truncateText(blog.description, 60)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                onClick={() => router.push(`/blog/${blog.slug}`)}
+                                className="px-3 py-1.5 bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 rounded-lg text-sm mr-2"
+                              >
+                                Preview
+                              </button>
                               <button
                                 onClick={() => {
                                   setEditingItem({ type: 'blog', data: blog })
