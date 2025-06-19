@@ -453,85 +453,102 @@ const LandingPage = () => {
     <>
       <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-md">
   <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
-    
     {/* Logo */}
-    
-      <Image
-        src="/Trans_logo.svg"
-        alt="Logo"
-        width={150}
-        height={40}
-        className="cursor-pointer"
-      />
-    
+    <Image
+      src="/Trans_logo.svg"
+      alt="Logo"
+      width={150}
+      height={40}
+      className="cursor-pointer"
+    />
 
-        {/* Desktop nav buttons */}
-        <div className="hidden md:flex items-center space-x-3">
-          {/* Right Side Buttons */}
-          <div className="flex items-center gap-4">
-            <Link href="/careers" className="inline-block text-[#326B3F] border border-[#326B3F] px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300">
-              Careers
-            </Link>
-            <div
-              onClick={() => {
-                document.getElementById('contact-form').scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                });
-              }}
-              className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
-            >
-              Talk to Sales
-            </div>
-          </div>
-        </div>
-        
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <button 
-            id="menu-button"
-            onClick={toggleMobileMenu}
-            className="text-gray-600 hover:text-gray-900 focus:outline-none"
-            aria-label="Toggle menu"
+    {/* Desktop nav buttons */}
+    <div className="hidden md:flex items-center space-x-3">
+      <Link
+        href="/careers"
+        className="inline-block text-[#326B3F] border border-[#326B3F] px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300"
+      >
+        Careers
+      </Link>
+      <div
+        onClick={() => {
+          document.getElementById('contact-form').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }}
+        className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
+      >
+        Talk to Sales
+      </div>
+    </div>
+
+    {/* Mobile view: Hamburger menu and Talk to Sales button */}
+    <div className="md:hidden flex items-center space-x-3">
+      <div
+        onClick={() => {
+          document.getElementById('contact-form').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }}
+        className="inline-block bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-medium hover:bg-gray-900 cursor-pointer"
+      >
+        Talk to Sales
+      </div>
+      <button
+        id="menu-button"
+        onClick={toggleMobileMenu}
+        className="text-gray-600 hover:text-gray-900 focus:outline-none"
+        aria-label="Toggle menu"
+      >
+        {isMobileMenuOpen ? (
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {isMobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        ) : (
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        )}
+      </button>
+    </div>
   </div>
-  
-  {/* Mobile menu - moved outside the flex container for better positioning */}
+
+  {/* Mobile menu */}
   {isMobileMenuOpen && (
-    <div 
+    <div
       id="mobile-menu"
       className="absolute top-full left-0 right-0 bg-white shadow-md py-4 px-4 md:hidden flex flex-col space-y-4 z-50"
     >
-      <Link 
-        href="/careers" 
+      <Link
+        href="/careers"
         className="text-[#326B3F] border border-[#326B3F] px-5 py-2 rounded-lg text-sm font-medium hover:bg-[#326B3F] hover:text-white transition-colors duration-300 text-center"
       >
         Careers
       </Link>
-      
-      <div
-        onClick={() => {
-          setIsMobileMenuOpen(false);
-          document.getElementById('contact-form').scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }}
-        className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer text-center"
-      >
-        Talk to Sales
-      </div>
     </div>
   )}
 </header>
