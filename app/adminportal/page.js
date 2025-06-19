@@ -16,6 +16,7 @@ const AdminPortal = () => {
   const [blogs, setBlogs] = useState([])
   const [caseStudies, setCaseStudies] = useState([])
   const [jobs, setJobs] = useState([])
+  const [contacts, setContacts] = useState([])
   const [exportLoading, setExportLoading] = useState(false)
   const [editingItem, setEditingItem] = useState(null)
   const [showModal, setShowModal] = useState(false)
@@ -135,6 +136,30 @@ const AdminPortal = () => {
     fetchJobs()
   }, [selected])
 
+  // Fetch contact submissions
+  useEffect(() => {
+    const fetchContacts = async () => {
+      if (selected === 'contacts') {
+        try {
+          const { data, error } = await supabase
+            .from('contactdata')
+            .select('id, name, email, project_details, services, created_at')
+            .order('created_at', { ascending: false })
+
+          if (error) {
+            throw new Error(`Supabase error: ${error.message || JSON.stringify(error)}`)
+          }
+
+          setContacts(data || [])
+        } catch (error) {
+          console.error('Error fetching contact submissions:', error.message || error)
+          setContacts([])
+        }
+      }
+    }
+    fetchContacts()
+  }, [selected])
+
   // Handle deletions
   const handleDelete = async (applicationId) => {
     if (!confirm('Are you sure you want to delete this application?')) return;
@@ -201,6 +226,23 @@ const AdminPortal = () => {
     } catch (error) {
       console.error('Delete failed:', error.message || error)
       alert('Failed to delete job posting. Please try again.')
+    }
+  }
+
+  const handleDeleteContact = async (contactId) => {
+    if (!confirm('Are you sure you want to delete this contact submission?')) return;
+    try {
+      const { error } = await supabase
+        .from('contactdata')
+        .delete()
+        .eq('id', contactId)
+
+      if (error) throw error;
+      setContacts(contacts.filter(contact => contact.id !== contactId))
+      alert('Contact submission deleted successfully.')
+    } catch (error) {
+      console.error('Delete failed:', error.message || error)
+      alert('Failed to delete contact submission. Please try again.')
     }
   }
 
@@ -285,7 +327,6 @@ const AdminPortal = () => {
 
   const handleUpdateJob = async (job) => {
     try {
-      // Convert requirements to array if it's a string
       let requirements = job.requirements;
       if (typeof requirements === 'string') {
         requirements = requirements
@@ -378,6 +419,7 @@ const AdminPortal = () => {
     { id: 'job', label: 'Upload Job' },
     { id: 'jobs', label: 'Manage Jobs' },
     { id: 'applications', label: 'Applications' },
+    { id: 'contacts', label: 'Contact Submissions' },
   ];
 
   if (loading) {
@@ -776,6 +818,62 @@ const AdminPortal = () => {
                         )}
                       </div>
                     ))}
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Contact Submissions Listing */}
+            {selected === 'contacts' && (
+              <div>
+                <div className="mb-6 flex justify-between items-center">
+                  <h2 className="text-2xl font-semibold text-gray-800 pb-2">Contact Submissions</h2>
+                </div>
+                
+                {contacts.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-gray-400 text-2xl">0</span>
+                    </div>
+                    <p className="text-gray-500">No contact submissions found.</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Services</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Details</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {contacts.map((contact) => (
+                          <tr key={contact.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{truncateText(contact.name, 40)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              <a href={`mailto:${contact.email}`} className="text-blue-600 hover:underline">{truncateText(contact.email, 40)}</a>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">{truncateText(contact.services, 60)}</td>
+                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">{truncateText(contact.project_details, 60)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(contact.created_at).toLocaleDateString()}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                onClick={() => handleDeleteContact(contact.id)}
+                                className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-sm"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
               </div>
