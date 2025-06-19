@@ -419,7 +419,7 @@ const Landing_Page = () => {
               className='text-black font-medium text-center md:text-left text-[24px] sm:text-[30px] md:text-[42px] lg:text-[50px] xl:text-[60px] leading-tight md:leading-none tracking-tight w-full md:max-w-[800%] mx-auto md:ml-6'
             >
               Transform Your Brand's Voice with <span className='text-[#4B7D57]'>Our Content Writing Service!</span>
-            </motion.h1>    
+            </motion.h1>
             <motion.h2
               variants={itemVariants}
               className='text-[#6a6a6a] text-center md:text-left text-[12px] sm:text-[14px] md:text-[14px] lg:text-[16px] xl:text-[18px] leading-tight md:leading-tight overflow-y-hidden tracking-[0.015em] w-full md:max-w-[800%] mx-auto md:ml-6 mt-2 md:mt-4'
@@ -782,7 +782,7 @@ const Landing_Page = () => {
                 className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
                 aria-label="Previous testimonial"
               >
-                
+
               </button>
               {testimonials.map((testimonial, idx) => (
                 <div
@@ -802,7 +802,7 @@ const Landing_Page = () => {
                 onClick={nextTestimonial}
                 className="text-gray-400 hover:text-gray-600 text-2xl focus:outline-none"
                 aria-label="Next testimonial" >
-                
+
               </button>
             </div>
             <div className="flex justify-center mt-6 md:mt-10 space-x-1">

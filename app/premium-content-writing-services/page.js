@@ -455,7 +455,7 @@ const LandingPage = () => {
   <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
     
     {/* Logo */}
-    <Link href="/">
+    
       <Image
         src="/Trans_logo.svg"
         alt="Logo"
@@ -463,7 +463,7 @@ const LandingPage = () => {
         height={40}
         className="cursor-pointer"
       />
-    </Link>
+    
 
         {/* Desktop nav buttons */}
         <div className="hidden md:flex items-center space-x-3">
@@ -479,7 +479,7 @@ const LandingPage = () => {
                   block: 'start',
                 });
               }}
-              className="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
+              className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 cursor-pointer"
             >
               Talk to Sales
             </div>

@@ -52,16 +52,14 @@ const BlogDetailPage = ({ blog }) => {
   // Function to generate FAQ JSON-LD
   const generateFaqJsonLd = (faqs) => {
     if (!faqs || !faqs.length) return '';
-    const faqEntities = faqs
-      .filter((f) => f.question && f.answer)
-      .map((f) => ({
-        '@type': 'Question',
-        name: f.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: f.answer,
-        },
-      }));
+    const faqEntities = faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer,
+      },
+    }));
     return JSON.stringify(
       {
         '@context': 'https://schema.org',
@@ -76,12 +74,12 @@ const BlogDetailPage = ({ blog }) => {
   // Parse FAQs with improved error handling
   let faqs = [];
   if (Array.isArray(blog.faqs)) {
-    faqs = blog.faqs.filter(f => f.question && f.answer);
+    faqs = blog.faqs.filter((f) => f.question && f.answer);
   } else if (typeof blog.faqs === 'string' && blog.faqs.trim()) {
     try {
       const parsed = JSON.parse(blog.faqs);
       if (Array.isArray(parsed)) {
-        faqs = parsed.filter(f => f.question && f.answer);
+        faqs = parsed.filter((f) => f.question && f.answer);
       }
     } catch (err) {
       console.error('Error parsing FAQs:', err);
@@ -106,7 +104,7 @@ const BlogDetailPage = ({ blog }) => {
           .replace(/\s+/g, '-')
           .replace(/-+/g, '-')
           .replace(/^-|-$/g, '')}`;
-        
+
         headingsList.push({
           id,
           level,
@@ -126,11 +124,11 @@ const BlogDetailPage = ({ blog }) => {
   const createHeadingRenderer = (level) => {
     const HeadingRenderer = ({ children, ...props }) => {
       const text = String(children);
-      const heading = headings.find(h => h.text === text && h.level === level);
+      const heading = headings.find((h) => h.text === text && h.level === level);
       const id = heading ? heading.id : `fallback-${text.toLowerCase().replace(/\s+/g, '-')}`;
-      
+
       const HeadingTag = level === 1 ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : 'h4';
-      
+
       return React.createElement(
         HeadingTag,
         {
@@ -146,7 +144,7 @@ const BlogDetailPage = ({ blog }) => {
         children
       );
     };
-    
+
     HeadingRenderer.displayName = `HeadingRenderer${level}`;
     return HeadingRenderer;
   };
@@ -158,7 +156,7 @@ const BlogDetailPage = ({ blog }) => {
       const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 100;
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setActiveHeading(id);
     }
@@ -176,12 +174,12 @@ const BlogDetailPage = ({ blog }) => {
       },
       {
         rootMargin: '-100px 0px -80% 0px',
-        threshold: 0
+        threshold: 0,
       }
     );
 
-    const headingElements = headings.map(h => document.getElementById(h.id)).filter(Boolean);
-    headingElements.forEach(el => observer.observe(el));
+    const headingElements = headings.map((h) => document.getElementById(h.id)).filter(Boolean);
+    headingElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, [headings]);
@@ -260,10 +258,14 @@ const BlogDetailPage = ({ blog }) => {
           <div className="max-w-7xl mx-auto">
             {/* Breadcrumbs */}
             <nav className="mb-4 text-sm flex items-center gap-2">
-              <Link href="/" className="hover:underline">Home</Link>
-              <span className="text-gray-300"></span>
-              <Link href="/blog" className="hover:underline">Blog</Link>
-              <span className="text-gray-300"></span>
+              <Link href="/" className="hover:underline">
+                Home
+              </Link>
+              <span className="text-gray-300">/</span>
+              <Link href="/blog" className="hover:underline">
+                Blog
+              </Link>
+              <span className="text-gray-300">/</span>
               <span className="text-gray-300">{blog.title}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blog.title}</h1>
@@ -274,9 +276,7 @@ const BlogDetailPage = ({ blog }) => {
                 </div>
                 <span className="font-medium">Author: {blog.author || 'Tushar Pol'}</span>
               </div>
-              {blog.contributor && (
-                <span>Contributor: {blog.contributor || 'Alex Lindley'}</span>
-              )}
+              {blog.contributor && <span>Contributor: {blog.contributor || 'Alex Lindley'}</span>}
               <div className="flex items-center gap-3">
                 <span>{readTime} min read</span>
                 <span>•</span>
@@ -331,7 +331,20 @@ const BlogDetailPage = ({ blog }) => {
                   h4: createHeadingRenderer(4),
                   h5: createHeadingRenderer(5),
                   h6: createHeadingRenderer(6),
-                  p: ({ node, ...props }) => <p className="my-4 text-lg leading-relaxed" {...props} />,
+                  p: ({ node, children, ...props }) => {
+                    // Check if children include a <figure> element
+                    const hasFigure = React.Children.toArray(children).some(
+                      (child) => React.isValidElement(child) && child.type === 'figure'
+                    );
+                    // If there's a <figure>, render children without <p> wrapper
+                    return hasFigure ? (
+                      <>{children}</>
+                    ) : (
+                      <p className="my-4 text-lg leading-relaxed" {...props}>
+                        {children}
+                      </p>
+                    );
+                  },
                   a: ({ node, ...props }) => (
                     <a
                       className="text-blue-500 hover:underline"
@@ -349,7 +362,9 @@ const BlogDetailPage = ({ blog }) => {
                       {children}
                     </pre>
                   ),
-                  table: ({ node, ...props }) => <table className="border-collapse border border-gray-300 my-6 w-full" {...props} />,
+                  table: ({ node, ...props }) => (
+                    <table className="border-collapse border border-gray-300 my-6 w-full" {...props} />
+                  ),
                   thead: ({ node, ...props }) => <thead className="bg-gray-100" {...props} />,
                   tbody: ({ node, ...props }) => <tbody {...props} />,
                   tr: ({ node, ...props }) => <tr className="border border-gray-300" {...props} />,
@@ -361,6 +376,16 @@ const BlogDetailPage = ({ blog }) => {
                   ul: ({ node, ...props }) => <ul className="list-disc ml-6 my-4" {...props} />,
                   ol: ({ node, ...props }) => <ol className="list-decimal ml-6 my-4" {...props} />,
                   li: ({ node, ...props }) => <li className="my-1" {...props} />,
+                  img: ({ node, ...props }) => (
+                    <figure className="flex justify-center my-6">
+                      <img
+                        {...props}
+                        className="max-w-full h-auto rounded-lg shadow-md"
+                        style={{ maxWidth: '100%', height: 'auto' }}
+                        loading="lazy"
+                      />
+                    </figure>
+                  ),
                 }}
               >
                 {blog.description?.replace(/\n/g, '\n') || ''}
@@ -409,9 +434,7 @@ const BlogDetailPage = ({ blog }) => {
                 <p className="text-green-600 text-sm">Thank you for your submission!</p>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
-                  {formStatus.error && (
-                    <p className="text-red-600 text-sm">{formStatus.error}</p>
-                  )}
+                  {formStatus.error && <p className="text-red-600 text-sm">{formStatus.error}</p>}
                   <div>
                     <label htmlFor="name" className="block text-xs font-medium text-gray-700">
                       Name
@@ -492,7 +515,7 @@ const BlogDetailPage = ({ blog }) => {
         <h2 className="text-xl font-bold my-3 text-[#326B3F]">Related Blogs</h2>
         {isLoadingBlogs ? (
           <div className="flex flex-col gap-4">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map((_, i) => (
               <div key={i} className="p-4 bg-gray-100 rounded-lg animate-pulse">
                 <div className="h-4 bg-gray-300 rounded w-3/4"></div>
               </div>
@@ -519,10 +542,7 @@ const BlogDetailPage = ({ blog }) => {
 
       {/* FAQ JSON-LD Script for SEO */}
       {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(faqs) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: generateFaqJsonLd(faqs) }} />
       )}
 
       {/* Scroll to Top Button */}

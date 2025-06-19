@@ -173,7 +173,16 @@ const Blogs = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-           
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full sm:w-auto flex-1 px-4 py-3 rounded-md border border-[#326B3F]/30 focus:border-[#326B3F] focus:outline-none focus:ring-2 focus:ring-[#326B3F]/20 text-[#6a6a6a]"
+            />
+            <button 
+              className="bg-[#326B3F] text-white px-6 py-3 rounded-md hover:bg-[#429054] transition-colors duration-300"
+            >
+              Subscribe Now
+            </button>
           </motion.div>
         </div>
       </motion.section>

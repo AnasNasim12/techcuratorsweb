@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -13,7 +12,7 @@ const FALLBACK_IMAGE = '/fallback-image.jpg';
 // Skeleton components for loading state
 const FeaturedPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 aspect-[16/9] w-full mb-4"></div>
+    <div className="rounded-lg bg-gray-200 w-full h-[225px] sm:h-[300px] lg:h-[360px] mb-4"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-4 bg-gray-200 rounded w-24"></div>
       <div className="h-4 bg-gray-200 rounded w-24"></div>
@@ -27,7 +26,7 @@ const FeaturedPostSkeleton = () => (
 
 const SmallPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 aspect-[4/3] w-full mb-3"></div>
+    <div className="rounded-lg bg-gray-200 w-full h-[112.5px] sm:h-[150px] mb-3"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-16"></div>
       <div className="h-3 bg-gray-200 rounded w-16"></div>
@@ -41,7 +40,7 @@ const SmallPostSkeleton = () => (
 
 const RegularPostSkeleton = () => (
   <div className="animate-pulse">
-    <div className="rounded-lg bg-gray-200 aspect-[4/3] w-full mb-4"></div>
+    <div className="rounded-lg bg-gray-200 w-full h-[112.5px] sm:h-[150px] mb-4"></div>
     <div className="flex justify-between items-center mb-2">
       <div className="h-3 bg-gray-200 rounded w-20"></div>
       <div className="h-3 bg-gray-200 rounded w-20"></div>
@@ -220,13 +219,13 @@ const BlogLayout = () => {
     if (touchedCardId === id) {
       return;
     }
-    setTooltipCardId(id);
+    setTouchedCardId(id);
   };
 
   const handleTouchEnd = (e) => {
     if (!e.target.closest('a')) {
-      setTimeout(() => setTooltipCard(null), 300);
-    };
+      setTimeout(() => setTouchedCardId(null), 300);
+    }
   };
 
   // Slugify function
@@ -294,20 +293,20 @@ const BlogLayout = () => {
                   onTouchStart={() => handleCardTouch(featuredPosts[0].id)}
                   onTouchEnd={handleTouchEnd}
                 >
-                  <div className="relative overflow-hidden aspect-[16/9]">
+                  <div className="relative overflow-hidden w-full aspect-video">
                     <Image
                       src={featuredPosts[0].image}
                       alt={featuredPosts[0].title || 'Featured post'}
                       fill
                       className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       priority
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
                     />
                     <div className="absolute top-5 left-5 z-20">
                       <span className="bg-white/90 text-[#326B3F] text-xs tracking-wider uppercase font-semibold px-3 py-1 rounded">
                         Featured
                       </span>
                     </div>
-                    <div className="w-full aspect-[16/9]"></div>
                     <div
                       className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent
                         ${
@@ -390,12 +389,13 @@ const BlogLayout = () => {
                     onTouchStart={() => handleCardTouch(post.id)}
                     onTouchEnd={handleTouchEnd}
                   >
-                    <div className="relative overflow-hidden aspect-[4/3]">
+                    <div className="relative overflow-hidden w-full aspect-video">
                       <Image
                         src={post.image}
                         alt={post.title || 'Blog post'}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
                       />
                       <div
                         className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent
@@ -491,87 +491,88 @@ const BlogLayout = () => {
                   <RegularPostSkeleton />
                 </div>
               ))
-          ) : (
-            currentBlogs.map((blog) => (
-              <Link key={blog.id} href={`/blog/${slugify(blog.slug)}`} className="block">
-                <motion.div
-                  variants={itemVariants}
-                  className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
-                    touchedCardId === blog.id ? 'touched-card' : ''
-                  }`}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                  onTouchStart={() => handleCardTouch(blog.id)}
-                  onTouchEnd={handleTouchEnd}
-                >
-                  <div className="relative overflow-hidden aspect-[4/3]">
-                    <Image
-                      src={blog.image}
-                      alt={blog.title || 'Blog post'}
-                      fill
-                      className="object-cover"
-                    />
-                    {blog.category && (
-                      <div className="absolute top-3 right-3 z-20">
-                        <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
-                          {blog.category}
-                        </span>
-                      </div>
-                    )}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
-                        ${touchedCardId === blog.id ? 'opacity-0' : 'group-hover:opacity-0'}
-                        transition-opacity duration-300`}
-                    >
-                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <div className="flex justify-between items-center mb-1">
-                          <p className="text-white/80 text-xs">{blog.author}</p>
-                          <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
+            ) : (
+              currentBlogs.map((blog) => (
+                <Link key={blog.id} href={`/blog/${slugify(blog.slug)}`} className="block">
+                  <motion.div
+                    variants={itemVariants}
+                    className={`group bg-white rounded-xl overflow-hidden shadow-md h-full ${
+                      touchedCardId === blog.id ? 'touched-card' : ''
+                    }`}
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.3 }}
+                    onTouchStart={() => handleCardTouch(blog.id)}
+                    onTouchEnd={handleTouchEnd}
+                  >
+                    <div className="relative overflow-hidden w-full aspect-video">
+                      <Image
+                        src={blog.image}
+                        alt={blog.title || 'Blog post'}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                      />
+                      {blog.category && (
+                        <div className="absolute top-3 right-3 z-20">
+                          <span className="bg-white/80 text-[#326B3F] text-xs px-2 py-1 rounded-full">
+                            {blog.category}
+                          </span>
                         </div>
-                        <h3 className="font-medium text-sm sm:text-base">{blog.title}</h3>
-                      </div>
-                    </div>
-                    <div
-                      className={`absolute inset-0 bg-white
-                        ${touchedCardId === blog.id ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
-                        transition-opacity duration-300 z-10 flex flex-col justify-center`}
-                    >
+                      )}
                       <div
-                        className={`p-5 transform
-                          ${
-                            touchedCardId === blog.id
-                              ? 'translate-y-0'
-                              : 'translate-y-4 group-hover:translate-y-0'
-                          }
-                          transition-transform duration-300`}
+                        className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                          ${touchedCardId === blog.id ? 'opacity-0' : 'group-hover:opacity-0'}
+                          transition-opacity duration-300`}
                       >
-                        <h3 className="text-gray-900 font-semibold text-sm sm:text-base mb-3">{blog.title}</h3>
-                        <div className="flex justify-between items-center mb-3 text-xs text-gray-500">
-                          <p>{blog.author}</p>
-                          <p>{formatDate(blog.date_posted)}</p>
+                        <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                          <div className="flex justify-between items-center mb-1">
+                            <p className="text-white/80 text-xs">{blog.author}</p>
+                            <p className="text-white/80 text-xs">{formatDate(blog.date_posted)}</p>
+                          </div>
+                          <h3 className="font-medium text-sm sm:text-base">{blog.title}</h3>
                         </div>
-                        <p className="text-gray-700 mb-4 text-xs sm:text-sm line-clamp-3">
-                          {truncateDescription(blog.content, 120)}
-                        </p>
-                        <span className="text-[#326B3F] font-medium inline-flex items-center hover:underline text-xs sm:text-sm">
-                          Read More
-                          <svg
-                            className="ml-1 w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </span>
+                      </div>
+                      <div
+                        className={`absolute inset-0 bg-white
+                          ${touchedCardId === blog.id ? 'opacity-95' : 'opacity-0 group-hover:opacity-95'}
+                          transition-opacity duration-300 z-10 flex flex-col justify-center`}
+                      >
+                        <div
+                          className={`p-5 transform
+                            ${
+                              touchedCardId === blog.id
+                                ? 'translate-y-0'
+                                : 'translate-y-4 group-hover:translate-y-0'
+                            }
+                            transition-transform duration-300`}
+                        >
+                          <h3 className="text-gray-900 font-semibold text-sm sm:text-base mb-3">{blog.title}</h3>
+                          <div className="flex justify-between items-center mb-3 text-xs text-gray-500">
+                            <p>{blog.author}</p>
+                            <p>{formatDate(blog.date_posted)}</p>
+                          </div>
+                          <p className="text-gray-700 mb-4 text-xs sm:text-sm line-clamp-3">
+                            {truncateDescription(blog.content, 120)}
+                          </p>
+                          <span className="text-[#326B3F] font-medium inline-flex items-center hover:underline text-xs sm:text-sm">
+                            Read More
+                            <svg
+                              className="ml-1 w-4 h-4"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))
-          )}
+                  </motion.div>
+                </Link>
+              ))
+            )}
         </motion.div>
 
         {/* Pagination Controls */}
@@ -599,6 +600,7 @@ const BlogLayout = () => {
                     : 'bg-white text-[#326B3F] border border-[#326B3F] hover:bg-[#326B3F]/10'
                 }`}
                 onClick={() => handlePageChange(index + 1)}
+                disabled={currentPage === index + 1}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -623,30 +625,30 @@ const BlogLayout = () => {
       </section>
 
       {/* CSS for touch states and responsiveness */}
-      <style jsx>{`
-        @media (hover: none) {
-          .touched-card {
-            transform: translateY(-5px);
-            transition: transform 0.3s;
-          }
+      <style jsx global>{`
+        .touched-card {
+          transform: translateY(-5px);
+          transition: transform 0.3s ease;
         }
-        /* Ensure images fit properly */
-        img {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
+        .group img {
+          transform: scale(1);
+          transition: transform 0.5s ease;
         }
-        /* Responsive typography */
+        .group:hover img {
+          transform: scale(1.05);
+        }
         h3 {
-          font-size: clamp(0.9rem, 2.5vw, 1rem);
+          font-size: clamp(0.875rem, 2.5vw, 1rem);
         }
-        /* Adjust grid gaps and padding for smaller screens */
         @media (max-width: 640px) {
           .grid {
             gap: 1rem;
           }
           .p-5 {
             padding: 1rem;
+          }
+          .aspect-video {
+            aspect-ratio: 16/9;
           }
         }
       `}</style>
