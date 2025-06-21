@@ -9,7 +9,6 @@ import Link from 'next/link';
 
 
 const LandingPage = () => {
-
   const [showAll, setShowAll] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
   // Add state for mobile menu
@@ -448,6 +447,12 @@ const LandingPage = () => {
       observer.disconnect();
     };
   }, []);
+
+  const [visibleServices, setVisibleServices] = useState(6);
+
+  const toggleVisibleServices = () => {
+    setVisibleServices(prev => prev === 6 ? 16 : 6);
+  };
 
   return (
     <>
@@ -942,83 +947,131 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      <section className="px-4 md:mt-22 mt-12">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-medium">
+              Content Writing That <span className="text-[#326B3F] relative">
+                Drives Results
+              </span>
+            </h2>
+            <p className="text-[#6a6a6a] mt-6 text-sm max-w-3xl mx-auto leading-relaxed">
+              Engage, Inform, and Convert with SEO-Optimized Content for Your Business. We provide an extensive range of content writing services that are geared to enhance visibility, generate leads, and make your brand stand out.
+            </p>
+          </div>
 
-
-
-
-
-
-
-
-
-      <section>
-        {/* industry section */}
-        <div className='relative mt-12 h-auto md:mt-22'>
-          <div className='max-w-screen-xl mx-auto px-4'>
-            <div className='text-center mb-12'>
-              <h2 className='md:text-3xl text-2xl text-[#326B3F]'>
-                Content Solutions That Speak
-                <span className='md:text-3xl text-2xl text-black'> Your Brand's Language</span>
-              </h2>
-              <p className='text-sm font-regular mt-6 text-[#6a6a6a] max-w-2xl mx-auto'>
-                Each industry requires a unique voice — and we customize our content writing services to suit your industry, objectives, and audience. Our writers blend technical expertise with strategic storytelling to create content that educates, engages, and converts across various industries.
-              </p>
-            </div>
-            <section className="md:mt-22 mt-12">
-              <div className="max-w-screen-lg mx-auto px-4 sm:px-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                  {/* Row 1 */}
-                  <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/1.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Healthcare</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                title: "Blog Writing",
+                description: "Engage, enlighten, and convert with keyword-filled blog articles that resolve problems, boost search rankings, and drive traffic."
+              },
+              {
+                title: "SEO Content Writing",
+                description: "Develop optimised content to drive rankings, traffic, and fulfilment of search intent without compromising reader engagement."
+              },
+              {
+                title: "Technical Content Writing",
+                description: "Deconstruct complex concepts into proper, readable, and structured content that educates and assists in making informed decisions."
+              },
+              {
+                title: "Article Writing",
+                description: "Develop research-driven, SEO-friendly articles that reflect expertise and boost organic visibility on all search engines."
+              },
+              {
+                title: "Website Content",
+                description: "Develop high-quality, search-engine-optimised web copy that speaks to your brand voice and converts web visitors into devoted customers."
+              },
+              {
+                title: "Editing & Proofreading",
+                description: "Ensure your content is impeccable, polished, and professionally edited to maintain the highest quality standards."
+              },
+              {
+                title: "Product Description",
+                description: "Highlight benefits and features with compelling, conversion-driven product copy carefully crafted for ecommerce and online stores."
+              },
+              {
+                title: "Hindi Content Writing",
+                description: "Engage regional audiences with culturally pertinent, high-quality content written easily in Hindi to induce engagement and trust."
+              },
+              {
+                title: "White Paper",
+                description: "Create high-content, authoritative white papers that build credibility, generate sales and guide decision-making by B2B readers."
+              },
+              {
+                title: "Press Release",
+                description: "Emphasise launches, partnerships, or milestones with engaging, media-friendly press releases that generate media coverage and press."
+              },
+              {
+                title: "Article Rewriting",
+                description: "Reconstruct current content with a fresh, SEO-focused vision that delivers maximum clarity, interest, and relevance without sacrificing the original intent."
+              },
+              {
+                title: "Copy Writing",
+                description: "Create snappy, compelling, action-oriented copy that drives conversions on landing pages, ads, and marketing campaigns."
+              },
+              {
+                title: "Emailers",
+                description: "Power clicks opens, and conversions through branded email copy designed for the greatest effect and highest audience engagement."
+              },
+              {
+                title: "Newsletter Writing",
+                description: "Develop compelling email newsletters that inform your readers well, keep them engaged, and make them loyal through regular updates, promotions, and company stories."
+              },
+              {
+                title: "Magazine Writing",
+                description: "Deliver feature-rich, editorial-grade copy for print or online magazines that educates, entertains, and builds credibility."
+              },
+              {
+                title: "E-book",
+                description: "Create in-depth, value-packed eBooks that establish thought leadership and serve as powerful lead magnets for your brand."
+              }
+            ].slice(0, visibleServices).map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group p-6 md:p-8 rounded-2xl 
+                  shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                  hover:shadow-[0_8px_25px_-5px_rgba(50,107,63,0.1),0_10px_10px_-5px_rgba(50,107,63,0.04)]
+                  border border-transparent hover:border-[#326B3F]/10 transition-all duration-300
+                  hover:translate-y-[-2px]"
+              >
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-[#326B3F]/5 flex items-center justify-center mr-3">
+                      <svg className="w-4 h-4 text-[#326B3F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
+                    <h3 className="text-lg md:text-xl font-semibold text-[#326B3F] group-hover:text-[#326B3F] transition-colors duration-300">
+                      {service.title}
+                    </h3>
                   </div>
-                  <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/2.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Technology &amp; Saas</span>
-                    </div>
-                  </div>
-                  <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/3.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">E-commerce</span>
-                    </div>
-                  </div>
-                  {/* Row 2 */}
-                  <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/4.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Education &amp; Edtech</span>
-                    </div>
-                  </div>
-                  <div className="relative rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/5.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Finance &amp; Fintech</span>
-                    </div>
-                  </div>
-                  <div className="relative col-span-1 sm:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/6.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Travel &amp; Hospitality</span>
-                    </div>
-                  </div>
-                  {/* Row 3 */}
-                  <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/7.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Real Estate</span>
-                    </div>
-                  </div>
-                  <div className="relative col-span-1 sm:col-span-1 md:col-span-2 rounded-lg shadow-sm overflow-hidden bg-cover bg-center h-36 sm:h-40 md:h-48" style={{ backgroundImage: 'url(/8.png)' }}>
-                    <div className="absolute bottom-0 left-0 w-full bg-[#D9E9DD] py-1 sm:py-2 text-center">
-                      <span className="text-[#3c6446] font-medium text-sm sm:text-base">Legal &amp; Compliance</span>
-                    </div>
-                  </div>
+                  <p className="text-[#6a6a6a] text-sm md:text-base leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                    {service.description}
+                  </p>
                 </div>
-              </div>
-            </section>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={toggleVisibleServices}
+              className="px-8 py-3 text-sm font-medium text-white bg-[#326B3F] rounded-lg
+                hover:bg-[#326B3F]/90 transition-all duration-300 transform hover:scale-105
+                shadow-[0_4px_12px_rgba(50,107,63,0.15)] hover:shadow-[0_6px_20px_rgba(50,107,63,0.25)]"
+            >
+              {visibleServices === 6 ? 'Show More Services' : 'Show Less'}
+            </button>
           </div>
         </div>
       </section>
-
       <div className="text-center mb-8 space-y-4 mt-12 md:mt-22 max-w-screen-xl mx-auto">
-        <h2 className="md:text-3xl text-xl font-semibold">
+        <h2 className="md:text-3xl text-2xl font-medium">
           Our Process:<br /> <span className="text-[#326B3F]">Seamless, Strategic, and Scalable</span>{' '}<br />
         </h2>
         <p className="text-[#6a6a6a] text-sm">
