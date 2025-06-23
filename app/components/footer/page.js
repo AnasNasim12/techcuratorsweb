@@ -151,6 +151,7 @@ export default function Footer() {
                 Crafted for <span className="text-[#326B3F]">Impact</span>
               </h2>
             </div>
+            
             <div className="space-y-3">
               <div className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0" />
@@ -165,6 +166,17 @@ export default function Footer() {
                 <Phone size={18} className="mr-2 flex-shrink-0" />
                 <a href="tel:+917678144482" className="hover:text-[#326B3F] transition-colors text-sm sm:text-base">
                   +91 7678144482
+                </a>
+              </div>
+              
+              {/* Mailmodo Badge */}
+              <div className="mt-4">
+                <a href="https://www.mailmodo.com/resources/agencies/email-marketing/" target="_blank" rel="noopener noreferrer">
+                  <img 
+                    src="https://res.cloudinary.com/mailmodo/image/upload/v1745311959/strapi/best_email_marketing_agency_dc5c4d4d16.png"
+                    alt="Best Email Marketing Agency 2025 - Recognized by Mailmodo"
+                    className="max-w-[75px] h-auto hover:opacity-80 transition-opacity"
+                  />
                 </a>
               </div>
             </div>
