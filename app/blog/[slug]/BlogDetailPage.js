@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -376,13 +377,17 @@ const BlogDetailPage = ({ blog }) => {
                   ul: ({ node, ...props }) => <ul className="list-disc ml-6 my-4" {...props} />,
                   ol: ({ node, ...props }) => <ol className="list-decimal ml-6 my-4" {...props} />,
                   li: ({ node, ...props }) => <li className="my-1" {...props} />,
-                  img: ({ node, ...props }) => (
+                  img: ({ node, src, alt, ...props }) => (
                     <figure className="flex justify-center my-6">
-                      <img
-                        {...props}
+                      <Image
+                        src={src || ''}
+                        alt={alt || ''}
+                        width={800}
+                        height={400}
                         className="max-w-full h-auto rounded-lg shadow-md"
                         style={{ maxWidth: '100%', height: 'auto' }}
                         loading="lazy"
+                        {...props}
                       />
                     </figure>
                   ),

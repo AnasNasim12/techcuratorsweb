@@ -175,7 +175,9 @@ export default function Footer() {
                   <img 
                     src="https://res.cloudinary.com/mailmodo/image/upload/v1745311959/strapi/best_email_marketing_agency_dc5c4d4d16.png"
                     alt="Best Email Marketing Agency 2025 - Recognized by Mailmodo"
-                    className="max-w-[75px] h-auto hover:opacity-80 transition-opacity"
+                    width={75}
+                    height={37}
+                    className="hover:opacity-80 transition-opacity"
                   />
                 </a>
               </div>

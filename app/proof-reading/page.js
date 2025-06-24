@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 
 const Proofreading = () => {
@@ -427,12 +428,17 @@ const Proofreading = () => {
                 className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group`}
                 whileHover={{ scale: 1.02, x: 5 }}
               >
-                <motion.img 
-                  src={service.icon} 
-                  alt={service.title} 
-                  className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' 
+                <motion.div
+                  className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300'
                   whileHover={{ rotate: 5 }}
-                />
+                >
+                  <Image 
+                    src={service.icon} 
+                    alt={service.title}
+                    width={32}
+                    height={32}
+                  />
+                </motion.div>
                 <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                 <p className='text-sm font-regular text-[#6a6a6a] mt-2'>{service.description}</p>
               </motion.div>
@@ -456,7 +462,7 @@ const Proofreading = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <img src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' />
+              <Image src="/Typewriter-pana.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
             </motion.div>
             <motion.div 
               className='flex-row justify-center items-center px-6 py-8 md:py-12'
@@ -810,7 +816,7 @@ const Proofreading = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <img src="/Typewriter-pana.png" alt="Icon1" className='md:block hidden' />
+              <Image src="/Typewriter-pana.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
             </motion.div>
           </div>
         </div>

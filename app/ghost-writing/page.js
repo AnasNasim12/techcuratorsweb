@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { Section } from 'lucide-react';
+import Image from 'next/image';
 
 
 const GhostWriting = () => {
@@ -452,7 +453,7 @@ const GhostWriting = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2, duration: 0.6 }}
                         >
-                            <img src="/section3.png" alt="Icon1" className='md:block hidden' />
+                            <Image src="/section3.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
                         </motion.div>
                         <motion.div 
                             className='flex-row justify-center items-center px-6 py-8 md:py-12'
@@ -706,7 +707,7 @@ const GhostWriting = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2, duration: 0.6 }}
                         >
-                            <img src="/section3.png" alt="Icon1" className='md:block hidden' />
+                            <Image src="/section3.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
                         </motion.div>
                     </div>
                 </div>
