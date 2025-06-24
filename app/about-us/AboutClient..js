@@ -100,7 +100,7 @@ function AboutUs() {
                     className='text-black font-medium text-center md:text-left text-[24px] sm:text-[30px] md:text-[42px] lg:text-[50px] xl:text-[60px] leading-tight md:leading-none tracking-tight mb-2 md:mb-3 w-full'
                   >
                     We Are TransCurators
-                    Creating Content That Inspires
+                    
                   </motion.h1>
                   <motion.h2 
                     variants={itemVariants}
