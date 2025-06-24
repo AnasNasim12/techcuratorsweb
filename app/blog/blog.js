@@ -133,6 +133,7 @@ const Blogs = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
+        className="blog-container"
       >
         <BlogLayout />
       </motion.div>
@@ -186,6 +187,31 @@ const Blogs = () => {
           </motion.div>
         </div>
       </motion.section>
+
+      <style jsx>{`
+        .blog-container img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          object-fit: cover;
+          margin: 0 auto;
+          display: block;
+        }
+
+        @media (min-width: 640px) {
+          .blog-container img {
+            max-height: 300px;
+            width: 100%;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .blog-container img {
+            max-height: 400px;
+            width: 100%;
+          }
+        }
+      `}</style>
     </>
   );
 }
