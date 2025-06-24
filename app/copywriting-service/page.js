@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 
 const CopyWriting = () => {
@@ -289,10 +290,12 @@ const CopyWriting = () => {
                                                 <ul className="space-y-4">
                                                     {service.points.map((point, idx) => (
                                                         <li key={idx} className="flex items-start">
-                                                            <img 
+                                                            <Image 
                                                                 src="/Arrow 31.png" 
                                                                 alt="Arrow" 
-                                                                className="w-4 h-3 mt-1.5 mr-2.25 flex-shrink-0" 
+                                                                width={16}
+                                                                height={12}
+                                                                className="mt-1.5 mr-2.25 flex-shrink-0" 
                                                             />
                                                             <span className="text-[#6a6a6a]">{point}</span>
                                                         </li>

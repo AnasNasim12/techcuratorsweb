@@ -3,8 +3,8 @@
 import { CarouselTwo } from "../components/caruseltwo/page";
 import Carousel from "../components/carousel/page";
 import { useState } from "react";
-
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 const TechnicalWriting = () => {
             const [openFAQ, setOpenFAQ] = useState(null);
@@ -267,7 +267,7 @@ const faqs = [
                                     {services.slice(0, 5).map((service, index) => (
                                       <div key={index} className='flex items-start justify-start'>
                                         <div className={`h-auto p-4 hover:bg-gray-50 rounded-lg cursor-pointer transition duration-200 group `}>
-                                          <img src={service.icon} alt={service.title} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
+                                          <Image src={service.icon} alt={service.title} width={32} height={32} className='group-hover:translate-x-1.5 transition-all ease-in-out duration-300' />
                                           <p className='text-md font-semibold text-[#1B223C] mt-2'>{service.title}</p>
                                           <p className='text-sm font-regular text-[#6a6a6a] mt-2 '>{service.description}</p>
                                         </div>
@@ -313,7 +313,7 @@ const faqs = [
             <div className='relative bg-[#429054]/20 mt-12 h-auto md:mt-22 flex justify-center items-center mx-auto'>
         <div className='max-w-screen-xl flex justify-center items-center mx-auto'>
         <div className='flex justify-center items-center mx-auto scale-70'>
-          <img src="/section3.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/section3.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
         </div>
         <div className='flex-row justify-center items-center px-6 py-6 md:py-0 '>
           <h2 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
@@ -416,9 +416,11 @@ const faqs = [
                         <div className="w-full md:w-1/2">
                             <div className="relative">
                                 <div className="absolute -inset-4 bg-[#429054]/20 rounded-lg transform rotate-3"></div>
-                                <img
+                                <Image
                                     src="https://images.unsplash.com/photo-1624969862644-791f3dc98927?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
                                     alt="Animation Process"
+                                    width={2340}
+                                    height={400}
                                     className="relative w-full h-[400px] object-cover rounded-lg shadow-lg"
                                 />
                             </div>
@@ -473,7 +475,7 @@ const faqs = [
           </p>
         </div>
         <div className='flex justify-center items-center mx-auto scale-70'>
-          <img src="/section3.png" alt="Icon1" className='md:block hidden' />
+          <Image src="/section3.png" alt="Icon1" width={300} height={300} className='md:block hidden' />
         </div>
         </div>
       </div>
