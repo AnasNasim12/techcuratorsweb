@@ -267,7 +267,7 @@ const BlogLayout = () => {
       {/* Header Section */}
       <div className="text-center mb-12 sm:mb-16">
         <p className="text-[#326B3F] text-sm sm:text-md mb-2">Blogs</p>
-        <h1 className="text-xl sm:text-2xl md:text-4xl font-medium mt-2">Blog Highlights</h1>
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-medium mt-2">Blog Highlights</h2>
         <p className="text-[#6a6a6a] mt-4 text-sm sm:text-base max-w-2xl mx-auto">
           Discover our latest insights and updates
         </p>
