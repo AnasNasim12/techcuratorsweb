@@ -121,19 +121,19 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/content-writing-services-in-mumbai" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Mumbai</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/content-writing-services-in-bangalore" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Bangalore</span>
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center hover:text-[#326B3F] transition-colors">
+                <a href="/content-writing-services-in-pune" className="flex items-center hover:text-[#326B3F] transition-colors">
                   <ArrowRight size={14} className="mr-2 flex-shrink-0" />
                   <span>Pune</span>
                 </a>

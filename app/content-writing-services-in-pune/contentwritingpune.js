@@ -269,7 +269,7 @@ const ContentPune = () => {
                             </div>
             </section>
             <div className="text-center mb-8 space-y-4 mt-10 md:mt-20 max-w-screen-xl mx-auto">
-                <h2 className="md:text-3xl text-xl font-semibold">
+                <h2 className="md:text-3xl text-xl font-medium">
                     How Does The <span className="text-[#326B3F]">Process Work?</span>{' '}<br />
                 </h2>
             </div>
@@ -295,10 +295,10 @@ const ContentPune = () => {
             className='md:block hidden'
           />
         </div>
-        <div className='flex-row justify-center items-center px-6 py-6 md:py-0 '>
-          <h3 className='md:text-3xl text-xl font-semibold text-[#326B3F]'>
+        <div className='flex-row justify-center items-center px-6 py-10 md:py-6 '>
+          <h3 className='md:text-3xl text-xl font-medium text-[#326B3F]'>
           Why Choose Our Content Writing<br/>
-          <span className='md:text-3xl text-xl font-semibold text-black'>
+          <span className='md:text-3xl text-xl font-medium text-black'>
             Services in Pune?<br/>
           </span>
           </h3>
@@ -325,13 +325,27 @@ impact. Choose us for quality and reliability.
               </li>
             ))}
           </ul>
-
+          <motion.div
+                        className="flex flex-col sm:flex-row mt-6 md:mt-8"
+                        whileHover={{ y: -5 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <Link href="/contact">
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-[0_0_50px_#CCE3DE] hover:shadow-[0_0_100px_#A8D5BA] font-medium text-base transition-shadow duration-300 bg-[#326B3F] text-white"
+                          >
+                            Contact Us
+                          </motion.button>
+                        </Link>
+                      </motion.div>
         </div>
 
         </div>
+        
       </div>
             <div className="text-center mb-16 mt-22 md:mt-12space-y-4">
-        <p className="text-[#326B3F] text-md">Our Services</p>
         <h2 className="md:text-3xl text-xl mt-4 font-medium">
           Check out our{' '}<br />
           <span className="text-[#326B3F]">Services</span>
@@ -357,6 +371,12 @@ you achieve your goals. Check us out today!
                   {benefit.title}
                 </h3>
                 <p className="text-gray-600 text-sm">{benefit.description}</p>
+                <button className="mt-3 inline-flex items-center text-[#326B3F] text-sm font-medium py-2 transition-all duration-300 group">
+                  Know More
+                  <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             ))}
         </div>
@@ -364,7 +384,6 @@ you achieve your goals. Check us out today!
     </div>
     <section>
             <div className="text-center mb-16 mt-22 md:mt-12space-y-4">
-        <p className="text-[#326B3F] text-md">Our Team</p>
         <h2 className="md:text-3xl text-xl mt-4 font-medium">
           How can the skilled content writers at{' '}<br />
           <span className="text-[#326B3F]">Transcurators assist you in growing your company?</span>
@@ -392,16 +411,16 @@ you achieve your goals. Check us out today!
                                     ))}
                             </div>
             </section>
-            <section className="relative bg-[#429054]/40 py-16 mt-12 md:mt-22 overflow-hidden">
+            <section className="relative bg-[#429054]/20 py-16 mt-12 md:mt-22 overflow-hidden">
                 <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center">
                     <div className="w-full md:w-5/12 mb-8 md:mb-0">
-                    <h2 className="md:text-3xl text-xl font-semibold mb-3">
+                    <h2 className="md:text-3xl text-xl font-medium mb-3">
                         Businesses We Support -<br/>
                         <span className="text-[#326B3F] block">Pune's Leading Content Writing Agency</span>
                     </h2>
                     </div>
                     <div className="w-full md:w-7/12 md:pl-8">
-                    <p className="text-[#6a6a6a] mb-6">
+                    <div className="text-[#6a6a6a] mb-6">
                         <ul className="space-y-2 ml-35 grid grid-cols-1 md:grid-cols-2">
     <li className="flex items-start">
       <div className="w-2 h-2 bg-[#326B3F] rounded-full mt-2 mr-3"></div>
@@ -464,10 +483,10 @@ you achieve your goals. Check us out today!
       <span>Blockchain & Cryptocurrency</span>
     </li>
   </ul>
-                    </p>
+                    </div>
 
                     <div className="mt-8 ml-35">
-                        <a href="#" className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-lg hover:shadow-xl transition-all duration-500 font-medium text-base bg-[#326B3F] text-white hover:-translate-y-1">
+                        <a href="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-lg hover:shadow-xl transition-all duration-500 font-medium text-base bg-[#326B3F] text-white hover:-translate-y-1">
                         Start Your Journey
                         </a>
                     </div>
@@ -492,24 +511,23 @@ you achieve your goals. Check us out today!
                         </div>
                         {/* Text Section */}
                         <div className="w-full md:w-1/2 space-y-6">
-                            <h1 className="md:text-3xl text-xl font-medium">
+                            <h2 className="md:text-3xl text-xl font-medium">
                             Best Content Writing<br/><span className='text-[#326b3F]'> Agency in Pune</span>
-                            </h1>
+                            </h2>
                             <p className="text-[#6a6a6a] text-sm">
                             Are you looking for top-notch content writing services in Pune?<br/> Our expert team delivers
 clear, engaging, and tailored content to meet your needs. We focus on quality and originality
 to help your business stand out. Choose us for exceptional results.
                             </p>
-                            <button className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-lg hover:shadow-xl transition-all duration-500 font-medium text-base bg-[#326B3F] text-white hover:-translate-y-1">
+                            <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-lg hover:shadow-xl transition-all duration-500 font-medium text-base bg-[#326B3F] text-white hover:-translate-y-1">
                                 Get Started Now
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </section>
             <div className='max-w-screen-xl flex justify-center md:mt-20 mt-12 mb-10 mx-auto items-center'>     
         <div className='text-center flex-row'>
-            <p className='text-md text-[#326B3F] font-regular'>FAQ&apos;s</p>
             <p className='md:text-3xl text-xl text-black font-medium mt-4'>
             Frequently Asked<span className='text-[#326B3F]'> Questions</span>
             </p>
